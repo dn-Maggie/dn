@@ -1,0 +1,14 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>错误提示</title>
+  </head>
+  
+<body >
+  <span style="padding:10px;line-height:25px;">系统运行异常:</span>
+  <font color="blue">${method }</font>
+  <font color="red">${message }</font>
+	
+</body>
+</html>
