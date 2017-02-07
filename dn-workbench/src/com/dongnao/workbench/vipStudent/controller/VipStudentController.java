@@ -216,10 +216,6 @@ public class VipStudentController {
 		
 		return new ModelAndView("WEB-INF/jsp/vipStudent/vipStudent/listVipStudent",model);
 	}
-	public static void main(String[] args) {
-		Calendar calendar = Calendar.getInstance();
-		System.out.println(calendar.get(Calendar.YEAR)+""+(calendar.get(Calendar.MONTH)+1));
-	}
 	/**
 	 * 根据条件查找列表方法
 	 * 

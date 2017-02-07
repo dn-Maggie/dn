@@ -257,8 +257,6 @@ public class AccountFlowController{
 				"WEB-INF/jsp/accountflow/accountFlow/countAll");
 		Calendar calendar = Calendar.getInstance();
 		Integer m =(Integer)((calendar.get(Calendar.MONTH))+1);
-//		System.out.println(m);
-//		m = (m<10)?('0'+m):m;
 		mv.addObject("curr", accountFlowService.listByAccountName(calendar.get(Calendar.YEAR)+""+m));
 		
 		List<AccountFlow> all= accountFlowService.listByAccountName(calendar.get(Calendar.YEAR)+"");

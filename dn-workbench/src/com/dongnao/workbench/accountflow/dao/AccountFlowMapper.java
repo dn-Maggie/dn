@@ -2,7 +2,9 @@ package com.dongnao.workbench.accountflow.dao;
 
 import java.util.List;
 
+import com.dongnao.workbench.account.model.FinStatements;
 import com.dongnao.workbench.accountflow.model.AccountFlow;
+import com.dongnao.workbench.common.bean.ReportQuerycondition;
 import com.dongnao.workbench.common.bean.ResultMoney;
 /**
  * 描述：财务流水模块dao接口，提供数据库操作方法
@@ -68,6 +70,24 @@ public interface AccountFlowMapper  {
 	 * @return: 实体对象的list
 	 */
 	public List<AccountFlow> listCostByCondition(AccountFlow accountFlow);
+	/**
+	 * 统计图数据
+	 * @param String month（查询条件）
+	 * @return: 实体对象的list
+	 */
+	public ResultMoney getBarStatistic(AccountFlow accountFlow);
 
-	ResultMoney getBarStatistic(AccountFlow accountFlow);
+	/**
+	 * 根据条件查询总业绩的方法
+	 * @param ReportQuerycondition rqc 实体对象（查询条件）
+	 * @return List<DeptReport>: 实体对象的DeptReport
+	 */
+	public List<FinStatements>  reportlistByzyj(ReportQuerycondition rqc);
+	
+	/**
+	 * 根据条件查询总成本的方法
+	 * @param ReportQuerycondition rqc 实体对象（查询条件）
+	 * @return List<DeptReport>: 实体对象的DeptReport
+	 */
+	public List<FinStatements>  reportlistByzcb(ReportQuerycondition rqc);
 }

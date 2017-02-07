@@ -53,7 +53,6 @@ public class SubjectServiceImpl implements SubjectService{
 	 * @return List<Subject> 实体对象的list
 	 */
 	public List<Subject> listByCondition(Subject subject){
-		System.out.println("时间:"+subject.getPropsMap().get("startDate"));
 		return subjectMapper.listByCondition(subject);
 	}
 	

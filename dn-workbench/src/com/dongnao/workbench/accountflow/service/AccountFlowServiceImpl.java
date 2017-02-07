@@ -3,6 +3,7 @@ import javax.annotation.Resource;
 
 import java.util.List;
 
+import com.dongnao.workbench.account.model.FinStatements;
 import com.dongnao.workbench.accountflow.dao.AccountFlowMapper;
 import com.dongnao.workbench.accountflow.model.AccountFlow;
 import com.dongnao.workbench.accountflow.service.AccountFlowService;
@@ -10,6 +11,7 @@ import com.dongnao.workbench.accountflow.service.AccountFlowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dongnao.workbench.common.bean.ReportQuerycondition;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.bean.ResultMoney;
 import com.dongnao.workbench.common.util.AjaxUtils;
@@ -114,4 +116,22 @@ public class AccountFlowServiceImpl implements AccountFlowService{
 	public ResultMoney getBarStatistic(AccountFlow accountFlow) {
 		return accountFlowMapper.getBarStatistic(accountFlow);
 	}
+
+	/**
+	 * 根据条件查询总业绩方法
+	 * @param ReportQuerycondition rqc 实体对象（查询条件）
+	 * @return List<DeptReport>: 实体对象的DeptReport
+	 */
+	public List<FinStatements> reportlistByzyj(ReportQuerycondition rqc) {
+		return accountFlowMapper.reportlistByzyj(rqc);
+	}
+	/**
+	 * 根据条件查询总成本方法
+	 * @param ReportQuerycondition rqc 实体对象（查询条件）
+	 * @return List<DeptReport>: 实体对象的DeptReport
+	 */
+	public List<FinStatements> reportlistByzcb(ReportQuerycondition rqc) {
+		return accountFlowMapper.reportlistByzcb(rqc);
+	}
+
 }

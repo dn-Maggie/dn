@@ -11,9 +11,6 @@
 		<result column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
 		<result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
 		<result column="ORG_CLASS" property="orgClass" jdbcType="INTEGER" />
-		<result column="SEX" property="sex" jdbcType="VARCHAR" />
-		<result column="AGE" property="age" jdbcType="INTEGER" />
-		<result column="ID_CARD" property="idCard" jdbcType="VARCHAR" />
 		<result column="LAST_LOGIN_TIME" property="lastLoginTime" jdbcType="TIMESTAMP" />
 		<result column="LAST_LOGIN_IP" property="lastLoginIp" jdbcType="VARCHAR" />
 		<result column="STATES" property="states" jdbcType="INTEGER" />
@@ -26,38 +23,33 @@
 		<result column="CREATED" property="created" jdbcType="TIMESTAMP" />
 		<result column="IS_ACTIVE" property="isActive" jdbcType="INTEGER" />
 		<result column="DUTY_ID" property="dutyId" jdbcType="VARCHAR" />
-		<result column="DUTY_NAME" property="dutyName" jdbcType="VARCHAR" />
-		<result column="ENTRY_DATE" property="entryDate" jdbcType="TIMESTAMP" />
+		<!-- <result column="DUTY_NAME" property="dutyName" jdbcType="VARCHAR" /> -->
 		<result column="role_id" property="roleId" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 						 	ID
-										,USER_ACCOUNT
-										,PASSWORD
-										,FULL_NAME
-										,USER_TYPE
-										,USER_TYPE_NAME
-										,ORG_ID
-										,ORG_NAME
-										,ORG_CLASS
-										,SEX
-										,AGE
-										,ID_CARD
-										,LAST_LOGIN_TIME
-										,LAST_LOGIN_IP
-										,STATES
-										,MEMO
-										,ENABLE_STATE_DATE
-										,ENABLE_END_DATE
-										,UPDATED
-										,UPDATEDBY
-										,CREATEDBY
-										,CREATED
-										,IS_ACTIVE
-										,DUTY_ID
-										,DUTY_NAME
-										,ENTRY_DATE
-										,role_id
+							,USER_ACCOUNT
+							,PASSWORD
+							,FULL_NAME
+							,USER_TYPE
+							,USER_TYPE_NAME
+							,ORG_ID
+							,ORG_NAME
+							,ORG_CLASS
+							,LAST_LOGIN_TIME
+							,LAST_LOGIN_IP
+							,STATES
+							,MEMO
+							,ENABLE_STATE_DATE
+							,ENABLE_END_DATE
+							,UPDATED
+							,UPDATEDBY
+							,CREATEDBY
+							,CREATED
+							,IS_ACTIVE
+							,DUTY_ID
+							,DUTY_NAME
+							,role_id
 	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -70,7 +62,6 @@
 			,bui.ORG_ID
 			,bo.ORG_NAME as ORG_NAME
 			,bui.ORG_CLASS
-			,(year(SYSDATE())-year(e.birth_date)) as AGE
 			,bui.LAST_LOGIN_TIME
 			,bui.LAST_LOGIN_IP
 			,bui.STATES
@@ -83,14 +74,7 @@
 			,bui.CREATED
 			,bui.IS_ACTIVE
 			,bui.DUTY_ID
-			,bui.ENTRY_DATE
 			,bui.role_id
-			,(CASE
-				WHEN e.SEX IS NOT NULL THEN
-					e.SEX
-				ELSE
-					bui.SEX
-			END) AS SEX
 			,(CASE
 				WHEN e.name IS NOT NULL THEN
 					e.name
@@ -103,13 +87,6 @@
 				ELSE
 					bui.DUTY_NAME
 			END) AS DUTY_NAME
-			,(CASE
-				WHEN e.mobile IS NOT NULL THEN
-					e.mobile
-				ELSE
-					bui.MOBILE_PHONE
-			END) AS MOBILE_PHONE
-			,e.id_card as id_card
 		from BASIC_USER_INFO bui
 		LEFT JOIN employee e ON bui.id = e.id
 		LEFT JOIN basic_org bo ON bo.org_no = e.dept_no
@@ -135,7 +112,6 @@
 			,bui.ORG_ID
 			,bo.ORG_NAME as ORG_NAME
 			,bui.ORG_CLASS
-			,(year(SYSDATE())-year(e.birth_date)) as AGE
 			,bui.LAST_LOGIN_TIME
 			,bui.LAST_LOGIN_IP
 			,bui.STATES
@@ -148,14 +124,7 @@
 			,bui.CREATED
 			,bui.IS_ACTIVE
 			,bui.DUTY_ID
-			,bui.ENTRY_DATE
 			,bui.role_id
-			,(CASE
-				WHEN e.SEX IS NOT NULL THEN
-					e.SEX
-				ELSE
-					bui.SEX
-			END) AS SEX
 			,(CASE
 				WHEN e.name IS NOT NULL THEN
 					e.name
@@ -168,13 +137,6 @@
 				ELSE
 					bui.DUTY_NAME
 			END) AS DUTY_NAME
-			,(CASE
-				WHEN e.mobile IS NOT NULL THEN
-					e.mobile
-				ELSE
-					bui.MOBILE_PHONE
-			END) AS MOBILE_PHONE
-			,e.id_card as id_card
 		from BASIC_USER_INFO bui
 		LEFT JOIN employee e ON bui.id = e.id
 		LEFT JOIN basic_org bo ON bo.org_no = e.dept_no
@@ -202,15 +164,6 @@
 		</if>
 		<if test="orgClass != null and '' != orgClass">  
 			and bui.ORG_CLASS = #{orgClass,jdbcType=INTEGER}
-		</if>
-		<if test="sex != null and '' != sex">  
-			and bui.SEX = #{sex,jdbcType=VARCHAR}
-		</if>
-		<if test="age != null and '' != age">  
-			and bui.AGE = #{age,jdbcType=INTEGER}
-		</if>
-		<if test="idCard != null and '' != idCard">  
-			and bui.ID_CARD LIKE CONCAT('%',#{idCard,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="lastLoginTime != null and '' != lastLoginTime">  
 			and bui.LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP}
@@ -251,12 +204,6 @@
 		<if test="dutyName != null and '' != dutyName">  
 			and bui.DUTY_NAME = #{dutyName,jdbcType=VARCHAR}
 		</if>
-		<if test="entryDate != null and '' != entryDate">  
-			and bui.ENTRY_DATE = #{entryDate,jdbcType=TIMESTAMP}
-		</if>
-		<if test="schooling != null and '' != schooling">  
-			and bui.SCHOOLING = #{schooling,jdbcType=INTEGER}
-		</if>
 		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
        	</if>
@@ -290,9 +237,6 @@
 				,#{orgId,jdbcType=VARCHAR}
 				,#{orgName,jdbcType=VARCHAR}
 				,#{orgClass,jdbcType=INTEGER}
-				,#{sex,jdbcType=VARCHAR}
-				,#{age,jdbcType=INTEGER}
-				,#{idCard,jdbcType=VARCHAR}
 				,#{lastLoginTime,jdbcType=TIMESTAMP}
 				,#{lastLoginIp,jdbcType=VARCHAR}
 				,#{states,jdbcType=INTEGER}
@@ -306,7 +250,6 @@
 				,#{isActive,jdbcType=INTEGER}
 				,#{dutyId,jdbcType=VARCHAR}
 				,#{dutyName,jdbcType=VARCHAR}
-				,#{entryDate,jdbcType=TIMESTAMP}
 				,#{roleId,jdbcType=VARCHAR}
 			)
 	</insert>
@@ -325,9 +268,6 @@
 				,ORG_ID = #{orgId,jdbcType=VARCHAR}
 				,ORG_NAME = #{orgName,jdbcType=VARCHAR}
 				,ORG_CLASS = #{orgClass,jdbcType=CHAR}
-				,SEX = #{sex,jdbcType=VARCHAR}
-				,AGE = #{age,jdbcType=INTEGER}
-				,ID_CARD = #{idCard,jdbcType=VARCHAR}
 				,STATES = #{states,jdbcType=INTEGER}
 				,MEMO = #{memo,jdbcType=VARCHAR}
 				,ENABLE_STATE_DATE = #{enableStateDate,jdbcType=TIMESTAMP}
@@ -336,7 +276,6 @@
 				,UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
 				,DUTY_ID = #{dutyId,jdbcType=VARCHAR}
 				,DUTY_NAME = #{dutyName,jdbcType=VARCHAR}
-				,ENTRY_DATE = #{entryDate,jdbcType=TIMESTAMP}
 				,role_id = #{roleId,jdbcType=VARCHAR}
 			where ID = #{id,jdbcType=VARCHAR}
 	</update>

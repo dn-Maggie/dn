@@ -2,8 +2,10 @@ package com.dongnao.workbench.accountflow.service;
 
 import java.util.List;
 
+import com.dongnao.workbench.common.bean.ReportQuerycondition;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.bean.ResultMoney;
+import com.dongnao.workbench.account.model.FinStatements;
 import com.dongnao.workbench.accountflow.model.AccountFlow;
 
 /**
@@ -40,6 +42,7 @@ public interface AccountFlowService  {
 	 */
 	public List<AccountFlow> listByCondition(AccountFlow accountFlow);
 	
+	
 	/**
 	 * 修改财务流水方法
 	 * @param accountFlow AccountFlow 实体对象
@@ -73,6 +76,22 @@ public interface AccountFlowService  {
 	 * @return: 实体对象的list
 	 */
 	public List<AccountFlow> listCostByCondition(AccountFlow accountFlow);
-
+	/**
+	 * 查询业绩图
+	 * @param accountFlow AccountFlow 实体对象（查询条件）
+	 * @return: 实体对象的list
+	 */
 	public ResultMoney getBarStatistic(AccountFlow accountFlow);
+	/**
+	 * 根据条件查询部门总业绩的方法
+	 * @param ReportQuerycondition rqc 实体对象（查询条件）
+	 * @return: 实体对象的list
+	 */
+	public List<FinStatements> reportlistByzyj(ReportQuerycondition rqc);
+	/**
+	 * 根据条件查询部门总成本的方法
+	 * @param ReportQuerycondition rqc 实体对象（查询条件）
+	 * @return: 实体对象的list
+	 */
+	public List<FinStatements> reportlistByzcb(ReportQuerycondition rqc);
 }

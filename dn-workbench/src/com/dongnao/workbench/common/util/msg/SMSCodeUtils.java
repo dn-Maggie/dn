@@ -18,6 +18,8 @@ import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.enums.ResultStatus;
 import com.dongnao.workbench.common.util.DateUtil;
 import com.dongnao.workbench.common.util.StringUtil;
+import com.dongnao.workbench.common.util.Utils;
+import com.dongnao.workbench.school.model.Employee;
 
 
 /**
@@ -59,7 +61,7 @@ public final class SMSCodeUtils{
         WebUtils.setSessionAttribute(request,MESSAGE_CODE,code);
         if(flag){
             try {
-            	SMSServiceUtils.sendMessages(user.getMobilePhone(),"提现短信验证码:"+code,DateUtil.nowSqlTimestamp().toString());
+            	SMSServiceUtils.sendMessages("18607325595","提现短信验证码:"+code,DateUtil.nowSqlTimestamp().toString());
 			} catch (Exception e) {
 				e.printStackTrace();
 				result.setStatus(ResultStatus.FAIL.getValue());

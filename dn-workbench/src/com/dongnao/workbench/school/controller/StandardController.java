@@ -1,29 +1,35 @@
 package com.dongnao.workbench.school.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.dongnao.workbench.account.model.FinStatements;
 import com.dongnao.workbench.accountflow.model.AccountFlow;
 import com.dongnao.workbench.accountflow.service.AccountFlowService;
-import com.dongnao.workbench.basic.model.UserInfo;
+import com.dongnao.workbench.common.bean.ReportQuerycondition;
 import com.dongnao.workbench.common.bean.ResultMoney;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
-import com.dongnao.workbench.continuePay.service.ContinuePayService;
-import com.dongnao.workbench.marketStudent.model.MarketStudent;
-import com.dongnao.workbench.marketStudent.service.MarketStudentService;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.common.util.Utils;
+import com.dongnao.workbench.continuePay.service.ContinuePayService;
+import com.dongnao.workbench.marketStudent.service.MarketStudentService;
 import com.dongnao.workbench.school.model.Standard;
 import com.dongnao.workbench.school.service.StandardService;
 import com.dongnao.workbench.subject.model.Subject;
@@ -32,9 +38,9 @@ import com.dongnao.workbench.vipStudent.model.Statistical;
 import com.dongnao.workbench.vipStudent.model.VipStudent;
 import com.dongnao.workbench.vipStudent.service.VipStudentService;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import net.sf.json.JSON;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 
 /**
@@ -110,6 +116,75 @@ public class StandardController{
 		return mv;
 	}
 
+	/**
+	 * 进入图表统计列表页面
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/toListFinStatements")
+	public ModelAndView toFinStatements(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/standard/finStatements");
+		List<Subject> list = subjectService.listByCondition(new Subject());
+ 		mv.addObject("subjectList", list);
+ 		/*List<FinStatements> finStaList=new ArrayList<FinStatements>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+		Date date = new Date();
+        String nowyear = sdf.format(date);
+        ReportQuerycondition rqc=new ReportQuerycondition();
+        rqc.setR_year("2016");
+        rqc.setZcbcolunm("1");
+        rqc.setZyjcolunm("1");
+        rqc.setProfitcolunm("1");
+        //获取所有部门名称
+        List<Subject> Deptlist = subjectService.listByCondition(new Subject());
+        for(int i=0;i<Deptlist.size();i++){
+        	//System.out.println(Deptlist.get(i).getName());
+        	rqc.setDeptname(Deptlist.get(i).getName());
+        	System.out.println(rqc.getDeptname());
+        	FinStatements zyjobj= accountFlowService.reportlistByzyj(rqc).get(0);//查询总业绩
+        	FinStatements zcbobj= accountFlowService.reportlistByzcb(rqc).get(0);//查询总成本
+        	finStaList.add(zyjobj);
+        	finStaList.add(zcbobj);
+        }
+        mv.addObject(finStaList);*/
+		return mv;
+	}
+
+	/**
+	 * 图表统计
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/listFinStatements")
+	public void finStatements(@RequestBody String param,HttpServletRequest request,HttpServletResponse response,Page page){
+		ReportQuerycondition rqc = new ReportQuerycondition();
+		rqc.setPage(page);
+		if(param == null||param.length()==0) {
+			rqc.setR_year("2016");
+	        rqc.setZcbcolunm("1");
+	        rqc.setZyjcolunm("1");
+	        rqc.setProfitcolunm("1");
+		}else{
+			JSONObject jo = JSONArray.fromObject(param).getJSONObject(0);
+			rqc.setR_year(jo.getString("r_year"));
+	        rqc.setZcbcolunm(StringUtils.defaultIfEmpty(
+	        		jo.getString("zcbcolunm"), StringUtils.EMPTY));
+	        rqc.setZyjcolunm(StringUtils.defaultIfEmpty(
+	        		jo.getString("zyjcolunm"), StringUtils.EMPTY));
+		}
+		List<FinStatements> finStaList=new ArrayList<FinStatements>();
+		 //获取所有部门名称
+        List<Subject> Deptlist = subjectService.listByCondition(new Subject());
+        for(int i=0;i<Deptlist.size();i++){
+        	//System.out.println(Deptlist.get(i).getName());
+        	rqc.setDeptname(Deptlist.get(i).getName());
+        	System.out.println(rqc.getDeptname());
+        	FinStatements zyjobj= accountFlowService.reportlistByzyj(rqc).get(0);//查询总业绩
+        	FinStatements zcbobj= accountFlowService.reportlistByzcb(rqc).get(0);//查询总成本
+        	finStaList.add(zyjobj);
+        	finStaList.add(zcbobj);
+        }
+		AjaxUtils.sendAjaxForPage(request, response, page, finStaList);
+	}
+
 	
 	/**
 	 * 获取统计数据
@@ -135,6 +210,7 @@ public class StandardController{
 	}
 	
 	/**
+	 * 
 	 * 获取学生统计数据
 	 * @return ModelAndView
 	 */

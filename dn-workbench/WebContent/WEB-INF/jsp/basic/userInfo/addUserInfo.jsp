@@ -52,36 +52,8 @@
 					}
 				};
 			
-			//验证图片
-			var fileName = $("#file").val();
-			if(fileName.length>1){  
-				var extname = fileName.substring(fileName.lastIndexOf(".")+1,fileName.length).toLowerCase();  
-				var imgname = fileName.substring(fileName.lastIndexOf("\\")+1,fileName.length);  
-				if(extname!= "jpeg"&&extname!= "jpg"&&extname!= "gif"&&extname!= "png"){  
-					 showWarn("格式不正确,支持的图片格式为：JPEG、JPG、GIF、PNG！");  
-			         return false;  
-			        }  
-				var file = $("#file").get(0).files; 
-				var size = file[0].size;
-				if(size>2097152){  
-					  showWarn("所选择的图片太大，图片大小最多支持2M!"); 
-			          return false;  
-			     }  		
-				
-				// 创建一个FileReader对象
-				var reader = new FileReader();
-				// 绑定load事件
-				reader.onload = function(e) {
-					$("#fileData").val(e.target.result);
-					// 将options传给ajaxForm
-					$('#userInfoFormAdd').ajaxSubmit(options);
-				}
-				// 读取File对象的数据
-				reader.readAsDataURL($("#file").get(0).files[0]);
-		      }
-			else{
 			// 将options传给ajaxForm
-			$('#userInfoFormAdd').ajaxSubmit(options);}
+			$('#userInfoFormAdd').ajaxSubmit(options);
 			
 		});
 
@@ -342,11 +314,6 @@
 			           			</ul>
 			           	</div>
 					</td>
-					<td class="inputLabelTd">身份证图片：</td>
-					<td class="inputTd" >
-						<input id="fileData" name="idCardImgPath" type="hidden">
-						<input id="file" type="file" class="text"/>
-					</td>	
 			    </tr>
 				<tr>
 					<td class="inputTd" colspan="5" style="text-align: center;">

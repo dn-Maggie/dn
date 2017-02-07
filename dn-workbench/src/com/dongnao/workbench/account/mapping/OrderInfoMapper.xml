@@ -89,8 +89,8 @@
 		SELECT 
 				subjectName,
 				COUNT(DISTINCT stu_id) AS cnt,
-				sum(should_pay) AS shouldPay,
-				sum(actual_pay) AS actualPay
+				sum(o.should_pay) AS shouldPay,
+				sum(o.actual_pay) AS actualPay
 			FROM
 				(
 		</if>

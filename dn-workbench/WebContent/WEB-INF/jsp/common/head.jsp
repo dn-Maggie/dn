@@ -43,6 +43,17 @@
 <script src="<%=request.getContextPath() %>/static/js/typeahead-bs2.min.js"></script>
 <!-- page specific plugin scripts -->
 <script src="<%=request.getContextPath() %>/static/js/jquery.colorbox-min.js"></script>
+<!-- 表单控件 -->
+<script src="<%=request.getContextPath() %>/static/js/chosen.jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/static/js/jquery.knob.min.js"></script>
+<script src="<%=request.getContextPath() %>/static/js/jquery.autosize.min.js"></script>
+<script src="<%=request.getContextPath() %>/static/js/jquery.inputlimiter.1.3.1.min.js"></script>
+<script src="<%=request.getContextPath() %>/static/js/jquery.maskedinput.min.js"></script>
+<script src="<%=request.getContextPath() %>/static/js/bootstrap-tag.min.js"></script>
+
+
+
+
 <!-- ace scripts -->
 <script src="<%=request.getContextPath() %>/static/js/ace-elements.min.js"></script>
 <script src="<%=request.getContextPath() %>/static/js/ace.min.js"></script>

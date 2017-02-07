@@ -51,36 +51,8 @@
 					}
 				};
 			
-			//验证图片
-			var fileName = $("#file").val();
-			if(fileName.length>1){  
-				var extname = fileName.substring(fileName.lastIndexOf(".")+1,fileName.length).toLowerCase();  
-				var imgname = fileName.substring(fileName.lastIndexOf("\\")+1,fileName.length);  
-				if(extname!= "jpeg"&&extname!= "jpg"&&extname!= "gif"&&extname!= "png"){  
-					 showWarn("格式不正确,支持的图片格式为：JPEG、JPG、GIF、PNG！");  
-			         return false;  
-			        }  
-				var file = $("#file").get(0).files; 
-				var size = file[0].size;
-				if(size>2097152){  
-					  showWarn("所选择的图片太大，图片大小最多支持2M!"); 
-			          return false;  
-			     }  		
-				
-				// 创建一个FileReader对象
-				var reader = new FileReader();
-				// 绑定load事件
-				reader.onload = function(e) {
-					$("#fileData").val(e.target.result);
-					// 将options传给ajaxForm
-					$('#userInfoFormAdd').ajaxSubmit(options);
-				}
-				// 读取File对象的数据
-				reader.readAsDataURL($("#file").get(0).files[0]);
-		      }
-			else{
 			// 将options传给ajaxForm
-			$('#userInfoFormAdd').ajaxSubmit(options);}
+			$('#userInfoFormAdd').ajaxSubmit(options);
 			
 		});
 
@@ -215,7 +187,7 @@
 						<input id="dutyId" name="dutyId" type="hidden" class="text" value="b8d29f69-9c38-4417-bd58-cc0e369c42b8" />
 					</td>			   
 			    </tr>
-				<tr>
+				<%-- <tr>
 					<td class="inputLabelTd">性别：</td>
 					<td class="inputTd"><select id="edit_sex" name="sex"
 						class="select">
@@ -225,8 +197,8 @@
 					<td class="inputLabelTd"><span class="required">*</span>年龄：</td>
 					<td class="inputTd"><input id="age" name="age"
 						type="text" class="text" value="${userInfo.age}" /></td>
-			    </tr>
-				<tr>
+			    </tr> --%>
+				<%-- <tr>
 					<td class="inputLabelTd"><span class="required">*</span>手机号码：</td>
 					<td class="inputTd"><input id="mobilePhone"
 						name="mobilePhone" type="text" class="text"
@@ -234,7 +206,7 @@
 					<td class="inputLabelTd"><span class="required">*</span>身份证号码：</td>
 					<td class="inputTd"><input id="idCard" name="idCard"
 						type="text" class="text" value="${userInfo.idCard}" /></td>
-			    </tr>
+			    </tr> --%>
 				<tr>
 					<td class="inputLabelTd">备注：</td>
 					<td class="inputTd"><input id="edit_memo" name="memo"
@@ -254,11 +226,11 @@
 <!-- 					<select id="edit_roleId" name="roleId" disabled="disabled"	class="select"> -->
 <!-- 						<option value="">兼职班主任</option> -->
 <!-- 					</select></td> -->
-					<td class="inputLabelTd">身份证图片：</td>
+					<!-- <td class="inputLabelTd">身份证图片：</td>
 					<td class="inputTd" >
 						<input id="fileData" name="idCardImgPath" type="hidden">
 						<input id="file" type="file" class="text"/>
-					</td>	
+					</td>	 -->
 			    </tr>
 
 

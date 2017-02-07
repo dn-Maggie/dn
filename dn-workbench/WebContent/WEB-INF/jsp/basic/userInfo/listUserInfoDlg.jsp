@@ -45,36 +45,6 @@ $(function() {
 			name : "orgName",
 			label : "部门单位",
 			index : "ORG_ID"
-		}, {width : 50,
-			name : "sex",
-			label : "性别",
-			formatter:function(cellvalue, options, rowObject){
-				 if (cellvalue==1) {
-				 	return '男';
-				 }else {
-				 	return '女';
-				 }
-			}
-		}, 
-		 {width : 50,
-			name : "age",
-			label : "年龄"
-		},{width : 100,
-			name : "mobilePhone",
-			label : "手机号码",
-			index:"MOBILE_PHONE"
-		},{width : 100,
-			name : "areaProvinceName",
-			label : "省",
-			index:"AREA_PROVINCE_ID"
-		},{width : 100,
-			name : "areaRegionName",
-			label : "市州",
-			index:"AREA_REGION_ID"
-		},{width : 100,
-			name : "areaCityName",
-			label : "县区",
-			index:"AREA_CITY_ID"
 		},{width : 100,
 			name : "lastLoginIp",
 			label : "最后登录IP",
@@ -108,12 +78,7 @@ function getQueryCondition() {
 	addAttrToObject(obj, "orgId");
 	addAttrToObject(obj, "userAccount");
 	addAttrToObject(obj, "fullName");
-	addAttrToObject(obj, "mobilePhone");
-	addAttrToObject(obj, "idCard");
 	addAttrToObject(obj, "orgClass");
-	addAttrToObject(obj, "areaProvinceId");
-	addAttrToObject(obj, "areaRegionId");
-	addAttrToObject(obj, "areaCityId");
 	return obj;
 }
 
@@ -228,10 +193,6 @@ function treeOnClick(event, treeId, treeNode) {//
 			class="search_choose100"  value="" name="userAccount" autocomplete="off">
 			<input id="fullName" type="text" placeholder="姓名" 
 			class="search_choose100"  value="" name="fullName" autocomplete="off">
-			<input id="mobilePhone" type="text" placeholder="手机号码" 
-			class="search_choose100"  value="" name="mobilePhone" autocomplete="off">
-			<input id="idCard" type="text" placeholder="身份证" 
-			class="search_choose100"  value="" name="idCard" autocomplete="off">
 			</li>	
 				<li style="width:400px;">
 				<input type="reset" value="确定"

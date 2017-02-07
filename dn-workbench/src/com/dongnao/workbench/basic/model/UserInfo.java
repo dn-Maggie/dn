@@ -32,6 +32,10 @@ public class UserInfo extends Model{
 	                 * 用户姓名
 	                 **/
 				   			private String fullName;
+		   			/**
+	                 * 用户年龄
+	                 **/
+				   			private String dutyName;
 		   		
 		            /**
 	                 * 用户类型(1公司员工，2公众投资人)
@@ -58,36 +62,12 @@ public class UserInfo extends Model{
 	                 **/
 				   			private Integer orgClass;
 		   		
-		            /**
-	                 * 手机号码
-	                 **/
-				   			private String mobilePhone;
-		   		
-		            /**
-	                 * 性别(0女1男)
-	                 **/
-				   			private String sex;
-		   		
-		            /**
-	                 * 年龄
-	                 **/
-				   			private Integer age;
-		   		
-		            /**
-	                 * 身份证号码
-	                 **/
-				   			private String idCard;
-		   		
-		            /**
-	                 * 身份证图片路径
-	                 **/
-				   			private String idCardImgPath;
 		   		
 		            /**
 	                 * 最后登录时间
 	                 **/
 					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
-			private Date lastLoginTime;
+						private Date lastLoginTime;
 		
 		            /**
 	                 * 最后一次登录ip
@@ -147,43 +127,10 @@ public class UserInfo extends Model{
 	                 * 岗位ID
 	                 **/
 				   			private String dutyId;
-		   		
-		            /**
-	                 * 岗位名称
-	                 **/
-				   			private String dutyName;
-		   		
-		            /**
-	                 * 入职日期
-	                 **/
-					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
-			private Date entryDate;
-		
-		            /**
-	                 * 邮箱地址
-	                 **/
-				   			private String userEmail;
-		   		
-		            /**
-	                 * 出生年月
-	                 **/
-					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
-			private Date birthday;
-		
-		            /**
-	                 * 1=小学、2=初中、3=高中（职高、高技）、4=中专大专（高职）、5=本科、6=硕士研究生、7=博士研究生
-	                 **/
-				   			private Integer schooling;
-		   		
 		            /**
 	                 * 核定工资
 	                 **/
 				   			private String roleId;
-		   		
-		            /**
-	                 * 股份配额(单位：万)
-	                 **/
-				   			private Integer stockNum;
 		   		
 	
 				
@@ -367,103 +314,13 @@ public class UserInfo extends Model{
 		
 			
 						
-		  			/**
-			 * 获取 手机号码
-			 * @return String this.mobilePhone
-			 */
-			public String getMobilePhone(){
-				return this.mobilePhone;
-			}
-			
-			/**
-			 * 设置 手机号码
-			 * @param String mobilePhone 
-			 */
-			public void setMobilePhone(String mobilePhone){
-				this.mobilePhone = mobilePhone;
-			}
-		   		
 		
 		
 			
 						
-		  			/**
-			 * 获取 性别(0女1男)
-			 * @return String this.sex
-			 */
-			public String getSex(){
-				return this.sex;
-			}
-			
-			/**
-			 * 设置 性别(0女1男)
-			 * @param String sex 
-			 */
-			public void setSex(String sex){
-				this.sex = sex;
-			}
-		  		
 		
 		
 			
-						
-		  			/**
-			 * 获取 年龄
-			 * @return Integer this.age
-			 */
-			public Integer getAge(){
-				return this.age;
-			}
-			
-			/**
-			 * 设置 年龄
-			 * @param BigDecimal age 
-			 */
-			public void setAge(Integer age){
-				this.age = age;
-			}
-		  		
-		
-		
-			
-						
-		  			/**
-			 * 获取 身份证号码
-			 * @return String this.idCard
-			 */
-			public String getIdCard(){
-				return this.idCard;
-			}
-			
-			/**
-			 * 设置 身份证号码
-			 * @param String idCard 
-			 */
-			public void setIdCard(String idCard){
-				this.idCard = idCard;
-			}
-		   		
-		
-		
-			
-						
-		  			/**
-			 * 获取 身份证图片路径
-			 * @return String this.idCardImgPath
-			 */
-			public String getIdCardImgPath(){
-				return this.idCardImgPath;
-			}
-			
-			/**
-			 * 设置 身份证图片路径
-			 * @param String idCardImgPath 
-			 */
-			public void setIdCardImgPath(String idCardImgPath){
-				this.idCardImgPath = idCardImgPath;
-			}
-		   		
-		
 		
 			
 								/**
@@ -679,109 +536,13 @@ public class UserInfo extends Model{
 			}
 		   		
 		
-		
-			
-						
-		  			/**
-			 * 获取 岗位名称
-			 * @return String this.dutyName
-			 */
-			public String getDutyName(){
-				return this.dutyName;
+
+			public String getDutyName() {
+				return dutyName;
 			}
-			
-			/**
-			 * 设置 岗位名称
-			 * @param String dutyName 
-			 */
-			public void setDutyName(String dutyName){
+
+			public void setDutyName(String dutyName) {
 				this.dutyName = dutyName;
-			}
-		   		
-		
-		
-			
-								/**
-			 * 获取 入职日期
-			 * @return Date this.entryDate
-			 */
-			public Date getEntryDate(){
-				return this.entryDate;
-			}
-			
-			/**
-			 * 设置 入职日期
-			 * @param Date entryDate 
-			 */
-			public void setEntryDate(Date entryDate){
-				this.entryDate = entryDate;
-			}
-						
-		  			/**
-			 * 获取 邮箱地址
-			 * @return String this.userEmail
-			 */
-			public String getUserEmail(){
-				return this.userEmail;
-			}
-			
-			/**
-			 * 设置 邮箱地址
-			 * @param String userEmail 
-			 */
-			public void setUserEmail(String userEmail){
-				this.userEmail = userEmail;
-			}
-		   		
-		
-		
-			
-								/**
-			 * 获取 出生年月
-			 * @return Date this.birthday
-			 */
-			public Date getBirthday(){
-				return this.birthday;
-			}
-			
-			/**
-			 * 设置 出生年月
-			 * @param Date birthday 
-			 */
-			public void setBirthday(Date birthday){
-				this.birthday = birthday;
-			}
-						
-		  			/**
-			 * 获取 1=小学、2=初中、3=高中（职高、高技）、4=中专大专（高职）、5=本科、6=硕士研究生、7=博士研究生
-			 * @return Integer this.schooling
-			 */
-			public Integer getSchooling(){
-				return this.schooling;
-			}
-			
-			/**
-			 * 设置 1=小学、2=初中、3=高中（职高、高技）、4=中专大专（高职）、5=本科、6=硕士研究生、7=博士研究生
-			 * @param BigDecimal schooling 
-			 */
-			public void setSchooling(Integer schooling){
-				this.schooling = schooling;
-			}
-		  		
-		  			/**
-			 * 获取 股份配额(单位：万)
-			 * @return Integer this.stockNum
-			 */
-			public Integer getStockNum(){
-				return this.stockNum;
-			}
-			
-			/**
-			 * 设置 股份配额(单位：万)
-			 * @param BigDecimal stockNum 
-			 */
-			public void setStockNum(Integer stockNum){
-				this.stockNum = stockNum;
 			}
 
 			public String getRoleId() {

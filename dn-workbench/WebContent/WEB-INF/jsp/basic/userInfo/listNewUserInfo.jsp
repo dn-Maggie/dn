@@ -27,10 +27,6 @@
 					class="search_choose100"  value="" name="userAccount" autocomplete="off">
 					<input id="fullName" type="text" placeholder="姓名" 
 					class="search_choose100"  value="" name="fullName" autocomplete="off">
-					<input id="mobilePhone" type="text" placeholder="手机号码" 
-					class="search_choose100"  value="" name="mobilePhone" autocomplete="off">
-					<input id="idCard" type="text" placeholder="身份证" 
-					class="search_choose100"  value="" name="idCard" autocomplete="off">
 				</li>
 				<li class="w200"><input type="reset" value="重置"
 						onClick="resetForm('queryForm')" class="reset_btn"><!-- 重置 -->
@@ -116,18 +112,8 @@ $(function() {
 			name : "dutyName",
 			label : "岗位",
 			index : "duty_name"
-		}, {width : 50,
-			name : "sex",
-			label : "性别",
-		}, 
-		 {width : 50,
-			name : "age",
-			label : "年龄"
-		},{width : 100,
-			name : "mobilePhone",
-			label : "手机号码",
-			index:"MOBILE_PHONE"
-		},{width : 100,
+		},
+		{width : 100,
 			name : "lastLoginIp",
 			label : "最后登录IP",
 			index : "LAST_LOGIN_IP"

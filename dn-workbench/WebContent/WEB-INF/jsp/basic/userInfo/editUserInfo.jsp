@@ -102,7 +102,7 @@
 			};
 			
 			//验证图片
-			var fileName = $("#file").val();
+			/* var fileName = $("#file").val();
 			if(fileName.length>1){  
 				var extname = fileName.substring(fileName.lastIndexOf(".")+1,fileName.length).toLowerCase();  
 				var imgname = fileName.substring(fileName.lastIndexOf("\\")+1,fileName.length);  
@@ -126,9 +126,10 @@
 				// 读取File对象的数据
 				reader.readAsDataURL($("#file").get(0).files[0]);
 		      }
-				else{
+				else{ */
 				// 将options传给ajaxForm
-					$('#userInfoFormEdit').ajaxSubmit(options);}
+					$('#userInfoFormEdit').ajaxSubmit(options);
+				/* } */
 			
 		});
 
@@ -317,8 +318,8 @@
 <%-- 						type="text" class="text" value="${userInfo.stockNum}" /></td> --%>
 <!-- 			    </tr> -->
 			   
-					<td class="inputLabelTd">身份证图片：</td>
-					<td class="inputTd" >
+					<!-- <td class="inputLabelTd">身份证图片：</td>
+					<td class="inputTd" > -->
 <!-- 					<input -->
 <!-- 						id="idCardImgPath" name="idCardImgPath" type="hidden" class="text" -->
 <%-- 						value="${userInfo.idCardImgPath}" /> --%>
@@ -328,9 +329,9 @@
 <!-- 						<div id="idCardImgDiv" style="width:600px;"> -->
 <%-- 						<img style="max-width:600px;" src="<m:url value='/download/tmpIdCard.do'/>?fileName=${userInfo.idCardImgPath}"/> --%>
 <!-- 						</div>		 -->
-						<input id="fileData" name="idCardImgPath" type="hidden">
+						<!-- <input id="fileData" name="idCardImgPath" type="hidden">
 						<input id="file" type="file" class="text"/>
-					</td>	
+					</td>	 -->
 			    </tr>
 				<tr>
 					<td class="inputTd" colspan="5" style="text-align: center;"><input
