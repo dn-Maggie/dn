@@ -64,7 +64,7 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
 					formatter:'integer', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},				
 				{name : "socialSecurity",label:"社保扣款",width:"4",index : "social_security", editable:true,number:true,
 					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},					
-				{name : "leaveCost",label:"请假扣款",width:"4",index : "leave_cost",
+				{name : "leaveCost",label:"请假扣款",width:"4",index : "leave_cost",editable:true,
 						formatter:function(cellvalue, options, rowObject){
 		 				 	return Math.round(cellvalue);
  				}},
