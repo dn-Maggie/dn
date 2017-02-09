@@ -512,7 +512,7 @@ public class EmpSalaryController{
 				empSalary.setEmpBankCard(empSalary.getEmpBankCard());
 				empSalary.setLateEarlyCost(empSalary.getLateEarlyTime()*30.0);
 				empSalary.setAttendanceAnomalyCost(empSalary.getAttendanceAnomalyTime()*50.0);
-				empSalary.setLeaveCost((empSalary.getBasicSalary()/30)*empSalary.getLeaveDay());
+				empSalary.setLeaveCost(empSalary.getLeaveCost());
 				empSalary.setTableMoney(empSalary.getTableMoney());
 				empSalary.setHousingAllowance(empSalary.getHousingAllowance());
 				empSalary.setMeritRaise(empSalary.getMeritRaise());
