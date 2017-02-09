@@ -102,7 +102,24 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
     		gridComplete:function(){
     			$(".ui-jqgrid-sdiv").show();
            		//如果需要统计则需要定义
-               	getFooterJsonData($(this));
+               /* 	getFooterJsonData($(this)); */
+               $(this).footerData("set",
+            		   {"操作":"合计",
+            	  		"leaveDay":$(this).getCol("leaveDay",false,"sum"),
+            	  		"lateEarlyTime":$(this).getCol("lateEarlyTime",false,"sum"),
+            	  		"attendanceAnomalyTime":$(this).getCol("attendanceAnomalyTime",false,"sum"),
+            	  		"basicSalary":$(this).getCol("basicSalary",false,"sum"),
+            	   		"shouldSalary":$(this).getCol("shouldSalary",false,"sum"),
+            	   		"actualSalary":$(this).getCol("actualSalary",false,"sum"),
+            	   		"socialSecurity":$(this).getCol("socialSecurity",false,"sum"),
+            	   		"leaveCost":$(this).getCol("leaveCost",false,"sum"),
+            	   		"lateEarlyCost":$(this).getCol("lateEarlyCost",false,"sum"),
+            	   		"attendanceAnomalyCost":$(this).getCol("attendanceAnomalyCost",false,"sum"),
+            	   		"tableMoney":$(this).getCol("tableMoney",false,"sum"),
+            	   		"housingAllowance":$(this).getCol("housingAllowance",false,"sum"),
+            	   		"meritRaise":$(this).getCol("meritRaise",false,"sum"),
+            	   		"rests":$(this).getCol("rests",false,"sum"),
+            	   		});
 	 		},
     		editurl : "<m:url value='/empSalary/operEmpSalary.do'/>",
      	});
