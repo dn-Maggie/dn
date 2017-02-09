@@ -43,6 +43,9 @@
 		display: inline-block;
 		float: left;
 	} 
+	.profit td{
+		color:#ff0000;
+	}
 </style>
 </head>
 <body style="height:100%;background: #fff">
@@ -94,9 +97,10 @@
 			</table>
 		</div>
 	</div>
+	<iframe id="iframeAdd" name="iframeAdd" src="<%=request.getContextPath() %>/standard/toListStandardBar.do" width="100%" frameborder="no" border="0" height="51%"></iframe>
 	<script type="text/template" id="subject-tpl">
-					<tr class="ui-widget-content jqgrow ui-row-ltr">
-						<td class="first">{{subject}}</td><td>{{classType}}</td>
+					<tr class="ui-widget-content jqgrow ui-row-ltr {{class}}">
+						<td class="first" style="color:#444444">{{subject}}</td><td>{{classType}}</td>
 						<td>{{jan}}</td><td>{{feb}}</td>
 						<td>{{mar}}</td><td>{{apr}}</td>
 						<td>{{may}}</td><td>{{jun}}</td>
@@ -106,7 +110,6 @@
 					</tr>
     </script>
     <script type="text/javascript">
-    /* var data =[]; */
     $(function() {
 	    	new biz.datepicker({
 	  			id : "#r_year",
@@ -117,7 +120,6 @@
 				url: "<m:url value='/standard/listFinStatements.do'/>",
 				cache:false,
 				success: function(data){
-					console.log(data.rows);
 					drawGrid(data.rows);
 				}
 			});
@@ -125,7 +127,7 @@
 	    	$(".chosen-select").chosen(); 
 			
     	});
-    
+    //根据查询条件请求后台查询
     function doSearch(){
     	var paramArray = [];
     	var paramObj = {};
@@ -136,7 +138,6 @@
         })
         paramObj.deptArr=arr.toString();
         paramObj.zyjcolunm = $("#achieve")[0].checked;
-        //console.log(paramObj.zyjcolunm);
         paramObj.zcbcolunm = $("#cost")[0].checked;
         paramArray.push(paramObj);
     	 $.ajax({
@@ -152,7 +153,7 @@
          });
     	 
     }
-   
+   	//填充表格
 	function drawGrid(data){
 		var subArr = [];
 		var subNameArr = [];
@@ -223,15 +224,22 @@
     	//将该对象模板进行替换
     	for(var i = 0;i<subArr.length;i++){
     		var achieveTotal = 0,costTotal=0;
-    		if(typeof(subArr[i].achieve)!="undefined"&&$('#achieve')[0].checked){
-    			achieveTotal  = replaceTml(subArr[i].j_subject,subArr[i].achieve,'总业绩');
+    		if(typeof(subArr[i].achieve)!="undefined"){
+    			achieveTotal = getTotal(subArr[i].achieve);
+    			if($('#achieve')[0].checked){
+    				replaceTml(subArr[i].j_subject,subArr[i].achieve,'总业绩',achieveTotal);
+    			}
     		}
-    		if(typeof(subArr[i].cost)!="undefined"&&$('#cost')[0].checked){
-    			costTotal  = replaceTml(subArr[i].j_subject,subArr[i].cost,'总成本');
+    		if(typeof(subArr[i].cost)!="undefined"){
+    			costTotal  = getTotal(subArr[i].cost);
+    			if($('#cost')[0].checked){
+    				replaceTml(subArr[i].j_subject,subArr[i].cost,'总成本',costTotal);
+    			}
     		}
     		if ($('#profit')[0].checked) {
     			var trTpl = $('#subject-tpl').html();//获取模板
     		 	htmlTemp.push(trTpl
+    		 		   .replace('{{class}}', 'profit')
    				       .replace('{{subject}}', subArr[i].j_subject)
    				       .replace('{{classType}}', '总利润')
    				       .replace('{{jan}}', subArr[i].achieve.monthData[0]-subArr[i].cost.monthData[0]||0)
@@ -251,15 +259,19 @@
     		}
     	}
     	$('.item-tbody').html(htmlTemp.join('')); //通过''连接数组元素
-    	
-    	function replaceTml(subName,subObj,classType){
+    	//获取总值
+    	function getTotal(subObj){
+    		var total = 0;
+    		for(var i = 0;i<subObj.monthData.length;i++){
+ 			   total  += Number(subObj.monthData[i]);
+ 		   }
+    		return total;
+    	}
+    	//替换模板
+    	function replaceTml(subName,subObj,classType,total){
     		   var trTpl = $('#subject-tpl').html();//获取模板
-    		   var total = 0;
-    		   //console.log(subObj.monthData.length);
-    		   for(var i = 0;i<subObj.monthData.length;i++){
-    			   total  += Number(subObj.monthData[i]);
-    		   }
     		   htmlTemp.push(trTpl
+    				   .replace('{{class}}', '')
     			       .replace('{{subject}}', subName)
     			       .replace('{{classType}}', classType)
     			       .replace('{{jan}}', subObj.monthData[0]||0)
@@ -276,20 +288,13 @@
     			       .replace('{{dec}}', subObj.monthData[11]||0)
     			       .replace('{{total}}',total.toFixed(2))
     				)
-    				return total;
     	   }
-    	//console.log(subArr);
     	}
-    
-   function resetQueryForm(){
-	   resetForm('queryForm');
-	   $(".chosen-container .chosen-choices li.search-choice .search-choice-close","#queryForm").trigger("click");//触发被选元素的指定事件类型。
-	  /*  $('.chosen-choices').children('.search-choice').remove(); */
-	  /*  $('.chosen-choices').children('.search-choice-close').each(function(){
-		   console.log(this);
-		   this.onClick();
-	   }) */
-   }
+    	//重置查询条件
+	   function resetQueryForm(){
+		   resetForm('queryForm');
+		   $(".chosen-container .chosen-choices li.search-choice .search-choice-close","#queryForm").trigger("click");//触发被选元素的指定事件类型。
+	   }
    
    
 	</script>
