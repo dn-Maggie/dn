@@ -17,7 +17,7 @@
 	}
 	
 	.ui-jqgrid-labels>th{
-		width:7.5%;
+		width:6.5%;
 	    border-right: 1px solid #D3DCEF;
 	    background: #4d92f0;
 	    font-weight: 500;
@@ -70,8 +70,9 @@
 						<input type="checkbox" name="classType" id="cost" checked> <label for="cost">总成本</label>
 						<input type="checkbox" name="classType" id="profit" checked><label for="profit">总利润</label>
 				</li><!-- 输入框-->	
-				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
-						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
+				<li>
+				<input type="reset" class="reset_btn" onclick="resetQueryForm()" value="重置"><!-- 重置 -->
+				<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
 				</ul>
 		   </div>
 	    </form>
@@ -84,10 +85,11 @@
 						<th>一月</th><th>二月</th><th>三月</th>
 						<th>四月</th><th>五月</th><th>六月</th>
 						<th>七月</th><th>八月</th><th>九月</th>
-						<th>十月</th><th>十一月</th><th>十二月</th>
+						<th>十月</th><th>十一月</th><th>十二月</th><th>总计</th>
 					</tr>
 				</thead>
 				<tbody class="item-tbody">
+					
 				</tbody>
 			</table>
 		</div>
@@ -100,7 +102,7 @@
 						<td>{{may}}</td><td>{{jun}}</td>
 						<td>{{jul}}</td><td>{{aug}}</td>
 						<td>{{sep}}</td><td>{{oct}}</td>
-						<td>{{nov}}</td><td>{{dec}}</td>
+						<td>{{nov}}</td><td>{{dec}}</td><td>{{total}}</td>
 					</tr>
     </script>
     <script type="text/javascript">
@@ -115,26 +117,27 @@
 				url: "<m:url value='/standard/listFinStatements.do'/>",
 				cache:false,
 				success: function(data){
+					console.log(data.rows);
 					drawGrid(data.rows);
 				}
 			});
-	    	
+	    	//select多选 初始化方法
 	    	$(".chosen-select").chosen(); 
-			$('#chosen-multiple-style').on('click', function(e){
-				var target = $(e.target).find('input[type=radio]');
-				var which = parseInt(target.val());
-				if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
-				 else $('#form-field-select-4').removeClass('tag-input-style');
-			});
 			
     	});
+    
     function doSearch(){
     	var paramArray = [];
     	var paramObj = {};
+    	var arr = [];
     	paramObj.r_year = $("#r_year").val();
-        paramObj.deptname = $(".chosen-choices>.search-choice>span").text();
-        paramObj.zyjcolunm = $("#achieve").val();
-        paramObj.zcbcolunm = $("#cost").val();
+        $(".chosen-choices>.search-choice").each(function(){
+        	arr.push($(this).children('span').text())
+        })
+        paramObj.deptArr=arr.toString();
+        paramObj.zyjcolunm = $("#achieve")[0].checked;
+        //console.log(paramObj.zyjcolunm);
+        paramObj.zcbcolunm = $("#cost")[0].checked;
         paramArray.push(paramObj);
     	 $.ajax({
              url: "<m:url value='/standard/listFinStatements.do'/>",
@@ -147,18 +150,20 @@
             	 drawGrid(rs.rows)
              }
          });
+    	 
     }
    
 	function drawGrid(data){
 		var subArr = [];
 		var subNameArr = [];
 		var htmlTemp = [];//临时存放html数组
-    	//绑定提交按钮click事件
+    	
     	for(var i = 0;i<data.length;i++){
     		//取到科目,判断科目是否已经拿到
     		if($.inArray(data[i].j_subject, subNameArr)>-1){
-    			//科目存在，则不需要新建tpl模板对象
-    			//拿到模板对象，判断传递的class类型，将月份数据放在模板对象对应的class类型行
+    			//科目存在，则不需要新建科目对象
+    			//拿到后台传递的某个对象，判断传递的class类型，将月份数据放在模板对象对应的class类型行
+    			//遍历subArr集合，判断后台此时拿到的数据属于哪个subject对象，拿到该subject对象
     			for(var m = 0;m < subArr.length;m++){
 					// 获取模板对象subject属性，根据subject属性值获取对象
 					var subject = subArr[m].j_subject;
@@ -187,7 +192,7 @@
 					}
 				}
     			
-    		}else{//不存在，新建一个tpl模板对象
+    		}else{//不存在，新建一个科目对象
     			var subObj = {};
     			subObj.j_subject = data[i].j_subject;
     			switch (data[i].classType) {
@@ -217,36 +222,43 @@
     	//最后把模板添加到html里面
     	//将该对象模板进行替换
     	for(var i = 0;i<subArr.length;i++){
-    		if(typeof(subArr[i].achieve)!="undefined"&&$('#achieve').attr('checked')){
-    			replaceTml(subArr[i].j_subject,subArr[i].achieve,'总业绩');
+    		var achieveTotal = 0,costTotal=0;
+    		if(typeof(subArr[i].achieve)!="undefined"&&$('#achieve')[0].checked){
+    			achieveTotal  = replaceTml(subArr[i].j_subject,subArr[i].achieve,'总业绩');
     		}
-    		if(typeof(subArr[i].cost)!="undefined"&&$('#cost').attr('checked')){
-    			replaceTml(subArr[i].j_subject,subArr[i].cost,'总成本');
+    		if(typeof(subArr[i].cost)!="undefined"&&$('#cost')[0].checked){
+    			costTotal  = replaceTml(subArr[i].j_subject,subArr[i].cost,'总成本');
     		}
-    		if ($('#profit').attr('checked')) {
+    		if ($('#profit')[0].checked) {
     			var trTpl = $('#subject-tpl').html();//获取模板
     		 	htmlTemp.push(trTpl
    				       .replace('{{subject}}', subArr[i].j_subject)
    				       .replace('{{classType}}', '总利润')
-   				       .replace('{{jan}}', subArr[i].cost.monthData[0]||0)
-   				       .replace('{{feb}}', subArr[i].cost.monthData[1]||0)
-   				       .replace('{{mar}}', subArr[i].cost.monthData[2]||0)
-   				       .replace('{{apr}}', subArr[i].cost.monthData[3]||0)
-   				       .replace('{{may}}', subArr[i].cost.monthData[4]||0)
-   				       .replace('{{jun}}', subArr[i].cost.monthData[5]||0)
-   				       .replace('{{jul}}', subArr[i].cost.monthData[6]||0)
-   				       .replace('{{aug}}', subArr[i].cost.monthData[7]||0)
-   				       .replace('{{sep}}', subArr[i].cost.monthData[8]||0)
-   				       .replace('{{oct}}', subArr[i].cost.monthData[9]||0)
-   				       .replace('{{nov}}', subArr[i].cost.monthData[10]||0)
-   				       .replace('{{dec}}', subArr[i].cost.monthData[11]||0)
+   				       .replace('{{jan}}', subArr[i].achieve.monthData[0]-subArr[i].cost.monthData[0]||0)
+   				       .replace('{{feb}}', subArr[i].achieve.monthData[1]-subArr[i].cost.monthData[1]||0)
+   				       .replace('{{mar}}', subArr[i].achieve.monthData[2]-subArr[i].cost.monthData[2]||0)
+   				       .replace('{{apr}}', subArr[i].achieve.monthData[3]-subArr[i].cost.monthData[3]||0)
+   				       .replace('{{may}}', subArr[i].achieve.monthData[4]-subArr[i].cost.monthData[4]||0)
+   				       .replace('{{jun}}', subArr[i].achieve.monthData[5]-subArr[i].cost.monthData[5]||0)
+   				       .replace('{{jul}}', subArr[i].achieve.monthData[6]-subArr[i].cost.monthData[6]||0)
+   				       .replace('{{aug}}', subArr[i].achieve.monthData[7]-subArr[i].cost.monthData[7]||0)
+   				       .replace('{{sep}}', subArr[i].achieve.monthData[8]-subArr[i].cost.monthData[8]||0)
+   				       .replace('{{oct}}', subArr[i].achieve.monthData[9]-subArr[i].cost.monthData[9]||0)
+   				       .replace('{{nov}}', subArr[i].achieve.monthData[10]-subArr[i].cost.monthData[10]||0)
+   				       .replace('{{dec}}', subArr[i].achieve.monthData[11]-subArr[i].cost.monthData[11]||0)
+   				       .replace('{{total}}',(achieveTotal-costTotal).toFixed(2)||0)
 	    		) 
     		}
     	}
-    	$('.item-tbody').html(htmlTemp.join('')); 
+    	$('.item-tbody').html(htmlTemp.join('')); //通过''连接数组元素
     	
     	function replaceTml(subName,subObj,classType){
     		   var trTpl = $('#subject-tpl').html();//获取模板
+    		   var total = 0;
+    		   //console.log(subObj.monthData.length);
+    		   for(var i = 0;i<subObj.monthData.length;i++){
+    			   total  += Number(subObj.monthData[i]);
+    		   }
     		   htmlTemp.push(trTpl
     			       .replace('{{subject}}', subName)
     			       .replace('{{classType}}', classType)
@@ -262,10 +274,23 @@
     			       .replace('{{oct}}', subObj.monthData[9]||0)
     			       .replace('{{nov}}', subObj.monthData[10]||0)
     			       .replace('{{dec}}', subObj.monthData[11]||0)
+    			       .replace('{{total}}',total.toFixed(2))
     				)
+    				return total;
     	   }
+    	//console.log(subArr);
     	}
     
+   function resetQueryForm(){
+	   resetForm('queryForm');
+	   $(".chosen-container .chosen-choices li.search-choice .search-choice-close","#queryForm").trigger("click");//触发被选元素的指定事件类型。
+	  /*  $('.chosen-choices').children('.search-choice').remove(); */
+	  /*  $('.chosen-choices').children('.search-choice-close').each(function(){
+		   console.log(this);
+		   this.onClick();
+	   }) */
+   }
+   
    
 	</script>
 </body>
