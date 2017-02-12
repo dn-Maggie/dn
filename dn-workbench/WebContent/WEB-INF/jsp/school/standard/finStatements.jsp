@@ -11,6 +11,13 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath() %>/static/css/chosen.css" />
 <style type="text/css">
+
+body{
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
 .ui-jqgrid-htable {
 	width: 100%;
 }
@@ -72,9 +79,33 @@
 	width: 100%;
 	text-align: center;
 }
+
+input[name='timeQuantum']{
+	visibility:hidden;
+}
+input[name='timeQuantum']+label{
+    background-color: #fff;
+    font-size: 12px;
+    padding: 1px 6px 3px 2px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+}
+input[name='timeQuantum']:checked+label{
+	background-color: #EEA9B8;
+    color: #fff;
+    font-size: 12px;
+    padding: 1px 6px 3px 2px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    border-radius:6px;
+}
+
 </style>
 </head>
 <body style="height: 100%; background: #fff">
+<div class="loading">Loading</div>
 	<div class="main  choice_box">
 		<form id="queryForm">
 			<!-- 查询区 表单 -->
@@ -94,12 +125,10 @@
 							</c:forEach>
 					</select></li>
 					<!-- 输入框-->
-					<li style="width: 400px;"><span>选择指标:</span> <input
-						type="checkbox" name="classType" id="achieve" checked><label
-						for="achieve">总业绩</label> <input type="checkbox" name="classType"
-						id="cost" checked> <label for="cost">总成本</label> <input
-						type="checkbox" name="classType" id="profit" checked><label
-						for="profit">总利润</label></li>
+					<li style="width: 400px;"><span>选择指标:</span> 
+						<input type="checkbox" name="timeQuantum" id="achieve" checked><label for="achieve">总业绩</label> 
+						<input type="checkbox" name="timeQuantum" id="cost" checked> <label for="cost">总成本</label> 
+						<input type="checkbox" name="timeQuantum" id="profit" checked><label for="profit">总利润</label></li>
 					<!-- 输入框-->
 					<li><input type="reset" class="reset_btn"
 						onclick="resetQueryForm()" value="重置">
@@ -187,9 +216,9 @@
 	<script type="text/javascript">
     var chartarr = [];//定义存放data数据的对象
 	//总的数据对象
-	var alldata = [];
-    $(function() {
-	    	new biz.datepicker({
+	var alldata = [];   
+    $(function() {	
+    	new biz.datepicker({
 	  			id : "#r_year",
 	  			maxDate:'#F{$dp.$D(\'r_year\');}',
 	  			dateFmt:'yyyy'
