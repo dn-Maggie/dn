@@ -105,7 +105,6 @@ input[name='timeQuantum']:checked+label{
 </style>
 </head>
 <body style="height: 100%; background: #fff">
-<div class="loading">Loading</div>
 	<div class="main  choice_box">
 		<form id="queryForm">
 			<!-- 查询区 表单 -->
