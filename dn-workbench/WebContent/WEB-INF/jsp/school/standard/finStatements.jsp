@@ -11,6 +11,13 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath() %>/static/css/chosen.css" />
 <style type="text/css">
+
+body{
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
 .ui-jqgrid-htable {
 	width: 100%;
 }
@@ -72,9 +79,33 @@
 	width: 100%;
 	text-align: center;
 }
+
+input[name='timeQuantum']{
+	visibility:hidden;
+}
+input[name='timeQuantum']+label{
+    background-color: #fff;
+    font-size: 12px;
+    padding: 1px 6px 3px 2px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+}
+input[name='timeQuantum']:checked+label{
+	background-color: #EEA9B8;
+    color: #fff;
+    font-size: 12px;
+    padding: 1px 6px 3px 2px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    border-radius:6px;
+}
+
 </style>
 </head>
 <body style="height: 100%; background: #fff">
+<div class="loading">Loading</div>
 	<div class="main  choice_box">
 		<form id="queryForm">
 			<!-- 查询区 表单 -->
@@ -94,12 +125,10 @@
 							</c:forEach>
 					</select></li>
 					<!-- 输入框-->
-					<li style="width: 400px;"><span>选择指标:</span> <input
-						type="checkbox" name="classType" id="achieve" checked><label
-						for="achieve">总业绩</label> <input type="checkbox" name="classType"
-						id="cost" checked> <label for="cost">总成本</label> <input
-						type="checkbox" name="classType" id="profit" checked><label
-						for="profit">总利润</label></li>
+					<li style="width: 400px;"><span>选择指标:</span> 
+						<input type="checkbox" name="timeQuantum" id="achieve" checked><label for="achieve">总业绩</label> 
+						<input type="checkbox" name="timeQuantum" id="cost" checked> <label for="cost">总成本</label> 
+						<input type="checkbox" name="timeQuantum" id="profit" checked><label for="profit">总利润</label></li>
 					<!-- 输入框-->
 					<li><input type="reset" class="reset_btn"
 						onclick="resetQueryForm()" value="重置">
@@ -187,9 +216,9 @@
 	<script type="text/javascript">
     var chartarr = [];//定义存放data数据的对象
 	//总的数据对象
-	var alldata = [];
-    $(function() {
-	    	new biz.datepicker({
+	var alldata = [];   
+    $(function() {	
+    	new biz.datepicker({
 	  			id : "#r_year",
 	  			maxDate:'#F{$dp.$D(\'r_year\');}',
 	  			dateFmt:'yyyy'
@@ -200,7 +229,9 @@
 				success: function(data){
 					chartarr.push(data.rows);
 					//console.log(chartarr);
+					console.log(data.rows);
 					drawGrid(data.rows);
+					 
 					//drawChart();
 				}
 			});
@@ -231,6 +262,7 @@
              success: function(rs) {
             	 chartarr.push(rs.rows);
             	 drawGrid(rs.rows)
+            	
              }
          }); 
     }
@@ -326,18 +358,18 @@
     		 		   .replace('{{class}}', 'profit')
    				       .replace('{{subject}}', subArr[i].j_subject)
    				       .replace('{{classType}}', '总利润')
-   				       .replace('{{jan}}', subArr[i].achieve.monthData[0]-subArr[i].cost.monthData[0]||0)
-   				       .replace('{{feb}}', subArr[i].achieve.monthData[1]-subArr[i].cost.monthData[1]||0)
-   				       .replace('{{mar}}', subArr[i].achieve.monthData[2]-subArr[i].cost.monthData[2]||0)
-   				       .replace('{{apr}}', subArr[i].achieve.monthData[3]-subArr[i].cost.monthData[3]||0)
-   				       .replace('{{may}}', subArr[i].achieve.monthData[4]-subArr[i].cost.monthData[4]||0)
-   				       .replace('{{jun}}', subArr[i].achieve.monthData[5]-subArr[i].cost.monthData[5]||0)
-   				       .replace('{{jul}}', subArr[i].achieve.monthData[6]-subArr[i].cost.monthData[6]||0)
-   				       .replace('{{aug}}', subArr[i].achieve.monthData[7]-subArr[i].cost.monthData[7]||0)
-   				       .replace('{{sep}}', subArr[i].achieve.monthData[8]-subArr[i].cost.monthData[8]||0)
-   				       .replace('{{oct}}', subArr[i].achieve.monthData[9]-subArr[i].cost.monthData[9]||0)
-   				       .replace('{{nov}}', subArr[i].achieve.monthData[10]-subArr[i].cost.monthData[10]||0)
-   				       .replace('{{dec}}', subArr[i].achieve.monthData[11]-subArr[i].cost.monthData[11]||0)
+   				       .replace('{{jan}}', (subArr[i].achieve.monthData[0]-subArr[i].cost.monthData[0]).toFixed(2)||0)
+   				       .replace('{{feb}}', (subArr[i].achieve.monthData[1]-subArr[i].cost.monthData[1]).toFixed(2)||0)
+   				       .replace('{{mar}}', (subArr[i].achieve.monthData[2]-subArr[i].cost.monthData[2]).toFixed(2)||0)
+   				       .replace('{{apr}}', (subArr[i].achieve.monthData[3]-subArr[i].cost.monthData[3]).toFixed(2)||0)
+   				       .replace('{{may}}', (subArr[i].achieve.monthData[4]-subArr[i].cost.monthData[4]).toFixed(2)||0)
+   				       .replace('{{jun}}', (subArr[i].achieve.monthData[5]-subArr[i].cost.monthData[5]).toFixed(2)||0)
+   				       .replace('{{jul}}', (subArr[i].achieve.monthData[6]-subArr[i].cost.monthData[6]).toFixed(2)||0)
+   				       .replace('{{aug}}', (subArr[i].achieve.monthData[7]-subArr[i].cost.monthData[7]).toFixed(2)||0)
+   				       .replace('{{sep}}', (subArr[i].achieve.monthData[8]-subArr[i].cost.monthData[8]).toFixed(2)||0)
+   				       .replace('{{oct}}', (subArr[i].achieve.monthData[9]-subArr[i].cost.monthData[9]).toFixed(2)||0)
+   				       .replace('{{nov}}', (subArr[i].achieve.monthData[10]-subArr[i].cost.monthData[10]).toFixed(2)||0)
+   				       .replace('{{dec}}', (subArr[i].achieve.monthData[11]-subArr[i].cost.monthData[11]).toFixed(2)||0)
    				       .replace('{{total}}',(achieveTotal-costTotal).toFixed(2)||0)
 	    		) 
     		}
@@ -584,7 +616,7 @@
 						zyj.push(Math.round(name.zyj)||0);
 						console.log(name.zyj);
 						zcb.push(Math.round(name.zcb)||0);
-						profit.push(Math.round(name.zyj-name.zcb)||0);
+						profit.push((name.zyj-name.zcb).toFixed(2)||0);
 					}else{
 						zyj.push(0);zcb.push(0);profit.push(0);
 					}
@@ -632,7 +664,7 @@
 	            type: 'value',
 	            name: '金额',
 	            min: 0,
-	            max: 600000,
+	            max: 1000000,
 	            interval: 100000,
 	            axisLabel: {
 	                formatter: '$ {value}'

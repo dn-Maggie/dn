@@ -62,82 +62,82 @@
 	<select id="reportlistByzyj" resultMap="FsResultMap" parameterType="com.dongnao.workbench.common.bean.ReportQuerycondition">
 		select * from 
 			(select javazyj.j_jan from 
-			(SELECT truncate(sum(af2.money),2) as j_jan from ACCOUNT_FLOW af2,vip_student vs1 
+			(SELECT truncate(sum(af2.money),2) as j_jan from financial_flow af2,vip_student vs1 
 			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-01') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as aa,
 			(select javazyj.j_feb from 
-			(SELECT truncate(sum(af2.money),2) as j_feb from ACCOUNT_FLOW af2,vip_student vs1 
+			(SELECT truncate(sum(af2.money),2) as j_feb from financial_flow af2,vip_student vs1 
 			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-02') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as bb,
 			(select javazyj.j_mar from 
-			(SELECT truncate(sum(af2.money),2) as j_mar from ACCOUNT_FLOW af2,vip_student vs1 
+			(SELECT truncate(sum(af2.money),2) as j_mar from financial_flow af2,vip_student vs1 
 			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-03') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as cc,
 			(select javazyj.j_apr from 
-			(SELECT truncate(sum(af2.money),2) as j_apr from ACCOUNT_FLOW af2,vip_student vs1 
+			(SELECT truncate(sum(af2.money),2) as j_apr from financial_flow af2,vip_student vs1 
 			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-04') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as dd,
 			(select javazyj.j_may from 
-			(SELECT truncate(sum(af2.money),2) as j_may from ACCOUNT_FLOW af2,vip_student vs1 
+			(SELECT truncate(sum(af2.money),2) as j_may from financial_flow af2,vip_student vs1 
 			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-05') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as ee,
 			(select javazyj.j_jun from 
-			(SELECT truncate(sum(af2.money),2) as j_jun from ACCOUNT_FLOW af2,vip_student vs1 
+			(SELECT truncate(sum(af2.money),2) as j_jun from financial_flow af2,vip_student vs1 
 			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-06') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as ff,
 			(select javazyj.j_jul from 
-			(SELECT truncate(sum(af2.money),2) as j_jul from ACCOUNT_FLOW af2,vip_student vs1 
+			(SELECT truncate(sum(af2.money),2) as j_jul from financial_flow af2,vip_student vs1 
 			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-07') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as gg,
 			(select javazyj.j_aug from 
-			(SELECT truncate(sum(af2.money),2) as j_aug from ACCOUNT_FLOW af2,vip_student vs1 
+			(SELECT truncate(sum(af2.money),2) as j_aug from financial_flow af2,vip_student vs1 
 			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-08') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as hh,
 			(select javazyj.j_sep from 
-			(SELECT truncate(sum(af2.money),2) as j_sep from ACCOUNT_FLOW af2,vip_student vs1 
+			(SELECT truncate(sum(af2.money),2) as j_sep from financial_flow af2,vip_student vs1 
 			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-09') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as ii,
 			(select javazyj.j_oct from 
-			(SELECT truncate(sum(af2.money),2) as j_oct from ACCOUNT_FLOW af2,vip_student vs1 
+			(SELECT truncate(sum(af2.money),2) as j_oct from financial_flow af2,vip_student vs1 
 			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-10') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as jj,
 			(select javazyj.j_nov from 
-			(SELECT truncate(sum(af2.money),2) as j_nov from ACCOUNT_FLOW af2,vip_student vs1 
+			(SELECT truncate(sum(af2.money),2) as j_nov from financial_flow af2,vip_student vs1 
 			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-11') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as kk,
 			(select javazyj.j_dec,javazyj.subname,javazyj.classType,javazyj.j_year from 
-			(SELECT 'achieve' as classType ,truncate(sum(af2.money),2) as j_dec,#{deptname,jdbcType=VARCHAR} as subname,#{r_year,jdbcType=VARCHAR} as j_year from ACCOUNT_FLOW af2 LEFT JOIN vip_student vs1 ON af2.stu_id=vs1.id
+			(SELECT 'achieve' as classType ,truncate(sum(af2.money),2) as j_dec,#{deptname,jdbcType=VARCHAR} as subname,#{r_year,jdbcType=VARCHAR} as j_year from financial_flow af2 LEFT JOIN vip_student vs1 ON af2.stu_id=vs1.id
 			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-12') and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as oo		
 	</select>
 	
 	<!--财务报表总成本详情查询-->
 		<select id="reportlistByzcb" resultMap="FsResultMap" parameterType="com.dongnao.workbench.common.bean.ReportQuerycondition">
 			select * from 
-			(select javazyj.j_jan from 
-			(SELECT truncate(sum(af2.money),2) as j_jan from ACCOUNT_FLOW af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-01') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as aa,
-			(select javazyj.j_feb from 
-			(SELECT truncate(sum(af2.money),2) as j_feb from ACCOUNT_FLOW af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-02') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as bb,
-			(select javazyj.j_mar from 
-			(SELECT truncate(sum(af2.money),2) as j_mar from ACCOUNT_FLOW af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-03') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as cc,
-			(select javazyj.j_apr from 
-			(SELECT truncate(sum(af2.money),2) as j_apr from ACCOUNT_FLOW af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-04') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as dd,
-			(select javazyj.j_may from 
-			(SELECT truncate(sum(af2.money),2) as j_may from ACCOUNT_FLOW af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-05') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as ee,
-			(select javazyj.j_jun from 
-			(SELECT truncate(sum(af2.money),2) as j_jun from ACCOUNT_FLOW af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-06') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as ff,
-			(select javazyj.j_jul from 
-			(SELECT truncate(sum(af2.money),2) as j_jul from ACCOUNT_FLOW af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-07') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as gg,
-			(select javazyj.j_aug from 
-			(SELECT truncate(sum(af2.money),2) as j_aug from ACCOUNT_FLOW af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-08') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as hh,
-			(select javazyj.j_sep from 
-			(SELECT truncate(sum(af2.money),2) as j_sep from ACCOUNT_FLOW af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-09') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as ii,
-			(select javazyj.j_oct from 
-			(SELECT truncate(sum(af2.money),2) as j_oct from ACCOUNT_FLOW af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-10') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as jj,
-			(select javazyj.j_nov from 
-			(SELECT truncate(sum(af2.money),2) as j_nov from ACCOUNT_FLOW af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-11') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as kk,
-			(select javazyj.j_dec,javazyj.subname,javazyj.classType,javazyj.j_year from 
-			(SELECT 'cost' as classType ,truncate(sum(af2.money),2) as j_dec,#{deptname,jdbcType=VARCHAR} as subname,#{r_year,jdbcType=VARCHAR} as j_year from ACCOUNT_FLOW af2 LEFT JOIN vip_student vs1 ON af2.stu_id=vs1.id
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-12') and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as oo
+(select javazyj.j_jan from 
+(SELECT truncate(sum(af2.money),2) as j_jan from financial_flow af2 
+where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-01') and af2.d_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as aa,
+(select javazyj.j_feb from 
+(SELECT truncate(sum(af2.money),2) as j_feb from financial_flow af2 
+where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-02') and af2.d_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as bb,
+(select javazyj.j_mar from 
+(SELECT truncate(sum(af2.money),2) as j_mar from financial_flow af2
+where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-03') and af2.d_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as cc,
+(select javazyj.j_apr from 
+(SELECT truncate(sum(af2.money),2) as j_apr from financial_flow af2
+where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-04') and af2.d_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as dd,
+(select javazyj.j_may from 
+(SELECT truncate(sum(af2.money),2) as j_may from financial_flow af2 
+where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-05') and af2.d_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as ee,
+(select javazyj.j_jun from 
+(SELECT truncate(sum(af2.money),2) as j_jun from financial_flow af2 
+where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-06') and af2.d_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as ff,
+(select javazyj.j_jul from 
+(SELECT truncate(sum(af2.money),2) as j_jul from financial_flow af2 
+where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-07') and af2.d_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as gg,
+(select javazyj.j_aug from 
+(SELECT truncate(sum(af2.money),2) as j_aug from financial_flow af2 
+where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-08') and af2.d_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as hh,
+(select javazyj.j_sep from 
+(SELECT truncate(sum(af2.money),2) as j_sep from financial_flow af2 
+where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-09') and af2.d_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as ii,
+(select javazyj.j_oct from 
+(SELECT truncate(sum(af2.money),2) as j_oct from financial_flow af2 
+where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-10') and af2.d_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as jj,
+(select javazyj.j_nov from 
+(SELECT truncate(sum(af2.money),2) as j_nov from financial_flow af2 
+where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-11') and af2.d_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as kk,
+(select javazyj.j_dec,javazyj.subname,javazyj.classType,javazyj.j_year from 
+(SELECT 'cost' as classType ,truncate(sum(af2.money),2) as j_dec,#{deptname,jdbcType=VARCHAR} as subname,DATE_FORMAT(af2.create_date,'%Y') as j_year from financial_flow af2
+where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{r_year,jdbcType=VARCHAR},'-12') and af2.d_name=#{deptname,jdbcType=VARCHAR}) as javazyj)as oo
 		</select>
 	
 	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.accountflow.model.AccountFlow">
