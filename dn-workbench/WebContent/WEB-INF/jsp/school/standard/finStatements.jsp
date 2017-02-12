@@ -92,7 +92,7 @@ input[name='timeQuantum']+label{
     line-height: 30px;
 }
 input[name='timeQuantum']:checked+label{
-	background-color: #EEA9B8;
+	background-color: #4D92F0;
     color: #fff;
     font-size: 12px;
     padding: 1px 6px 3px 2px;
@@ -626,6 +626,7 @@ input[name='timeQuantum']:checked+label{
 		}
 		var did = "m"+chartid;
 		var mainChart = echarts.init(document.getElementById(did.toLowerCase()));
+		mainChart.showLoading();
 		//console.log(1);
 		$(window).on('resize',function(){//大小自适应
 			mainChart.resize();
@@ -690,6 +691,7 @@ input[name='timeQuantum']:checked+label{
 		    color:['#f68484',  '#75b9e6', '#ae91e1'],
 		}
 		mainChart.setOption(option);
+		mainChart.hideLoading();
 		//console.log(2);
 		window.onresize=mainChart.resize;
 /* 		 window.addEventListener("resize",function(){
@@ -722,6 +724,8 @@ input[name='timeQuantum']:checked+label{
 	   		});
     };
 
+    
+    
     </script>
 </body>
 </html>
