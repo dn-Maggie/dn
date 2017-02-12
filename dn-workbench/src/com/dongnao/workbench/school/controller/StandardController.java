@@ -125,27 +125,6 @@ public class StandardController{
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/standard/finStatements");
 		List<Subject> list = subjectService.listByCondition(new Subject());
  		mv.addObject("subjectList", list);
- 		/*List<FinStatements> finStaList=new ArrayList<FinStatements>();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-		Date date = new Date();
-        String nowyear = sdf.format(date);
-        ReportQuerycondition rqc=new ReportQuerycondition();
-        rqc.setR_year("2016");
-        rqc.setZcbcolunm("1");
-        rqc.setZyjcolunm("1");
-        rqc.setProfitcolunm("1");
-        //获取所有部门名称
-        List<Subject> Deptlist = subjectService.listByCondition(new Subject());
-        for(int i=0;i<Deptlist.size();i++){
-        	//System.out.println(Deptlist.get(i).getName());
-        	rqc.setDeptname(Deptlist.get(i).getName());
-        	System.out.println(rqc.getDeptname());
-        	FinStatements zyjobj= accountFlowService.reportlistByzyj(rqc).get(0);//查询总业绩
-        	FinStatements zcbobj= accountFlowService.reportlistByzcb(rqc).get(0);//查询总成本
-        	finStaList.add(zyjobj);
-        	finStaList.add(zcbobj);
-        }
-        mv.addObject(finStaList);*/
 		return mv;
 	}
 
@@ -197,7 +176,7 @@ public class StandardController{
        			if(arr1[0].length()!=0){//说明有部门筛选条件
 				for (int i = 0; i < arr1.length; i++) {
 					rqc.setDeptname(arr1[i]);
-					System.out.println(jso.getString("zyjcolunm")+jso.getString("zcbcolunm"));
+					//System.out.println(jso.getString("zyjcolunm")+jso.getString("zcbcolunm"));
 					/*if(jso.getString("zyjcolunm").equals("true")){*/
 						zyjobj = accountFlowService.reportlistByzyj(rqc).get(0);// 查询总业绩
 						finStaList.add(zyjobj);
@@ -318,11 +297,14 @@ public class StandardController{
 	//初始化图表(没有月份，初始默认为五个最近月份)
 	public void initBar(Map<Object, Object> modelObj,String subjectName) {
 		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(Calendar.YEAR);
 		int month = calendar.get(Calendar.MONTH)+1;
 		for(int i=0;i<=5;i++){
 			AccountFlow accountFlow = new AccountFlow();
 			accountFlow.setSubjectName(subjectName);
+			int year = calendar.get(Calendar.YEAR);
+				if(month-i<=0){
+					year=year-1;
+				}
 				accountFlow.setCreateTime(year+""+((month-i>0)?(month-i):(month-i+12)));
 				ResultMoney resm = accountFlowService.getBarStatistic(accountFlow);
 				if(resm==null)resm = new ResultMoney();

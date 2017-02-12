@@ -149,7 +149,7 @@
 					</li><!-- 输入框-->
 					<li style="width: 300px">
 						<span>月份:</span>
-						<input type="text" id="monthChoose" class="search_choose" style="width: 200px"/>
+						<input type="text" id="monthChoose" class="search_choose" style="width: 200px;float:left;"/>
 						<div class="timeWrapper">
 							<div class="timeYear">
 								<ul>
@@ -210,30 +210,32 @@
 	var arr = [];
 	var months =[];
 	$(document).ready(function(){
-		Array.prototype.in_array = function(e){  
+		Array.prototype.in_array = function(e){  //?
 			for(i=0;i<this.length;i++){  
 				if(this[i] == e)return true;  
 			}  
 			return false;  
 		};
 		
-		//获取数据库结果集
+		//获取数据库结果集并把结果放入arr[]中
 		ajaxGetStatistic();
 		//绘制图表
 		$("#main").length>0?drawMainChart():drawSubChart();
 	})
 	.on('mouseover', '.yearItem', function() {
-		//清除其他年份上的active类
+		//给带有yearItem类的标签绑定鼠标划动事件，清除其他年份上的active类
 		var yearItem = $(".yearItem")
+		//console.log(yearItem.length);
 		for(var j = 0;j<yearItem.length;j++){
 			yearItem[j].parentNode.style.backgroundColor="#eee";
-			yearItem[j].className =yearItem[j].className.replace(/active/, '');
+			yearItem[j].className =yearItem[j].className.replace(/active/, '');//?
 		}
 		//给当前年份添加active类
 		this.className +="active";
 		this.parentNode.style.backgroundColor="#FFFFFF";
 		//在选择年份的情况下选择月份
 		var monItem = $(".monItem");
+		
 		for(var i = 0;i<monItem.length;i++){
 			monItem[i].onclick = function(e){
 				if(/choosed/.test(this.className)){
@@ -323,8 +325,9 @@
 		var pay = [];
 		//先判断结果集是否存在，通过遍历结果集，分别获得月份名、实收报名费、总业绩、应收学费
 		if(arr.length>0){
-			for(var key in arr[0]){
-				names.push(key);
+			for(var key in arr[0]){//遍历data数据放入names 
+				names.push(key);//names存放的是key值 ：比如2016-09
+				//console.log(names);
 			}
 			names.sort(function compare(v1,v2){
 				return  v1.split("-")[0]==v2.split("-")[0]?v1.split("-")[1]-v2.split("-")[1]:v1.split("-")[0]>v2.split("-")[0];
@@ -332,6 +335,7 @@
 			var name;
 			for(var j=0;j<names.length;j++){    
 				name = arr[0][names[j]];
+				//console.log(arr[0][names[j]].xfsr);
 				if(name){
 					actualPay.push(Math.round(name.xfsr));
 					allCome.push(Math.round(name.xfbk+name.xfsr-name.xftk));
@@ -344,7 +348,7 @@
 	        } 
 		}
 		var mainChart = echarts.init(document.getElementById("main"));
-		$(window).on('resize',function(){
+		$(window).on('resize',function(){//大小自适应
 			mainChart.resize();
 		});
 		var option = {
@@ -354,9 +358,9 @@
 		    },
 		     toolbox: {
 		        feature: {
-		            dataView: {show: true, readOnly: true,title:'数据视图'},
+		            dataView: {show: true, readOnly: true,title:'数据视图'},//右侧小图标
 		            magicType: {show: true, type: ['line', 'bar']},
-		            saveAsImage: {show: true}
+		            saveAsImage: {show: true}//保存为图片
 		        }
 		    },
 			title: {
@@ -383,7 +387,7 @@
 	            max: 1000000,
 	            interval: 100000,
 	            axisLabel: {
-	                formatter: '￥ {value}'
+	                formatter: '$ {value}'
 	            }
 	        },
 			series: [{
@@ -428,6 +432,8 @@
 		var actualPay = []
 		var allCome = [];
 		var shouldPay = [];
+		
+
 		//先判断结果集是否存在，通过遍历结果集，分别获得月份名、实收报名费、总业绩、应收学费
 		if(arr.length>0){
 			for(var key in arr[0]){
@@ -437,8 +443,10 @@
 				return  v1.split("-")[0]==v2.split("-")[0]?v1.split("-")[1]-v2.split("-")[1]:v1.split("-")[0]>v2.split("-")[0];
 			});
 			var name;
+
 			for(var j=0;j<names.length;j++){    
 				name = arr[0][names[j]];
+				
 				if(name){
 					actualPay.push(Math.round(name.xfsr));
 					allCome.push(Math.round(name.xfbk+name.xfsr-name.xftk));
@@ -446,6 +454,11 @@
 				}else{
 					allCome.push(0);actualPay.push(0);shouldPay.push(0);
 				}
+				
+				
+				
+				
+				createmonthdata
 	        } 
 		}
 		var subChart = echarts.init(document.getElementById("subchart"));
@@ -513,6 +526,8 @@
 		}
 		subChart.setOption(option);
 	}
+
+	
 	
 	
 	function hideMonthMap(){
@@ -528,7 +543,9 @@
 	   			async : false,
 	   			dataType:"json",
 	   			success : function(data) {
+	   				console.log(data);
 	   				arr.push(data);
+	   				console.log(arr);
 	   			}
 	   		});
     };

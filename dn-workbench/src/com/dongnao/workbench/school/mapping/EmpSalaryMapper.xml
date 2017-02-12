@@ -132,7 +132,7 @@
 			,e.be_full_date as empBeFullDate
 			,(case when es.basic_salary>0 then es.basic_salary else e.sal_value end) as basic_salary
 			<!-- ,(case when e.curr_state=2 then e.sal_value*0.8 else e.sal_value end) as basic_salary -->
-			,e.salary as duty_level_salary
+			,e.salary as duty_level_salary 
 			,(case when es.should_salary>0 then es.should_salary else e.sal_value end) as should_salary
 			,es.social_security
 			<!-- ,es.leave_day*(es.basic_salary/30) as leave_cost -->
@@ -365,15 +365,23 @@
 			,late_early_time = #{lateEarlyTime,jdbcType=INTEGER}
 			,attendance_anomaly_time = #{attendanceAnomalyTime,jdbcType=INTEGER}
 			,leave_day = #{leaveDay,jdbcType=DOUBLE}
-			<!-- ,late_early_cost = #{lateEarlyCost,jdbcType=DOUBLE}
-			,attendance_anomaly_cost = #{attendanceAnomalyCost,jdbcType=DOUBLE}-->
+			,late_early_cost = #{lateEarlyCost,jdbcType=DOUBLE}
+			,attendance_anomaly_cost = #{attendanceAnomalyCost,jdbcType=DOUBLE}
 			,leave_cost = #{leaveCost,jdbcType=DOUBLE} 
 			,table_money = #{tableMoney,jdbcType=DOUBLE}
 			,housing_allowance = #{housingAllowance,jdbcType=DOUBLE}
 			,merit_raise = #{meritRaise,jdbcType=DOUBLE}
 			,rests = #{rests,jdbcType=DOUBLE}
-			<!-- ,should_salary = #{shouldSalary,jdbcType=DOUBLE}
-			,actual_salary = #{actualSalary,jdbcType=DOUBLE} -->
+			,should_salary = #{shouldSalary,jdbcType=DOUBLE} 
+			,actual_salary = should_salary
+			-social_security
+			-leave_cost
+			-late_early_cost
+			-attendance_anomaly_cost
+			+table_money
+			+housing_allowance
+			+merit_raise
+			+rests
 			<!-- ,basic_salary = #{basicSalary,jdbcType=DOUBLE}
 			,duty_level_salary = #{dutyLevelSalary,jdbcType=DOUBLE} -->
 			,note = #{note,jdbcType=VARCHAR}
