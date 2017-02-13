@@ -1,6 +1,8 @@
 package com.dongnao.workbench.school.dao;
 
 import java.util.List;
+
+import com.dongnao.workbench.account.model.ExpenseAccount;
 import com.dongnao.workbench.school.model.EmpSalary;
 /**
  * 描述：员工工资表模块dao接口，提供数据库操作方法
@@ -60,4 +62,8 @@ public interface EmpSalaryMapper  {
 	public void audit(EmpSalary empSalary);
 
 	public void send(EmpSalary empSalary);
+	
+	public void assign(EmpSalary empSalary);
+	
+	
 }

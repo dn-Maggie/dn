@@ -24,7 +24,7 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
            	forceFit:true,/*固定宽度*/
            	autoWidth:true,
            	rownumbers:false,/*不显示数据数*/
-        	multiselect:false,/*可多选*/
+        	multiselect:true,/*可多选*/
            	multiboxonly:false,/*仅可通过checkBox多选*/
            	emptyrecords: "无记录可显示",
         	footerrow:true,
@@ -191,6 +191,34 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
     	$("#createDate").val(createDate);
     }
     
+	 
+    //发放金额后插入流水记录数据
+    function insertaccountflow(){
+    	var key = ICSS.utils.getSelectRowData("id");
+    	if(key==""){
+    		showMessage("请至少选择一条数据！");
+    		return ;
+    	}
+    	else{
+    		new biz.alert({type:"confirm",message:"确认发放以后将生成对应员工支出流水记录，确定继续？",title:I18N.promp,callback:function(result){
+    			if(result){
+    				$ .ajax({
+        				url: "<m:url value='/empSalary/insertSalary.do'/>",
+        				cache:false,
+        				data: {key:key},
+        				type : "post",
+        				dataType:"json",
+        				success: function(data, textStatus, jqXHR){
+        					console.log(1);
+        					doSearch();
+    						showInfo("流水记录已生成",3000);
+    						console.log(0);
+        				}
+        			});
+    			}
+    		}}) ;   
+    	}  	
+    }
     </script>
 </head>
 <body style="height:100%;">
@@ -234,6 +262,10 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
 							<a title="分发邮件" href="javascript:" onclick="sendEmail();"> 
 								<i class="back_icon send_icon"></i> 
 								<span>分发邮件</span>
+							</a>
+							<a title="工资发放" href="javascript:" onclick="insertaccountflow();"> 
+								<i class="back_icon send_icon"></i> 
+								<span>工资发放</span>
 							</a>
 						</li>
 					</ul>
