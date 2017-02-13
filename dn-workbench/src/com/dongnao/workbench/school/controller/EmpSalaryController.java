@@ -41,6 +41,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dongnao.workbench.accountflow.model.AccountFlow;
+import com.dongnao.workbench.accountflow.service.AccountFlowService;
 import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.common.excel.ExcelUtils;
 import com.dongnao.workbench.common.excel.ExpParamBean;
@@ -89,6 +91,8 @@ import javax.mail.Store;
 public class EmpSalaryController{
     @Resource
 	private EmployeeService employeeService;
+    @Resource
+	private AccountFlowService accountFlowService;
     @Resource
 	private EmpSalaryService empSalaryService;
 	 
@@ -491,6 +495,44 @@ public class EmpSalaryController{
 	public void update(EmpSalary empSalary,HttpServletRequest request,HttpServletResponse response){
 		AjaxUtils.sendAjaxForObjectStr(
 				response,empSalaryService.update(empSalary));	
+	}
+	
+	
+
+	/**
+	 * 工资成功发放后添加记录到流水表
+	 * @param response HttpServletResponse
+	 * @param key String:多个由“，”分割开的id字符串
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/insertSalary")
+	public void insertSalary(String key,HttpServletRequest request,HttpServletResponse response){
+		Calendar calendar = Calendar.getInstance();
+		String[] str = key.split(",");
+		for(int i=0;i<str.length;i++){
+			EmpSalary entity = empSalaryService.getByPrimaryKey(str[i]);
+			String flag = entity.getAssignFlag();
+			if(!flag.equals("2")){
+				//添加工资记录到财务流水信息
+				AccountFlow accountFlow = new AccountFlow();
+				accountFlow.setId(Utils.generateUniqueID());
+				accountFlow.setIsAccount(1);//是否结转
+				accountFlow.setCreateDate(calendar.getTime());
+				accountFlow.setMoney(entity.getActualSalary().toString());//actual——salary
+				accountFlow.setAccountId("71f63df7-9c58-469c-ab8d-c452e3e00bb8");
+				accountFlow.setAccountNo("GZZC");
+				accountFlow.setAccountName("工资支出");
+				accountFlow.setAccountType(2);
+				accountFlow.setNote("员工工资");
+				accountFlow.setEmpId(entity.getEmpId());
+				accountFlowService.add(accountFlow);
+				entity.setAssignFlag("2");
+				empSalaryService.assign(entity);
+			}
+		}
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("msg", "成功");
+		AjaxUtils.sendAjaxForMap(response, map);
 	}
 	
 	/**

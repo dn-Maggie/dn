@@ -6,6 +6,8 @@ import com.dongnao.workbench.school.model.EmpSalary;
 import com.dongnao.workbench.school.service.EmpSalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.dongnao.workbench.account.model.ExpenseAccount;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.util.AjaxUtils;
  
@@ -95,5 +97,17 @@ public class EmpSalaryServiceImpl implements EmpSalaryService{
 		empSalaryMapper.send(empSalary);
 		return AjaxUtils.getSuccessMessage();
 	}
+
+	/**
+	 * 修改数据是否添加到财务流水表中状态
+	 * @param empSalary EmpSalary 实体对象
+	 */	
+	@Override
+	public ResultMessage assign(EmpSalary empSalary) {
+		empSalaryMapper.assign(empSalary);
+		return AjaxUtils.getSuccessMessage();
+	}
+	
+
 	
 }

@@ -1,6 +1,8 @@
 package com.dongnao.workbench.school.service;
 
 import java.util.List;
+
+import com.dongnao.workbench.account.model.ExpenseAccount;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.school.model.EmpSalary;
 
@@ -64,4 +66,12 @@ public interface EmpSalaryService  {
 	 * @param empSalary EmpSalary 实体对象
 	 */	
 	public ResultMessage send(EmpSalary empSalary);
+	/**
+	 * 发送员工工资表方法
+	 * 更新工资单assign_flag
+	 * @param empSalary EmpSalary 实体对象
+	 */	
+	public ResultMessage assign(EmpSalary empSalary);
+
+	
 }
