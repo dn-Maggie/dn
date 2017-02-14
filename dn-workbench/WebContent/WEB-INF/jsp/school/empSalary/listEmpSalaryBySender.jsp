@@ -265,7 +265,7 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
 							</a>
 							<a title="工资发放" href="javascript:" onclick="insertaccountflow();"> 
 								<i class="back_icon send_icon"></i> 
-								<span>工资发放</span>
+								<span>发放工资/生成流水记录</span>
 							</a>
 						</li>
 					</ul>

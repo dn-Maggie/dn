@@ -508,30 +508,38 @@ public class EmpSalaryController{
 	@RequestMapping("/insertSalary")
 	public void insertSalary(String key,HttpServletRequest request,HttpServletResponse response){
 		Calendar calendar = Calendar.getInstance();
+		Map<String, String> map = new HashMap<String, String>();
+		java.text.DecimalFormat   df   =new   java.text.DecimalFormat("#.00");//格式化小数点后两位  
 		String[] str = key.split(",");
 		for(int i=0;i<str.length;i++){
 			EmpSalary entity = empSalaryService.getByPrimaryKey(str[i]);
 			String flag = entity.getAssignFlag();
-			if(!flag.equals("2")){
-				//添加工资记录到财务流水信息
-				AccountFlow accountFlow = new AccountFlow();
-				accountFlow.setId(Utils.generateUniqueID());
-				accountFlow.setIsAccount(1);//是否结转
-				accountFlow.setCreateDate(calendar.getTime());
-				accountFlow.setMoney(entity.getActualSalary().toString());//actual——salary
-				accountFlow.setAccountId("71f63df7-9c58-469c-ab8d-c452e3e00bb8");
-				accountFlow.setAccountNo("GZZC");
-				accountFlow.setAccountName("工资支出");
-				accountFlow.setAccountType(2);
-				accountFlow.setNote("员工工资");
-				accountFlow.setEmpId(entity.getEmpId());
-				accountFlowService.add(accountFlow);
-				entity.setAssignFlag("2");
-				empSalaryService.assign(entity);
+			if(flag!=null){
+				if(!flag.equals("2")){
+					//添加工资记录到财务流水信息
+					AccountFlow accountFlow = new AccountFlow();
+					accountFlow.setId(Utils.generateUniqueID());
+					accountFlow.setIsAccount(1);//是否结转
+					accountFlow.setCreateDate(calendar.getTime());
+					accountFlow.setMoney((df.format(entity.getActualSalary())).toString());//actual——salary
+					accountFlow.setAccountId("71f63df7-9c58-469c-ab8d-c452e3e00bb8");
+					accountFlow.setAccountNo("GZZC");
+					accountFlow.setAccountName("工资支出");
+					accountFlow.setAccountType(2);
+					accountFlow.setNote("员工工资");
+					accountFlow.setEmpId(entity.getEmpId());
+					accountFlowService.add(accountFlow);
+					entity.setAssignFlag("2");
+					entity.setNote("已生成流水");
+					empSalaryService.assign(entity);
+				}
+				map.put("msg", "成功");
+			}else{
+				map.put("msg", "存在工资流水插入失败的记录");
 			}
 		}
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("msg", "成功");
+		
+		
 		AjaxUtils.sendAjaxForMap(response, map);
 	}
 	
