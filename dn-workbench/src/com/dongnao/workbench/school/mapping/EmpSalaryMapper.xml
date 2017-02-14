@@ -427,7 +427,7 @@
 	
 	<update id="assign" parameterType="com.dongnao.workbench.school.model.EmpSalary">
 		update emp_salary set
-			assign_flag = #{assignFlag,jdbcType=INTEGER}
+			assign_flag = #{assignFlag,jdbcType=INTEGER},note = #{note,jdbcType=INTEGER}
 		where id = #{id,jdbcType=VARCHAR}
 	</update>
 </mapper>
