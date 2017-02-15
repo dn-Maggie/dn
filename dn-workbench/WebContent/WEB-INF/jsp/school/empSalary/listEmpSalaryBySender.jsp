@@ -56,8 +56,8 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
 				{name : "empBeFullDate",label:"转正日期",index : "empBeFullDate"}, 
 				{name : "basicSalary",label:"基本工资",index : "basic_salary",
 					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},	
-				{name : "dutyLevelSalary",label:"薪级工资",index : "duty_level_salary", formatter:'currency', 
-					formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},
+				/* {name : "dutyLevelSalary",label:"薪级工资",index : "duty_level_salary", formatter:'currency', 
+					formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}}, */
 				{name : "shouldSalary",label:"应发工资",index : "should_salary", formatter:'currency',
 					formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},				
 				{name : "socialSecurity",label:"社保扣款",index : "social_security", formatter:'currency', 
