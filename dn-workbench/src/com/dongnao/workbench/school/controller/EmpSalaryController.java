@@ -66,6 +66,8 @@ import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import sun.org.mozilla.javascript.internal.regexp.SubString;
+
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -102,8 +104,10 @@ public class EmpSalaryController{
  	*/
  	@RequestMapping("/toAddEmpSalary")
 	public ModelAndView toAdd(){
-		return new ModelAndView("WEB-INF/jsp/school/empSalary/addEmpSalary");
-	}
+ 		ModelAndView mv =  new ModelAndView("WEB-INF/jsp/school/empSalary/addEmpSalary");
+ 		mv.addObject("empList",employeeService.listByCondition(null));
+ 		return mv;
+ 	}
  	/**
  	* （自动生成工资条）
  	* @return ModelAndView 返回到新增页面
@@ -274,8 +278,9 @@ public class EmpSalaryController{
 		msg.setSubject(subject);// 邮件主题
 		MimeBodyPart mbp = new MimeBodyPart();
         String htmlText = "<h3>"
-        		+ "注：1、请核对好工资、卡号，如有疑问，请及时到行政部核对，核对截止时间本月14日18:00；</br>"
-        		+"    2、薪酬工资属于保密，核对无误后，请及时删除本邮件。</h3>"
+        		+ "注：1、请核对好工资、卡号，如有疑问，请及时到行政部核对，核对截止时间今日15:00；</br>"
+        		+"    2、薪酬工资属于保密，核对无误后，请及时删除本邮件；</br>"
+        		+ "3、该工资条属于"+DateUtil.parseDate(empSalary.getCreateDate(), "yyyy-MM")+"月份工资。</h3>"
         		+ "<table  border='2' ><thead><tr><th>姓名</th><th>昵称</th>"
         		+ "<th>银行</th><th>卡号</th><th>电话号码</th><th>请假天数</th><th>迟到早退（次）</th>"
         		+ "<th>打卡异常（次）</th><th>入职时间</th><th>转正日期</th><th>基本工资</th>"
@@ -335,7 +340,11 @@ public class EmpSalaryController{
 	 */
 	@RequestMapping("/addEmpSalary")
 	public void add(EmpSalary empSalary,HttpServletRequest request,HttpServletResponse response){
-	empSalary.setId(Utils.generateUniqueID());
+	empSalary.setId(empSalary.getEmpId());
+	empSalary.setCreateDate(DateUtil.now());
+	empSalary.setSendFlag("1");
+	empSalary.setCheckFlag("1");
+	empSalary.setAssignFlag("1");
 	AjaxUtils.sendAjaxForObjectStr(response,empSalaryService.add(empSalary));		
 	}
 	

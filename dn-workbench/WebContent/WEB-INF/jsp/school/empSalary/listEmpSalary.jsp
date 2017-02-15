@@ -278,6 +278,24 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
     		}}) ;   
     	}
     }
+    //新增的弹出框
+	var add_iframe_dialog;
+	function add(){
+	  	//xin zeng iframe 弹出框
+			var url="<m:url value='/empSalary/toAddEmpSalary.do'/>";
+			add_iframe_dialog = new biz.dialog({
+				id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+				modal: true,
+				width: $(window).width()*0.6,
+				height:$(window).height()*0.8,
+				title: "员工工资增加"
+			});
+			add_iframe_dialog.open();
+	  	}
+	//关闭新增页面，供子页面调用
+  	function closeAdd(){
+		add_iframe_dialog.close();
+  	}
     </script>
 </head>
 <body style="height:100%;">
@@ -327,6 +345,11 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
 				<!--功能按钮begin-->
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
+						<li>
+							<a title="添加记录" href="javascript:;" onclick="add()"> 
+								<i class="back_icon down_icon"> </i> <span>新增一条工资记录</span>
+							</a>
+						</li>
 						<li>
 							<a title="自动生成" href="javascript:;" onclick="autoAdd()"> 
 								<i class="back_icon down_icon"> </i> <span>生成上月记录</span>
