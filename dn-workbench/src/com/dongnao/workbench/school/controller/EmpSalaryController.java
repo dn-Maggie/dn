@@ -261,7 +261,7 @@ public class EmpSalaryController{
         		return;
         	}
       		String subject = employee.getNickName()+"工资条";
-      		if(sendEmail(session,sendFrom,sendPwd,sendTo,subject,empSalary,employee)){
+      		if(sendEmail(session,sendFrom,sendPwd,sendTo,subject,empSalary)){
       			empSalary.setSendFlag("2");
     			empSalary.setSendDate(DateUtil.now());
     			empSalaryService.send(empSalary);
@@ -272,7 +272,7 @@ public class EmpSalaryController{
             	AjaxUtils.sendAjaxForObjectStr(response,empSalary);	
       		}
 	     }
-	private boolean sendEmail(Session session, String sendFrom,String sendPwd, String sendTo, String subject, EmpSalary empSalary,Employee employee) throws MessagingException {
+	private boolean sendEmail(Session session, String sendFrom,String sendPwd, String sendTo, String subject, EmpSalary empSalary) throws MessagingException {
 		Message msg = new MimeMessage(session);   // 创建邮件对象  
 		msg.setFrom(new InternetAddress(sendFrom)); // 发件人地址
 		msg.setSubject(subject);// 邮件主题
@@ -310,7 +310,7 @@ public class EmpSalaryController{
         		+ "<td>"+StringUtil.toDouble(empSalary.getHousingAllowance())+"</td>"
         		+ "<td>"+StringUtil.toDouble(empSalary.getMeritRaise())+"</td>"
         		+ "<td>"+StringUtil.toDouble(empSalary.getRests())+"</td>"
-        		+ "<td>"+Math.round(StringUtil.toDouble(empSalary.getActualSalary()))+"</td>"
+        		+ "<td>"+StringUtil.toDouble(empSalary.getActualSalary())+"</td>"
         		+ "<td>"+StringUtil.valueOf(empSalary.getNote())+"</td>"
         		+ "</tr></tbody></table>"
 		;
