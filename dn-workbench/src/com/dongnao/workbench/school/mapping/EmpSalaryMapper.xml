@@ -276,8 +276,11 @@
 				,duty_level_salary
 				,social_security
 				,late_early_time
+				,late_early_cost
 				,attendance_anomaly_time
+				,attendance_anomaly_cost
 				,leave_day
+				,leave_cost
 				,table_money
 				,housing_allowance
 				,merit_raise
@@ -300,8 +303,11 @@
 			,#{dutyLevelSalary,jdbcType=DECIMAL}
 			,#{socialSecurity,jdbcType=DECIMAL}
 			,#{lateEarlyTime,jdbcType=INTEGER}
+			,#{lateEarlyCost,jdbcType=DOUBLE}
 			,#{attendanceAnomalyTime,jdbcType=INTEGER}
+			,#{attendanceAnomalyCost,jdbcType=DOUBLE}
 			,#{leaveDay,jdbcType=DOUBLE}
+			,#{leaveCost,jdbcType=DOUBLE}
 			,#{tableMoney,jdbcType=DECIMAL}
 			,#{housingAllowance,jdbcType=DECIMAL}
 			,#{meritRaise,jdbcType=DECIMAL}
