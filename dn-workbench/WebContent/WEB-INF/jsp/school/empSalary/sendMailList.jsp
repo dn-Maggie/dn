@@ -25,14 +25,14 @@
 				<ul class="ace-thumbnails" style="width:100%;">
 					<c:forEach var="empSalary" items="${empSalaryList}">
 						<li class="empSalaryItem"  data-id="${empSalary.id}"  data-status="${empSalary.sendFlag}" style="width:20%;box-sizing: border-box;margin:0 0 20px 0;border: 0;float: left;">
-							<a href="javascript:0" data-rel="colorbox" style="text-decoration: none">
+							<a href="#" data-rel="colorbox" style="text-decoration: none">
 							<img alt="20*20" style="width:50px;height:50px" src="<%=request.getContextPath() %>/styles/images/logo_face.png" />
 							${empSalary.empNo} ${empSalary.empName}
 							</a>
 							<div class="tools tools-bottom">
-								<a href="javascript:0"><i class="icon-play green"></i></a>
-								<a href="javascript:0"><i class="icon-pause"></i></a>
-								<a href="javascript:0"><i class="icon-remove red"></i></a>
+								<a href="#"><i class="icon-play green"></i></a>
+								<a href="#"><i class="icon-pause"></i></a>
+								<a href="#"><i class="icon-remove red"></i></a>
 							</div>
 						</li>
 						</c:forEach>

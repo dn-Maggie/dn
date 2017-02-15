@@ -104,8 +104,10 @@ public class EmpSalaryController{
  	*/
  	@RequestMapping("/toAddEmpSalary")
 	public ModelAndView toAdd(){
-		return new ModelAndView("WEB-INF/jsp/school/empSalary/addEmpSalary");
-	}
+ 		ModelAndView mv =  new ModelAndView("WEB-INF/jsp/school/empSalary/addEmpSalary");
+ 		mv.addObject("empList",employeeService.listByCondition(null));
+ 		return mv;
+ 	}
  	/**
  	* （自动生成工资条）
  	* @return ModelAndView 返回到新增页面
@@ -338,7 +340,11 @@ public class EmpSalaryController{
 	 */
 	@RequestMapping("/addEmpSalary")
 	public void add(EmpSalary empSalary,HttpServletRequest request,HttpServletResponse response){
-	empSalary.setId(Utils.generateUniqueID());
+	empSalary.setId(empSalary.getEmpId());
+	empSalary.setCreateDate(DateUtil.now());
+	empSalary.setSendFlag("1");
+	empSalary.setCheckFlag("1");
+	empSalary.setAssignFlag("1");
 	AjaxUtils.sendAjaxForObjectStr(response,empSalaryService.add(empSalary));		
 	}
 	
