@@ -121,19 +121,23 @@
 			,(case when es.basic_salary>0 then es.basic_salary else e.sal_value end) as basic_salary
 			<!-- ,(case when e.curr_state=2 then e.sal_value*0.8 else e.sal_value end) as basic_salary -->
 			,e.salary as duty_level_salary 
-			,(case when es.should_salary>0 then es.should_salary else e.sal_value end) as should_salary
+			,es.should_salary
+			<!-- ,(case when es.should_salary>0 then es.should_salary else e.sal_value end) as should_salary -->
 			,es.social_security
 			<!-- ,es.leave_day*(es.basic_salary/30) as leave_cost -->
 			,es.leave_cost
-			,es.late_early_time*30 as late_early_cost
-		 	,es.attendance_anomaly_time*50 as attendance_anomaly_cost
+			,es.late_early_cost
+			,es.attendance_anomaly_cost
+			<!-- ,es.late_early_time*30 as late_early_cost -->
+		 	<!-- ,es.attendance_anomaly_time*50 as attendance_anomaly_cost -->
 			,es.table_money
 			,es.housing_allowance 
 			,es.merit_raise 
 			,es.rests
-			,(case when es.actual_salary>0 then es.actual_salary else 
+			,es.actual_salary
+			<!-- ,(case when es.actual_salary>0 then es.actual_salary else 
 				e.sal_value
-				<!-- +e.salary -->
+				+e.salary
 				+es.table_money
 				+es.housing_allowance
 				+es.merit_raise
@@ -142,7 +146,7 @@
 				-es.late_early_cost
 				-es.attendance_anomaly_cost
 				-es.leave_cost
-			 end) as actual_salary 
+			 end) as actual_salary  -->
 			,es.send_flag
 			,e1.nick_name as checkName
 			,es.send_date
