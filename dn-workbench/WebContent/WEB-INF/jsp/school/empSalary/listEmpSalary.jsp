@@ -10,8 +10,8 @@ td>.editable {
 </style>
 <script type="text/javascript">
 var gridObj = {};
-var jsion_sumColumns = {};	
-jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
+/* var jsion_sumColumns = {};	
+jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
 	$(function(){
 		/* var lastsel; */
   		gridObj = new biz.grid({
@@ -21,10 +21,10 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
            	sortname:"empNo",
            	sortorder:"asc", 
            	/*forceFit:true,固定宽度*/
-           	rownumbers:false,/*不显示数据数*/
-           	multiselect:true,
+           	rownumbers:false,/*不显示数据数，左侧行号*/
+           	multiselect:true,//多选checkbox
            	multiboxonly:true,
-           	footerrow:true,
+           	footerrow:true,//页脚汇总行
            	emptyrecords: "无记录可显示",
            	pager: '#remote_prowed' /*分页栏id*/,
      		rowList:[10,15,50,100],//每页显示记录数
@@ -173,7 +173,7 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
 	}
 	//调用总计
     //@param jqGridObj
-    function getFooterJsonData(jqGridObj){
+    /* function getFooterJsonData(jqGridObj){
        var addFootData = {} ;
   	   var resObj = ajaxGetStatistic();
        try{
@@ -186,9 +186,9 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
      	catch(e){
       }    
      		jqGridObj.jqGrid('footerData','set',addFootData,false);
-   	}
+   	} */
 	//根据条件从数据库获取结果集
-	function ajaxGetStatistic(){
+	/* function ajaxGetStatistic(){
 		var resObj = {};
        	$.ajax({
    			url : "<m:url value='/empSalary/getEmpSalaryStatistic.do'/>",
@@ -201,7 +201,7 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
    			}
    		});
        	return resObj;
-	};
+	}; */
     
     /**
     * 获取查询条件值
