@@ -80,12 +80,14 @@ $(function() {
 				<input id="edit_docAttach" name="docAttach" type="text" class="text" style="width: 50px;text-align: center;" value="${expenseAccount.docAttach}" readonly/>张
 				<input id="edit_checkFlag" name="checkFlag" type="hidden" value="${expenseAccount.checkFlag}"/>
 			</div>
-			<c:if test="${expenseAccount.fileUrl} != ''">
+			<%-- <c:if test="${expenseAccount.fileUrl} != ''">
 				<div style="display:block; margin-top:5px">
 					<img alt="图片证明" style="height:600px;width: 100%" src="${expenseAccount.fileUrl}"> 
 				</div>
-			</c:if>
-			
+			</c:if> --%>
+			<div style="display:block; margin-top:5px">
+					<img alt="图片证明" style="height:600px;width: 100%" src="${expenseAccount.fileUrl}"> 
+				</div>
 		</div>
     </div>
 	</form>
