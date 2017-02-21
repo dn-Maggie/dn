@@ -131,6 +131,8 @@
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
            	sortname:"enter_date",
            	sortorder:"desc",
+        	multiselect:true,
+           	multiboxonly:true,
            	pager: '#remote_prowed' /*分页栏id*/,
      		rowList:[10,20,50,100],//每页显示记录数
     		rowNum:10,//默认显示15条
@@ -196,7 +198,7 @@
 		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
 			width: 800,
-			height:335,
+			height:700,
 				title: "报销单详情"
 		});
   		show_iframe_dialog.open();
