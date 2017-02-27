@@ -37,10 +37,13 @@
 				<ul>
 					<c:if test="${add}">
 						<li>
-							<a title="<m:message code="button.add"/>" href="javascript:;" onclick="add();"> 
-								<i class="icon_bg icon_add"> </i> 
-								<span><m:message code="button.add" /></span>
+							<a title="下载附件" href="javascript:;" onclick="$('#dfile').click()"> 
+								<i class="back_icon import_icon"> </i> 
+								<span>下载附件</span>
 							</a>
+							<form name="worddform" id="worddform" method="post"  action="<%=request.getContextPath()%>/file/fileDownload" >
+								<input type="button" id="dfile" name="file" style="display: none" onclick="downloadData();"/>
+							</form>
 						</li>
 					</c:if>
 					<c:if test="${edit}">
@@ -231,6 +234,13 @@ var gridObj = {};
     		}}) ;   
     	}
     }
+      
+	  //下载附件
+	function downloadData(){
+	    $('#worddform').submit();
+	    doSearch();
+	}
+
     </script>
 </body>
 </html>

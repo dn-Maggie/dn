@@ -9,6 +9,9 @@
 		<result column="notice_content" property="noticeContent" jdbcType="VARCHAR" />
 		<result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
 		<result column="edit_id" property="editId" jdbcType="VARCHAR" />
+		<result column="file_size" property="fileSize" jdbcType="VARCHAR" />
+		<result column="file_suffix" property="fileSuffix" jdbcType="VARCHAR" />
+		<result column="file_url" property="fileUrl" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 	 	id,
@@ -17,7 +20,10 @@
 		notice_title,
 		notice_content,
 		edit_time,
-		edit_id
+		edit_id,
+		file_size,
+		file_suffix,
+		file_url
 	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -97,6 +103,9 @@
 			,#{noticeContent,jdbcType=VARCHAR}
 			,#{editTime,jdbcType=TIMESTAMP}
 			,#{editId,jdbcType=VARCHAR}
+			,#{fileSize,jdbcType=VARCHAR}
+			,#{fileSuffix,jdbcType=VARCHAR}
+			,#{fileUrl,jdbcType=VARCHAR}
 		)
 	</insert>
 	

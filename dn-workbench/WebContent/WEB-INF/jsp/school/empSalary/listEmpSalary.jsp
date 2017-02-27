@@ -94,7 +94,7 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
 	 			}},	 
 				{name : "note",label:"备注",width:"6",index : "note", editable:true}				
            	],
-           	serializeGridData:function(postData){//添加查询条件值
+           	serializeGridData:function(postData){//添加查询条件值，把数据进行序列化
 				var obj = getQueryCondition();
     			$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
     			return obj;

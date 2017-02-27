@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@ include file="../../common/header.jsp"%>
-<%@ include file="../../common/head.jsp"%>
+<%@ include file="../../common/ace.jsp"%>
 <title></title>
 <script type="text/javascript"
 	src="<%=request.getContextPath() %>/js/echarts-2.2.7/echarts.js"></script>

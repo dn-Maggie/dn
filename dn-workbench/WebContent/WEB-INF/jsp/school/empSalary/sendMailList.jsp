@@ -8,7 +8,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<%@ include file="../../common/head.jsp"%>
+		<%@ include file="../../common/ace.jsp"%>
 	</head>
 	<body style="background: #fff;height:100%;position: absolute;width: 100%" >
 			<div class="page-header">
