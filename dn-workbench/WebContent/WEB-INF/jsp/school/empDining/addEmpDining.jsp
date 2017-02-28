@@ -71,7 +71,7 @@ $(function() {
 	}); 
 	new biz.datepicker({
 		id : "#start_diningTime",
-		minDate:'%y-%M-{%d+1}',
+		minDate:'%y-%M-{%d}',
 		maxDate:'%y-%M-%ld',
 		dateFmt:'yyyy-MM-dd',
 		disabledDays:[6]
@@ -80,6 +80,11 @@ $(function() {
 		id : "#end_diningTime",
 		minDate:'#F{$dp.$D(\'start_diningTime\',{d:0});}',
 		maxDate:'%y-%M-%ld',
+		dateFmt:'yyyy-MM-dd',
+		disabledDays:[6]
+	});
+	new biz.datepicker({
+		id : "#end_diningTime2",
 		dateFmt:'yyyy-MM-dd',
 		disabledDays:[6]
 	});
@@ -182,7 +187,14 @@ function drawForm(rowData) {
 				<td class="inputLabelTd"><span class="required">*</span>截止日期：</td>
 				<td class="inputTd">
 					<div class="time_bg">
-						<input type="text" class="search_time150 valid" name="end_diningTime" id="end_diningTime" ><!-- 时间选择控件-->
+						<c:choose>
+							<c:when test="${isHR}">
+								<input type="text" class="search_time150 valid" name="end_diningTime" id="end_diningTime2" ><!-- 时间选择控件-->
+							</c:when>
+							<c:otherwise>
+								<input type="text" class="search_time150 valid" name="end_diningTime" id="end_diningTime" ><!-- 时间选择控件-->
+							</c:otherwise>
+						</c:choose>
 						<i class="search_time_ico2"></i>
 					</div>
 				</td>
