@@ -31,12 +31,14 @@
 				<li style="width:180px;">
 						<select class="search_choose" name="assignFlag" id="assignFlag" mainid="assignFlag" style="width:100px;">
 							<option value="1">未发放</option>
+							<option value="">所有</option>
 					</select><span>发放状态:</span>
 				</li><!-- 输入框--></c:if>
 				<c:if test="${isAssign}">
 				<li style="width:180px;">
 						<select class="search_choose" name="checkFlag" id="checkFlag" mainid="checkFlag" style="width:100px;">
 							<option value="2">已审核</option>
+							<option value="">所有</option>
 					</select><span>审核状态:</span>
 				</li><!-- 输入框-->
 				<li style="width:180px;">

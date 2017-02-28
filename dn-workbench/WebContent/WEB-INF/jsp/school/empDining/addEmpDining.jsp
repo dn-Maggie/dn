@@ -25,7 +25,7 @@ $(function() {
              }
 		}else{//多个日期
 			var startDate = new Date($("#start_diningTime").val());
-			var endDate = new Date($("#end_diningTime").val());
+			var endDate = new Date($("input[name='end_diningTime']").val());
 			var diff=dateDiff(startDate,endDate)+1;
 			for (var i = 0;i<getOrderType().length;i++) {
 	            for(var j = 0,dateTemp = new Date();j<diff;j++){
@@ -71,7 +71,7 @@ $(function() {
 	}); 
 	new biz.datepicker({
 		id : "#start_diningTime",
-		minDate:'%y-%M-{%d+1}',
+		minDate:'%y-%M-{%d}',
 		maxDate:'%y-%M-%ld',
 		dateFmt:'yyyy-MM-dd',
 		disabledDays:[6]
@@ -83,6 +83,11 @@ $(function() {
 		dateFmt:'yyyy-MM-dd',
 		disabledDays:[6]
 	});
+	new biz.datepicker({
+		id : "#end_diningTime2",
+		dateFmt:'yyyy-MM-dd',
+		disabledDays:[6]
+	});
 });
 //判断两个日期差值
 function dateDiff(startDate,endDate){
@@ -90,7 +95,7 @@ function dateDiff(startDate,endDate){
 }
 //判断是否有多个日期
 function isLotOrderTime(){
-	if($("#start_diningTime").val()===$("#end_diningTime").val()){
+	if($("#start_diningTime").val()===$("input[name='end_diningTime']").val()){
 		return false;
 	}else{
 		return true;
@@ -155,7 +160,7 @@ function drawForm(rowData) {
 				<td class="inputLabelTd" ><span class="required">*</span>员工姓名：</td>
 				<td class="inputTd">
 				<c:choose>
-					<c:when test="${isHR}">
+					<c:when test="${isHR||isAdmin}">
 						<input id="edit_empNickName" name="empNickName" type="text" class="text" onclick="employeeMgt()"/>
 						<input id="edit_empId" name="empId" type="hidden"/>
 					</c:when>
@@ -182,7 +187,14 @@ function drawForm(rowData) {
 				<td class="inputLabelTd"><span class="required">*</span>截止日期：</td>
 				<td class="inputTd">
 					<div class="time_bg">
-						<input type="text" class="search_time150 valid" name="end_diningTime" id="end_diningTime" ><!-- 时间选择控件-->
+						<c:choose>
+							<c:when test="${isHR||isAdmin}">
+								<input type="text" class="search_time150 valid" name="end_diningTime" id="end_diningTime2" ><!-- 时间选择控件-->
+							</c:when>
+							<c:otherwise>
+								<input type="text" class="search_time150 valid" name="end_diningTime" id="end_diningTime" ><!-- 时间选择控件-->
+							</c:otherwise>
+						</c:choose>
 						<i class="search_time_ico2"></i>
 					</div>
 				</td>

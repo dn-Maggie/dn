@@ -62,6 +62,7 @@ public class EmpDiningController{
 				mv.addObject("isHR",true);
 			}
 		}
+		if(Utils.isSuperAdmin(request)){mv.addObject("isAdmin",true);}
 		return mv;
 	}
 	
@@ -133,6 +134,7 @@ public class EmpDiningController{
 				mv.addObject("isHR",true);
 			}
 		}
+		if(Utils.isSuperAdmin(request)){mv.addObject("isAdmin",true);}
 		return mv;
 	}
 	
