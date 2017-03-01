@@ -67,5 +67,7 @@ public interface EmployeeService  {
 	public Employee getNowEmpNo();
 
 	public Employee getEmpByEmpNo(String empNo);
+
+	public ResultMessage updateNotDining(Employee employee);
 	
 }

@@ -278,6 +278,16 @@ public class EmployeeController{
 	public void update(Employee employee,HttpServletRequest request,HttpServletResponse response){
 		AjaxUtils.sendAjaxForObjectStr(response,employeeService.update(employee));	
 	}
+	/**
+	 * 修改员工订餐方法
+	 * @param employee Employee：实体对象
+	 * @param response HttpServletResponse
+	 * @return: ajax输入json字符串
+	 */	
+	@RequestMapping("/updateNotDining")
+	public void updateNotDining(Employee employee,HttpServletRequest request,HttpServletResponse response){
+		AjaxUtils.sendAjaxForObjectStr(response,employeeService.updateNotDining(employee));	
+	}
 	
 	/**
 	 * 异步ajax通过员工姓名模糊查询员工id返回

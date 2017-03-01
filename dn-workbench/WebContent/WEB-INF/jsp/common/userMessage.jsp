@@ -520,7 +520,17 @@ body{-moz-user-select:none;-webkit-user-select:none;
 					<div class="itemBoxInfo">
 						<ul class="infos">
 							<li class="infoItem"><a class="fastItem"><i class="iconfont-xsmall">&#xe7c6; </i>我的业绩</a><a class="fastItem"><i class="iconfont-xsmall">&#xe7c6; </i>费用借款</a></li>
-							<li class="infoItem"><a class="fastItem"><i class="iconfont-xsmall">&#xe7c6; </i>修改信息</a><a class="fastItem" id="expenseApply"><i class="iconfont-xsmall">&#xe7c6; </i>费用报销</a></li>
+							<!-- <li class="infoItem"><a class="fastItem" id="notDining"><i class="iconfont-xsmall">&#xe7c6; </i>修改信息长期退餐</a> -->
+							<li class="infoItem">
+							<c:choose>
+								<c:when test="${employee.notDining=='1'}">
+									<a class="fastItem" id="dining"><i class="iconfont-xsmall">&#xe7c6; </i>取消长期退餐</a><a class="fastItem" id="expenseApply"><i class="iconfont-xsmall">&#xe7c6; </i>费用报销</a>
+								</c:when>
+								<c:otherwise>
+									<a class="fastItem" id="notDining"><i class="iconfont-xsmall">&#xe7c6; </i>长期退餐</a><a class="fastItem" id="expenseApply"><i class="iconfont-xsmall">&#xe7c6; </i>费用报销</a>
+								</c:otherwise>
+							</c:choose>
+							</li>
 							<li class="infoItem"><a class="fastItem" id="orderLunch"><i class="iconfont-xsmall">&#xe7c6; </i>退订中餐</a><a class="fastItem"><i class="iconfont-xsmall">&#xe7c6; </i>调休申请</a></li>
 							<li class="infoItem"><a class="fastItem" id="orderSupper"><i class="iconfont-xsmall">&#xe7c6; </i>退订晚餐</a><a class="fastItem" id="leaveApply"><i class="iconfont-xsmall">&#xe7c6; </i>请假申请</a></li>
 						</ul>
@@ -612,6 +622,56 @@ body{-moz-user-select:none;-webkit-user-select:none;
 				});
 				edit_password_iframe_dialog.open();
 		})
+	})
+	.on('click', '#dining', function() {
+		new biz.alert({type:"confirm",message:"确定取消长期退餐?",title:"  操作确认",callback:function(result){
+			if(result){
+				var paramDatas = {
+					id:$("#userid").text(),
+					notDining:'0',
+				};
+				 $ .ajax({
+    				url: "<m:url value='/employee/updateNotDining.do'/>",
+    				type : "post",
+    				cache:false,
+    				async : false,
+    				dataType:"json",
+    				data: paramDatas,
+    				success: function(data, textStatus, jqXHR){
+    					if(data.status==1){
+    						showInfo("取消成功",3000);
+    					}else{
+    						showInfo("取消失败",3000);
+    					}
+    				}
+    			}); 
+			}
+		}}) ;   
+	})
+	.on('click', '#notDining', function() {
+		new biz.alert({type:"confirm",message:"确定长期退餐?",title:"  操作确认",callback:function(result){
+			if(result){
+				var paramDatas = {
+						id:$("#userid").text(),
+						notDining:'1',
+					};
+					 $ .ajax({
+	    				url: "<m:url value='/employee/updateNotDining.do'/>",
+	    				type : "post",
+	    				cache:false,
+	    				async : false,
+	    				dataType:"json",
+	    				data: paramDatas,
+	    				success: function(data, textStatus, jqXHR){
+	    					if(data.status==1){
+	    						showInfo("退订成功",3000);
+	    					}else{
+	    						showInfo("已经退订",3000);
+	    					}
+	    				}
+	    			}); 
+			}
+		}}) ;   
 	})
 	// 退订中餐
 	.on('click', '#orderLunch', function() {

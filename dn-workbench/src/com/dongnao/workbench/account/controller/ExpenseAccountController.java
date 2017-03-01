@@ -138,9 +138,11 @@ public class ExpenseAccountController{
 		String userRole = user.getRoleId();
 		Pattern headLeaderRole = Pattern.compile("cce57309-c36a-4b2b-8596-4bc3ea008e88");
 		Pattern assignRole = Pattern.compile("695ede31-ef87-48fb-ad25-cc6e2e7fb67a");
+		Pattern accountRole = Pattern.compile("d6140a75-83f3-4cd0-957b-5309e5dcc32f");
 		Matcher headLeader = headLeaderRole.matcher(userRole);
 		Matcher isAssign = assignRole.matcher(userRole);
-		if(headLeader.find()){
+		Matcher isAccount = accountRole.matcher(userRole);
+		if(headLeader.find()||isAccount.find()){
 			mv.addObject("isAccount",true);
 		}
 		else if(isAssign.find()){

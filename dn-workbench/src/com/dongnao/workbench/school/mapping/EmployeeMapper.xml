@@ -41,6 +41,7 @@
 		<result column="curr_state" property="currState" jdbcType="VARCHAR" />
 		<result column="foxmail" property="foxmail" jdbcType="VARCHAR" />
 		<result column="probation" property="probation" jdbcType="VARCHAR" />
+		<result column="not_dining" property="notDining" jdbcType="CHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 	 				id,
@@ -128,7 +129,8 @@
 					e.note,
 					e.curr_state,
 					e.foxmail,
-					e.probation
+					e.probation,
+					e.not_dining 
 		from employee as e
 		LEFT join basic_org bo on e.dept_no = bo.org_no
 		where e.id = #{id,jdbcType=VARCHAR}
@@ -157,7 +159,8 @@
 			e.note,
 			e.curr_state,
 			e.foxmail,
-			e.probation
+			e.probation,
+			e.not_dining 
 		from employee as e
 		LEFT join basic_org bo on e.dept_no = bo.org_no
 		where e.emp_no = #{empNo,jdbcType=VARCHAR}
@@ -415,7 +418,8 @@
 				 ,note           
 				 ,curr_state  
 				 ,foxmail    
-				 ,probation           
+				 ,probation      
+				 ,not_dining     
 		)values (
 					#{id,jdbcType=VARCHAR}
 					,#{empNo,jdbcType=VARCHAR}
@@ -456,6 +460,7 @@
 					,#{currState,jdbcType=VARCHAR}
 					,#{foxmail,jdbcType=VARCHAR}
 					,#{probation,jdbcType=INTEGER}
+					,'0'
 				)
 	</insert>
 	
@@ -499,6 +504,14 @@
 				,curr_state = #{currState,jdbcType=VARCHAR}
 				,foxmail = #{foxmail,jdbcType=VARCHAR}
 				,probation = #{probation,jdbcType=INTEGER}
+			where id = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	
+	<!-- 长期取消订餐 -->
+	<update id="notDin" parameterType="com.dongnao.workbench.school.model.Employee">
+		update employee  set
+			not_dining = #{notDining,jdbcType=VARCHAR}
 			where id = #{id,jdbcType=VARCHAR}
 	</update>
 	

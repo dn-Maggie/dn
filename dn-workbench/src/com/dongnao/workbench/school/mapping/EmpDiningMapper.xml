@@ -84,7 +84,7 @@
 		FROM 
 			employee t1 
 		WHERE 
-			t1.curr_state not in (3,4)
+			t1.curr_state not in (3,4) AND t1.not_dining !='1'
 		AND 
 			(id,emp_no) not in
 			(select

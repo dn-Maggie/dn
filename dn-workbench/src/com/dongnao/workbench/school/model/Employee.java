@@ -22,6 +22,7 @@ public class Employee extends Model{
 	                 **/
 				   			private String empNo;
 				   			private String deptLeader;
+				   			private String notDining;
 		            /**
 	                 * 姓名
 	                 **/
@@ -890,6 +891,14 @@ public class Employee extends Model{
 
 				public void setLeaveDate(Date leaveDate) {
 					this.leaveDate = leaveDate;
+				}
+
+				public String getNotDining() {
+					return notDining;
+				}
+
+				public void setNotDining(String notDining) {
+					this.notDining = notDining;
 				}
 		
 			

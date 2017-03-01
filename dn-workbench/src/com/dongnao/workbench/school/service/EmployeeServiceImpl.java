@@ -102,5 +102,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 	 */
 	public Employee getEmpByEmpNo(String empNo) {
 		return employeeMapper.getEmpByEmpNo(empNo);
+	}
+
+	public ResultMessage updateNotDining(Employee employee) {
+		try {
+			employeeMapper.notDin(employee);
+		} catch (Exception e) {
+			return AjaxUtils.getResultMessage(0,e.getMessage());
+		}
+		return AjaxUtils.getSuccessMessage();
 	};
 }
