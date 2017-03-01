@@ -94,7 +94,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>fileUpload</servlet-name>
-    <url-pattern>/file/fileUpload</url-pattern>
+    <url-pattern>/upload/fileUpload</url-pattern>
   </servlet-mapping>
   
      <servlet>
@@ -104,7 +104,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>fileDownload</servlet-name>
-    <url-pattern>/file/fileDownload</url-pattern>
+    <url-pattern>/download/fileDownload</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>
