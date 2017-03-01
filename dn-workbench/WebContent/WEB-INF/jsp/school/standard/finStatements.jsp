@@ -201,9 +201,20 @@ input[name='timeQuantum']:checked+label{
 					</div>
     </script>
 
-	<script type="text/template" id="subject-tpl">
+	<script type="text/template" id="subject-tpl-first">
 					<tr class="ui-widget-content jqgrow ui-row-ltr {{class}}">
-						<td class="first" style="color:#444444">{{subject}}</td><td>{{classType}}</td>
+						<td class="first" style="color:#444444" rowspan={{subsize}}>{{subject}}</td><td>{{classType}}</td>
+						<td>{{jan}}</td><td>{{feb}}</td>
+						<td>{{mar}}</td><td>{{apr}}</td>
+						<td>{{may}}</td><td>{{jun}}</td>
+						<td>{{jul}}</td><td>{{aug}}</td>
+						<td>{{sep}}</td><td>{{oct}}</td>
+						<td>{{nov}}</td><td>{{dec}}</td><td>{{total}}</td>
+					</tr>
+    </script>
+    <script type="text/template" id="subject-tpl">
+					<tr class="ui-widget-content jqgrow ui-row-ltr {{class}}">
+						<td>{{classType}}</td>
 						<td>{{jan}}</td><td>{{feb}}</td>
 						<td>{{mar}}</td><td>{{apr}}</td>
 						<td>{{may}}</td><td>{{jun}}</td>
@@ -338,25 +349,28 @@ input[name='timeQuantum']:checked+label{
     	//最后把模板添加到html里面
     	//将该对象模板进行替换
     	for(var i = 0;i<subArr.length;i++){
+        	var tpl = '#subject-tpl-first';
     		var achieveTotal = 0,costTotal=0;
     		if(typeof(subArr[i].achieve)!="undefined"){
     			achieveTotal = getTotal(subArr[i].achieve);
     			if($('#achieve')[0].checked){
-    				replaceTml(subArr[i].j_subject,subArr[i].achieve,'总业绩',achieveTotal);
+    				replaceTml(tpl,subArr[i].j_subject,subArr[i].achieve,'业绩',achieveTotal);
+    				tpl = '#subject-tpl';
     			}
     		}
     		if(typeof(subArr[i].cost)!="undefined"){
     			costTotal  = getTotal(subArr[i].cost);
     			if($('#cost')[0].checked){
-    				replaceTml(subArr[i].j_subject,subArr[i].cost,'总成本',costTotal);
+    				replaceTml(tpl,subArr[i].j_subject,subArr[i].cost,'成本',costTotal);
+    				tpl = '#subject-tpl';
     			}
     		}
     		if ($('#profit')[0].checked) {
-    			var trTpl = $('#subject-tpl').html();//获取模板
+    			var trTpl = $(tpl).html();//获取模板DEWWWW
     		 	htmlTemp.push(trTpl
     		 		   .replace('{{class}}', 'profit')
    				       .replace('{{subject}}', subArr[i].j_subject)
-   				       .replace('{{classType}}', '总利润')
+   				       .replace('{{classType}}', '利润')
    				       .replace('{{jan}}', (subArr[i].achieve.monthData[0]-subArr[i].cost.monthData[0]).toFixed(2)||0)
    				       .replace('{{feb}}', (subArr[i].achieve.monthData[1]-subArr[i].cost.monthData[1]).toFixed(2)||0)
    				       .replace('{{mar}}', (subArr[i].achieve.monthData[2]-subArr[i].cost.monthData[2]).toFixed(2)||0)
@@ -370,7 +384,7 @@ input[name='timeQuantum']:checked+label{
    				       .replace('{{nov}}', (subArr[i].achieve.monthData[10]-subArr[i].cost.monthData[10]).toFixed(2)||0)
    				       .replace('{{dec}}', (subArr[i].achieve.monthData[11]-subArr[i].cost.monthData[11]).toFixed(2)||0)
    				       .replace('{{total}}',(achieveTotal-costTotal).toFixed(2)||0)
-	    		) 
+	    		);
     		}
     	}
     	
@@ -384,10 +398,11 @@ input[name='timeQuantum']:checked+label{
     		return total;
     	}
     	//替换模板
-    	function replaceTml(subName,subObj,classType,total){
-    		   var trTpl = $('#subject-tpl').html();//获取模板
+    	function replaceTml(temp,subName,subObj,classType,total){
+    		   var trTpl = $(temp).html();//获取模板
     		   htmlTemp.push(trTpl
     				   .replace('{{class}}', '')
+    				   .replace('{{subsize}}', $("[name='timeQuantum']:checked").size())
     			       .replace('{{subject}}', subName)
     			       .replace('{{classType}}', classType)
     			       .replace('{{jan}}', subObj.monthData[0]||0)
@@ -588,7 +603,6 @@ input[name='timeQuantum']:checked+label{
 				adnext.modata = monthmoney;
 				alldata.push(adnext);
 			}
-			//console.log(alldata);
 		}
    	}
    	
@@ -602,18 +616,12 @@ input[name='timeQuantum']:checked+label{
 			if(alldata[o].deptname.toLowerCase()==chartid){
 				for(var key in alldata[o].modata){//遍历data数据放入names 
 					names.push(key);//names存放的是key值 
-					//console.log(names);
 				}
-/* 				names.sort(function compare(v1,v2){
-					return  v1.split("-")[0]==v2.split("-")[0]?v1.split("-")[1]-v2.split("-")[1]:v1.split("-")[0]>v2.split("-")[0];
-				}); */
 				var name;
 				for(var j=0;j<names.length;j++){    
 					name = alldata[o].modata[names[j]];
-					console.log(alldata[0].modata[names[j]]);
 					if(name){
 						zyj.push(Math.round(name.zyj)||0);
-						console.log(name.zyj);
 						zcb.push(Math.round(name.zcb)||0);
 						profit.push((name.zyj-name.zcb).toFixed(2)||0);
 					}else{
@@ -626,7 +634,6 @@ input[name='timeQuantum']:checked+label{
 		var did = "m"+chartid;
 		var mainChart = echarts.init(document.getElementById(did.toLowerCase()));
 		mainChart.showLoading();
-		//console.log(1);
 		$(window).on('resize',function(){//大小自适应
 			mainChart.resize();
 		});
@@ -691,14 +698,7 @@ input[name='timeQuantum']:checked+label{
 		}
 		mainChart.setOption(option);
 		mainChart.hideLoading();
-		//console.log(2);
 		window.onresize=mainChart.resize;
-/* 		 window.addEventListener("resize",function(){
-			   mainChart.resize();
-			});
-		 $(window).on('resize',function(){//大小自适应
-				mainChart.resize();
-			}); */
 		}
    	
     	//重置查询条件
@@ -718,7 +718,6 @@ input[name='timeQuantum']:checked+label{
 	   			dataType:"json",
 	   			success : function(data) {
 	   				arr.push(data);
-	   				//console.log(arr);
 	   			}
 	   		});
     };
