@@ -86,6 +86,27 @@
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  
+   <servlet>
+    <servlet-name>fileUpload</servlet-name>
+    <servlet-class>com.dongnao.workbench.fileUpload.FileUpload</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>fileUpload</servlet-name>
+    <url-pattern>/upload/fileUpload</url-pattern>
+  </servlet-mapping>
+  
+     <servlet>
+    <servlet-name>fileDownload</servlet-name>
+    <servlet-class>com.dongnao.workbench.fileUpload.FileDownload</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>fileDownload</servlet-name>
+    <url-pattern>/download/fileDownload</url-pattern>
+  </servlet-mapping>
+  
   <servlet-mapping>
     <servlet-name>SpringMVC</servlet-name>
     <url-pattern>*.do</url-pattern>

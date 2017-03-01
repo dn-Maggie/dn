@@ -505,8 +505,6 @@ public class EmpSalaryController{
 		AjaxUtils.sendAjaxForObjectStr(
 				response,empSalaryService.update(empSalary));	
 	}
-	
-	
 
 	/**
 	 * 工资成功发放后添加记录到流水表
@@ -539,7 +537,7 @@ public class EmpSalaryController{
 					accountFlow.setEmpId(entity.getEmpId());
 					accountFlowService.add(accountFlow);
 					entity.setAssignFlag("2");
-					entity.setNote("已生成流水");
+					//entity.setNote("已生成流水");
 					empSalaryService.assign(entity);
 				}
 				map.put("msg", "成功");

@@ -84,8 +84,7 @@
 	</sql>
 	
 
-	<select id="getByPrimaryKey" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
+	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select a.parent_name as comSourceName, a.sub_name as sourceSubclass,
 		<include refid="Base_Column_List" />
 		from vip_student as v

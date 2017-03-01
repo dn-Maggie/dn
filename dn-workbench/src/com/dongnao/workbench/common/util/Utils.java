@@ -559,7 +559,7 @@ public class Utils {
 	 * 文件上传_菜单图片上传
 	 * 
 	 * @param file
-	 * @return 返回文件相对路劲 \2015\02\15\*.
+	 * @return 返回文件相对路径 \2015\02\15\*.
 	 * @throws Exception
 	 */
 	public static String uploadFile4menu(MultipartFile file,
@@ -570,7 +570,7 @@ public class Utils {
 				filename.lastIndexOf(".") + 1);
 		String realName = String.valueOf(System.currentTimeMillis()
 				+ ((int) (Math.random() * 900) + 100));// 新文件名
-		String destPath = "";// 相对路劲
+		String destPath = "";// 相对路径
 		String fileRootPath = req.getSession().getServletContext()
 				.getRealPath("/")
 				+ "images" + File.separator + "bigicon";// 根目录

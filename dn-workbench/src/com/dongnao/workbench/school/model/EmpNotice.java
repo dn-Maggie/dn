@@ -49,7 +49,10 @@ public class EmpNotice extends Model{
 	                 **/
 				   			private String noticeContent;
 		   		
-	
+				   			private String fileSize;
+				   			private String fileSuffix;
+				   			private String fileUrl;
+				   			private String fileName;
 				
 		  			/**
 			 * 获取 主键
@@ -177,7 +180,40 @@ public class EmpNotice extends Model{
 			public void setEditId(String editId) {
 				this.editId = editId;
 			}
-		   		
+
+			public String getFileSize() {
+				return fileSize;
+			}
+
+			public void setFileSize(String fileSize) {
+				this.fileSize = fileSize;
+			}
+
+			public String getFileSuffix() {
+				return fileSuffix;
+			}
+
+			public void setFileSuffix(String fileSuffix) {
+				this.fileSuffix = fileSuffix;
+			}
+
+			public String getFileUrl() {
+				return fileUrl;
+			}
+
+			public void setFileUrl(String fileUrl) {
+				this.fileUrl = fileUrl;
+			}
+
+			public String getFileName() {
+				return fileName;
+			}
+
+			public void setFileName(String fileName) {
+				this.fileName = fileName;
+			}
+
+
 		
 		
 			

@@ -88,14 +88,34 @@ body{-moz-user-select:none;-webkit-user-select:none;
 		color: #438eb9;
 		cursor: pointer;
 	}
-	.infoItem>.noticeItem{
+	.infoItem>.noticeItemleft{
 	    display: inline-block;
-	    width: 97%;
+	    width:70%;
 	    text-align: left;
 	    color: #484848;
 	    cursor: pointer;
 	    text-indent: 10px;
+	    float:left;
 	}
+	.infoItem>.noticeItemright{
+	    display: inline-block;
+	    width:30%;
+	    text-align: left;
+	    color: #484848;
+	    cursor: pointer;
+	    text-indent: 10px;
+	    float:left;
+	}
+	.filedownload{
+		width:30%;
+		text-align: left;
+		display:inline-block;
+		text-indent: 10px;
+		color: #438eb9;
+		cursor: pointer;
+	}
+
+	
 </style>
 <script type="text/javascript">
 	jQuery(function($) {
@@ -480,7 +500,7 @@ body{-moz-user-select:none;-webkit-user-select:none;
 						<ul class="infos">
 							<li class="infoItem"><span>【累计请假】</span><a> 天</a></li>
 							<li class="infoItem"><span>【费用报销】</span><a>${model.myExpense.docAttach} 笔</a></li>
-							<li class="infoItem"><span>【报销总额】</span><a>${model.myExpense.expenseMoney} 笔</a></li>
+							<li class="infoItem"><span>【报销总额】</span><a>${model.myExpense.expenseMoney} 元</a></li>
 							<li class="infoItem"><span>【业绩总额】</span><a>${model.myPerformance.performance} 元</a></li>
 							<!-- <li class="infoItem"><span>【累计迟到】</span><a> 次</a></li>
 							<li class="infoItem"><span>【累计早退】</span><a> 次</a></li>
@@ -523,20 +543,30 @@ body{-moz-user-select:none;-webkit-user-select:none;
 				<div class="itemBox">
 					<div class="itemBoxTitle">
 						<span class="nameCenter">
-							<i class="iconfont-xsmall">&#xe7c6; </i>公告通知
+							<i class="iconfont-xsmall">&#xe7c6; </i>员工必读
 						</span>
 					</div>
 					<div class="itemBoxInfo">
 						<ul class="infos">
 							<c:forEach var="noticeList" items="${noticeList}" begin="0" end="3" step="1" varStatus="status">
-		           				<li class="infoItem"><a class="noticeItem" did="${noticeList.id}">${noticeList.noticeTitle}</a></li>
+		           				<li class="infoItem">
+		           					<a class="noticeItemleft" did="${noticeList.id}">${noticeList.noticeTitle}</a>
+		           					<c:if test="${not empty noticeList.fileUrl}"> 
+		           						<form name="form" method="GET" action="<%=request.getContextPath()%>/download/fileDownload">
+		           							<a class="noticeItemright" name="noticeItemright" onclick="" id="noticeItemright" value="${noticeList.id}">
+		           								<i class="fa fa-download">
+		           									<input type="hidden" name="filedownloadurl" value="${noticeList.fileUrl}"/>
+		           								</i>下载附件
+		           							</a>
+		           						</form>
+		           							
+									</c:if> 
+		           				</li>
 		           			</c:forEach>
 						</ul>
 					</div>
 				</div>
-			</li>
-			
-			
+			</li>	
 		</ul>
 	</div>
 	</div> 
@@ -753,7 +783,7 @@ body{-moz-user-select:none;-webkit-user-select:none;
 		}
 	})
 	// 弹出公告通知
-	.on('click', '.noticeItem', function() {
+	.on('click', '.noticeItemleft', function() {
 		var key = this.getAttribute("did");
 		var url="<m:url value='/empNotice/toShowEmpNotice.do'/>?key="+key;
 		show_iframe_dialog = new biz.dialog({
@@ -802,6 +832,43 @@ body{-moz-user-select:none;-webkit-user-select:none;
 		});
   		show_iframe_dialog.open();
 	}) */
+	
+/* 	function downloadData(name){
+	    $('#name').submit();
+	    
+	} */
+	//下载文件ajax请求方式
+	<%-- $('#noticeItemright').click(function(){
+		var paramDatas = {
+				fileUrl:$(this).find('input').val()
+			};		
+		 $.ajax({
+				url: "<%=request.getContextPath()%>/download/fileDownload?filedownloadurl=" + $(this).find('input').val(),
+				type : "get",
+				cache:false,
+				async : false,
+				dataType:"json",
+				data: paramDatas,
+				success: function(data){
+					console.log(1);
+				},
+				error: function(){
+					console.log(2);
+					alert("下载附件失败");
+				}
+			}); 
+	}); --%>
+/* 	
+	 $('#noticeItemright').click(function(){
+		var fid = $(this).parent();
+		fid.submit();
+	});  */
+
+	
+	.on('click', '.noticeItemright', function() {
+		var fid = $(this).parent();
+		fid.submit();
+	})
 </script>
 </body>
 </html>

@@ -5,17 +5,17 @@
 <%@ include file="../../common/header.jsp"%>
 <title></title>
 <script type="text/javascript">
-var gridObj = {};
-var showColModel = [];
-var showUrl = ""
+var gridObj = {};//声明表格对象
+var showColModel = [];//声明表格列名和内容
+var showUrl = ""//声明请求地址
 var arr = [];//总数据结果集
 //定义小计总计的统计字段信息(大写,第一个字段标识在哪列显示“合计”，“小计”字样 )
 //可以合计总计可以单独设置。
 var jsion_sumColumns = {};
-jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";   //总计
+jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";//声明页脚需要求和的总计列
 	$(function(){
 		//$("#endDate").val(new Date().format('yyyy-MM-dd'));
-		var showType = $("#showType").val();
+		var showType = $("#showType").val();//？
 		switch (showType) {
 		case "vipCnt":
 			showUrl = "<m:url value='/vipStudent/listVipStudentCnt.do'/>";
@@ -90,36 +90,36 @@ jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";   //总计
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
            	sortname:"join_time",
            	sortorder:"desc",
-           	multiselect:true,
-           	multiboxonly:true,
-           	footerrow:true,
-           	pager: '#remote_prowed' /*分页栏id*/,
+           	multiselect:true,//多选
+           	multiboxonly:true,//multiselect:为true时才有效，只有点击checkbox时该行才被选中，点击其他列，将清除当前行的选中
+           	footerrow:true,//增加页脚合计行
+           	pager: '#remote_prowed', /*分页栏id*/
      		rowList:[10,20,50,100],//每页显示记录数
-    		rowNum:20,//默认显示15条
-    		jsonReader:{repeatitems: false},
-            colModel:showColModel,
-           	serializeGridData:function(postData){//添加查询条件值
-				var obj = getQueryCondition();
+    		rowNum:20,//表格中可见的记录数。
+    		jsonReader:{repeatitems: false},//JSON数据结构数组
+            colModel:showColModel,//描述列参数数组
+           	serializeGridData:function(postData){//添加查询条件值,序列化传递给ajax请求的的数据。此事件将返回一个已序列化的数据。
+				var obj = getQueryCondition();//返回json格式查询数据
     			$.extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
+    			//嵌套多个对象，类似于数组的合并的操作，obj中与postData相同的属性被覆盖，而且集成了postData的属性
     			return obj;
     		},
-    		gridComplete:function(){
-    			$(".ui-jqgrid-sdiv").show();
+    		gridComplete:function(){//当表格所有数据都加载完成，处理统计行数据
+    			//$(".ui-jqgrid-sdiv").show();//
            		//如果需要统计则需要定义
-               	getFooterJsonData($(this));
+               	getFooterJsonData($(this));//添加页脚合计数据
 	 		}
       	});
         
-  		
-		new biz.datepicker({
-  			id : "#startDate",
-  			maxDate:'#F{$dp.$D(\'endDate\',{d:0});}',
+		new biz.datepicker({//
+  			id : "#startDate",//找到开始时间选择器的id
+  			maxDate:'#F{$dp.$D(\'endDate\',{d:0});}',//
   			dateFmt:'yyyy-MM-dd'
   		});
   	    
-  	    new biz.datepicker({
-  			id : "#endDate",
-  			minDate:'#F{$dp.$D(\'startDate\',{d:0});}',
+  	    new biz.datepicker({//
+  			id : "#endDate",//找到结束时间选择器的id
+  			minDate:'#F{$dp.$D(\'startDate\',{d:0});}',//
   			dateFmt:'yyyy-MM-dd'
   		});
     });
@@ -130,7 +130,7 @@ jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";   //总计
    	var edit_iframe_dialog;
 	//查看的弹出框
 	var show_iframe_dialog;
-	//查看的弹出框
+	//业绩分配的弹出框
 	var manage_iframe_dialog;
   	
 	
@@ -153,8 +153,8 @@ jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";   //总计
   	}
   	
     function edit(){
-		var key = ICSS.utils.getSelectRowData("id");
-		if(key.indexOf(",")>-1||key==""){
+		var key = ICSS.utils.getSelectRowData("id");//?遍历选中的数据行的id值
+		if(key.indexOf(",")>-1||key==""){//是否选择数据判断
 			showMessage("请选择一条数据！");
 			return ;
 		}
@@ -214,7 +214,7 @@ jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";   //总计
 		manage_iframe_dialog.open();
     }
     
-    //关闭管理页面，供子页面调用
+    //关闭业绩分配管理页面，供子页面调用
     function closeManage(){
     	manage_iframe_dialog.close();
     }
@@ -224,16 +224,18 @@ jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";   //总计
     */
     function getQueryCondition(){
        var obj = {};
-		jQuery.each($("#queryForm").serializeArray(),function(i,o){
+		jQuery.each($("#queryForm").serializeArray(),function(i,o){//$("#queryForm").serializeArray()输出以数组形式序列化表单值的结果，返回 JSON 数据结构数据
+			//此方法返回的是 JSON 对象而非 JSON 字符串。需要进行字符串化操作
+			//返回的 JSON 对象是由一个对象数组组成的，其中每个对象包含一个或两个名值对 —— name 参数和 value 参数
         	if(o.value){
-        		obj[o.name] = o.value;
+        		obj[o.name] = o.value;//遍历json对象把数据存入obj中
         	}
         });
 		return obj;
     }
     //查询Grid数据
     function doSearch(isStayCurrentPage){
-    	if(!isStayCurrentPage)gridObj.setGridParam({"page":"1"});
+    	if(!isStayCurrentPage)gridObj.setGridParam({"page":"1"});//设置一个特定的参数。有些参数需trigger(“reloadGrid”)才能生效。
     	gridObj.trigger('reloadGrid');
     	//连带查询grid数据统计
     }
@@ -264,21 +266,21 @@ jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";   //总计
     	}
     }
     
-  //总计
+  //统计行数据
   //@param jqGridObj
   function getFooterJsonData(jqGridObj){
      var addFootData = {} ;
-	 var resObj = ajaxGetStatistic();
+	 var resObj = ajaxGetStatistic();//根据条件从数据库获取结果集
      try{
        //总计
-   		var _strColumns = jsion_sumColumns.sumColumns.split(",");
-           for(var k = 0;k<_strColumns.length; k++){
+   		var _strColumns = jsion_sumColumns.sumColumns.split(",");//拆分jsion_sumColumns数组
+           for(var k = 0;k<_strColumns.length; k++){//遍历resObj的值存入addFootData
         	   k == 0?addFootData[_strColumns[k]] = "总计":addFootData[_strColumns[k]] = Math.round(resObj[_strColumns[k]]) ||0;
            }
      }
    	catch(e){
     }    
-   		jqGridObj.jqGrid('footerData','set',addFootData,false);
+   		jqGridObj.jqGrid('footerData','set',addFootData,false);//添加数据
   	}
 	//根据条件从数据库获取结果集
 	function ajaxGetStatistic(){

@@ -188,7 +188,9 @@ function drawForm(rowData) {
 				<td class="inputTd">
 					<div class="time_bg">
 						<c:choose>
+
 							<c:when test="${isHR||isAdmin}">
+
 								<input type="text" class="search_time150 valid" name="end_diningTime" id="end_diningTime2" ><!-- 时间选择控件-->
 							</c:when>
 							<c:otherwise>

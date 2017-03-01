@@ -1,25 +1,43 @@
 package com.dongnao.workbench.school.controller;
 
+import java.io.File;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.dongnao.workbench.basic.model.UserInfo;
+import com.dongnao.workbench.common.excel.ImportExcelUtil;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.DateUtil;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.common.util.FormatEntity;
+import com.dongnao.workbench.common.util.StringUtil;
 import com.dongnao.workbench.school.model.EmpNotice;
 import com.dongnao.workbench.school.service.EmpNoticeService;
 import com.dongnao.workbench.school.service.EmployeeService;
 
+import net.sf.json.JSONObject;
+import sun.org.mozilla.javascript.internal.regexp.SubString;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -32,7 +50,7 @@ import org.springframework.web.servlet.ModelAndView;
  
 @Controller
 @RequestMapping("empNotice")
-public class EmpNoticeController{
+public class EmpNoticeController extends HttpServlet{
 	@Resource
 	private EmpNoticeService empNoticeService;
 	@Resource
@@ -66,14 +84,20 @@ public class EmpNoticeController{
 	 * @param response HttpServletResponse
 	 * @param empNotice EmpNotice:实体类
 	 * @return: ajax输入json字符串
+	 * @throws FileUploadException 
 	 */
 	@RequestMapping("/addEmpNotice")
-	public void add(EmpNotice empNotice,HttpServletRequest request,HttpServletResponse response){
+	public void add(EmpNotice empNotice,HttpServletRequest request,HttpServletResponse response) throws FileUploadException{
 	empNotice.setId(Utils.generateUniqueID());
 	empNotice.setCreateId(Utils.getLoginUserInfoId(request));
 	empNotice.setCreateTime(DateUtil.now());
+	if(empNotice.getFileUrl()!=null&&empNotice.getFileUrl()!=""){
+		String file = empNotice.getFileUrl();
+		file = file.substring(file.lastIndexOf("\\")+1);
+		empNotice.setFileName(file);
+	}
 	AjaxUtils.sendAjaxForObjectStr(
-				response,empNoticeService.add(empNotice));		
+		response,empNoticeService.add(empNotice));		
 	}
 	
 	/**
@@ -150,5 +174,4 @@ public class EmpNoticeController{
 		
 		
 	}
-	
 }

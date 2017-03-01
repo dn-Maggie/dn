@@ -233,20 +233,22 @@ public class StandardController{
 	 * @return ModelAndView
 	 */
 	@RequestMapping("/getStuStatistic")
-	public void getStuStatistic(VipStudent vipStudent,HttpServletRequest request,HttpServletResponse response) {
-		String joinStartDate ="";String joinEndDate ="" ;
-		try{
+	public void getStuStatistic(VipStudent vipStudent, HttpServletRequest request, HttpServletResponse response) {
+		String joinStartDate = "";
+		String joinEndDate = "";
+		try {
 			joinStartDate = vipStudent.getPropsMap().get("joinStartDate").toString();
 			joinEndDate = vipStudent.getPropsMap().get("joinEndDate").toString();
-		}catch(Exception e){}if(joinStartDate.length()>0||joinEndDate.length()>0){
+		} catch (Exception e) {
+		}
+		if (joinStartDate.length() > 0 || joinEndDate.length() > 0) {
 			vipStudent.setJoinStartDate(joinStartDate);
 			vipStudent.setJoinEndDate(joinEndDate);
 		}
-		Map<Object,Object> model = new HashMap<Object,Object>();
+		Map<Object, Object> model = new HashMap<Object, Object>();
 		model.put("curr", vipStudentService.getTotal(vipStudent));
 		AjaxUtils.sendAjaxForMap(response, model);
 	}
-	
 	
 	/**
 	 * 获取统计图表数据
