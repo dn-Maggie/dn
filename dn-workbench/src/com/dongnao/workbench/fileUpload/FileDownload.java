@@ -27,7 +27,9 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
+import org.apache.log4j.config.PropertySetter;
 
+import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.SpringInit;
 import com.dongnao.workbench.school.model.EmpNotice;
 import com.dongnao.workbench.school.service.EmpNoticeService;
@@ -74,10 +76,14 @@ public class FileDownload extends HttpServlet {
 //    	response = fileDownload.downFile("D:\\word\\file\\王瑞.doc", response);
     	// 拿到上下文才能在HttpServlet实现类中调用该接口方法
     	empNoticeService = (EmpNoticeService) SpringInit.getApplicationContext().getBean("empNoticeService");
+    	request.setCharacterEncoding("utf-8");
     	EmpNotice empNotice = new EmpNotice();
     	try {          
 			// path是指欲下载的文件的路径。         
-			File file = new File("D:\\word\\file\\王瑞.docx");  
+    		String file_path = request.getParameter("filedownloadurl");
+    		//String file_name = file_path.substring(file_path.lastIndexOf("/"), file_path.length());
+    		//file_path = "D:\\dn\\file" + file_name;
+			File file = new File(file_path);  
 			empNotice.setId("");
 			// 取得文件名。          
 			String filename = file.getName();            
@@ -101,7 +107,8 @@ public class FileDownload extends HttpServlet {
 			 toClient.write(buffer);  
 			 toClient.flush();  
 			 toClient.close();     
-			 file.delete();       
+//			 JSONObject reJo = new JSONObject();
+//			 AjaxUtils.sendAjaxForObject(response, reJo);
 			 } catch (IOException e) {   
 				 logger.error("下载文档(WordUtil)出错：【msg："+e.getMessage()+"】 ");  
 				 e.printStackTrace();      

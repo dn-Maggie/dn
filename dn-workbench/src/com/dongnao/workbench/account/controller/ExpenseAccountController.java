@@ -73,14 +73,14 @@ public class ExpenseAccountController{
 	}
 	
 	/**
-	 * 进入查看页面方法
+	 * 进入报销详情查看页面方法
 	 * @param key String：实体id
 	 * @return ModelAndView: 查询实体
 	 */	
 	@RequestMapping("/toShowExpenseAccount")
 	public ModelAndView toShow(String key){
 		ExpenseAccount entity = expenseAccountService.getByPrimaryKey(key);
-		Map<String,String> expenseAccount = FormatEntity.getObjectValue(entity);
+		Map<String,String> expenseAccount = FormatEntity.getObjectValue(entity);//讲对象转换成map，工具类格式化实体
 		return new ModelAndView("WEB-INF/jsp/account/expenseAccount/detailInfo","expenseAccount",expenseAccount );
 	}
 	

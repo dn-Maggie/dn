@@ -12,6 +12,7 @@
 		<result column="file_size" property="fileSize" jdbcType="VARCHAR" />
 		<result column="file_suffix" property="fileSuffix" jdbcType="VARCHAR" />
 		<result column="file_url" property="fileUrl" jdbcType="VARCHAR" />
+		<result column="file_name" property="fileName" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 	 	id,
@@ -23,7 +24,8 @@
 		edit_id,
 		file_size,
 		file_suffix,
-		file_url
+		file_url,
+		file_name
 	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -34,7 +36,11 @@
 			e.nick_name as createName,
 			e1.nick_name as editName,
 			en.notice_title,
-			en.notice_content
+			en.notice_content,
+			en.file_size,
+			en.file_suffix,
+			en.file_url,
+			en.file_name
 		from emp_notice as en
 		LEFT JOIN employee e on e.id = en.create_id
 		LEFT JOIN employee e1 on e1.id = en.edit_id
@@ -49,7 +55,11 @@
 			e.nick_name as createName,
 			e1.nick_name as editName,
 			en.notice_title,
-			en.notice_content
+			en.notice_content,
+			en.file_size,
+			en.file_suffix,
+			en.file_url,
+			en.file_name
 		from emp_notice as en
 		LEFT JOIN employee e on e.id = en.create_id
 		LEFT JOIN employee e1 on e1.id = en.edit_id
@@ -106,6 +116,7 @@
 			,#{fileSize,jdbcType=VARCHAR}
 			,#{fileSuffix,jdbcType=VARCHAR}
 			,#{fileUrl,jdbcType=VARCHAR}
+			,#{fileName,jdbcType=VARCHAR}
 		)
 	</insert>
 	

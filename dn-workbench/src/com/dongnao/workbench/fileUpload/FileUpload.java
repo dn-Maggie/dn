@@ -18,6 +18,9 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
+import org.apache.log4j.config.PropertyGetter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.propertyeditors.PropertiesEditor;
 
 import com.dongnao.workbench.common.util.DateUtil;
 import com.dongnao.workbench.common.util.SpringInit;
@@ -26,13 +29,14 @@ import com.dongnao.workbench.school.model.EmpNotice;
 import com.dongnao.workbench.school.service.EmpNoticeService;
 
 import net.sf.json.JSONObject;
-
+import com.dongnao.workbench.common.util.AjaxUtils;
 /**
  * Servlet implementation class FileUpload
  */
 @WebServlet("/FileUpload")
 public class FileUpload extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
 
 	Logger logger = Logger.getLogger(FileUpload.class);// 日志
 
@@ -70,12 +74,8 @@ public class FileUpload extends HttpServlet {
 			throws ServletException, IOException {
 		// 拿到上下文才能在HttpServlet实现类中调用该接口方法
 		empNoticeService = (EmpNoticeService) SpringInit.getApplicationContext().getBean("empNoticeService");
-//		EmpNotice empNotice = new EmpNotice();
-//		empNotice.setId(Utils.generateUniqueID());
-//		empNotice.setCreateId(Utils.getLoginUserInfoId(request));
-//		empNotice.setCreateTime(DateUtil.now());
 		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/json; charset=utf-8");//设置返回json的编码格式，防止在jsp页面出现乱码
+		response.setContentType("application/xml");//设置返回json的编码格式，防止在jsp页面出现乱码
 		response.setCharacterEncoding("UTF-8");
 		JSONObject reJo = new JSONObject();//设置返回json
 		// 从listEmpNotice.jsp中拿取数据，因为上传页的编码格式跟一般的不同，使用的是enctype="multipart/form-data"
@@ -139,26 +139,22 @@ public class FileUpload extends HttpServlet {
 					if ((fileName == null || fileName.equals("")) && Long.parseLong(size) == 0) {
 						continue;
 					}
-					String suffix = fileName.substring(fileName.lastIndexOf(".")+1);//得到文件后缀名
+					//String suffix = fileName.substring(fileName.lastIndexOf(".")+1);//得到文件后缀名
 					//fileName = fileName.substring(fileName.lastIndexOf("\\") + 1, fileName.length());
 					// 保存文件在服务器的物理磁盘中：第一个参数是：完整路径（不包括文件名）第二个参数是：文件名称
 					File file = new File(filePath, fileName);
 					item.write(file);
 					reJo.put("code", "0000");
 					reJo.put("message", "公告发布成功！");
-					reJo.put("fileAddr", request.getScheme() + "://" + request.getServerName() + ":"
-							+ request.getServerPort() + request.getContextPath() + "/file/"  + "/" + fileName);
-					PrintWriter out = response.getWriter();
-					out.print(reJo);
+					reJo.put("fileAddr", filePath  + "\\" + fileName);
+					AjaxUtils.sendAjaxForObject(response, reJo);
 				}
 			}
 		} catch (Exception e) {
 			reJo.put("code", "1111");
 			reJo.put("message", "文件上传失败！");
-			PrintWriter out = response.getWriter();
-			out.print(reJo);
+			AjaxUtils.sendAjaxForObject(response, reJo);
 			e.printStackTrace();
 		}
-		//empNoticeService.add(empNotice);//增加一条公告记录
  	}
 }

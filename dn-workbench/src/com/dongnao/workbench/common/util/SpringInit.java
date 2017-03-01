@@ -8,12 +8,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
- * 描述：spring上下文环境对象设置，获取类
+ * 描述：spring上下文环境对象设置，获取
  * 
- * @author zhou.zheng
+ * @author zhou.zheng 
  * @version 1.0 2013-10-22
  */
-public class SpringInit implements ServletContextListener {
+public class SpringInit implements ServletContextListener { 
 
 	public static ApplicationContext springContext;
 	public static ServletContext  servletContext;

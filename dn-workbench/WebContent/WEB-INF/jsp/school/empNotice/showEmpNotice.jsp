@@ -14,7 +14,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#close_button").click(function() {
 			window.parent.closeShow();
 		});
-	});
+	})
+	
+	.on('click', '.noticeItemright', function() {
+		var fid = $(this).parent();
+		fid.submit();
+	})
 </script>
 <style type="text/css">
 	.button_area{
@@ -47,6 +52,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr class="trContent">
 				<td class="inputTd" colspan="4" style="padding: 10px">${empNotice.noticeContent}</td>
 			</tr>
+			<c:if test="${not empty empNotice.fileUrl}">
+				<tr class="downloadbutton">
+					<td class="" colspan="4" style="padding: 10px">
+						<form name="form" method="GET"
+							action="<%=request.getContextPath()%>/download/fileDownload">
+							<a class="noticeItemright" name="noticeItemright" onclick=""
+								id="noticeItemright"> <i class="fa fa-download"> <input
+									type="hidden" name="filedownloadurl"
+									value="${empNotice.fileUrl}" />
+							</i><u>下载附件</u>&nbsp;&nbsp;&nbsp;&nbsp;${empNotice.fileName}
+							</a>
+						</form>
+					</td>
+				</tr>
+			</c:if>
 		</table>
 		<div class="button_area">
 			<input class="ti_bottom"  type="button" id="close_button"  value="关闭"/>

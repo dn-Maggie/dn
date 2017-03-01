@@ -414,7 +414,6 @@ public class VipStudentController {
 		VipStudent entity = vipStudentService.getByPrimaryKey(key);
 		Map<String, String> vipStudent = FormatEntity.getObjectValue(entity);
 		mv.addObject("vipStudent", vipStudent);
-		
 		Map<String,List> er = new HashMap<String, List>();
  		List<Subject> list = subjectService.listByCondition(new Subject());
  		List<Course> list2 =new ArrayList<Course>();

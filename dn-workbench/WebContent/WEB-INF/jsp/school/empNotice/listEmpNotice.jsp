@@ -41,7 +41,7 @@
 								<i class="back_icon import_icon"> </i> 
 								<span>下载附件</span>
 							</a>
-							<form name="worddform" id="worddform" method="post"  action="<%=request.getContextPath()%>/file/fileDownload" >
+							<form name="worddform" id="worddform" method="post"  action="<%=request.getContextPath()%>/download/fileDownload" >
 								<input type="button" id="dfile" name="file" style="display: none" onclick="downloadData();"/>
 							</form>
 						</li>

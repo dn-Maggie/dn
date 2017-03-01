@@ -24,6 +24,8 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 				<value>conf.i18n.message-basicResource</value>
 			</list>
 		</property>  
-	</bean>  
+	</bean> 
+
+ 
  	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/>
 </beans>

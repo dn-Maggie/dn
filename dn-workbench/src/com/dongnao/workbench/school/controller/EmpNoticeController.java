@@ -26,6 +26,7 @@ import com.dongnao.workbench.school.service.EmpNoticeService;
 import com.dongnao.workbench.school.service.EmployeeService;
 
 import net.sf.json.JSONObject;
+import sun.org.mozilla.javascript.internal.regexp.SubString;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -90,8 +91,13 @@ public class EmpNoticeController extends HttpServlet{
 	empNotice.setId(Utils.generateUniqueID());
 	empNotice.setCreateId(Utils.getLoginUserInfoId(request));
 	empNotice.setCreateTime(DateUtil.now());
+	if(empNotice.getFileUrl()!=null&&empNotice.getFileUrl()!=""){
+		String file = empNotice.getFileUrl();
+		file = file.substring(file.lastIndexOf("\\")+1);
+		empNotice.setFileName(file);
+	}
 	AjaxUtils.sendAjaxForObjectStr(
-				response,empNoticeService.add(empNotice));		
+		response,empNoticeService.add(empNotice));		
 	}
 	
 	/**

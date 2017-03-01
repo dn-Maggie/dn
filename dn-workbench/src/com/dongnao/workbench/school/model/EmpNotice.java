@@ -52,6 +52,7 @@ public class EmpNotice extends Model{
 				   			private String fileSize;
 				   			private String fileSuffix;
 				   			private String fileUrl;
+				   			private String fileName;
 				
 		  			/**
 			 * 获取 主键
@@ -202,6 +203,14 @@ public class EmpNotice extends Model{
 
 			public void setFileUrl(String fileUrl) {
 				this.fileUrl = fileUrl;
+			}
+
+			public String getFileName() {
+				return fileName;
+			}
+
+			public void setFileName(String fileName) {
+				this.fileName = fileName;
 			}
 
 
