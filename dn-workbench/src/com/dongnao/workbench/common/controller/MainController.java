@@ -115,23 +115,23 @@ public class MainController {
 		List<Module> menus = null;
 		ModelAndView m = null;
 		Map<String, Object> map = null;
-		if (Utils.isSuperAdmin(request)){
+		if (Utils.isSuperAdmin(request)){//超管
 			menus = moduleService.getMenuListForAdmin();
 			m = new ModelAndView("WEB-INF/jsp/common/adminMain");
 			map = m.getModel();
 			map.put("menus", menus);
 			// isAdmin = true;
 			//userType = "webAdmin";
-		} else if(user.getDutyId().equals("b8d29f69-9c38-4417-bd58-cc0e369c42b8")){
+		} else if(user.getDutyId().equals("b8d29f69-9c38-4417-bd58-cc0e369c42b8")){//外部服务部门
 			menus = moduleService.getMenuListByPcode(Utils.getLoginUserInfo(request).getId());
 			m = new ModelAndView("WEB-INF/jsp/common/allStudent");
 			map = m.getModel();
-			if(user.getRoleId().equals("dc3dfb2e-5e70-4525-9739-beef0856f15c")){
+			if(user.getRoleId().equals("dc3dfb2e-5e70-4525-9739-beef0856f15c")){//外部服务部门管理员
 				map.put("isAdmin", true);
 			}
 			map.put("menus", menus);
 		}
-		else {
+		else {//普通用户
 			menus = moduleService.getMenuListByPcode(Utils.getLoginUserInfo(request).getId());
 			m = new ModelAndView("WEB-INF/jsp/common/userMain");
 			map = m.getModel();
@@ -269,7 +269,11 @@ public class MainController {
 		mv.addObject("noticeList", empNoticeService.listByCondition(new EmpNotice()));
 		
 		mv.addObject("model", model);
-		
+		if(user.getPassword().equals(Constant.INIT_PASSWORD)){//用户密码是初始密码就提示修改密码
+			mv.addObject("isModifyPw", "t");
+		}else{
+			mv.addObject("isModifyPw", "f");
+		}
 		
 		return mv;
 	}
@@ -370,7 +374,7 @@ public class MainController {
 				request.getParameter("password"), StringUtils.EMPTY);
 		// 根据用户SID获取用户实体
 		UserInfo userInfo = userInfoService.getByUserAccount(userName);
-		ResultMessage rm = new ResultMessage();
+ 		ResultMessage rm = new ResultMessage();
 		
 		// 判断用户密码和加密后输入密码是否一致
 		if (userInfo == null || password == null || "".equals(password)) {
@@ -404,6 +408,7 @@ public class MainController {
 
 		// 登陆成功将用户信息放入session中
 		request.getSession().setAttribute(Constant.LOGIN_USER_KEY, userInfo);
+		
 		userInfo.setLastLoginIp(Utils.getRemortIP(request));
 		userInfo.setLastLoginTime(DateUtil.nowSqlTimestamp());
 		userInfoService.updateLastLoginInfo(userInfo);
