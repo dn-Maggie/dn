@@ -50,7 +50,7 @@
 										</span>
 									</span>
 								</h4>
-								<textarea  class="wysiwyg-editor" id="noticeContent" name="noticeContent" style="width:100%;"></textarea>>
+								<textarea  class="wysiwyg-editor" id="noticeContent" name="noticeContent" style="width:100%;"></textarea>
 
 								<div class="widget-toolbox padding-4 clearfix">
 									<div class="btn-group pull-left">

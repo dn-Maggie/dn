@@ -80,7 +80,7 @@ public class FileUpload extends HttpServlet {
 		JSONObject reJo = new JSONObject();//设置返回json
 		// 从listEmpNotice.jsp中拿取数据，因为上传页的编码格式跟一般的不同，使用的是enctype="multipart/form-data"
 		// form提交采用multipart/form-data,无法采用req.getParameter()取得数据
-		File uploadPath = new File("D:" + File.separator + "dn");// File.separator增加路径之间的分隔\\
+		File uploadPath = new File("C:" + File.separator + "home");// File.separator增加路径之间的分隔\\
 		logger.debug("uploadPath=====" + uploadPath);// 打印日志
 		// exists()如果存在的话返回“true”，否则就是返回“false”。isDirectory()判断该路径指示的是否是文件。
 		if (!uploadPath.exists() && !uploadPath.isDirectory()) {

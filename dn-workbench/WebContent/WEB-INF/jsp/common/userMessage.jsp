@@ -819,52 +819,6 @@ body{-moz-user-select:none;-webkit-user-select:none;
 		});
 		show_iframe_dialog.open();
 	})
-	// 修改信息
-	/* .on('click', '.noticeItem', function() {
-		var key = this.getAttribute("did");
-		var url="<m:url value='/empNotice/toShowEmpNotice.do'/>?key="+key;
-		show_iframe_dialog = new biz.dialog({
-		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: $(window).width()*0.6,
-			height: $(window).height()*0.8,
-				title: "公告通知详情"
-		});
-  		show_iframe_dialog.open();
-	}) */
-	
-/* 	function downloadData(name){
-	    $('#name').submit();
-	    
-	} */
-	//下载文件ajax请求方式
-	<%-- $('#noticeItemright').click(function(){
-		var paramDatas = {
-				fileUrl:$(this).find('input').val()
-			};		
-		 $.ajax({
-				url: "<%=request.getContextPath()%>/download/fileDownload?filedownloadurl=" + $(this).find('input').val(),
-				type : "get",
-				cache:false,
-				async : false,
-				dataType:"json",
-				data: paramDatas,
-				success: function(data){
-					console.log(1);
-				},
-				error: function(){
-					console.log(2);
-					alert("下载附件失败");
-				}
-			}); 
-	}); --%>
-/* 	
-	 $('#noticeItemright').click(function(){
-		var fid = $(this).parent();
-		fid.submit();
-	});  */
-
-	
 	.on('click', '.noticeItemright', function() {
 		var fid = $(this).parent();
 		fid.submit();

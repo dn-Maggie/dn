@@ -7,7 +7,6 @@ http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-3.0.xsd">
-
 	<!-- 引入属性文件 -->
 	<context:property-placeholder location="classpath:conf/properties/config.properties" />
 	<!-- service包(自动注入) -->
@@ -25,7 +24,6 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 			</list>
 		</property>  
 	</bean> 
-
  
  	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/>
 </beans>

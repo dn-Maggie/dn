@@ -238,10 +238,7 @@ input[name='timeQuantum']:checked+label{
 				cache:false,
 				success: function(data){
 					chartarr.push(data.rows);
-					//console.log(chartarr);
-					console.log(data.rows);
 					drawGrid(data.rows);
-					 
 					//drawChart();
 				}
 			});
