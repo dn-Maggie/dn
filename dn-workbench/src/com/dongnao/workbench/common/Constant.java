@@ -307,6 +307,11 @@ public class Constant {
 	 * 用户皮肤键
 	 */
 	public static final String SKIN_KEY = "csstheme";
+	
+	/**
+	 * 普通用户的初始密码
+	 */
+	public static final String INIT_PASSWORD = "e10adc3949ba59abbe56e057f20f883e";
 
 	/**
 	 * 定义首页颜色显示区域

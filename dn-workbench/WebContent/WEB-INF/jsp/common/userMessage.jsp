@@ -466,6 +466,7 @@ body{-moz-user-select:none;-webkit-user-select:none;
 		<div class="center-title">
 			<span class="nameCenter">
 				<i class="iconfont-xsmall">&#xe7c6; </i>本月个人业务统计
+				<input type="hidden" name="isModifyPw" id="isModifyPw" value="${isModifyPw}">
 			</span>
 		</div>
 		<div class="container">
@@ -612,6 +613,9 @@ body{-moz-user-select:none;-webkit-user-select:none;
 				});
 				edit_password_iframe_dialog.open();
 		})
+		if($("#isModifyPw").val()=="t"){//如果当前用户还是默认密码的话跳转到修改密码页面
+			_setPwdBtn.click()
+		}
 	})
 	// 退订中餐
 	.on('click', '#orderLunch', function() {
