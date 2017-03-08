@@ -303,7 +303,7 @@ public class UserInfoController extends BaseController{
 		AjaxUtils.sendAjaxForObjectStr(
 				response,
 				userInfoService.update(userInfo, roleId,
-						Utils.getLoginUserInfo(request)));
+					Utils.getLoginUserInfo(request)));
 	}
 
 	/**

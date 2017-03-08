@@ -312,21 +312,19 @@ public class ExpenseAccount extends Model{
 			 * 获取 审核标识
 			 * @return Integer this.checkFlag
 			 */
-			public Integer getCheckFlag(){
-				return this.checkFlag;
-			}
-			
-			/**
-			 * 设置 审核标识
-			 * @param BigDecimal checkFlag 
-			 */
-			public void setCheckFlag(Integer checkFlag){
-				this.checkFlag = checkFlag;
-			}
+
 
 			public String getEnterName() {
 				return enterName;
 			}
+
+			public Integer getCheckFlag() {
+						return checkFlag;
+					}
+
+					public void setCheckFlag(Integer checkFlag) {
+						this.checkFlag = checkFlag;
+					}
 
 			public void setEnterName(String enterName) {
 				this.enterName = enterName;

@@ -404,7 +404,7 @@
 			 check_date = #{checkDate,jdbcType=TIMESTAMP}
 			,check_pid = #{checkPid,jdbcType=VARCHAR}
 			,check_name = #{checkName,jdbcType=VARCHAR}
-			,check_flag= '2'
+			,check_flag= #{checkFlag,jdbcType=VARCHAR}
 			where id = #{id,jdbcType=VARCHAR}
 	</update>
 	

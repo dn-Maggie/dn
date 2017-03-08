@@ -45,6 +45,11 @@ public interface UserInfoMapper  {
 	void update(UserInfo userInfo);
 	
 	/**
+	 * 修改roleid方法
+	 * @param userInfo UserInfo：实体对象
+	 */	
+	void updateRoleid(UserInfo userInfo);
+	/**
 	 * 修改最后登陆信息
 	 * @param userInfo UserInfo：实体对象
 	 */	

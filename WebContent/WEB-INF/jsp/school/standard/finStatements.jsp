@@ -668,8 +668,6 @@ input[name='timeQuantum']:checked+label{
 	            type: 'value',
 	            name: '金额',
 	            min: 0,
-	            max: 1000000,
-	            interval: 100000,
 	            axisLabel: {
 	                formatter: '$ {value}'
 	            }

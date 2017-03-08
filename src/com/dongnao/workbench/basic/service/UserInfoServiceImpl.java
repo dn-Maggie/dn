@@ -191,6 +191,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 				if (!StringUtil.isBlank(roleId)) {
 					personrole.setRoleId(roleId);
 					personroleMapper.update(personrole);
+					userInfo.setRoleId(roleId);
+					userInfoMapper.updateRoleid(userInfo);
 				} else {
 					personroleMapper.deleteByKey(userInfo.getId());
 				}
@@ -277,6 +279,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 	 */
 	public String getInitialPassword() {
 		return Utils.getConfigValue(Constant.INITIAL_PASSWORD);
+	}
+
+	@Override
+	public void updateroleid(UserInfo userInfo) {
+		userInfoMapper.updateRoleid(userInfo);
 	}
 
 }

@@ -227,8 +227,6 @@ var gridObj = {};
 								onclick="batchDelete();"> <i class="icon_bg icon_del"></i> <span><m:message
 											code="button.delete" /></span>
 							</a></li>
-						
-					
 					</ul>
 				</div>
 	

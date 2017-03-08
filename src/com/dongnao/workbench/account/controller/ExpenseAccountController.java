@@ -128,32 +128,17 @@ public class ExpenseAccountController{
 	}
 	
 	/**
-	 * 进入会计审核列表页面
+	 * 进入会计审核列表页面（审核发放页面）
 	 * @return ModelAndView
 	 */
 	@RequestMapping("/toListExpenseAccountByAudit")// 审核发放
 	public ModelAndView toListByAudit(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/account/expenseAccount/listExpenseAccount");
-		UserInfo user = Utils.getLoginUserInfo(request);
-		String userRole = user.getRoleId();
-		Pattern headLeaderRole = Pattern.compile("cce57309-c36a-4b2b-8596-4bc3ea008e88");
-		Pattern assignRole = Pattern.compile("695ede31-ef87-48fb-ad25-cc6e2e7fb67a");
-		Pattern accountRole = Pattern.compile("d6140a75-83f3-4cd0-957b-5309e5dcc32f");
-		Matcher headLeader = headLeaderRole.matcher(userRole);
-		Matcher isAssign = assignRole.matcher(userRole);
-		Matcher isAccount = accountRole.matcher(userRole);
-		if(headLeader.find()||isAccount.find()){
-			mv.addObject("isAccount",true);
-		}
-		else if(isAssign.find()){
-			mv.addObject("isAssign",true);
-		}
-		mv.addObject("user",user);
 		return mv;
 	}
 	
 	/**
-	 * 进入总计详细列表页面
+	 * 进入总计详细列表页面(部门报销总计页面)
 	 * @return ModelAndView
 	 */	
 	@RequestMapping("/toListAllExpenseAccount")// 详细列表
@@ -186,9 +171,39 @@ public class ExpenseAccountController{
 	public void listByCondition(ExpenseAccount expenseAccount,HttpServletRequest request,
 			HttpServletResponse response, Page page){
 		expenseAccount.setPage(page);	
+		UserInfo user = Utils.getLoginUserInfo(request);
+		String userRole = user.getRoleId();
 		List<ExpenseAccount> list = expenseAccountService.listByCondition(expenseAccount);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
+	
+	/**
+	 * 进入报销记录页面方法
+	 * @param request HttpServletRequest
+	 */
+	@RequestMapping("/tolistexpenseRecords")
+	public ModelAndView toexpenseRecords(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/account/expenseAccount/listexpenseRecords");
+		return mv;
+	}
+	
+	/**
+	 * 查询报销记录详情数据的方法
+	 * @param expenseAccount ExpenseAccount：实体对象（查询条件）
+	 * @param request HttpServletRequest
+	 * @param response HttpServletResponse
+	 * @param page Page:分页对象
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/listexpenseRecords")
+	public void expenseRecords(ExpenseAccount expenseAccount,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		expenseAccount.setPage(page);	
+		expenseAccount.setCheckFlag(2);//设置筛选条件为“2”即审核已通过
+		List<ExpenseAccount> list = expenseAccountService.listByCondition(expenseAccount);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
+	
 	
 	/**
 	 * 进入修改页面方法
@@ -235,6 +250,7 @@ public class ExpenseAccountController{
 	public ModelAndView toAudit(String key,HttpServletRequest request){
  		ModelAndView mv = new ModelAndView(
  				"WEB-INF/jsp/account/expenseAccount/auditExpenseAccount");
+ 		UserInfo user=Utils.getLoginUserInfo(request);
  		
  		ExpenseAccount entity = expenseAccountService.getByPrimaryKey(key);
 		Map<String,String> expenseAccount = FormatEntity.getObjectValue(entity);
@@ -242,8 +258,13 @@ public class ExpenseAccountController{
 		
  		List<UserInfo> userInfo = userInfoService.listByCondition(null);
 		mv.addObject("userInfo", userInfo);
- 		
- 		UserInfo user=Utils.getLoginUserInfo(request);
+		if(user.getRoleId().equals("cce57309-c36a-4b2b-8596-4bc3ea008e88")){//总经理权限
+			mv.addObject("isLastAudit", true);
+		}
+		if(user.getRoleId().equals("8b97fbf5-40f8-4bef-b5e2-1b1c0ae990b8")){//联合创始人
+			mv.addObject("isFounder", true);
+		}
+
  		mv.addObject("user", user);
  		
 		return mv;
@@ -251,39 +272,76 @@ public class ExpenseAccountController{
 	
  	
  	/**
-	 * 批量审核方法
+	 * 批量审核方法（初审）
 	 * @param response HttpServletResponse
 	 * @param key String:多个由“，”分割开的id字符串
 	 * @return: ajax输入json字符串
 	 */
 	@RequestMapping("/auditExpenseAccount")
-	public void auditAccounting(String key,HttpServletRequest request,HttpServletResponse response){
-		UserInfo user=Utils.getLoginUserInfo(request);
+	public void auditAccounting(String key, HttpServletRequest request, HttpServletResponse response) {
+		UserInfo user = Utils.getLoginUserInfo(request);
 		String checkPid = user.getId();
 		String checkName = user.getFullName();
 		Calendar calendar = Calendar.getInstance();
+		Map<String, String> map = new HashMap<String, String>();
 		String[] str = key.split(",");
-		for(int i=0;i<str.length;i++){
+		for (int i = 0; i < str.length; i++) {
 			ExpenseAccount entity = expenseAccountService.getByPrimaryKey(str[i]);
 			int flag = entity.getCheckFlag();
-			if(flag!=2){
+			if (flag == 1) {
+				entity.setCheckFlag(3);
+				entity.setCheckPid(checkPid);
+				entity.setCheckName(checkName);
+				entity.setCheckDate(calendar.getTime());
+				expenseAccountService.auditByKey(entity);
+				map.put("msg", "初审审核完成！");
+			} else if (flag == 3) {
+				map.put("msg", "该报销单已经通过了初审！");
+				continue;
+			} else {
+				map.put("msg", "该报销单已经审核通过！");
+				continue;
+			}
+		}
+		AjaxUtils.sendAjaxForMap(response, map);
+	}
+	
+	/**
+	 * 批量审核方法（复审）
+	 * @param response HttpServletResponse
+	 * @param key String:多个由“，”分割开的id字符串
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/rauditExpenseAccount")
+	public void recheckauditAccounting(String key, HttpServletRequest request, HttpServletResponse response) {
+		UserInfo user = Utils.getLoginUserInfo(request);
+		String checkPid = user.getId();
+		String checkName = user.getFullName();
+		Calendar calendar = Calendar.getInstance();
+
+		Map<String, String> map = new HashMap<String, String>();
+		String[] str = key.split(",");
+		for (int i = 0; i < str.length; i++) {
+			ExpenseAccount entity = expenseAccountService.getByPrimaryKey(str[i]);
+			int flag = entity.getCheckFlag();
+			if (flag == 3) {
 				entity.setCheckFlag(2);
 				entity.setCheckPid(checkPid);
 				entity.setCheckName(checkName);
 				entity.setCheckDate(calendar.getTime());
 				expenseAccountService.auditByKey(entity);
-			}else{
-				Map<String, String> map = new HashMap<String, String>();
-				map.put("msg", "该报销单已审核，无需重复审核");
-				AjaxUtils.sendAjaxForMap(response, map);
-				return;
+				map.put("msg", "复审审核完成！");
+			} else if (flag == 1) {
+				map.put("msg", "该报销单还没有通过初审！");
+				continue;
+			} else {
+				map.put("msg", "该报销单已经审核通过！");
+				continue;
 			}
 		}
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("msg", "审核成功");
 		AjaxUtils.sendAjaxForMap(response, map);
 	}
-	
+
 	/**
 	 * 报销资金发放方法
 	 * @param response HttpServletResponse

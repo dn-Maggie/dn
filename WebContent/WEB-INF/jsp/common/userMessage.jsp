@@ -679,7 +679,8 @@ body{-moz-user-select:none;-webkit-user-select:none;
 	})
 	// 退订中餐
 	.on('click', '#orderLunch', function() {
-		new biz.alert({type:"confirm",message:"确定退订 "+GetDateStr(1,"日")+"中餐?",title:"  操作确认",callback:function(result){
+		new biz.alert({type:"confirm",message:"确定退订 "+
+(1,"日")+"中餐?",title:"  操作确认",callback:function(result){
 			if(result){
 				var paramArray = [];
 				var paramDatas = {

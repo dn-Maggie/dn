@@ -20,24 +20,12 @@
 							<option value="集体报销">集体报销</option>
 					</select><span>报销类型</span>
 				</li><!-- 输入框-->
-				<c:if test="${isAccount}">
+				<c:if test="${isLastAudit}">
 				<li style="width:180px;">
 						<select class="search_choose" name="checkFlag" id="checkFlag" mainid="checkFlag" style="width:100px;">
-							<option value="1">未审核</option>
-							<option value="2">已审核</option>
-							<option value="">所有</option>
-					</select><span>审核状态:</span>
-				</li><!-- 输入框-->
-				<li style="width:180px;">
-						<select class="search_choose" name="assignFlag" id="assignFlag" mainid="assignFlag" style="width:100px;">
-							<option value="1">未发放</option>
-							<option value="">所有</option>
-					</select><span>发放状态:</span>
-				</li><!-- 输入框--></c:if>
-				<c:if test="${isAssign}">
-				<li style="width:180px;">
-						<select class="search_choose" name="checkFlag" id="checkFlag" mainid="checkFlag" style="width:100px;">
-							<option value="2">已审核</option>
+							<option value="1">待审核</option>
+							<option value="3" selected = "selected">初审已通过</option>
+							<option value="2">已通过审核</option>
 							<option value="">所有</option>
 					</select><span>审核状态:</span>
 				</li><!-- 输入框-->
@@ -48,13 +36,29 @@
 							<option value="">所有</option>
 					</select><span>发放状态:</span>
 				</li><!-- 输入框--></c:if>
+				<c:if test="${isFounder}">
 				<li style="width:180px;">
-						<select class="search_choose" name="expenseType" id="expenseType" mainid="expenseType" style="width:100px;">
+						<select class="search_choose" name="checkFlag" id="checkFlag" mainid="checkFlag" style="width:100px;">
+							<option value="1" selected = "selected">待审核</option>
+							<option value="3">初审已通过</option>
+							<option value="2">已通过审核</option>
 							<option value="">所有</option>
+					</select><span>审核状态:</span>
+				</li><!-- 输入框-->
+				<li style="width:180px;">
+						<select class="search_choose" name="assignFlag" id="assignFlag" mainid="assignFlag" style="width:100px;">
+							<option value="1">未发放</option>
+							<option value="2">已发放</option>
+							<option value="">所有</option>
+					</select><span>发放状态:</span>
+				</li><!-- 输入框--></c:if>
+			<!-- 	<li style="width:180px;">
+						<select class="search_choose" name="expenseType" id="expenseType" mainid="expenseType" style="width:100px;">
 							<option value="支付现款">支付现款</option>
 							<option value="银行转账">银行转账</option>
+							<option value="">所有</option>
 					</select><span>报销方式</span>
-				</li><!-- 输入框-->
+				</li> -->
 				<li class="date_area">
 					<span>申请日期:</span>
 					<div class="time_bg">
@@ -87,18 +91,16 @@
 											code="button.delete" /></span>
 							</a></li>
 						</c:if>
-						
-<%-- 					<c:if test="${audit}"> --%>
-						<c:if test="${isAccount}">
-						<li><a title="审核" href="javascript:"
-							onclick="audit();"> <i class="icon_bg icon_audit"></i> <span>审核</span>
+						<c:if test="${isLastAudit}">
+							<li><a title="复审" href="javascript:"
+							onclick="audit('lastaudit');"> <i class="icon_bg icon_audit"></i> <span>复审</span>
 						</a></li>
-						<li><a title="<m:message code="button.delete"/>" href="javascript:;"
-								onclick="batchDelete();"> <i class="icon_bg icon_del"></i> <span><m:message
-											code="button.delete" /></span>
-							</a></li>
 						</c:if>
-						
+						<c:if test="${isFounder}">
+						<li><a title="审核" href="javascript:"
+							onclick="audit('firstaudit');"> <i class="icon_bg icon_audit"></i> <span>审核</span>
+						</a></li>
+						</c:if>
 						<c:if test="${isAssign}">
 						<li>
 							<a title="发放金额" href="javascript:" onclick="assign();">
@@ -107,6 +109,10 @@
 							</a>
 						</li>
 						</c:if>
+						<li><a title="<m:message code="button.delete"/>" href="javascript:;"
+								onclick="batchDelete();"> <i class="icon_bg icon_del"></i> <span><m:message
+											code="button.delete" /></span>
+							</a></li>
 						<li><a title="<m:message code="button.view"/>" href="javascript:"
 							onclick="show();"> <i class="icon_bg icon_ckxq"></i> <span><m:message
 										code="button.view" /></span>
@@ -115,11 +121,9 @@
 				</div>
 	
 			<!--功能按钮end-->
-				<div class="listtable_box">
-								
+				<div class="listtable_box">	
 						<table  id="remote_rowed" ></table>
 						<div  id="remote_prowed"></div>	
-					
 				</div>
 		</div>
 	</div>
@@ -152,7 +156,9 @@
 		 				 if (cellvalue==1) {
 		 				 	return '待审核';
 		 				 }else if (cellvalue==2) {
-		 				 	return '已审核';
+		 				 	return '审核已通过';
+		 				 }else if(cellvalue==3){
+		 					return '初审已通过';
 		 				 }
 		 			}},
 		 		{name : "assignFlag",label:"金额发放状态",width:10,align:"center",
@@ -187,7 +193,6 @@
 
 	//审核的弹出框
 	var audit_iframe_dialog;
-  	
     
     function show(){
     	var key = ICSS.utils.getSelectRowData("id");
@@ -199,7 +204,7 @@
 		show_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: 800,
+			width: 900,
 			height:700,
 				title: "报销单详情"
 		});
@@ -210,7 +215,11 @@
     function closeShow(){
     	show_iframe_dialog.close();
     }
-    function audit(){
+    function audit(str){
+    	var urll = "<m:url value='/expenseAccount/auditExpenseAccount.do'/>?key=";
+    	if(str == 'lastaudit'){//复审
+    		urll = "<m:url value='/expenseAccount/rauditExpenseAccount.do'/>?key=";
+    	}
     	var key = ICSS.utils.getSelectRowData("id");
     	if(key==""){
     		showMessage("请至少选择一条数据！");
@@ -220,7 +229,7 @@
     		new biz.alert({type:"confirm",message:"审核以后将无法进行修改，确定继续？",title:I18N.promp,callback:function(result){
     			if(result){
     				$ .ajax({
-        				url: "<m:url value='/expenseAccount/auditExpenseAccount.do'/>?key="+key,
+        				url:urll +key,
         				cache:false,
         				success: function(data, textStatus, jqXHR){
         					doSearch();

@@ -218,6 +218,13 @@
 	   and t.id &lt;&gt;'00000000-0000-0000-0000-000000000000'
 	</update>
 	
+	<!-- 改变用户角色后更新roleid -->
+	<update id="updateRoleid" parameterType="com.dongnao.workbench.basic.model.UserInfo">
+		update BASIC_USER_INFO t
+	   set ROLE_ID = #{roleId,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	
 	<delete id="deleteByKey" parameterType="java.lang.Integer">
 		delete from BASIC_USER_INFO
 		where ID = #{id,jdbcType=VARCHAR}

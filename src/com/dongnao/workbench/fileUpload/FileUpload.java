@@ -80,19 +80,29 @@ public class FileUpload extends HttpServlet {
 		JSONObject reJo = new JSONObject();//设置返回json
 		// 从listEmpNotice.jsp中拿取数据，因为上传页的编码格式跟一般的不同，使用的是enctype="multipart/form-data"
 		// form提交采用multipart/form-data,无法采用req.getParameter()取得数据
-		File uploadPath = new File("C:" + File.separator + "home");// File.separator增加路径之间的分隔\\
+//		File uploadPath = new File("C:" + File.separator + "home");// File.separator增加路径之间的分隔\\
+//		logger.debug("uploadPath=====" + uploadPath);// 打印日志
+//		// exists()如果存在的话返回“true”，否则就是返回“false”。isDirectory()判断该路径指示的是否是文件。
+//		if (!uploadPath.exists() && !uploadPath.isDirectory()) {
+//			uploadPath.mkdir();// 生成指定的目录。
+//		}
+//		// getAbsoluteFile()返回文件的完整路径
+//		File filePath = new File(uploadPath.getAbsoluteFile() + File.separator + "file");
+//		if (!filePath.exists() && !filePath.isDirectory()) {
+//			filePath.mkdir();
+//		}
+		
+		File uploadPath = new File("/usr/dnfile");
 		logger.debug("uploadPath=====" + uploadPath);// 打印日志
-		// exists()如果存在的话返回“true”，否则就是返回“false”。isDirectory()判断该路径指示的是否是文件。
 		if (!uploadPath.exists() && !uploadPath.isDirectory()) {
-			uploadPath.mkdir();// 生成指定的目录。
+			uploadPath.mkdir();
 		}
-		// getAbsoluteFile()返回文件的完整路径
 		File filePath = new File(uploadPath.getAbsoluteFile() + File.separator + "file");
 		if (!filePath.exists() && !filePath.isDirectory()) {
 			filePath.mkdir();
 		}
 		//创建临时路径
-		File tempPath = new File(getServletContext().getRealPath("temp"));
+		File tempPath = new File(getServletContext().getRealPath("/temp"));
 		if (!tempPath.exists()) {
 			tempPath.mkdir();
 		}
@@ -146,7 +156,8 @@ public class FileUpload extends HttpServlet {
 					item.write(file);
 					reJo.put("code", "0000");
 					reJo.put("message", "公告发布成功！");
-					reJo.put("fileAddr", filePath  + "\\" + fileName);
+					//linux系统中采用正斜杠“/”windows采用反斜杠“\”
+					reJo.put("fileAddr", filePath  + "/" + fileName);
 					AjaxUtils.sendAjaxForObject(response, reJo);
 				}
 			}

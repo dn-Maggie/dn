@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.common.bean.ResultMessage;
+import com.dongnao.workbench.system.model.Personrole;
 
 
 /**
@@ -63,6 +64,12 @@ public interface UserInfoService  {
 	 */
 	void updateLastLoginInfo(UserInfo userInfo);
 
+	
+	/**
+	 * 更新角色id
+	 * @param personrole Personrole：实体对象
+	 */	
+	void updateroleid(UserInfo userInfo);
 	/**
 	 * 根据登录账号查找实体方法
 	 * @param userName 用户登录名

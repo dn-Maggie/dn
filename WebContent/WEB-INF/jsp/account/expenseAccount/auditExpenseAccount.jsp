@@ -71,7 +71,13 @@
 					</div>
 				</c:if>
 				<div class="inputTd"  style="display:block;margin-top:50px; text-align:center;">
-					<input id="submit" type="button" class="ti_bottom" value="审核"/>
+				<!-- <input id="submit" type="button" class="ti_bottom" value="审核" /> -->
+				<c:if test="${isLastAudit}">
+					<input id="submitl" type="button" class="ti_bottom" value="复审" onclick="audit('lastaudit')"/>
+					</c:if>
+				<c:if test="${isFounder}">
+				<input id="submitf" type="button" class="ti_bottom" value="初审" onclick="audit('firstaudit')"/>
+				</c:if>
 					<input id="reset" type="button" class="ti_bottom" value="取消" onclick="window.parent.closeAudit()"/>
 				</div>
 			</div>
@@ -129,6 +135,40 @@
 		});
 	});
 	
+	//审核方法
+	function audit(str){
+		var urll="<m:url value='/expenseAccount/auditExpenseAccount.do'/>";
+		if(str=='lastaudit'){
+			urll="<m:url value='/expenseAccount/rauditExpenseAccount.do'/>";
+		}
+		if(!biz.validate("valid",$('#expenseAccountFormEdit')[0])){
+			showWarn("数据验证失败",3000);
+			return;
+		}
+		
+		var checkFlag = $("#edit_checkFlag").val();
+		if (checkFlag == "2") {
+				showWarn("该报销单已审核，无需重复审核");
+			} else {
+				var key = $("#edit_id").val();
+				var paramDatas = {
+					key : key
+				};
+				$.ajax({
+					type : "post",
+					url : urll,
+					data : paramDatas,
+					cache : false,
+					dataType : "json",
+					success : function(response) {
+						showMessage(response.msg, "", "", function() {
+							window.parent.closeAudit();
+							window.parent.doSearch();
+						});
+					}
+				});
+			}
+		}
 	</script>
 </body>
 </html>
