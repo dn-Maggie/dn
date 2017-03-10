@@ -289,6 +289,17 @@ public class ExpenseAccountController{
 			ExpenseAccount entity = expenseAccountService.getByPrimaryKey(str[i]);
 			int flag = entity.getCheckFlag();
 			if (flag == 1) {
+				entity.setCheckFlag(2);
+				entity.setCheckPid(checkPid);
+				entity.setCheckName(checkName);
+				entity.setCheckDate(calendar.getTime());
+				expenseAccountService.auditByKey(entity);
+				map.put("msg", "审核完成！");
+			} else {
+				map.put("msg", "该报销单已审核通过！");
+				continue;
+			} 
+			/*if (flag == 1) {有双重审核时放开
 				entity.setCheckFlag(3);
 				entity.setCheckPid(checkPid);
 				entity.setCheckName(checkName);
@@ -301,7 +312,7 @@ public class ExpenseAccountController{
 			} else {
 				map.put("msg", "该报销单已经审核通过！");
 				continue;
-			}
+			}*/
 		}
 		AjaxUtils.sendAjaxForMap(response, map);
 	}

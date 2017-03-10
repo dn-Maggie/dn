@@ -567,8 +567,9 @@ body{-moz-user-select:none;-webkit-user-select:none;
 						</ul>
 					</div>
 				</div>
-			</li>	
-		</ul>
+			</li>
+				
+			</ul>
 	</div>
 	</div> 
 <script src="<%=request.getContextPath() %>/js/statistic/main.js"></script> <!-- Resource jQuery -->

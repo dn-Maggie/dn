@@ -23,8 +23,8 @@
 				<c:if test="${isLastAudit}">
 				<li style="width:180px;">
 						<select class="search_choose" name="checkFlag" id="checkFlag" mainid="checkFlag" style="width:100px;">
-							<option value="1">待审核</option>
-							<option value="3" selected = "selected">初审已通过</option>
+							<option value="1" selected = "selected">待审核</option>
+							<!-- <option value="3" selected = "selected">初审已通过</option> -->
 							<option value="2">已通过审核</option>
 							<option value="">所有</option>
 					</select><span>审核状态:</span>
@@ -92,8 +92,8 @@
 							</a></li>
 						</c:if>
 						<c:if test="${isLastAudit}">
-							<li><a title="复审" href="javascript:"
-							onclick="audit('lastaudit');"> <i class="icon_bg icon_audit"></i> <span>复审</span>
+							<li><a title="审核" href="javascript:"
+							onclick="audit('lastaudit');"> <i class="icon_bg icon_audit"></i> <span>审核</span>
 						</a></li>
 						</c:if>
 						<c:if test="${isFounder}">
@@ -217,9 +217,9 @@
     }
     function audit(str){
     	var urll = "<m:url value='/expenseAccount/auditExpenseAccount.do'/>?key=";
-    	if(str == 'lastaudit'){//复审
+/*     	if(str == 'lastaudit'){//复审
     		urll = "<m:url value='/expenseAccount/rauditExpenseAccount.do'/>?key=";
-    	}
+    	} */
     	var key = ICSS.utils.getSelectRowData("id");
     	if(key==""){
     		showMessage("请至少选择一条数据！");
@@ -244,7 +244,7 @@
 			 	id:$('<div id="auditwindow_iframe"></div>').html('<iframe id="iframesettlement" name="iframesettlement" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 				modal: true,
 				width: $(window).width()*0.6,
-				height:$(window).height()*0.6,
+				height:$(window).height()*0.8,
 				title: "审核报销单"
 			});
 			audit_iframe_dialog.open();

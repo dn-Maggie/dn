@@ -65,15 +65,22 @@
 					<input id="edit_docAttach" name="docAttach" type="text" class="text" style="width: 50px;text-align: center;" value="${expenseAccount.docAttach}" readonly/>张
 					<input id="edit_checkFlag" name="checkFlag" type="hidden" value="${expenseAccount.checkFlag}"/>
 				</div>
-				<c:if test="${expenseAccount.fileUrl} != ''">
-					<div style="display:block; margin-top:5px">
-						<img alt="图片证明" style="height:600px;width: 100%" src="${expenseAccount.fileUrl}"> 
+			<div style="display: block; margin-top: 5px">
+						<c:choose>
+							<c:when test="${not empty expenseAccount.fileUrl}">
+								<img alt="图片证明" style="height: 600px; width: 100%"
+									src="${expenseAccount.fileUrl}">
+							</c:when>
+							<c:otherwise>
+								注：无图片证明
+							</c:otherwise>
+						</c:choose>
+
 					</div>
-				</c:if>
 				<div class="inputTd"  style="display:block;margin-top:50px; text-align:center;">
 				<!-- <input id="submit" type="button" class="ti_bottom" value="审核" /> -->
 				<c:if test="${isLastAudit}">
-					<input id="submitl" type="button" class="ti_bottom" value="复审" onclick="audit('lastaudit')"/>
+					<input id="submitl" type="button" class="ti_bottom" value="审核" onclick="audit('lastaudit')"/>
 					</c:if>
 				<c:if test="${isFounder}">
 				<input id="submitf" type="button" class="ti_bottom" value="初审" onclick="audit('firstaudit')"/>
@@ -138,9 +145,9 @@
 	//审核方法
 	function audit(str){
 		var urll="<m:url value='/expenseAccount/auditExpenseAccount.do'/>";
-		if(str=='lastaudit'){
+/* 		if(str=='lastaudit'){
 			urll="<m:url value='/expenseAccount/rauditExpenseAccount.do'/>";
-		}
+		} */
 		if(!biz.validate("valid",$('#expenseAccountFormEdit')[0])){
 			showWarn("数据验证失败",3000);
 			return;

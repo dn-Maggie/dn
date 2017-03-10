@@ -85,10 +85,19 @@ $(function() {
 					<img alt="图片证明" style="height:600px;width: 100%" src="${expenseAccount.fileUrl}"> 
 				</div>
 			</c:if> --%>
-			<div style="display:block; margin-top:5px">
-					<img alt="图片证明" style="height:600px;width: 100%" src="${expenseAccount.fileUrl}"> 
+					<div style="display: block; margin-top: 5px">
+						<c:choose>
+							<c:when test="${not empty expenseAccount.fileUrl}">
+								<img alt="图片证明" style="height: 600px; width: 100%"
+									src="${expenseAccount.fileUrl}">
+							</c:when>
+							<c:otherwise>
+								注：无图片证明
+							</c:otherwise>
+						</c:choose>
+
+					</div>
 				</div>
-		</div>
     </div>
 	</form>
 </div>
