@@ -33,7 +33,7 @@ $(function() {
 				success : function(d) {
 					if(d.status){
 						showMessage(d.message,"","",function(){
-							window.parent.closeAdd();
+							window.parent.closeEdit();
 				     		window.parent.doSearch();
 						});
 					}else{
@@ -109,6 +109,10 @@ function countPerDepre(){
 			$("#edit_perDepred").val(parseFloat(perDepre).toFixed(2));
 		}
 }
+
+function worknumberchangge(v){
+	$("#workNumber").val(v);
+}
 /* //部门员工联动
 function orgEmp(val){
 	//当dataList里面有数据的时候，不需要执行ajax
@@ -144,7 +148,7 @@ function getEmpIDByName(obj,value) {
 	<form id="fixedAssetFormEdit" >
     <div class="wrap" >
     	<div class="top_head">
-			<h2 class="top_name">固定资产</h2>
+			<h2 class="top_name">公司资源</h2>
 			<div class="time_bg" style="top:40px; right:0px;height: 25px;line-height: 25px;position:absolute;">
 				<span>录入日期&nbsp;&nbsp;</span>
 				<input id="edit_currdate" type="text" class="search_time150" name="currdate" mainid="currdate" style="height: 25px;" value="${fixedAsset.currdate}"readonly>
@@ -161,7 +165,7 @@ function getEmpIDByName(obj,value) {
 				</td>
 				<td class="inputLabelTd">会计期间：</td>
 				<td class="inputTd">
-					<input id="edit_enterDate" type="text" class="text" style="background: #eeeeee" value="${fixedAsset.enterDate}" readonly />
+					<input id="edit_enterDate" type="text" class="text"  value="${fixedAsset.enterDate}" readonly />
 					<input name="enterDate" id="enterDate" type="hidden" class="text" value="${fixedAsset.enterDate}"/>
 				</td>
 				<td class="inputLabelTd">增加方式：</td>
@@ -174,19 +178,16 @@ function getEmpIDByName(obj,value) {
 				</td>
 			</tr>
 			<tr>
-				<td class="inputLabelTd"><span class="required">*</span>资产名称：</td>
+				<td class="inputLabelTd"><span class="required">*</span>资产项目名称：</td>
 				<td class="inputTd">
 					<input id="edit_assetName" name="assetName" type="text" class="text" value="${fixedAsset.assetName}"/>
 				</td>
 				<td class="inputLabelTd"><span class="required">*</span>资产类别：</td>
 				<td class="inputTd">
-					<select class="input_select text" name="assetType" id="edit_assetType" mainid="assetType" >
-							<option value="001-房屋、建筑物" <c:if test="${fixedAsset.assetType=='001-房屋、建筑物'}">selected</c:if>>001-房屋、建筑物</option>
-							<option value="002-机器机械生产设备" <c:if test="${fixedAsset.assetType=='002-机器机械生产设备'}">selected</c:if>>002-机器机械生产设备</option>
-							<option value="003-器具、工具、家具" <c:if test="${fixedAsset.assetType=='003-器具、工具、家具'}">selected</c:if>>003-器具、工具、家具</option>
-							<option value="004-运输工具" <c:if test="${fixedAsset.assetType=='004-运输工具'}">selected</c:if>>004-运输工具</option>
-							<option value="005-电子设备" <c:if test="${fixedAsset.assetType=='005-电子设备'}">selected</c:if>>005-电子设备</option>
-							<option value="006-其他固定资产" <c:if test="${fixedAsset.assetType=='006-其他固定资产'}">selected</c:if>>006-其他固定资产</option>
+					<select class="input_select text" name="assetItemId" id="edit_assetType" mainid="assetItemId" >
+						<c:forEach var="assetItem" items="${assetItem}">
+							<option <c:if test="${fixedAsset.assetType==assetItem.id}">selected</c:if> value="${assetItem.id}">${assetItem.assetName}</option>
+						</c:forEach>
 					</select>
 				</td>
 				<td class="inputLabelTd">规格型号：</td>
@@ -206,19 +207,14 @@ function getEmpIDByName(obj,value) {
 				<td class="inputTd">
 					<select class="input_select text" name="useOrg" id="edit_useOrg" mainid="useOrg">
 						<c:forEach var="org" items="${org}">
-							<option value="${org.orgName}" <c:if test="${fixedAsset.useOrg==org.orgName}">selected</c:if>>${org.orgName}</option>
+							<option value="${org.orgNo}" <c:if test="${fixedAsset.useOrg==org.orgName}">selected</c:if>>${org.orgName}</option>
 					    </c:forEach>
 				    </select>
 				</td>
 				<td class="inputLabelTd"><span class="required">*</span>使用人：</td>
 				<td class="inputTd">
-					<input id="edit_applyName" name="applyName" type="hidden" class="text"/>
-					<input type="text" class="text" value="${fixedAsset.applyName}" list="employeeList" onchange="getEmpIDByName(this,this.value);"/>
-					<datalist id="employeeList">
-						<c:forEach var="emp" items="${emp}">
-							<option did="${emp.id}" value="${emp.nickName}" label="${emp.name}"></option>
-			             </c:forEach>
-					</datalist>
+					<input id="workNumber" name="workNumber" type="hidden" class="text" value="${fixedAsset.workNumber}"/>
+					<input id="edit_workName" name="workName" type="text" class="text" value="${fixedAsset.workNumber}" onchange="worknumberchangge(this.value)"/>
 				</td>
 			</tr>
 			<tr  ><td colspan="4" class="cut"><i class="icon_bg icon_plan"></i> 折旧方式</td></tr>
@@ -299,15 +295,19 @@ function getEmpIDByName(obj,value) {
 				<td class="inputTd">
 					<input id="edit_perDepred" name="perDepred" type="text" class="text" style="background: #eeeeee" value="${fixedAsset.perDepred}" readonly/>
 				</td>
-				<td class="inputLabelTd">备注：</td>
+				<td class="inputLabelTd">资产状态：</td>
 				<td class="inputTd">
-					<input id="edit_note" name="note" type="text" class="text" />
+					<select class="input_select text" name="propertyState" id="edit_propertyState" mainid="propertyState">				
+						<option value="1" <c:if test="${fixedAsset.propertyState=='1'}">selected</c:if> >使用中</option>
+						<option value="2" <c:if test="${fixedAsset.propertyState=='2'}">selected</c:if> >维修中</option>
+						<option value="3" <c:if test="${fixedAsset.propertyState=='3'}">selected</c:if> >已报废</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
 				<td class="inputTd" colspan="6" style="text-align:center;">
 					<input id="submit" type="button" class="ti_bottom" value="保存"/>
-					<input id="reset" type="button" class="ti_bottom" value="重置"/>
+					 <input id="reset" type="button" class="ti_bottom" value="取消" onclick="window.parent.closeEdit();"/> 
 				</td>
 			</tr>
 		</table>

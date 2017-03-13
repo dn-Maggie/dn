@@ -15,6 +15,7 @@ import com.dongnao.workbench.school.service.EmployeeService;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.account.model.AccountSubject;
 import com.dongnao.workbench.account.model.Accounting;
+import com.dongnao.workbench.account.model.AssetItem;
 import com.dongnao.workbench.account.model.FixedAsset;
 import com.dongnao.workbench.account.service.AccountSubjectService;
 import com.dongnao.workbench.account.service.FixedAssetService;
@@ -53,12 +54,16 @@ public class FixedAssetController{
 	public ModelAndView toAdd(){
 		ModelAndView mv = new ModelAndView(
 				"WEB-INF/jsp/account/fixedAsset/addFixedAsset");
-		
+		//查询所有部门
 		Org orgEntity = new Org();
 		orgEntity.setOrgClass(3);
  		List<Org> org= orgService.listByCondition(orgEntity);
  		mv.addObject("org", org);
- 		
+ 		//查询资产项目列表
+ 		AssetItem ai = new AssetItem();
+ 		List<AssetItem> assetItem = fixedAssetService.listAssetItem(ai);
+ 		mv.addObject("assetItem", assetItem);
+ 		//查询会计科目
  		AccountSubject entity = new AccountSubject();
  		entity.setParentId(6);
  		List<AccountSubject> zjSubjectList = accountSubjectService.listByCondition(entity);
@@ -80,16 +85,27 @@ public class FixedAssetController{
 	}
 	
 	/**
-	 * 新增方法
+	 * 新增公司资产方法
 	 * @param response HttpServletResponse
 	 * @param fixedAsset FixedAsset:实体类
 	 * @return: ajax输入json字符串
 	 */
 	@RequestMapping("/addFixedAsset")
 	public void add(FixedAsset fixedAsset,HttpServletRequest request,HttpServletResponse response){
-	fixedAsset.setId(Utils.generateUniqueID());
 	AjaxUtils.sendAjaxForObjectStr(
-				response,fixedAssetService.add(fixedAsset));		
+				response,fixedAssetService.add(fixedAsset));
+	}
+	
+	/**
+	 * 新增资产项目方法
+	 * @param response HttpServletResponse
+	 * @param assetItem AssetItem:实体类
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/addAssetItem")
+	public void add(AssetItem assetItem,HttpServletRequest request,HttpServletResponse response){
+	AjaxUtils.sendAjaxForObjectStr(
+				response,fixedAssetService.addAssetItem(assetItem));		
 	}
 	
 	/**
@@ -115,7 +131,12 @@ public class FixedAssetController{
 	 */
 	@RequestMapping("/toListFixedAsset")
 	public ModelAndView toList(){
-		return new ModelAndView("WEB-INF/jsp/account/fixedAsset/listFixedAsset");
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/account/fixedAsset/listFixedAsset");
+		//查询资产项目列表
+ 		AssetItem ai = new AssetItem();
+ 		List<AssetItem> assetItem = fixedAssetService.listAssetItem(ai);
+ 		mv.addObject("assetItem", assetItem);
+ 		return mv;
 	}
 	
 	/**
@@ -150,6 +171,11 @@ public class FixedAssetController{
 		orgEntity.setOrgClass(3);
  		mv.addObject("org", orgService.listByCondition(orgEntity));
  		
+ 		//查询资产项目列表
+ 		AssetItem ai = new AssetItem();
+ 		List<AssetItem> assetItem = fixedAssetService.listAssetItem(ai);
+ 		mv.addObject("assetItem", assetItem);
+ 		
  		AccountSubject entitysub = new AccountSubject();
  		entitysub.setParentId(6);
  		mv.addObject("zjSubjectList", accountSubjectService.listByCondition(entitysub));
@@ -170,4 +196,33 @@ public class FixedAssetController{
 				response,fixedAssetService.update(fixedAsset));	
 	}
 	
+	/**
+	 * 进入添加资产项目页面
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/toAddAssetItem")
+	public ModelAndView toAddAssetItem(){
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/account/fixedAsset/addAssetItem");
+		//查询资产项目列表
+ 		AssetItem ai = new AssetItem();
+ 		List<AssetItem> assetItem = fixedAssetService.listAssetItem(ai);
+ 		mv.addObject("assetItem", assetItem);
+ 		return mv;
+	}
+	
+	/**
+	 * 根据条件查找列表方法
+	 * @param assetItem AssetItem：实体对象（查询条件）
+	 * @param request HttpServletRequest
+	 * @param response HttpServletResponse
+	 * @param page Page:分页对象
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/listAssetItem")
+	public void listAssetItem(AssetItem assetItem,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		assetItem.setPage(page);	
+		List<AssetItem> list = fixedAssetService.listAssetItem(assetItem);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
 }

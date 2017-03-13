@@ -2,6 +2,7 @@ package com.dongnao.workbench.account.service;
 import javax.annotation.Resource;
 import java.util.List;
 import com.dongnao.workbench.account.dao.FixedAssetMapper;
+import com.dongnao.workbench.account.model.AssetItem;
 import com.dongnao.workbench.account.model.FixedAsset;
 import com.dongnao.workbench.account.service.FixedAssetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,5 +64,19 @@ public class FixedAssetServiceImpl implements FixedAssetService{
 	public ResultMessage update(FixedAsset fixedAsset){
 		fixedAssetMapper.update(fixedAsset);
 		return AjaxUtils.getSuccessMessage();
+	}
+
+	/**
+	 * 新增资产项目信息方法
+	 * @param assetItem AssetItem:实体类
+	 */
+	public ResultMessage addAssetItem(AssetItem assetItem) {
+		fixedAssetMapper.addAssetItem(assetItem);
+		return AjaxUtils.getSuccessMessage();
+	}
+
+	@Override
+	public List<AssetItem> listAssetItem(AssetItem assetItem) {
+		return fixedAssetMapper.listAssetItem(assetItem);
 	}
 }

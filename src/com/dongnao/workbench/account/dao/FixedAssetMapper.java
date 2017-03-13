@@ -1,6 +1,8 @@
 package com.dongnao.workbench.account.dao;
 
 import java.util.List;
+
+import com.dongnao.workbench.account.model.AssetItem;
 import com.dongnao.workbench.account.model.FixedAsset;
 /**
  * 描述：固定资产信息模块dao接口，提供数据库操作方法
@@ -16,6 +18,11 @@ public interface FixedAssetMapper  {
 	 */
 	void add(FixedAsset fixedAsset);
 	
+	/**
+	 * 新增资产项目信息方法
+	 * @param assetItem AssetItem:实体类
+	 */
+	void addAssetItem(AssetItem assetItem);
 	/**
 	 * 删除固定资产信息方法
 	 * @param key String:多个由“，”分割开的id字符串
@@ -35,6 +42,13 @@ public interface FixedAssetMapper  {
 	 * @return List<FixedAsset>: 实体对象的list
 	 */
 	public List<FixedAsset>  listByCondition(FixedAsset fixedAsset);
+	
+	/**
+	 * 根据条件查找资产项目信息列表方法
+	 * @param AssetItem assetItem：实体对象（查询条件）
+	 * @return List<AssetItem>: 实体对象的list
+	 */
+	public List<AssetItem>  listAssetItem(AssetItem assetItem);
 	
 	/**
 	 * 修改固定资产信息方法

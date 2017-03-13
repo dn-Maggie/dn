@@ -13,6 +13,8 @@ var gridObj = {};
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
            	sortname:"id",
            	sortorder:"asc",
+           	multiselect:true,
+           	multiboxonly:true,
            	pager: '#remote_prowed' /*分页栏id*/,
      		rowList:[10,15,50,100],//每页显示记录数
     		rowNum:10,//默认显示15条
@@ -21,14 +23,22 @@ var gridObj = {};
 				{name : "assetNo",label:"资产编号",index : "asset_no"},				
 				{name : "assetName",label:"资产名称",index : "asset_name"},	
 				{name : "useOrg",label:"使用部门",index : "use_org"},
-				{name : "applyName",label:"使用人",index : "apply_name"},
-				{name : "assetType",label:"资产类别",index : "asset_type"},				
+				{name : "workNumber",label:"使用人",index : "work_number"},
+				{name : "assetItemId",label:"资产项目名称",index : "asset_item_id"},				
 				{name : "model",label:"规格型号",index : "model"},				
 				{name : "beginDate",label:"开始使用日期",index : "begin_date"},				
 				{name : "initialValue",label:"资产原值",index : "initial_value"},		
-				{name : "perDepred",label:"本期折旧 "},				
-				{name : "",label:"资产净值 "},
-				{name : "",label:"操作"},	
+				{name : "perDepred",label:"本期折旧 "},	
+				{name : "propertyState",label:"资产状态 ",align:"center",
+					formatter:function(cellvalue, options, rowObject){
+	 				 if (cellvalue==1) {
+		 				 	return '使用中';
+		 				 }else if (cellvalue==2) {
+		 				 	return '维修中';
+		 				 }else if(cellvalue==3){
+		 					return '已报废';
+		 				 }
+		 			}}	
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
@@ -60,6 +70,8 @@ var gridObj = {};
 	var show_iframe_dialog;
 	//累计折旧的弹出框
 	var depre_iframe_dialog;
+	//添加资产项目的弹出框
+	var assetitem_iframe_dialog;
   	
   	function add(){
   	//xin zeng iframe 弹出框
@@ -69,7 +81,7 @@ var gridObj = {};
 			modal: true,
 			width: $(window).width()*0.8,
 			height:$(window).height()*0.8,
-			title: "固定资产信息增加"
+			title: "公司资源信息增加"
 		});
 		add_iframe_dialog.open();
   	}
@@ -91,7 +103,7 @@ var gridObj = {};
 			modal: true,
 			width: $(window).width()*0.8,
 			height:$(window).height()*0.8,
-			title: "固定资产信息编辑"
+			title: "公司资源信息编辑"
 		});
   		edit_iframe_dialog.open();
     }
@@ -112,8 +124,8 @@ var gridObj = {};
 		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
 			width: $(window).width()*0.6,
-			height:$(window).height()*0.6,
-				title: "固定资产信息详情"
+			height:$(window).height()*0.67,
+				title: "公司资源信息详情"
 		});
   		show_iframe_dialog.open();
     }
@@ -134,7 +146,7 @@ var gridObj = {};
 		 	id:$('<div id="deprewindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
 			width: $(window).width()*0.6,
-			height:$(window).height()*0.6,
+			height:$(window).height()*0.67,
 				title: "计提折旧"
 		});
 		depre_iframe_dialog.open();
@@ -143,6 +155,23 @@ var gridObj = {};
     //关闭查看页面，供子页面调用
     function closeDepre(){
     	depre_iframe_dialog.close();
+    }
+    
+    function assetitem(){
+		var url="<m:url value='/fixedAsset/toAddAssetItem.do'/>";
+		assetitem_iframe_dialog = new biz.dialog({
+		 	id:$('<div id="assetitemwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+			modal: true,
+			width: $(window).width()*0.35,
+			height:$(window).height()*0.6,
+				title: "添加资产项目"
+		});
+		assetitem_iframe_dialog.open();
+    }
+    
+    //关闭查看页面，供子页面调用
+    function closeAssetitem(){
+    	assetitem_iframe_dialog.close();
     }
     
     /**
@@ -213,17 +242,22 @@ var gridObj = {};
 						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" mainid="endDate">
 						<i class="search_time_ico2"></i>
 					</div></li>	
-				 <li style="width: 300px"><span>资产类别:</span>
-				 <select class="search_choose" name="assetType" id="edit_assetType" mainid="assetType" style="width: 200px">
-							<option value="">---请选择---</option>
-							<option value="001-房屋、建筑物">房屋、建筑物</option>
-							<option value="002-机器机械生产设备">机器机械生产设备</option>
-							<option value="003-器具、工具、家具">器具、工具、家具</option>
-							<option value="004-运输工具">运输工具</option>
-							<option value="005-电子设备">电子设备</option>
-							<option value="006-其他固定资产">其他固定资产</option>
+				 <li style="width: 300px"><span>资产项目名称:</span>
+					<select class="input_select text" name="assetItemId" id="edit_assetType" mainid="assetType" >
+						<option value="">所有</option>
+							<c:forEach var="assetItem" items="${assetItem}">
+							<option value="${assetItem.id}">${assetItem.assetName}</option>
+					    </c:forEach>
 					</select>
-				</li><!--下拉 -->
+				</li>
+				 <li style="width: 300px"><span>资产状态:</span>
+					<select class="input_select text" name="propertyState" id="edit_propertyState" mainid="propertyState">
+							<option value="">所有</option>
+							<option value="1">使用中</option>
+							<option value="2">维修中</option>
+							<option value="3">已报废</option>
+					</select>
+				</li>
 				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
 						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
 				</ul>
@@ -256,9 +290,12 @@ var gridObj = {};
 						</a></li>
 						<c:if test="${manage}">
 						<li><a title="计提折旧" href="javascript:"
-							onclick="moduleResMgt();"> <i class="icon_bg icon_submit"></i> <span>计提折旧</span>
+							onclick=";"> <i class="icon_bg icon_submit"></i> <span>计提折旧</span>
 						</a></li>
 						</c:if>
+						<li><a title="添加资产项目" href="javascript:"
+							onclick="assetitem();"> <i class="icon_bg icon_submit"></i> <span>添加资产项目</span>
+						</a></li>
 					</ul>
 				</div>
 	

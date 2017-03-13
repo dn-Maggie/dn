@@ -2,6 +2,7 @@ package com.dongnao.workbench.account.service;
 
 import java.util.List;
 import com.dongnao.workbench.common.bean.ResultMessage;
+import com.dongnao.workbench.account.model.AssetItem;
 import com.dongnao.workbench.account.model.FixedAsset;
 
 /**
@@ -43,4 +44,17 @@ public interface FixedAssetService  {
 	 * @param fixedAsset FixedAsset 实体对象
 	 */	
 	public ResultMessage update(FixedAsset fixedAsset);
+	
+	/**
+	 * 新增资产项目信息方法
+	 * @param assetItem AssetItem:实体类
+	 */
+	public ResultMessage addAssetItem(AssetItem assetItem);
+	
+	/**
+	 * 根据条件查找资产项目信息列表方法
+	 * @param assetItem AssetItem 实体对象（查询条件）
+	 * @return: 实体对象的list
+	 */
+	public List<AssetItem> listAssetItem(AssetItem assetItem);
 }
