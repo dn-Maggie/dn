@@ -14,13 +14,14 @@ var h = today.getHours();
 var mi = today.getMinutes(); 
 var s = today.getSeconds(); 
 var createDate = new Date().format('yyyy-MM-dd');//获取今日时间
+
 $(function() {
 	$("#edit_currdate").val(createDate);
-	$("#edit_enterDate").val(y+'年第'+(m<10?('0'+m):m)+'期');
+	$("#edit_enterDate").val(y+'年第'+(m<10?('0'+m):m)+'期');0
 	$("#enterDate").val(y+'-'+(m<10?('0'+m):m));
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
-		$("#submit").prop('disabled', true).css({'cursor':'not-allowed'});
+		$("#submit").prop('disabled', true).css({'cursor':'not-allowed'});//禁用该标签并且给一个css样式
 		if(!biz.validate("valid",$('#fixedAssetFormEdit')[0])){
 			showWarn("数据验证失败，请检查输入项！",3000);
 			$("#submit").prop('disabled', false).css({'cursor':'pointer'});
@@ -42,7 +43,7 @@ $(function() {
 				}
 		};
 		// 将options传给ajaxForm
-		$('#fixedAssetFormEdit').ajaxSubmit(options);
+		$('#fixedAssetFormEdit').ajaxSubmit(options); 
 	});
 
 	/*编辑表单数据验证*/
@@ -136,8 +137,8 @@ function getEmpIDByName(obj,value) {
 }
 
 //重置查询表单
-function resetForm(formId){
-	document.getElementById(formId).reset();
+function resetForm(){
+	$("#fixedAssetFormEdit")[0].reset();
 }
 </script>
 </head>
@@ -307,7 +308,7 @@ function resetForm(formId){
 			<tr>
 				<td class="inputTd" colspan="6" style="text-align:center;">
 					<input id="submit" type="button" class="ti_bottom" value="保存"/>
-					<input id="reset" type="reset" class="ti_bottom" value="重置" onclick="resetForm('fixedAssetFormEdit')"/>
+					<input id="resetbutton" type="reset" class="ti_bottom" value="重置" onclick="resetForm()"/>
 				</td>
 			</tr>
 		</table>

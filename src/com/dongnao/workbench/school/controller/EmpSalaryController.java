@@ -168,7 +168,8 @@ public class EmpSalaryController{
                 empSalary.setCheckFlag("1");
                 empSalary.setSendFlag("1");
                 if(StringUtil.valueOf(lo.get(4)).indexOf("农行")>0){empSalary.setEmpBank("中国农业银行");}
-                else{empSalary.setEmpBank("中国建设银行");}
+                else if(StringUtil.valueOf(lo.get(4)).indexOf("建行")>0){empSalary.setEmpBank("中国建设银行");}
+                else{empSalary.setEmpBank("北京银行");}
                 empSalary.setEmpBankCard(StringUtil.valueOf(lo.get(4)));   
                 empSalary.setEmpMobile(StringUtil.valueOf(lo.get(5)));
                 empSalary.setLeaveDay(StringUtil.toDouble(lo.get(6)));

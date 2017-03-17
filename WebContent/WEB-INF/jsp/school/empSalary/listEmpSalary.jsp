@@ -138,7 +138,7 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
  			var extend=$('input[type="file"]').val().substr($('input[type="file"]').val().lastIndexOf(".")+1);
  			if("xls|xlsx".indexOf(extend+"|")==-1){
  				 showInfo("选择的文件必须是EXCEL文件,请确认！",3000);
- 	         }else{
+ 	         }else{ 
  	        	showInfo("数据正在导入...");
  	        	ajaxFileUpload();
  	        	gridObj.trigger('reloadGrid');

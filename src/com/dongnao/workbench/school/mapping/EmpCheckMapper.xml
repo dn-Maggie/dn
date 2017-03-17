@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongnao.workbench.school.dao.EmpCheckMapper">
+	<resultMap id="BaseResultMap" type="com.dongnao.workbench.school.model.EmpCheck">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="emp_no" property="empNo" jdbcType="VARCHAR" />
+		<result column="emp_name" property="empName" jdbcType="VARCHAR" />
+		<result column="nickname" property="nickName" jdbcType="VARCHAR" />
+		<result column="post" property="post" jdbcType="VARCHAR" />
+		<result column="department" property="department" jdbcType="VARCHAR" />
+		<result column="check_month" property="checkMonth" jdbcType="VARCHAR" />
+		<result column="base_points" property="basePoints" jdbcType="VARCHAR" />
+		<result column="check_point" property="checkPoint" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+	 				id,
+	 				emp_no,
+					emp_name,
+					nickname,
+					post,
+					department,
+					check_month,
+					base_points,
+					check_point,
+					create_time
+	</sql>
+	
+	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+					e.id,
+	 				e.emp_no,
+					e.emp_name,
+					e.nickname,
+					e.post,
+					e.department,
+					e.check_month,
+					e.base_points,
+					e.check_point,
+					e.create_time					
+		from emp_check as e
+		where e.id =#{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpCheck">
+		select
+				e.id,
+	 				e.emp_no,
+					e.emp_name,
+					e.nickname,
+					e.post,
+					e.department,
+					e.check_month,
+					e.base_points,
+					e.check_point,
+					e.create_time
+		from emp_check as e
+		where 1=1
+		<if test="id != null and '' != id">  
+			and e.id = #{id,jdbcType=VARCHAR}
+		</if>
+		<if test="empNo != null and '' != empNo">  
+			and e.emp_no = #{empNo,jdbcType=VARCHAR}
+		</if>
+		<if test="empName != null and '' != empName">  
+			and e.emp_name like CONCAT('%',#{empName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="nickName != null and '' != nickName">  
+			and e.nickname = #{nickName,jdbcType=VARCHAR}
+		</if>
+		<if test="post != null and '' != post">  
+			and e.post = #{post,jdbcType=VARCHAR}
+		</if>
+		<if test="department != null and '' != department">  
+			and e.department = #{department,jdbcType=VARCHAR}
+		</if>
+		<if test="checkMonth != null and '' != checkMonth">  
+			and e.check_month = #{checkMonth,jdbcType=VARCHAR}
+		</if>
+		<if test="basePoints != null and '' != basePoints">  
+			and e.base_points = #{basePoints,jdbcType=VARCHAR}
+		</if>
+		<if test="checkPoint != null and '' != checkPoint">  
+			and e.check_point = #{checkPoint,jdbcType=VARCHAR}
+		</if>
+		<if test="createTime != null and '' != createTime">  
+			and e.create_time = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="orderFields != null and '' != orderFields">  
+          	order by ${orderFields} ${order}
+       	</if>
+	</select>
+	
+	<insert id="add" parameterType="com.dongnao.workbench.school.model.EmpCheck">
+		insert into emp_check (
+	 				emp_no,
+					emp_name,
+					nickname,
+					post,
+					department,
+					check_month,
+					base_points,
+					check_point,
+					create_time   
+		)values (
+					,#{empNo,jdbcType=VARCHAR}
+					,#{empName,jdbcType=VARCHAR}
+					,#{nickName,jdbcType=VARCHAR}
+					,#{post,jdbcType=VARCHAR}
+					,#{department,jdbcType=VARCHAR}
+					,#{checkMonth,jdbcType=VARCHAR}
+					,#{basePoints,jdbcType=VARCHAR}
+					,#{checkPoint,jdbcType=VARCHAR}
+					,#{createTime,jdbcType=TIMESTAMP}
+				)
+	</insert>
+	
+</mapper>

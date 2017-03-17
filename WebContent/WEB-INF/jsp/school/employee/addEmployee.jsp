@@ -244,9 +244,9 @@
 				<td class="inputLabelTd" title="工资发放银行">储蓄银行：</td>
 				<td class="inputTd" title="工资发放银行">
 					<select id="edit_bankName" name="bankName" class="input_select">
+						<option value="北京银行">北京银行</option>
 						<option value="中国建设银行">中国建设银行</option>
 						<option value="中国农业银行">中国农业银行</option>
-						<option value="北京银行">北京银行</option>
 						<!-- <option value="农村信用合作社">农村信用合作社</option>
 						<option value="中国招商银行">中国招商银行</option>
 						<option value="中国交通银行">中国交通银行</option>

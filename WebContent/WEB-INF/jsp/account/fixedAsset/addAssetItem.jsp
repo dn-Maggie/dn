@@ -79,9 +79,11 @@ $(function() {
 
 //重置查询表单
 function resetForm(){
-	$("#assetName").val("");
-	$("#assetType").val("固定资产");
+	/* $("#assetName").val("");
+	$("#assetType").val("固定资产"); */
+	$('#fixedAssetFormEdit')[0].reset()
 }
+
 
 </script>
 </head>
@@ -116,7 +118,7 @@ function resetForm(){
 			<tr>
 				<td class="inputTd" colspan="6" style="text-align:center;">
 					<input id="submit" type="button" class="ti_bottom" value="保存"/>
-					<input id="reset" type="reset" class="ti_bottom" value="重置" onclick="resetForm()"/>
+					<input id="resetbutton" type="button" class="ti_bottom" value="重置" onclick="resetForm()"/>
 				</td>
 			</tr>
 			<tr>

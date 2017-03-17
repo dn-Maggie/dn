@@ -165,7 +165,6 @@ ExpExcel = {
 	},
 	showWin : function(tableIdOrGridId, expUrl, type, queryForm) {
 		$("#excelExportDialogDiv").remove();
-		
 		var excelExportDialogDiv = $('<div id="excelExportDialogDiv">'
 				+ ExpExcel.createWinHtml() + '</div>');
 		$(document.body).append(excelExportDialogDiv);
