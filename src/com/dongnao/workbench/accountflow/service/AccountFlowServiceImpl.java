@@ -128,14 +128,6 @@ public class AccountFlowServiceImpl implements AccountFlowService{
 	public List<FinStatements> reportlistByzyj(ReportQuerycondition rqc) {
 		return accountFlowMapper.reportlistByzyj(rqc);
 	}
-	/**
-	 * 根据条件查询总成本方法
-	 * @param ReportQuerycondition rqc 实体对象（查询条件）
-	 * @return List<DeptReport>: 实体对象的DeptReport
-	 */
-	public List<FinStatements> reportlistByzcb(ReportQuerycondition rqc) {
-		return accountFlowMapper.reportlistByzcb(rqc);
-	}
 
 	public void timedupdatecostprofitr(List<ReportQuerycondition> rqc) {
 		accountFlowMapper.timedupdatecostprofitr(rqc);

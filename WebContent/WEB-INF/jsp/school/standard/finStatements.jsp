@@ -230,7 +230,8 @@ input[name='timeQuantum']:checked+label{
     $(function() {	
     	new biz.datepicker({
 	  			id : "#r_year",
-	  			maxDate:'#F{$dp.$D(\'r_year\');}',
+	  			maxDate:'%y',
+	  			minDate:'2017',
 	  			dateFmt:'yyyy'
 	  		});
 	    	$ .ajax({

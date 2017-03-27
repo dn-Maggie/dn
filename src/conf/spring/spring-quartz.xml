@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  
+  
+    <!-- 配置调度器工厂(SchedulerFactoryBean) -->  
+    <bean name="startQuertz"  
+        class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+        <property name="triggers">  
+            <list>  
+                <ref bean="myJobTrigger" />  
+            </list>  
+        </property>  
+        
+    </bean>  
+  
+    <!-- 配置Cron触发器(CronTriggerFactoryBean) -->  
+    <bean id="myJobTrigger"  
+        class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+        <property name="jobDetail">  
+            <ref bean="myJobDetail" />  
+        </property>  
+        <property name="cronExpression">  
+           <!-- 每隔一秒钟执行一次 0/45 * * * * ?-->  
+           <!-- 本月最后一天0 0 0 L * ?  -->
+           <!-- 每一天执行一次0 0 0 1/1 * ? * -->
+           <!-- 每天13点执行0 0 13 * * ? * -->
+            <value>0 0 13 * * ? *</value>  
+        </property>  
+        
+    </bean>  
+  
+    <!-- 配置方法调用任务工厂(XXXJobDetailFactoryBean) -->  
+    <bean id="myJobDetail"  
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+        <property name="targetObject">  
+            <ref bean="myJob" />  
+        </property>  
+        <property name="targetMethod">  
+            <value>execute</value>  
+        </property>  
+    </bean>  
+  
+    <!-- 配置自定义的时间任务(Job) -->  
+    <bean id="myJob" class="com.dongnao.workbench.school.controller.SpringQtz" />  
+  
+</beans>  

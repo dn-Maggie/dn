@@ -151,8 +151,10 @@ public class StandardController{
 			List<Subject> Deptlist = subjectService.listByCondition(new Subject());
 			for (int i = 0; i < Deptlist.size(); i++) {// 第一次进入页面默认查询所有部门数据,包括总业绩，总成本，--总利润在jsp页面处理
 				rqc.setDeptname(Deptlist.get(i).getName());
+				rqc.setClasstype("achieve");
 				zyjobj = accountFlowService.reportlistByzyj(rqc).get(0);// 查询总业绩
-				zcbobj = accountFlowService.reportlistByzcb(rqc).get(0);// 查询总成本
+				rqc.setClasstype("cost");
+				zcbobj = accountFlowService.reportlistByzyj(rqc).get(0);// 查询总成本
 				finStaList.add(zyjobj);
 				finStaList.add(zcbobj);
 			}
@@ -175,18 +177,22 @@ public class StandardController{
 			if (arr1[0].length() != 0) {// 说明有部门筛选条件
 				for (int i = 0; i < arr1.length; i++) {
 					rqc.setDeptname(arr1[i]);
+					rqc.setClasstype("achieve");
 					zyjobj = accountFlowService.reportlistByzyj(rqc).get(0);// 查询总业绩
 					finStaList.add(zyjobj);
-					zcbobj = accountFlowService.reportlistByzcb(rqc).get(0);// 查询总成本
+					rqc.setClasstype("cost");
+					zcbobj = accountFlowService.reportlistByzyj(rqc).get(0);// 查询总成本
 					finStaList.add(zcbobj);
 				}
 			} else {// 说明没有部门筛选条件，就查询所有部门数据
 				List<Subject> Deptlist = subjectService.listByCondition(new Subject());
 				for (int i = 0; i < Deptlist.size(); i++) {
 					rqc.setDeptname(Deptlist.get(i).getName());
+					rqc.setClasstype("achieve");
 					zyjobj = accountFlowService.reportlistByzyj(rqc).get(0);// 查询总业绩
 					finStaList.add(zyjobj);
-					zcbobj = accountFlowService.reportlistByzcb(rqc).get(0);// 查询总成本
+					rqc.setClasstype("cost");
+					zcbobj = accountFlowService.reportlistByzyj(rqc).get(0);// 查询总成本
 					finStaList.add(zcbobj);
 				}
 			}

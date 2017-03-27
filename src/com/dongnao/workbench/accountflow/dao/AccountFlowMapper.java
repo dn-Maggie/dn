@@ -88,13 +88,7 @@ public interface AccountFlowMapper  {
 	 */
 	public List<FinStatements>  reportlistByzyj(ReportQuerycondition rqc);
 	
-	/**
-	 * 根据条件查询总成本的方法
-	 * @param ReportQuerycondition rqc 实体对象（查询条件）
-	 * @return List<DeptReport>: 实体对象的DeptReport
-	 */
-	public List<FinStatements>  reportlistByzcb(ReportQuerycondition rqc);
-	
+
 	/**
 	 * 定时更新收入成本临时表方法(插入今年最新数据--业绩)
 	 */

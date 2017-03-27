@@ -25,35 +25,32 @@ public class SpringQtz {
 	AccountFlowMapper accountFlowMapper;
 
 	protected void execute() {
-		// System.out.println(subjectService);
-		// System.out.println(accountFlowService);
-		System.out.println(accountFlowMapper);
+		//System.out.println(accountFlowMapper);
 		ReportQuerycondition rqc = new ReportQuerycondition();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
 		Date date = new Date();
 		String nowyear = sdf.format(date);
 		rqc.setYear(nowyear);
-		System.out.println("-------1------");
 		accountFlowMapper.timedupdatecostprofitdelete(rqc);
-		// accountFlowService.timedupdatecostprofit(rqc);
 		List<ReportQuerycondition> rqclistr = new ArrayList<ReportQuerycondition>();
 		List<ReportQuerycondition> rqclistc = new ArrayList<ReportQuerycondition>();
 		List<Subject> Deptlist = subjectService.listByCondition(new Subject());
 		for (int i = 0; i < Deptlist.size(); i++) {
-			rqc.setDeptname(Deptlist.get(i).getName());
-			rqc.setClasstype("achieve");
-			rqclistr.add(rqc);
-			rqc.setClasstype("cost");
-			rqclistc.add(rqc);
+			ReportQuerycondition rqcr = new ReportQuerycondition();
+			ReportQuerycondition rqcc = new ReportQuerycondition();
+			rqcr.setYear(nowyear);
+			rqcc.setYear(nowyear);
+			rqcr.setDeptname(Deptlist.get(i).getName());
+			rqcc.setDeptname(Deptlist.get(i).getName());
+			rqcr.setClasstype("achieve");
+			rqcc.setClasstype("cost");
+			rqclistr.add(rqcr);
+			rqclistc.add(rqcc);
 		}
-		System.out.println("-------2------");
-		accountFlowService.timedupdatecostprofitr(rqclistr);
-		accountFlowService.timedupdatecostprofitc(rqclistc);
+		accountFlowMapper.timedupdatecostprofitr(rqclistr);
+		accountFlowMapper.timedupdatecostprofitc(rqclistc);
+		System.out.println("-------3------");
 	}
 
-	protected void work() {
-		// System.out.println(subjectService);
-		// System.out.println(accountFlowService);
-		// System.out.println(accountFlowMapper);
-	}
+
 }

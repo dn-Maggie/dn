@@ -11,7 +11,6 @@ public class ReportQuerycondition extends Model{
 	private String deptname;//查询的部门
 	private String classtype;//查询的报表类型（总业绩，总成本，总利润）
 	
-	private String note;
 	
 	public String getYear() {
 		return year;
@@ -30,12 +29,6 @@ public class ReportQuerycondition extends Model{
 	}
 	public void setClasstype(String classtype) {
 		this.classtype = classtype;
-	}
-	public String getNote() {
-		return note;
-	}
-	public void setNote(String note) {
-		this.note = note;
 	}
 	
 }
