@@ -2,6 +2,7 @@ package com.dongnao.workbench.school.service;
 
 import java.util.List;
 
+import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.school.model.EmpCheck;
 import com.dongnao.workbench.school.model.Employee;
 
@@ -22,4 +23,16 @@ public interface EmpCheckService {
 	 */
 	public EmpCheck getByPrimaryKey(String key);
 	
+	
+	/**
+	 * 批量新增部门员工未审核数据的方法
+	 * @param List<EmpCheck> :集合
+	 */
+	public void add(List<EmpCheck> empc);
+	
+	/**
+	 * 更新方法
+	 * @param EmpCheck
+	 */
+	public ResultMessage update(EmpCheck empc);
 }

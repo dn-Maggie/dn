@@ -3,6 +3,7 @@ package com.dongnao.workbench.school.dao;
 import java.util.List;
 
 import com.dongnao.workbench.school.model.EmpCheck;
+import com.dongnao.workbench.school.model.Employee;
 
 public interface EmpCheckMapper {
 	/**
@@ -20,4 +21,15 @@ public interface EmpCheckMapper {
 	 */
 	public EmpCheck getByPrimaryKey(String key);
 	
+	/**
+	 * 批量新增部门员工未审核数据的方法
+	 * @param List<EmpCheck> :集合
+	 */
+	void add(List<EmpCheck> empc);
+	
+	/**
+	 * 更新方法
+	 * @param EmpCheck empc :
+	 */
+	void update(EmpCheck empc);
 }

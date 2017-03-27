@@ -2,6 +2,7 @@ package com.dongnao.workbench.school.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -84,7 +85,14 @@ public class EmpCheckController{
 	@RequestMapping("/toListEmpCheck")
 	public ModelAndView toList(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/empCheck/listEmpCheck");
-		return mv;	
+//		Employee entity = employeeService.getByPrimaryKey(Utils.getLoginUserInfo(request).getId());
+//		Org org = new Org();
+//		org.setOrgNo(entity.getDeptNo());
+// 		mv.addObject("org",orgService.listByCondition(org));
+		Org org = new Org();
+		org.setParentOrgId("1");
+ 		mv.addObject("org",orgService.listByCondition(org));
+		return mv;
 	}
 	
 	/**
@@ -99,33 +107,89 @@ public class EmpCheckController{
 	public void listByCondition(EmpCheck empCheck,HttpServletRequest request,
 			HttpServletResponse response, Page page){
 		empCheck.setPage(page);	
+		empCheck.setState(2);
 		List<EmpCheck> list = empCheckService.listByCondition(empCheck);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	
 	/**
-	 * 进入员工考核信息页面方法
+	 * 进入查看员工考核信息页面方法
 	 * @param key String：实体id
 	 * @return ModelAndView: 查询实体
 	 */	
 	@RequestMapping("/toShowAssinfo")
-	public ModelAndView toEdit(String key){
+	public ModelAndView ShowAssinfo(String key){
 		ModelAndView mv = new ModelAndView(
 				"WEB-INF/jsp/school/empCheck/ShowAssessmentinfo");
-		EmpCheck entity = empCheckService.getByPrimaryKey(key);
-		mv.addObject("employee", entity);
+		EmpCheck empCheck = empCheckService.getByPrimaryKey(key);
+		mv.addObject("empCheck", empCheck);
 		return mv;
 	}
+	
 	/**
-	 * 员工考核信息页面请求员工考核数据方法
-	 * @param key String：实体id
-	 * @return ModelAndView: 查询实体
+	 * 进入当月考核页面
+	 * @return ModelAndView
 	 */
-	@RequestMapping("/listshowAssinfo")
-	public void listshowAssinfo(EmpCheck empCheck,HttpServletRequest request,
-			HttpServletResponse response, Page page){
-		empCheck.setPage(page);	
-		List<EmpCheck> list = empCheckService.listByCondition(empCheck);
-		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	@RequestMapping("/toAssessment")
+	public ModelAndView toAssessment(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/empCheck/Assessment");
+		Employee entity = employeeService.getByPrimaryKey(Utils.getLoginUserInfo(request).getId());
+		Org org = new Org();
+		org.setOrgNo(entity.getDeptNo());
+		org=orgService.listByCondition(org).get(0);
+ 		mv.addObject("org",org);
+		return mv;
+	}
+	
+	@RequestMapping("/saveAssinfo")
+	public void saveAssinfo(EmpCheck empCheck,HttpServletRequest request,
+			HttpServletResponse response, Page page){	
+		List<EmpCheck> lt = empCheckService.listByCondition(empCheck);
+		if(lt.size()>0){
+			empCheck.setState(1);
+			empCheck.setPage(page);	
+			List<EmpCheck> list = empCheckService.listByCondition(empCheck);
+			AjaxUtils.sendAjaxForPage(request, response, page, list);
+		}else{
+			Org org = new Org();
+			org.setOrgName(empCheck.getDepartment());
+			org=orgService.listByCondition(org).get(0);
+			Employee employee=new Employee();
+			employee.setDeptNo(org.getOrgNo());
+			List<Employee> list = employeeService.listByCondition(employee);
+			List<EmpCheck> empc = new ArrayList<EmpCheck>();
+			Iterator it = list.iterator();
+			while(it.hasNext()) {
+				Employee e = (Employee) it.next();
+				EmpCheck ec=new EmpCheck();
+				ec.setEmpNo(e.getEmpNo());
+				ec.setEmpName(e.getName());
+				ec.setPost(e.getPosition());
+				ec.setDepartment(e.getDept());
+				ec.setCheckMonth(empCheck.getCheckMonth());
+				ec.setBasePoints("");
+				ec.setCheckPoint("");
+				ec.setNickName(e.getNickName());
+				ec.setState(1);
+				empc.add(ec);
+			}
+			//插入部门所有员工未考核的数据
+			empCheckService.add(empc);
+			empCheck.setPage(page);	
+			List<EmpCheck> list2 = empCheckService.listByCondition(empCheck);
+			AjaxUtils.sendAjaxForPage(request, response, page, list2);
+		}
+	}
+	
+	/**
+	 * 修改方法
+	 * @param empCheck EmpCheck：实体对象
+	 * @param response HttpServletResponse
+	 * @return: ajax输入json字符串
+	 */	
+	@RequestMapping("/update")
+	public void update(EmpCheck empCheck,HttpServletRequest request,HttpServletResponse response){
+		empCheck.setState(2);
+		AjaxUtils.sendAjaxForObjectStr(response,empCheckService.update(empCheck));	
 	}
 }

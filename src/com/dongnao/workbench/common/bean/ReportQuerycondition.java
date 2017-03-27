@@ -1,22 +1,23 @@
 package com.dongnao.workbench.common.bean;
 
-public class ReportQuerycondition  extends Model{
+public class ReportQuerycondition extends Model{
 	//报表查询条件实体类
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String r_year;//查询的年份
+	private String year;//查询的年份
 	private String deptname;//查询的部门
-	private String zyjcolunm;//查询的报表项目（总业绩，总成本，总利润）
-	private String zcbcolunm;
-	private String profitcolunm;
-	public String getR_year() {
-		return r_year;
+	private String classtype;//查询的报表类型（总业绩，总成本，总利润）
+	
+	private String note;
+	
+	public String getYear() {
+		return year;
 	}
-	public void setR_year(String r_year) {
-		this.r_year = r_year;
+	public void setYear(String year) {
+		this.year = year;
 	}
 	public String getDeptname() {
 		return deptname;
@@ -24,24 +25,17 @@ public class ReportQuerycondition  extends Model{
 	public void setDeptname(String deptname) {
 		this.deptname = deptname;
 	}
-	public String getZyjcolunm() {
-		return zyjcolunm;
+	public String getClasstype() {
+		return classtype;
 	}
-	public void setZyjcolunm(String zyjcolunm) {
-		this.zyjcolunm = zyjcolunm;
+	public void setClasstype(String classtype) {
+		this.classtype = classtype;
 	}
-	public String getZcbcolunm() {
-		return zcbcolunm;
+	public String getNote() {
+		return note;
 	}
-	public void setZcbcolunm(String zcbcolunm) {
-		this.zcbcolunm = zcbcolunm;
+	public void setNote(String note) {
+		this.note = note;
 	}
-	public String getProfitcolunm() {
-		return profitcolunm;
-	}
-	public void setProfitcolunm(String profitcolunm) {
-		this.profitcolunm = profitcolunm;
-	}
-
 	
 }

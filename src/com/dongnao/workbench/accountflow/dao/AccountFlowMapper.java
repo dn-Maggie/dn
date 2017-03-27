@@ -2,6 +2,9 @@ package com.dongnao.workbench.accountflow.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
 import com.dongnao.workbench.account.model.FinStatements;
 import com.dongnao.workbench.accountflow.model.AccountFlow;
 import com.dongnao.workbench.common.bean.ReportQuerycondition;
@@ -12,6 +15,7 @@ import com.dongnao.workbench.common.bean.ResultMoney;
  * @author cjw
  * @version 1.0 2016-05-01
  */
+@Service("accountFlowMapper")
 public interface AccountFlowMapper  {
 
 	/**
@@ -90,4 +94,19 @@ public interface AccountFlowMapper  {
 	 * @return List<DeptReport>: 实体对象的DeptReport
 	 */
 	public List<FinStatements>  reportlistByzcb(ReportQuerycondition rqc);
+	
+	/**
+	 * 定时更新收入成本临时表方法(插入今年最新数据--业绩)
+	 */
+	public void timedupdatecostprofitr(List<ReportQuerycondition> rqc);
+	
+	/**
+	 *  定时更新收入成本临时表方法(插入今年最新数据--成本)
+	 */
+	public void timedupdatecostprofitc(List<ReportQuerycondition> rqc);
+	
+	/**
+	 * 定时更新收入成本临时表方法(删除今年旧数据)
+	 */
+	public int timedupdatecostprofitdelete(ReportQuerycondition rqc);
 }

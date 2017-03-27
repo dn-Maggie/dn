@@ -9,12 +9,14 @@ import com.dongnao.workbench.accountflow.model.AccountFlow;
 import com.dongnao.workbench.accountflow.service.AccountFlowService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.dongnao.workbench.common.bean.ReportQuerycondition;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.bean.ResultMoney;
 import com.dongnao.workbench.common.util.AjaxUtils;
+import com.dongnao.workbench.subject.service.SubjectService;
  
 /**
  * 描述：财务流水模块service接口实现类，实现service接口方法
@@ -27,6 +29,7 @@ public class AccountFlowServiceImpl implements AccountFlowService{
         @Resource
 	private AccountFlowMapper accountFlowMapper;
 	
+    private static AnnotationConfigApplicationContext ctx;
  
 	/**
 	 * 新增财务流水方法
@@ -132,6 +135,24 @@ public class AccountFlowServiceImpl implements AccountFlowService{
 	 */
 	public List<FinStatements> reportlistByzcb(ReportQuerycondition rqc) {
 		return accountFlowMapper.reportlistByzcb(rqc);
+	}
+
+	public void timedupdatecostprofitr(List<ReportQuerycondition> rqc) {
+		accountFlowMapper.timedupdatecostprofitr(rqc);
+	}
+
+	public void timedupdatecostprofitc(List<ReportQuerycondition> rqc) {
+		accountFlowMapper.timedupdatecostprofitc(rqc);
+		
+	}
+
+	public void timedupdatecostprofit(ReportQuerycondition rqc) {
+		System.out.println("------imp1------");
+		ctx = new AnnotationConfigApplicationContext();
+		//ctx.scan("com.dongnao.workbench.accountflow.dao");
+		System.out.println(ctx.getBean("accountFlowMapper"));
+		System.out.println(""+accountFlowMapper.timedupdatecostprofitdelete(rqc));
+		System.out.println("------imp2------");
 	}
 
 }

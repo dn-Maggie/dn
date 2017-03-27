@@ -26,6 +26,9 @@ public class EmpCheck extends Model{
 		private String checkPoint;
 		@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
 		private Date createTime;
+	    private String startDate;
+	    private String endDate;	
+	    private int state;
 		public String getId() {
 			return id;
 		}
@@ -86,6 +89,24 @@ public class EmpCheck extends Model{
 		}
 		public void setCreateTime(Date createTime) {
 			this.createTime = createTime;
+		}
+		public String getStartDate() {
+			return startDate;
+		}
+		public void setStartDate(String startDate) {
+			this.startDate = startDate;
+		}
+		public String getEndDate() {
+			return endDate;
+		}
+		public void setEndDate(String endDate) {
+			this.endDate = endDate;
+		}
+		public int getState() {
+			return state;
+		}
+		public void setState(int state) {
+			this.state = state;
 		}
 		
 }

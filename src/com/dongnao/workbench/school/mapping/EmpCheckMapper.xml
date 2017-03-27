@@ -12,7 +12,11 @@
 		<result column="base_points" property="basePoints" jdbcType="VARCHAR" />
 		<result column="check_point" property="checkPoint" jdbcType="VARCHAR" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="state" property="state" jdbcType="INTEGER" />
 	</resultMap>
+	
+
+	
 	<sql id="Base_Column_List">
 	 				id,
 	 				emp_no,
@@ -23,7 +27,8 @@
 					check_month,
 					base_points,
 					check_point,
-					create_time
+					create_time,
+					state
 	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -37,7 +42,8 @@
 					e.check_month,
 					e.base_points,
 					e.check_point,
-					e.create_time					
+					e.create_time,
+					e.state					
 		from emp_check as e
 		where e.id =#{id,jdbcType=VARCHAR}
 	</select>
@@ -53,7 +59,8 @@
 					e.check_month,
 					e.base_points,
 					e.check_point,
-					e.create_time
+					e.create_time,
+					e.state
 		from emp_check as e
 		where 1=1
 		<if test="id != null and '' != id">  
@@ -86,33 +93,53 @@
 		<if test="createTime != null and '' != createTime">  
 			and e.create_time = #{createTime,jdbcType=TIMESTAMP}
 		</if>
+		<if test="state != null and '' != state">  
+			and e.state = #{state,jdbcType=INTEGER}
+		</if>
+		<if test="null != propsMap.startDate and propsMap.startDate != ''">
+			<![CDATA[
+			and DATE_FORMAT(e.create_time,'%Y-%m') >= #{propsMap.startDate,jdbcType=TIMESTAMP}
+			]]>
+		</if>
+		<if test="null != propsMap.endDate and propsMap.endDate != ''">
+			<![CDATA[
+				and DATE_FORMAT(e.create_time,'%Y-%m') <= #{propsMap.endDate,jdbcType=TIMESTAMP}
+			]]>
+		</if>
 		<if test="orderFields != null and '' != orderFields">  
           	order by ${orderFields} ${order}
        	</if>
 	</select>
 	
-	<insert id="add" parameterType="com.dongnao.workbench.school.model.EmpCheck">
+	<insert id="add" parameterType="java.util.List">
 		insert into emp_check (
 	 				emp_no,
 					emp_name,
-					nickname,
 					post,
 					department,
 					check_month,
 					base_points,
 					check_point,
-					create_time   
-		)values (
-					,#{empNo,jdbcType=VARCHAR}
-					,#{empName,jdbcType=VARCHAR}
-					,#{nickName,jdbcType=VARCHAR}
-					,#{post,jdbcType=VARCHAR}
-					,#{department,jdbcType=VARCHAR}
-					,#{checkMonth,jdbcType=VARCHAR}
-					,#{basePoints,jdbcType=VARCHAR}
-					,#{checkPoint,jdbcType=VARCHAR}
-					,#{createTime,jdbcType=TIMESTAMP}
-				)
+					create_time,
+					nickname,
+					state   
+		)values 
+		<foreach collection ="list" item="item" index= "index" separator =",">
+                 (
+                 #{item.empNo}, #{item.empName},#{item.post},#{item.department},
+                 #{item.checkMonth}, #{item.basePoints}, #{item.checkPoint},
+                 now(),#{item.nickName}, #{item.state}
+                 )
+             </foreach >
+
 	</insert>
+	
+	<update id="update" parameterType="com.dongnao.workbench.school.model.EmpCheck">
+	                update emp_check   
+	                set 
+	                  check_point=#{checkPoint,jdbcType=VARCHAR},
+	                  state = #{state,jdbcType=INTEGER}
+	                where id = #{id,jdbcType=VARCHAR} 
+	</update>
 	
 </mapper>

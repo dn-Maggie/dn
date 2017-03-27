@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dongnao.workbench.account.model.FinStatements;
 import com.dongnao.workbench.accountflow.model.AccountFlow;
 import com.dongnao.workbench.accountflow.service.AccountFlowService;
+import com.dongnao.workbench.accountflow.service.AccountFlowServiceImpl;
 import com.dongnao.workbench.common.bean.ReportQuerycondition;
 import com.dongnao.workbench.common.bean.ResultMoney;
 import com.dongnao.workbench.common.page.Page;
@@ -34,6 +35,7 @@ import com.dongnao.workbench.school.model.Standard;
 import com.dongnao.workbench.school.service.StandardService;
 import com.dongnao.workbench.subject.model.Subject;
 import com.dongnao.workbench.subject.service.SubjectService;
+import com.dongnao.workbench.subject.service.SubjectServiceImpl;
 import com.dongnao.workbench.vipStudent.model.Statistical;
 import com.dongnao.workbench.vipStudent.model.VipStudent;
 import com.dongnao.workbench.vipStudent.service.VipStudentService;
@@ -133,73 +135,61 @@ public class StandardController{
 	 * @return ModelAndView
 	 */
 	@RequestMapping("/listFinStatements")
-	public void finStatements(@RequestBody String param,HttpServletRequest request,HttpServletResponse response,Page page){
+	public void finStatements(@RequestBody String param, HttpServletRequest request, HttpServletResponse response,
+			Page page) {
 		ReportQuerycondition rqc = new ReportQuerycondition();
 		rqc.setPage(page);
-		List<FinStatements> finStaList=new ArrayList<FinStatements>();
-		FinStatements zyjobj=null;
-		FinStatements zcbobj=null;
-		if(param == null||param.length()==0) {//第一次进入页面
+		List<FinStatements> finStaList = new ArrayList<FinStatements>();
+		FinStatements zyjobj = null;
+		FinStatements zcbobj = null;
+		if (param == null || param.length() == 0) {// 第一次进入页面
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
 			Date date = new Date();
-	        String nowyear = sdf.format(date);
-			rqc.setR_year(nowyear);
-//	        rqc.setZcbcolunm("true");
-//	        rqc.setZyjcolunm("true");
-//	        rqc.setProfitcolunm("true");
-	      //获取所有部门名称
-	        List<Subject> Deptlist = subjectService.listByCondition(new Subject());
-	        for(int i=0;i<Deptlist.size();i++){//第一次进入页面默认查询所有部门数据,包括总业绩，总成本，总利润在jsp页面处理
-	        	//System.out.println(Deptlist.get(i).getName());
-	        	rqc.setDeptname(Deptlist.get(i).getName());
-	        	zyjobj= accountFlowService.reportlistByzyj(rqc).get(0);//查询总业绩
-	        	zcbobj= accountFlowService.reportlistByzcb(rqc).get(0);//查询总成本
-	        	finStaList.add(zyjobj);
-	        	finStaList.add(zcbobj);
-	        }
-		}else{//param不为空说明有条件传入
+			String nowyear = sdf.format(date);
+			rqc.setYear(nowyear);
+			// 获取所有部门名称
+			List<Subject> Deptlist = subjectService.listByCondition(new Subject());
+			for (int i = 0; i < Deptlist.size(); i++) {// 第一次进入页面默认查询所有部门数据,包括总业绩，总成本，--总利润在jsp页面处理
+				rqc.setDeptname(Deptlist.get(i).getName());
+				zyjobj = accountFlowService.reportlistByzyj(rqc).get(0);// 查询总业绩
+				zcbobj = accountFlowService.reportlistByzcb(rqc).get(0);// 查询总成本
+				finStaList.add(zyjobj);
+				finStaList.add(zcbobj);
+			}
+		} else {// param不为空说明有条件传入
 			JSONObject jso = JSONArray.fromObject(param).getJSONObject(0);
-			if (jso.getString("r_year") == null || jso.getString("r_year").length() == 0) {//如没有选择年份条件，默认设置当前年份
+			if (jso.getString("r_year") == null || jso.getString("r_year").length() == 0) {// 如没有选择年份条件，默认设置当前年份
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
 				Date date = new Date();
 				String nowyear = sdf.format(date);
-				rqc.setR_year(nowyear);
+				rqc.setYear(nowyear);
 			} else {
-				rqc.setR_year(jso.getString("r_year"));
+				rqc.setYear(jso.getString("r_year"));
 			}
-//			rqc.setZcbcolunm(StringUtils.defaultIfEmpty(jso.getString("zcbcolunm"), StringUtils.EMPTY));
-//			rqc.setZyjcolunm(StringUtils.defaultIfEmpty(jso.getString("zyjcolunm"), StringUtils.EMPTY)); 
-//			String[] arr1 = new String[100];
+			// rqc.setZcbcolunm(StringUtils.defaultIfEmpty(jso.getString("zcbcolunm"),
+			// StringUtils.EMPTY));
+			// rqc.setZyjcolunm(StringUtils.defaultIfEmpty(jso.getString("zyjcolunm"),
+			// StringUtils.EMPTY));
 			String arr1[] = null;
-			arr1 = jso.getString("deptArr").split(",");//获取选择的想要查询的部门
-			//System.out.println(arr1.length);
-       			if(arr1[0].length()!=0){//说明有部门筛选条件
+			arr1 = jso.getString("deptArr").split(",");// 获取选择的想要查询的部门
+			if (arr1[0].length() != 0) {// 说明有部门筛选条件
 				for (int i = 0; i < arr1.length; i++) {
 					rqc.setDeptname(arr1[i]);
-					//System.out.println(jso.getString("zyjcolunm")+jso.getString("zcbcolunm"));
-					/*if(jso.getString("zyjcolunm").equals("true")){*/
-						zyjobj = accountFlowService.reportlistByzyj(rqc).get(0);// 查询总业绩
-						finStaList.add(zyjobj);
-					/*}*/
-					/*if(jso.getString("zcbcolunm").equals("true")){*/
-						zcbobj = accountFlowService.reportlistByzcb(rqc).get(0);// 查询总成本
-						finStaList.add(zcbobj);
-					/*}	*/
-				} 
-			}else{//说明没有部门筛选条件，就查询所有部门数据
+					zyjobj = accountFlowService.reportlistByzyj(rqc).get(0);// 查询总业绩
+					finStaList.add(zyjobj);
+					zcbobj = accountFlowService.reportlistByzcb(rqc).get(0);// 查询总成本
+					finStaList.add(zcbobj);
+				}
+			} else {// 说明没有部门筛选条件，就查询所有部门数据
 				List<Subject> Deptlist = subjectService.listByCondition(new Subject());
-		        for(int i=0;i<Deptlist.size();i++){//第一次进入页面默认查询所有部门数据,包括总业绩，总成本，总利润在jsp页面处理
-		        	rqc.setDeptname(Deptlist.get(i).getName());
-		        	/*if(jso.getString("zyjcolunm").equals("true")){*/
-						zyjobj = accountFlowService.reportlistByzyj(rqc).get(0);// 查询总业绩
-						finStaList.add(zyjobj);
-					/*}*/
-					/*if(jso.getString("zcbcolunm").equals("true")){*/
-						zcbobj = accountFlowService.reportlistByzcb(rqc).get(0);// 查询总成本
-						finStaList.add(zcbobj);
-					/*}*/	
-		        }
-			}   
+				for (int i = 0; i < Deptlist.size(); i++) {
+					rqc.setDeptname(Deptlist.get(i).getName());
+					zyjobj = accountFlowService.reportlistByzyj(rqc).get(0);// 查询总业绩
+					finStaList.add(zyjobj);
+					zcbobj = accountFlowService.reportlistByzcb(rqc).get(0);// 查询总成本
+					finStaList.add(zcbobj);
+				}
+			}
 		}
 		AjaxUtils.sendAjaxForPage(request, response, page, finStaList);
 	}
@@ -378,5 +368,39 @@ public class StandardController{
  		}
  		
  	}
-	
+ 	
+	/**
+	 * 定时更新成本业绩临时表
+	 */	
+	@RequestMapping("/tupdatecostprofit")
+	public void tupdatecostprofit(){
+/*		AccountFlowService aa = new AccountFlowServiceImpl();
+		SubjectService ss = new SubjectServiceImpl();*/
+		//1.删除今年的旧数据
+		ReportQuerycondition rqc = new ReportQuerycondition();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+		Date date = new Date();
+		String nowyear = sdf.format(date);
+		rqc.setYear(nowyear);
+		System.out.println("-------1------");
+//		aa.timedupdatecostprofit(rqc);
+		accountFlowService.timedupdatecostprofit(rqc);
+		//2.插入最新数据
+		List<ReportQuerycondition> rqclistr = new ArrayList<ReportQuerycondition>();//查询条件集合
+		List<ReportQuerycondition> rqclistc = new ArrayList<ReportQuerycondition>();
+		List<Subject> Deptlist = subjectService.listByCondition(new Subject());
+		for (int i = 0; i < Deptlist.size(); i++) {// 遍历所有部门数据
+			rqc.setDeptname(Deptlist.get(i).getName());
+			rqc.setClasstype("achieve");
+			rqclistr.add(rqc);
+			rqc.setClasstype("cost");
+			rqclistc.add(rqc);
+		}
+		System.out.println("-------2------");
+//		aa.timedupdatecostprofitr(rqclistr);
+//		aa.timedupdatecostprofitc(rqclistc);
+		accountFlowService.timedupdatecostprofitr(rqclistr);
+		accountFlowService.timedupdatecostprofitc(rqclistc);
+	}
+ 	
 }

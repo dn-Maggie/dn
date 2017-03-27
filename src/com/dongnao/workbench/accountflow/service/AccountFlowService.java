@@ -94,4 +94,19 @@ public interface AccountFlowService  {
 	 * @return: 实体对象的list
 	 */
 	public List<FinStatements> reportlistByzcb(ReportQuerycondition rqc);
+	
+	/**
+	 * 定时更新收入成本临时表方法(插入今年最新数据--业绩)
+	 */
+	public void timedupdatecostprofitr(List<ReportQuerycondition> rqc);
+	/**
+	 * 定时更新收入成本临时表方法(插入今年最新数据--成本)
+	 */
+	public void timedupdatecostprofitc(List<ReportQuerycondition> rqc);
+	
+	/**
+	 * 定时更新收入成本临时表方法(删除今年旧数据)
+	 */
+	public void timedupdatecostprofit(ReportQuerycondition rqc);
+
 }
