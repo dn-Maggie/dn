@@ -58,7 +58,7 @@ http://www.springframework.org/schema/cache/spring-cache.xsd"
 		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
 		<property name="minEvictableIdleTimeMillis" value="25200000" />
 
-		<!-- 打开removeAbandoned功能 -->
+		<!-- 打开removeAbandoned功能    回收-->
 		<property name="removeAbandoned" value="true" />
 		<!-- 1800秒，也就是30分钟 -->
 		<property name="removeAbandonedTimeout" value="1800" />
@@ -127,6 +127,7 @@ http://www.springframework.org/schema/cache/spring-cache.xsd"
 		</property> 
 	</bean>
 
+	<!-- DAO接口所在包名，Spring会自动查找其下的类 --> 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.dongnao.workbench.*.dao" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
@@ -174,11 +175,6 @@ http://www.springframework.org/schema/cache/spring-cache.xsd"
 			<aop:around pointcut-ref="dESCipherPointcut" method="dESCipherDecrypt" />
 		</aop:aspect> -->
 	</aop:config>
-	
-	
-	
-	
-	
 	
 	<bean id="setDatasouse" class="com.dongnao.workbench.common.util.SetDatasourse"></bean>
 	<aop:config>

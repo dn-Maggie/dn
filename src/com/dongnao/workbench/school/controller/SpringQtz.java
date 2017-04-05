@@ -1,6 +1,5 @@
 package com.dongnao.workbench.school.controller;
 
-import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,6 +23,9 @@ public class SpringQtz {
 	@Autowired
 	AccountFlowMapper accountFlowMapper;
 
+	/**
+	 * 定时更新成本业绩临时表
+	 */	
 	protected void execute() {
 		//System.out.println(accountFlowMapper);
 		ReportQuerycondition rqc = new ReportQuerycondition();
@@ -49,7 +51,7 @@ public class SpringQtz {
 		}
 		accountFlowMapper.timedupdatecostprofitr(rqclistr);
 		accountFlowMapper.timedupdatecostprofitc(rqclistc);
-		System.out.println("-------3------");
+		//System.out.println("-------3------");
 	}
 
 

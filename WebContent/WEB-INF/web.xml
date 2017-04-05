@@ -5,6 +5,7 @@
   </welcome-file-list>
   <context-param>
     <param-name>contextConfigLocation</param-name>
+    <!--默认读取/WEB-INF/下的applicationContext.xml文件。但是通过context-param指定配置文件路径后，便会去你指定的路径下读取对应的配置文件-->
     <param-value>classpath:conf/spring/spring-*.xml</param-value>
   </context-param>
   <filter>
@@ -43,6 +44,7 @@
     <filter-name>rightFilter</filter-name>
     <url-pattern>*.do</url-pattern>
   </filter-mapping>
+  <!-- Spring监听器 -->
   <listener>
     <description>spring监听器</description>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -50,6 +52,7 @@
   <listener>
     <listener-class>com.dongnao.workbench.common.util.SpringInit</listener-class>
   </listener>
+  <!-- 防止Spring内存溢出监听器 --> 
   <listener>
     <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
   </listener>
@@ -90,6 +93,7 @@
    <servlet>
     <servlet-name>fileUpload</servlet-name>
     <servlet-class>com.dongnao.workbench.fileUpload.FileUpload</servlet-class>
+    <!--表示启动容器时初始化该servlet  -->
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>

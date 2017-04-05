@@ -374,39 +374,4 @@ public class StandardController{
  		}
  		
  	}
- 	
-	/**
-	 * 定时更新成本业绩临时表
-	 */	
-	@RequestMapping("/tupdatecostprofit")
-	public void tupdatecostprofit(){
-/*		AccountFlowService aa = new AccountFlowServiceImpl();
-		SubjectService ss = new SubjectServiceImpl();*/
-		//1.删除今年的旧数据
-		ReportQuerycondition rqc = new ReportQuerycondition();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-		Date date = new Date();
-		String nowyear = sdf.format(date);
-		rqc.setYear(nowyear);
-		System.out.println("-------1------");
-//		aa.timedupdatecostprofit(rqc);
-		accountFlowService.timedupdatecostprofit(rqc);
-		//2.插入最新数据
-		List<ReportQuerycondition> rqclistr = new ArrayList<ReportQuerycondition>();//查询条件集合
-		List<ReportQuerycondition> rqclistc = new ArrayList<ReportQuerycondition>();
-		List<Subject> Deptlist = subjectService.listByCondition(new Subject());
-		for (int i = 0; i < Deptlist.size(); i++) {// 遍历所有部门数据
-			rqc.setDeptname(Deptlist.get(i).getName());
-			rqc.setClasstype("achieve");
-			rqclistr.add(rqc);
-			rqc.setClasstype("cost");
-			rqclistc.add(rqc);
-		}
-		System.out.println("-------2------");
-//		aa.timedupdatecostprofitr(rqclistr);
-//		aa.timedupdatecostprofitc(rqclistc);
-		accountFlowService.timedupdatecostprofitr(rqclistr);
-		accountFlowService.timedupdatecostprofitc(rqclistc);
-	}
- 	
 }
