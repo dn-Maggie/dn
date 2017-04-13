@@ -15,6 +15,12 @@ public class Statistical {
 	private BigDecimal actualPay;
 	//欠费总额
 	private BigDecimal owePay;
+	//学费收入
+	private BigDecimal xfsr;
+	//学费补款
+	private BigDecimal xfbk;
+	//退款总额
+	private BigDecimal xftk;
 
 	public BigDecimal getShouldPay() {
 		return shouldPay;
@@ -63,6 +69,24 @@ public class Statistical {
 
 	public void setOwePay(BigDecimal owePay) {
 		this.owePay = owePay;
+	}
+	public BigDecimal getXfsr() {
+		return xfsr;
+	}
+	public void setXfsr(BigDecimal xfsr) {
+		this.xfsr = xfsr;
+	}
+	public BigDecimal getXfbk() {
+		return xfbk;
+	}
+	public void setXfbk(BigDecimal xfbk) {
+		this.xfbk = xfbk;
+	}
+	public BigDecimal getXftk() {
+		return xftk;
+	}
+	public void setXftk(BigDecimal xftk) {
+		this.xftk = xftk;
 	}
 	
 }

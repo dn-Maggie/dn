@@ -98,7 +98,10 @@
 			COUNT(DISTINCT qq) vipcnt,
 			SUM(should_pay) shouldPay,
 			SUM(actual_pay) actualPay,
-			SUM(should_pay)-SUM(actual_pay) owePay
+			SUM(should_pay)-SUM(actual_pay) owePay,
+			(select sum(case WHEN ACCOUNT_NO ='XFSR' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1  <if test="jointime!=null and jointime!=''">  AND DATE_FORMAT(create_date,'%Y%c') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')</if>) xfsr,
+(select sum(case WHEN ACCOUNT_NO ='XFBK' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1 <if test="jointime!=null and jointime!=''"> AND DATE_FORMAT(create_date,'%Y%c') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')</if>) xfbk,
+(select sum(case WHEN ACCOUNT_NO ='XFTK' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1 <if test="jointime!=null and jointime!=''"> AND DATE_FORMAT(create_date,'%Y%c') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')</if>) xftk
 		FROM 
 		 	vip_student
 		WHERE 1=1 
@@ -344,7 +347,8 @@
 				COUNT(course_name)AS courses,
 				SUM(should_pay)AS shouldPay ,
 				SUM(actual_pay)AS actualPay ,
-				SUM(owe_pay)AS owePay 
+				SUM(owe_pay)AS owePay ,
+				join_time
 			FROM 
 				`vip_student`  
 			GROUP BY 

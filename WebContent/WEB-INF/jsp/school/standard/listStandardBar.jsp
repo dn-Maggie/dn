@@ -338,9 +338,9 @@
 				//console.log(arr[0][names[j]].xfsr);
 				if(name){
 					actualPay.push(Math.round(name.xfsr));
-					allCome.push(Math.round(name.xfbk+name.xfsr-name.xftk));
+					allCome.push(Math.round(name.xfbk+name.xfsr));
 					shouldPay.push(Math.round(name.shouldPay));
-					profit.push(Math.round(name.profit));
+					profit.push(Math.round(name.xfbk+name.xfsr-name.pay));
 					pay.push(Math.round(name.pay));
 				}else{
 					actualPay.push(0);allCome.push(0);profit.push(0);pay.push(0);shouldPay.push(0);

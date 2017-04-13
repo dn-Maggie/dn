@@ -422,18 +422,79 @@
 				</ul> <!-- .cd-pricing-wrapper -->
 			</li>
 			
-			<li  style="width:33.3%" >
+			<li  style="width:50%" >
 				<ul class="cd-pricing-wrapper">
 					<li data-type="monthly" class="is-visible allCost"  did="accountFlow" id="AccountFlow" term="monthmajorIncome" onclick="lookMore(this.id,this.attributes['did'].value,this.attributes['term'].value)">
 						<div class="cd-pricing-header topper">
 							<span class="nameTop">
 								<i class="iconfont">&#xe6a9;</i>
 								<label>总业绩
+									<i class="info-iconfont" title="本月实收报名费+本月实收补款">&#xe637;</i>
+								</label>
+							</span>
+							<div class="cd-price">
+ 								<div class="easy-pie-chart percentage" style="margin-right: 10px" data-percent="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk)/10000}" data-size="56">
+									<span class="percent">
+										<fmt:formatNumber value="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk)/10000}" pattern="0.0" type="number"></fmt:formatNumber>
+									</span>%
+								</div> 
+								<span class="cd-value-big">
+									<fmt:formatNumber value="${model.currMonthxf.xfsr+model.currMonthxf.xfbk}" pattern="0" type="number"></fmt:formatNumber>								
+								</span>
+							</div>
+ 							<c:choose>
+								<c:when test="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk) - (model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk)>=0}">
+									<div class="stat stat-success">
+										<fmt:formatNumber value="${((model.currMonthxf.xfsr+model.currMonthxf.xfbk) - (model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk))/(model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk)}" type="percent"></fmt:formatNumber>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="stat stat-important">
+										<fmt:formatNumber value="${((model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk) - (model.currMonthxf.xfsr+model.currMonthxf.xfbk))/(model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk)}" type="percent"></fmt:formatNumber>
+									</div>
+								</c:otherwise>
+							</c:choose>
+						</div> <!-- .cd-pricing-header -->
+					</li>
+
+					<li data-type="yearly" class="is-hidden allCost"  did="accountFlow" id="AccountFlow" term="majorIncome" onclick="lookMore(this.id,this.attributes['did'].value,this.attributes['term'].value)">
+						<div class="cd-pricing-header topper">
+							<span class="nameTop">
+								<i class="iconfont">&#xe6a9;</i>
+								<label>总业绩
+								<i class="info-iconfont" title="本年实收报名费+本年实收补款">&#xe637;</i>
+								</label>
+							</span>
+							<div class="cd-price">
+								<span class="cd-value-big">
+									<fmt:formatNumber value="${model.currYear.xfsr + model.currYear.xfbk}" pattern="0" type="number"></fmt:formatNumber>								
+								</span>
+							</div>
+							<c:if test="${model.currYear.xfsr + model.currYear.xfbk - model.beforeYear.xfsr - model.beforeYear.xfbk>=0&&model.beforeYear.xfsr + model.beforeYear.xfbk>0}">
+								<div class="stat stat-success">
+									<fmt:formatNumber value="${(model.currYear.xfsr + model.currYear.xfbk - model.beforeYear.xfsr - model.beforeYear.xfbk)/(model.beforeYear.xfsr + model.beforeYear.xfbk)}" type="percent"></fmt:formatNumber>
+								</div>
+							</c:if>
+							<c:if test="${model.currYear.xfsr + model.currYear.xfbk - model.beforeYear.xfsr - model.beforeYear.xfbk<0&&model.beforeYear.xfsr + model.beforeYear.xfbk>0}">
+								<div class="stat stat-important">
+									<fmt:formatNumber value="${(model.beforeYear.xfsr + model.beforeYear.xfbk - model.currYear.xfsr - model.currYear.xfbk)/(model.beforeYear.xfsr + model.beforeYear.xfbk)}" type="percent"></fmt:formatNumber>
+								</div>
+							</c:if> 
+						</div> 
+					</li>
+				</ul>
+			</li>
+			
+			<li  style="width:50%" >
+				<ul class="cd-pricing-wrapper">
+					<li data-type="monthly" class="is-visible allCost"  did="accountFlow" id="AccountFlow" term="monthmajorIncome" onclick="lookMore(this.id,this.attributes['did'].value,this.attributes['term'].value)">
+						<div class="cd-pricing-header topper">
+							<span class="nameTop">
+								<i class="iconfont">&#xe6a9;</i>
+								<label>实收总业绩
 									<i class="info-iconfont" title="本月实收报名费+本月实收补款-本月退款总额">&#xe637;</i>
 								</label>
-								
 							</span>
-							
 							<div class="cd-price">
 								<div class="easy-pie-chart percentage" style="margin-right: 10px" data-percent="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk-model.currMonthxf.xftk)/10000}" data-size="56">
 									<span class="percent">
@@ -463,23 +524,23 @@
 						<div class="cd-pricing-header topper">
 							<span class="nameTop">
 								<i class="iconfont">&#xe6a9;</i>
-								<label>总业绩
+								<label>实收总业绩
 								<i class="info-iconfont" title="本年实收报名费+本年实收补款-本年退款总额">&#xe637;</i>
 								</label>
 							</span>
 							<div class="cd-price">
 								<span class="cd-value-big">
-									<fmt:formatNumber value="${model.currYear.actualPay}" pattern="0" type="number"></fmt:formatNumber>								
+									<fmt:formatNumber value="${model.currYear.xfsr + model.currYear.xfbk - model.currYear.xftk}" pattern="0" type="number"></fmt:formatNumber>								
 								</span>
 							</div>
-							<c:if test="${model.currYear.actualPay - model.beforeYear.actualPay>=0&&model.beforeYear.actualPay>0}">
+							<c:if test="${(model.currYear.xfsr + model.currYear.xfbk - model.currYear.xftk) - (model.beforeYear.xfsr + model.beforeYear.xfbk - model.beforeYear.xftk)>=0&&(model.beforeYear.xfsr + model.beforeYear.xfbk - model.beforeYear.xftk)>0}">
 								<div class="stat stat-success">
-									<fmt:formatNumber value="${(model.currYear.actualPay - model.beforeYear.actualPay)/model.beforeYear.actualPay}" type="percent"></fmt:formatNumber>
+									<fmt:formatNumber value="${((model.currYear.xfsr + model.currYear.xfbk - model.currYear.xftk) - (model.beforeYear.xfsr + model.beforeYear.xfbk - model.beforeYear.xftk))/(model.beforeYear.xfsr + model.beforeYear.xfbk - model.beforeYear.xftk)}" type="percent"></fmt:formatNumber>
 								</div>
 							</c:if>
-							<c:if test="${model.currYear.actualPay - model.beforeYear.actualPay<0&&model.beforeYear.actualPay>0}">
+							<c:if test="${(model.currYear.xfsr + model.currYear.xfbk - model.currYear.xftk) - (model.beforeYear.xfsr + model.beforeYear.xfbk - model.beforeYear.xftk)<0&&(model.beforeYear.xfsr + model.beforeYear.xfbk - model.beforeYear.xftk)>0}">
 								<div class="stat stat-important">
-									<fmt:formatNumber value="${(model.beforeYear.actualPay - model.currYear.actualPay)/model.beforeYear.actualPay}" type="percent"></fmt:formatNumber>
+									<fmt:formatNumber value="${((model.beforeYear.xfsr + model.beforeYear.xfbk - model.beforeYear.xftk) - (model.currYear.xfsr + model.currYear.xfbk - model.currYear.xftk))/(model.beforeYear.xfsr + model.beforeYear.xfbk - model.beforeYear.xftk)}" type="percent"></fmt:formatNumber>
 								</div>
 							</c:if>
 						</div> <!-- .cd-pricing-header -->
@@ -487,7 +548,7 @@
 				</ul> <!-- .cd-pricing-wrapper -->
 			</li>
 			
-			<li  style="width:33.3%" >
+			<li  style="width:50%" >
 				<ul class="cd-pricing-wrapper">
 					<li data-type="monthly" class="is-visible oop"  id="AccountFlow" did="accountFlow" term="monthactualPay" onclick="lookMore(this.id,this.attributes['did'].value,this.attributes['term'].value)">
 						<div class="cd-pricing-header topper">
@@ -543,7 +604,7 @@
 				</ul> <!-- .cd-pricing-wrapper -->
 			</li>
 			
-			<li  class="cd-popular" style="width:33.3%" >
+			<li  class="cd-popular" style="width:50%" >
 				<ul class="cd-pricing-wrapper">
 					<li data-type="monthly" class="is-visible complain"  did="continuePay" id="ContinuePay" term="month" onclick="lookMore(this.id,this.attributes['did'].value,this.attributes['term'].value)">
 						<div class="cd-pricing-header topper">

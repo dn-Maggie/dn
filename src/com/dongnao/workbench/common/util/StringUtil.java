@@ -26,7 +26,7 @@ import com.dongnao.workbench.common.SQLConsts;
 
 
 /**
- * 描述：String 工具类
+ * 描述：String 工具类 获取类类
  * 
  * @author heyin
  * @version 1.0 2016-03-22

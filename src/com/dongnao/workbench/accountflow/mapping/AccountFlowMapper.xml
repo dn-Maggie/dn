@@ -327,7 +327,7 @@ values
 		sum(case WHEN a.ACCOUNT_NO='XFBK' and money>0 THEN MONEY ELSE 0 END) AS xfbk,
 		sum(case WHEN a.ACCOUNT_NO='XFTK' and money>0 THEN MONEY ELSE 0 END) AS xftk,
 		sum(case WHEN a.account_type='1' and money>0 THEN MONEY ELSE 0 END)-sum(case WHEN a.account_type='2' and money>0 THEN MONEY ELSE 0 END) AS profit,
-		sum(case WHEN a.account_type='2' and money>0 THEN MONEY ELSE 0 END)-sum(case WHEN a.ACCOUNT_NO='XFTK' and money>0 THEN MONEY ELSE 0 END)AS pay		
+		sum(case WHEN a.account_type='2' and money>0 THEN MONEY ELSE 0 END) AS pay		
 		from (
 			SELECT
 				af.account_no,

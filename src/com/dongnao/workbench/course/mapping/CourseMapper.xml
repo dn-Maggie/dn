@@ -61,7 +61,6 @@
 		#{id,jdbcType=VARCHAR}
 		,#{name,jdbcType=VARCHAR}
 		,#{subjectId,jdbcType=VARCHAR}
-		,#{creatTime,jdbcType=TIMESTAMP}
 		)
 	</insert>
 

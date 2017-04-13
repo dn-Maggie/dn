@@ -33,7 +33,8 @@ public class SpringQtz {
 		Date date = new Date();
 		String nowyear = sdf.format(date);
 		rqc.setYear(nowyear);
-		accountFlowMapper.timedupdatecostprofitdelete(rqc);
+		int a =accountFlowMapper.timedupdatecostprofitdelete(rqc);
+		//System.out.println("已删除数据行数："+a);
 		List<ReportQuerycondition> rqclistr = new ArrayList<ReportQuerycondition>();
 		List<ReportQuerycondition> rqclistc = new ArrayList<ReportQuerycondition>();
 		List<Subject> Deptlist = subjectService.listByCondition(new Subject());
@@ -49,10 +50,10 @@ public class SpringQtz {
 			rqclistr.add(rqcr);
 			rqclistc.add(rqcc);
 		}
+		System.out.println("--------------1-------------");
 		accountFlowMapper.timedupdatecostprofitr(rqclistr);
 		accountFlowMapper.timedupdatecostprofitc(rqclistc);
-		//System.out.println("-------3------");
+		System.out.println("--------------2-------------");
+		System.out.println("");
 	}
-
-
 }
