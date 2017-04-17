@@ -37,6 +37,8 @@ var gridObj = {};
 		 				 	return '维修中';
 		 				 }else if(cellvalue==3){
 		 					return '已报废';
+		 				 }else if(cellvalue==4){
+		 					return '停用中';
 		 				 }
 		 			}}	
            	],
@@ -72,6 +74,8 @@ var gridObj = {};
 	var depre_iframe_dialog;
 	//添加资产项目的弹出框
 	var assetitem_iframe_dialog;
+	//添加资源回收目的弹出框
+	var recovery_iframe_dialog;
   	
   	function add(){
   	//xin zeng iframe 弹出框
@@ -174,6 +178,24 @@ var gridObj = {};
     	assetitem_iframe_dialog.close();
     }
     
+    function recovery(){
+		var url="<m:url value='/fixedAsset/toRecovery.do'/>";
+		recovery_iframe_dialog = new biz.dialog({
+		 	id:$('<div id="recoverywindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+			modal: true,
+			width: $(window).width()*0.35,
+			height:$(window).height()*0.6,
+				title: "待回收的资源"
+		});
+		recovery_iframe_dialog.open();
+    }
+    
+    //关闭查看页面，供子页面调用
+    function closeRecovery(){
+    	recovery_iframe_dialog.close();
+    }
+    
+    
     /**
     * 获取查询条件值
     */
@@ -254,6 +276,7 @@ var gridObj = {};
 					<select class="input_select text" name="propertyState" id="edit_propertyState" mainid="propertyState">
 							<option value="">所有</option>
 							<option value="1">使用中</option>
+							<option value="4">停用中</option>
 							<option value="2">维修中</option>
 							<option value="3">已报废</option>
 					</select>
@@ -295,6 +318,9 @@ var gridObj = {};
 						</c:if>
 						<li><a title="添加资产项目" href="javascript:"
 							onclick="assetitem();"> <i class="icon_bg icon_submit"></i> <span>添加资产项目</span>
+						</a></li>
+						<li><a title="资源回收" href="javascript:"
+							onclick="recovery();"> <i class="icon_bg icon_submit"></i> <span>资源回收</span>
 						</a></li>
 					</ul>
 				</div>

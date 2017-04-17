@@ -59,6 +59,8 @@ public class EmpSalary extends Model implements java.io.Serializable{
 	                 **/
 		   			private Double leaveDay;
 		   			private Double leaveCost;
+		   			private Double actualattendance;//实际出勤天数
+		   			private Double  trafficsubsidies;//交通补助
 		   			/**
 	                 * 迟到早退扣款
 	                 **/
@@ -205,11 +207,12 @@ public class EmpSalary extends Model implements java.io.Serializable{
 					/**
 	                 * 分发标识（财务结算）
 	                 **/
-				   			private String assignFlag;
+				   			private String assignFlag; 
 				   	/**
-	                 * 备注
+	                 * 备注1
 	                 **/
 				   			private String note;
+				   			private String notetwo;//备注2
 		   			/**
 	                 * 创建时间
 	                 **/
@@ -444,11 +447,7 @@ public class EmpSalary extends Model implements java.io.Serializable{
 			public void setActualSalary(Double actualSalary){
 				this.actualSalary = actualSalary;
 			}
-		   		
 		
-		
-			
-						
 		  			/**
 			 * 获取 备注
 			 * @return String this.note
@@ -570,5 +569,29 @@ public class EmpSalary extends Model implements java.io.Serializable{
 				this.empBank = empBank;
 			}
 
+			public Double getActualattendance() {
+				return actualattendance;
+			}
+
+			public void setActualattendance(Double actualattendance) {
+				this.actualattendance = actualattendance;
+			}
+
+			public Double getTrafficsubsidies() {
+				return trafficsubsidies;
+			}
+
+			public void setTrafficsubsidies(Double trafficsubsidies) {
+				this.trafficsubsidies = trafficsubsidies;
+			}
+
+			public String getNotetwo() {
+				return notetwo;
+			}
+
+			public void setNotetwo(String notetwo) {
+				this.notetwo = notetwo;
+			}
+			
 			
 		}

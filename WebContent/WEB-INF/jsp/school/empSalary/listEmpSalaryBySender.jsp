@@ -209,10 +209,8 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
         				type : "post",
         				dataType:"json",
         				success: function(data, textStatus, jqXHR){
-        					console.log(1);
         					doSearch();
     						showInfo("流水记录已生成",3000);
-    						console.log(0);
         				}
         			});
     			}

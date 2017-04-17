@@ -166,6 +166,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<c:when test="${fixedAsset.propertyState == '2'}">
 							<label>维修中</label>
 						</c:when>
+						<c:when test="${fixedAsset.propertyState == '4'}">
+							<label>停用中</label>
+						</c:when>
 						<c:otherwise>
 							<label>已报废</label>
 						</c:otherwise>

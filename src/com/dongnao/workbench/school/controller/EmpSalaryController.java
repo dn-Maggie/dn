@@ -175,21 +175,24 @@ public class EmpSalaryController{
                 empSalary.setLeaveDay(StringUtil.toDouble(lo.get(6)));
                 empSalary.setEmpEntryDate(StringUtil.valueOf(lo.get(9)));
                 empSalary.setEmpBeFullDate(StringUtil.valueOf(lo.get(10)));
-                empSalary.setBasicSalary(StringUtil.toDouble(lo.get(11)));
+                empSalary.setBasicSalary(StringUtil.toDouble(lo.get(12)));
+                empSalary.setActualattendance(StringUtil.toDouble(lo.get(11)));
                 /*empSalary.setDutyLevelSalary(employee.getSalary());*/
-                empSalary.setShouldSalary(StringUtil.toDouble(lo.get(12)));
-                empSalary.setSocialSecurity(StringUtil.toDouble(lo.get(13)));
+                empSalary.setShouldSalary(StringUtil.toDouble(lo.get(13)));
+                empSalary.setSocialSecurity(StringUtil.toDouble(lo.get(14)));
             	empSalary.setLateEarlyTime(StringUtil.toInteger(lo.get(7)));
             	empSalary.setAttendanceAnomalyTime(StringUtil.toInteger(lo.get(8)));
-                empSalary.setLeaveCost(StringUtil.toDouble(lo.get(14)));
-                empSalary.setLateEarlyCost(StringUtil.toDouble(lo.get(15)));
-                empSalary.setAttendanceAnomalyCost(StringUtil.toDouble(lo.get(16)));
-                empSalary.setTableMoney(StringUtil.toDouble(lo.get(19)));
-                empSalary.setHousingAllowance(StringUtil.toDouble(lo.get(20)));
-                empSalary.setMeritRaise(StringUtil.toDouble(lo.get(21)));
-                empSalary.setRests(StringUtil.toDouble(lo.get(22)));
-                empSalary.setActualSalary(StringUtil.toDouble(lo.get(23)));
-                empSalary.setNote(StringUtil.valueOf(lo.get(24)));
+                empSalary.setLeaveCost(StringUtil.toDouble(lo.get(15)));
+                empSalary.setLateEarlyCost(StringUtil.toDouble(lo.get(16)));
+                empSalary.setAttendanceAnomalyCost(StringUtil.toDouble(lo.get(17)));
+                empSalary.setTableMoney(StringUtil.toDouble(lo.get(20)));
+                empSalary.setHousingAllowance(StringUtil.toDouble(lo.get(21)));
+                empSalary.setTrafficsubsidies(StringUtil.toDouble(lo.get(22)));
+                empSalary.setMeritRaise(StringUtil.toDouble(lo.get(23)));
+                empSalary.setRests(StringUtil.toDouble(lo.get(24)));
+                empSalary.setActualSalary(StringUtil.toDouble(lo.get(26)));
+                empSalary.setNote(StringUtil.valueOf(lo.get(25)));
+                empSalary.setNotetwo(StringUtil.valueOf(lo.get(27)));
                 empSalaryService.add(empSalary);
             }catch(Exception e){
             	continue;
@@ -283,17 +286,17 @@ public class EmpSalaryController{
         		+"    2、薪酬工资属于保密，核对无误后，请及时删除本邮件；</br>"
         		+ "3、该工资条属于"+DateUtil.parseDate(empSalary.getCreateDate(), "yyyy-MM")+"月份工资。</h3>"
         		+ "<table  border='2' ><thead><tr><th>姓名</th><th>昵称</th>"
-        		+ "<th>银行</th><th>卡号</th><th>电话号码</th><th>请假天数</th><th>迟到早退（次）</th>"
+        		+ "<th>电话号码</th><th>请假天数</th><th>迟到早退（次）</th>"/*<th>银行</th><th>卡号</th>s*/
         		+ "<th>打卡异常（次）</th><th>入职时间</th><th>转正日期</th><th>基本工资</th>"
         		/*+ "<th>薪级工资</th>"*/
         		+ "<th>应发工资</th><th>社保扣款</th><th>请假扣款</th>"
-        		+ "<th>迟到早退扣款</th><th>打卡异常扣款</th><th>餐补</th><th>住房补贴</th>"
-        		+ "<th>绩效奖金</th><th>其他奖金</th><th>实发工资</th><th>备注</th></tr></thead>"
+        		+ "<th>迟到早退扣款</th><th>打卡异常扣款</th><th>餐补</th><th>住房补贴</th><th>交通补贴</th>"
+        		+ "<th>绩效奖金</th><th>其他</th><th>其他扣款</th><th>实发工资</th><th>备注</th></tr></thead>"
         		+ "<tbody><tr>"
         		+ "<td>"+StringUtil.valueOf(empSalary.getEmpName())+"</td>"
         		+ "<td>"+StringUtil.valueOf(empSalary.getEmpNickName())+"</td>"
-				+ "<td>"+StringUtil.valueOf(empSalary.getEmpBank())+"</td>"
-        		+ "<td>"+StringUtil.valueOf(empSalary.getEmpBankCard())+"</td>"
+				/*+ "<td>"+StringUtil.valueOf(empSalary.getEmpBank())+"</td>"*/
+        		/*+ "<td>"+StringUtil.valueOf(empSalary.getEmpBankCard())+"</td>"*/
         		+ "<td>"+StringUtil.valueOf(empSalary.getEmpMobile())+"</td>"
         		+ "<td>"+StringUtil.toDouble(empSalary.getLeaveDay())+"</td>"
         		+ "<td>"+StringUtil.toInteger(empSalary.getLateEarlyTime())+"</td>"
@@ -309,10 +312,12 @@ public class EmpSalaryController{
         		+ "<td>"+StringUtil.toDouble(empSalary.getAttendanceAnomalyCost())+"</td>"
         		+ "<td>"+StringUtil.toDouble(empSalary.getTableMoney())+"</td>"
         		+ "<td>"+StringUtil.toDouble(empSalary.getHousingAllowance())+"</td>"
+        		+ "<td>"+StringUtil.toDouble(empSalary.getTrafficsubsidies())+"</td>"
         		+ "<td>"+StringUtil.toDouble(empSalary.getMeritRaise())+"</td>"
         		+ "<td>"+StringUtil.toDouble(empSalary.getRests())+"</td>"
+        		+ "<td>"+StringUtil.toDouble(empSalary.getNote())+"</td>"
         		+ "<td>"+StringUtil.toDouble(empSalary.getActualSalary())+"</td>"
-        		+ "<td>"+StringUtil.valueOf(empSalary.getNote())+"</td>"
+        		+ "<td>"+StringUtil.valueOf("")+"</td>"
         		+ "</tr></tbody></table>"
 		;
         mbp.setContent(htmlText,"text/html;charset=UTF-8");
@@ -521,9 +526,8 @@ public class EmpSalaryController{
 		String[] str = key.split(",");
 		for(int i=0;i<str.length;i++){
 			EmpSalary entity = empSalaryService.getByPrimaryKey(str[i]);
-			String flag = entity.getAssignFlag();
-			if(flag!=null){
-				if(!flag.equals("2")){
+			String flag = entity.getCheckFlag();
+			if(flag!=null && flag.equals("2")){
 					//添加工资记录到财务流水信息
 					AccountFlow accountFlow = new AccountFlow();
 					accountFlow.setId(Utils.generateUniqueID());
@@ -539,15 +543,12 @@ public class EmpSalaryController{
 					accountFlowService.add(accountFlow);
 					entity.setAssignFlag("2");
 					//entity.setNote("已生成流水");
-					empSalaryService.assign(entity);
-				}
+					empSalaryService.assign(entity);/*删除此条记录*/
 				map.put("msg", "成功");
 			}else{
 				map.put("msg", "存在工资流水插入失败的记录");
 			}
 		}
-		
-		
 		AjaxUtils.sendAjaxForMap(response, map);
 	}
 	

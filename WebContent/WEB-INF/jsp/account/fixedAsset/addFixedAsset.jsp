@@ -300,6 +300,7 @@ function resetForm(){
 				<td class="inputTd">
 					<select class="input_select text" name="propertyState" id="edit_propertyState" mainid="propertyState">
 							<option value="1">使用中</option>
+							<option value="4">停用中</option>
 							<option value="2">维修中</option>
 							<option value="3">已报废</option>
 					</select>

@@ -22,7 +22,7 @@ var gridObj = {};
             colModel:[
 				{name : "id",hidden : true,key : true,label:"主键",index : "id"},	
 				{name : "empNo",label:"工号",index : "emp_no",width:'20'},
-				/* {name : "name",label:"姓名",index : "name",width:'20'},	 */
+				{name : "name",label:"姓名",index : "name",width:'20'}, 
 				{name : "nickName",label:"昵称",width:'20'},		
 				{name : "mobile",label:"手机号码",width:'30'},	
 				{name : "dept",label:"部门",index : "dept",width:'30'},		

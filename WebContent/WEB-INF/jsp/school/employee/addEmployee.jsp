@@ -240,6 +240,19 @@
 				</td>
 			</tr>
 			<tr style="text-indent: 4em"><td colspan="4"><i class="icon_bg icon_plan"></i> 员工其他信息</td></tr>
+			<tr>
+				<td class="inputLabelTd">是否被考核：</td>
+				<td class="inputTd">
+					<select style="float:none" class="small_input_select" name="isAssess" id="edit_probation" mainid="isassess">
+						<option value="1" <c:if test="${employee.isassess eq 1}" >selected</c:if>>是</option>
+						<option value="2" <c:if test="${employee.isassess eq 2}" >selected</c:if>>否</option>
+					</select>
+				</td>
+				<td class="inputLabelTd">考核人：</td>
+				<td class="inputTd">
+					<input id="edit_inspectionempid" name="checkName" type="text" class="text" value=""/>
+				</td>
+			</tr>
 			<tr class="addEnable">
 				<td class="inputLabelTd" title="工资发放银行">储蓄银行：</td>
 				<td class="inputTd" title="工资发放银行">

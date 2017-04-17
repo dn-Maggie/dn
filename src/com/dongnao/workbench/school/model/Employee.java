@@ -191,6 +191,9 @@ public class Employee extends Model{
 			          * 备注
 			           **/
 					    private String note;
+					    
+					    private Integer isAssess;/*是否被考核*/
+					    private String checkName;/*考核人*/
 						   		
 					/**
 					 * 岗位级别
@@ -256,7 +259,23 @@ public class Employee extends Model{
 			
 				
 							
-		  			/**
+		  			public Integer getIsAssess() {
+						return isAssess;
+					}
+
+					public void setIsAssess(Integer isAssess) {
+						this.isAssess = isAssess;
+					}
+
+					public String getCheckName() {
+						return checkName;
+					}
+
+					public void setCheckName(String checkName) {
+						this.checkName = checkName;
+					}
+
+					/**
 					 * 获取 性别
 					 * @return Integer this.sex
 					 */

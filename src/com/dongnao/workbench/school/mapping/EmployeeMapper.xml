@@ -36,7 +36,9 @@
 		<result column="nick_name" property="nickName" jdbcType="VARCHAR" />
 		<result column="dept_no" property="deptNo" jdbcType="VARCHAR" />
 		<result column="bank_card" property="bankCard" jdbcType="VARCHAR" />
-		<result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+		<result column="bank_name" property="bankName" jdbcType="VARCHAR" />	
+		<result column="isassess" property="isAssess" jdbcType="INTEGER" />
+		<result column="checkname" property="checkName" jdbcType="VARCHAR" />
 		<result column="note" property="note" jdbcType="VARCHAR" />
 		<result column="curr_state" property="currState" jdbcType="VARCHAR" />
 		<result column="foxmail" property="foxmail" jdbcType="VARCHAR" />
@@ -80,6 +82,8 @@
 					dept_no,
 					bank_card,
 					bank_name,
+					isassess,
+					checkname,					
 					note,
 					curr_state,
 					foxmail,
@@ -126,6 +130,8 @@
 					bo.corp_man AS deptLeader,
 					e.bank_card,
 					e.bank_name,
+					e.isassess,
+					e.checkname,
 					e.note,
 					e.curr_state,
 					e.foxmail,
@@ -156,6 +162,8 @@
 			bo.org_name as dept,
 			e.bank_card,
 			e.bank_name,
+			e.isassess,
+			e.checkname,
 			e.note,
 			e.curr_state,
 			e.foxmail,
@@ -205,6 +213,8 @@
 				bo.org_name as dept,
 				e.bank_card,
 				e.bank_name,
+				e.isassess,
+				e.checkname,
 				e.note,
 				e.curr_state,
 				e.foxmail,
@@ -298,6 +308,12 @@
 		</if>
 		<if test="bankName != null and '' != bankName">  
 			and e.bank_name = #{bankName,jdbcType=VARCHAR}
+		</if>
+		<if test="isAssess != null and '' != isAssess">  
+			and e.isassess = #{isAssess,jdbcType=VARCHAR}
+		</if>
+		<if test="checkName != null and '' != checkName">  
+			and e.checkname = #{checkName,jdbcType=VARCHAR}
 		</if>
 		<if test="currState != null and '' != currState">  
 			and e.curr_state = #{currState,jdbcType=VARCHAR}
@@ -414,7 +430,9 @@
 				 ,nick_name           
 				 ,dept_no           
 				 ,bank_card           
-				 ,bank_name           
+				 ,bank_name 
+				 ,isassess
+				 ,checkname        
 				 ,note           
 				 ,curr_state  
 				 ,foxmail    
@@ -456,6 +474,8 @@
 					,#{deptNo,jdbcType=VARCHAR}
 					,#{bankCard,jdbcType=VARCHAR}
 					,#{bankName,jdbcType=VARCHAR}
+					,#{isAssess,jdbcType=INTEGER}
+					,#{checkName,jdbcType=VARCHAR}
 					,#{note,jdbcType=VARCHAR}
 					,#{currState,jdbcType=VARCHAR}
 					,#{foxmail,jdbcType=VARCHAR}
@@ -500,6 +520,8 @@
 				,dept_no = #{deptNo,jdbcType=VARCHAR}
 				,bank_card = #{bankCard,jdbcType=VARCHAR}
 				,bank_name = #{bankName,jdbcType=VARCHAR}
+				,isassess = #{isAssess,jdbcType=INTEGER}
+				,checkname = #{checkName,jdbcType=VARCHAR}
 				,note = #{note,jdbcType=VARCHAR}
 				,curr_state = #{currState,jdbcType=VARCHAR}
 				,foxmail = #{foxmail,jdbcType=VARCHAR}

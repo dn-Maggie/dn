@@ -170,11 +170,7 @@ function getEmpIDByName(obj,value) {
 				</td>
 				<td class="inputLabelTd">增加方式：</td>
 				<td class="inputTd">
-					<select class="input_select text" name="addType" id="edit_addType" mainid="addType">
-							<option value="购入" <c:if test="${fixedAsset.addType=='购入'}">selected</c:if> >购入</option>
-							<option value="在建工程转入" <c:if test="${fixedAsset.addType=='在建工程转入'}">selected</c:if> >在建工程转入</option>
-							<option value="其他" <c:if test="${fixedAsset.addType=='其他'}">selected</c:if> >其他</option>
-					</select>
+					<input id="edit_addType" name="addType" type="text" class="text" value="${fixedAsset.addType}"/>
 				</td>
 			</tr>
 			<tr>
@@ -199,7 +195,7 @@ function getEmpIDByName(obj,value) {
 				<td class="inputLabelTd"><span class="required">*</span>开始使用日期：</td>
 				<td class="inputTd">
 					<div class="time_bg">
-						<input type="text" class="valid text" name="beginDate" id="edit_beginDate" mainid="beginDate" value="${fixedAsset.beginDate}" ><!-- 时间选择控件-->
+						<input type="text" class="valid text" name="beginDate" id="edit_beginDate" mainid="beginDate" value="${fixedAsset.beginDate}"><!-- 时间选择控件-->
 						<i class="search_time_ico2" style="display:inline-block;top:8px"></i>
 					</div>
 				</td>
@@ -261,7 +257,7 @@ function getEmpIDByName(obj,value) {
 			<tr>
 				<td class="inputLabelTd"><span class="required">*</span>资产原值：</td>
 				<td class="inputTd">
-					<input id="edit_initialValue" name="initialValue" type="text" class="text" value="${fixedAsset.initialValue}" onblur="countYJCZ();countPerDepre();"/>
+					<input id="edit_initialValue" name="initialValue" type="text" class="text" value="${fixedAsset.initialValue}"/>
 				</td>
 				<td class="inputLabelTd"><span class="required">*</span>残值率：</td>
 				<td class="inputTd">
@@ -299,6 +295,7 @@ function getEmpIDByName(obj,value) {
 				<td class="inputTd">
 					<select class="input_select text" name="propertyState" id="edit_propertyState" mainid="propertyState">				
 						<option value="1" <c:if test="${fixedAsset.propertyState=='1'}">selected</c:if> >使用中</option>
+						<option value="4" <c:if test="${fixedAsset.propertyState=='4'}">selected</c:if> >停用中</option>
 						<option value="2" <c:if test="${fixedAsset.propertyState=='2'}">selected</c:if> >维修中</option>
 						<option value="3" <c:if test="${fixedAsset.propertyState=='3'}">selected</c:if> >已报废</option>
 					</select>

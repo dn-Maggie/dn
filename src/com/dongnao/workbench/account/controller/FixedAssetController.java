@@ -211,6 +211,16 @@ public class FixedAssetController{
 	}
 	
 	/**
+	 * 进入资源回收页面
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/toRecovery")
+	public ModelAndView toRecovery(){
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/account/fixedAsset/recovery");
+ 		return mv;
+	}
+	
+	/**
 	 * 根据条件查找列表方法
 	 * @param assetItem AssetItem：实体对象（查询条件）
 	 * @param request HttpServletRequest

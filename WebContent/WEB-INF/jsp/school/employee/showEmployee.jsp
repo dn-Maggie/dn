@@ -130,6 +130,13 @@ var y = today.getFullYear();
 				<td class="inputTd">${employee.salValue}</td>
 			</tr>
 			<tr>
+				<td class="inputLabelTd">是否被考核：</td>
+				<td class="inputTd"><c:if test="${employee.isAssess eq 1}"><c:out value="是"></c:out></c:if>
+							<c:if test="${employee.isAssess eq 2}"><c:out value="否"></c:out></c:if></td>
+				<td class="inputLabelTd">考核人：</td>
+				<td class="inputTd">${employee.checkName}</td>
+			</tr>
+			<tr>
 				<td class="inputLabelTd">银行卡号：</td>
 				<td class="inputTd">${employee.bankCard}</td>
 				<td class="inputLabelTd">银行名称：</td>

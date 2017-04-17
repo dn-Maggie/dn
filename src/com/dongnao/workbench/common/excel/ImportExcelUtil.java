@@ -71,7 +71,8 @@ public class ImportExcelUtil {
         Workbook wb = null;  
         String fileType = fileName.substring(fileName.lastIndexOf("."));  
         if(excel2003L.equals(fileType)){  
-            wb = new HSSFWorkbook(inStr);  //2003-  
+            //wb = new HSSFWorkbook(inStr);  //2003-  
+        	wb = new XSSFWorkbook(inStr);
         }else if(excel2007U.equals(fileType)){  
             wb = new XSSFWorkbook(inStr);  //2007+  
         }else{  

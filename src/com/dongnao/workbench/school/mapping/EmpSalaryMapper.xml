@@ -29,6 +29,9 @@
 		<result column="check_flag" property="checkFlag" jdbcType="INTEGER" />
 		<result column="assign_flag" property="assignFlag" jdbcType="INTEGER" />
 		<result column="note" property="note" jdbcType="VARCHAR" />
+		<result column="actualattendance" property="actualattendance" jdbcType="DECIMAL" />
+		<result column="trafficsubsidies" property="trafficsubsidies" jdbcType="DECIMAL" />
+		<result column="note_two" property="notetwo" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 	 	id
@@ -54,6 +57,9 @@
 		,check_flag
 		,assign_flag
 		,note
+		,actualattendance
+		,trafficsubsidies
+		,note_two
 	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -94,6 +100,9 @@
 			,es.check_flag
 			,es.assign_flag
 			,es.note
+			,es.actualattendance
+			,es.trafficsubsidies
+			,es.note_two
 		from emp_salary as es
 		LEFT JOIN employee as e on es.emp_id = e.id
 		LEFT JOIN employee as e1 on es.check_id = e1.id
@@ -154,6 +163,9 @@
 			,es.check_flag
 			,es.assign_flag
 			,es.note
+			,es.actualattendance
+			,es.trafficsubsidies
+			,es.note_two
 		FROM emp_salary AS es
 		LEFT JOIN  employee AS e ON es.emp_id = e.id
 		<if test="empStatus != null and '' != empStatus">  
@@ -212,6 +224,15 @@
 		</if>
 		<if test="note != null and '' != note">  
 			and es.note = #{note,jdbcType=VARCHAR}
+		</if>
+		<if test="trafficsubsidies != null and '' != trafficsubsidies">  
+			and es.trafficsubsidies = #{trafficsubsidies,jdbcType=DECIMAL}
+		</if>
+		<if test="actualattendance != null and '' != actualattendance">  
+			and es.actualattendance = #{actualattendance,jdbcType=DECIMAL}
+		</if>
+		<if test="notetwo != null and '' != notetwo">  
+			and es.note_two = #{notetwo,jdbcType=VARCHAR}
 		</if>
 		<if test="null != createDate and createDate != ''">
 			<![CDATA[
@@ -286,6 +307,9 @@
 				,check_flag
 				,assign_flag
 				,note
+				,actualattendance
+				,trafficsubsidies
+				,note_two
 		)values (
 			#{id,jdbcType=VARCHAR}
 			,#{createDate,jdbcType=TIMESTAMP}
@@ -314,6 +338,9 @@
 			,#{checkFlag,jdbcType=INTEGER}
 			,#{assignFlag,jdbcType=INTEGER}
 			,#{note,jdbcType=VARCHAR}
+			,#{actualattendance,jdbcType=DECIMAL}
+			,#{trafficsubsidies,jdbcType=DECIMAL}
+			,#{notetwo,jdbcType=VARCHAR}
 		)
 	</insert>
 	
@@ -424,9 +451,7 @@
 		and emp_id = #{empId,jdbcType=VARCHAR}
 	</update>
 	
-	<update id="assign" parameterType="com.dongnao.workbench.school.model.EmpSalary">
-		update emp_salary set
-			assign_flag = #{assignFlag,jdbcType=INTEGER},note = #{note,jdbcType=INTEGER}
-		where id = #{id,jdbcType=VARCHAR}
-	</update>
+	<delete id="assign" parameterType="com.dongnao.workbench.school.model.EmpSalary">
+		delete from emp_salary 	where id = #{id,jdbcType=VARCHAR}
+	</delete>
 </mapper>
