@@ -248,8 +248,7 @@ public class ExpenseAccountController{
  	*/
  	@RequestMapping("/toAuditExpenseAccount")
 	public ModelAndView toAudit(String key,HttpServletRequest request){
- 		ModelAndView mv = new ModelAndView(
- 				"WEB-INF/jsp/account/expenseAccount/auditExpenseAccount");
+ 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/account/expenseAccount/auditExpenseAccount");
  		UserInfo user=Utils.getLoginUserInfo(request);
  		
  		ExpenseAccount entity = expenseAccountService.getByPrimaryKey(key);
@@ -258,12 +257,12 @@ public class ExpenseAccountController{
 		
  		List<UserInfo> userInfo = userInfoService.listByCondition(null);
 		mv.addObject("userInfo", userInfo);
-		if(user.getRoleId().equals("cce57309-c36a-4b2b-8596-4bc3ea008e88")){//总经理权限
+		/*if(user.getRoleId().equals("cce57309-c36a-4b2b-8596-4bc3ea008e88")){//总经理权限
 			mv.addObject("isLastAudit", true);
-		}
-		if(user.getRoleId().equals("8b97fbf5-40f8-4bef-b5e2-1b1c0ae990b8")){//联合创始人
+		}*/
+		/*if(user.getRoleId().equals("8b97fbf5-40f8-4bef-b5e2-1b1c0ae990b8")){//联合创始人
 			mv.addObject("isFounder", true);
-		}
+		}*/
 
  		mv.addObject("user", user);
  		

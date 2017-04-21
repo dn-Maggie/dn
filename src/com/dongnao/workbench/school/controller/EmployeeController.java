@@ -103,6 +103,9 @@ public class EmployeeController{
  		mv.addObject("nowEmpNo", employeeService.getNowEmpNo());
 		List<SalStandard> salStandardList = salStandardService.listByCondition(new SalStandard());
 		mv.addObject("salStandardList", salStandardList);
+		
+		List<Employee> tutor= employeeService.listByCondition(null);
+ 		mv.addObject("tutor", tutor);
 		return mv;
 	}
  	/**
@@ -265,6 +268,9 @@ public class EmployeeController{
  		area.put("parent",list);
  		area.put("child",list2);
  		mv.addObject("area",area);
+ 		
+ 		List<Employee> tutor= employeeService.listByCondition(null);
+ 		mv.addObject("tutor", tutor);
 		return mv;
 	}
 	

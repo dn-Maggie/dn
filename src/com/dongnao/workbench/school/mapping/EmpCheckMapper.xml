@@ -13,9 +13,8 @@
 		<result column="check_point" property="checkPoint" jdbcType="VARCHAR" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="state" property="state" jdbcType="INTEGER" />
+		<result column="checkpeople" property="checkPeople" jdbcType="VARCHAR" />
 	</resultMap>
-	
-
 	
 	<sql id="Base_Column_List">
 	 				id,
@@ -28,7 +27,8 @@
 					base_points,
 					check_point,
 					create_time,
-					state
+					state,
+					checkpeople
 	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -43,7 +43,8 @@
 					e.base_points,
 					e.check_point,
 					e.create_time,
-					e.state					
+					e.state,
+					e.checkpeople				
 		from emp_check as e
 		where e.id =#{id,jdbcType=VARCHAR}
 	</select>
@@ -60,7 +61,8 @@
 					e.base_points,
 					e.check_point,
 					e.create_time,
-					e.state
+					e.state,
+					e.checkpeople
 		from emp_check as e
 		where 1=1
 		<if test="id != null and '' != id">  
@@ -95,6 +97,9 @@
 		</if>
 		<if test="state != null and '' != state">  
 			and e.state = #{state,jdbcType=INTEGER}
+		</if>
+		<if test="checkPeople != null and '' != checkPeople">  
+			and e.checkpeople = #{checkPeople,jdbcType=INTEGER}
 		</if>
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 			<![CDATA[
@@ -139,7 +144,7 @@
 	                set 
 	                  check_point=#{checkPoint,jdbcType=VARCHAR},
 	                  state = #{state,jdbcType=INTEGER}
-	                where id = #{id,jdbcType=VARCHAR} 
+	                where emp_name = #{empName,jdbcType=VARCHAR} and check_month = #{checkMonth,jdbcType=VARCHAR}
 	</update>
 	
 </mapper>

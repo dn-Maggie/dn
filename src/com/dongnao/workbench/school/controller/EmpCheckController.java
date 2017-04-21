@@ -24,6 +24,7 @@ import com.dongnao.workbench.common.excel.ExcelExpUtils;
 import com.dongnao.workbench.common.excel.ExpParamBean;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
+import com.dongnao.workbench.common.util.DateUtil;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.continuePay.model.ContinuePay;
 import com.dongnao.workbench.course.model.Course;
@@ -34,6 +35,7 @@ import com.dongnao.workbench.salary.model.SalStandard;
 import com.dongnao.workbench.salary.service.SalStandardService;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.school.model.EmpCheck;
+import com.dongnao.workbench.school.model.EmpSalary;
 import com.dongnao.workbench.school.model.Employee;
 import com.dongnao.workbench.school.service.EmpCheckService;
 import com.dongnao.workbench.school.service.EmployeeService;
@@ -43,8 +45,12 @@ import com.dongnao.workbench.system.service.DictInfoService;
 import com.dongnao.workbench.vipRefund.model.VipRefund;
 import com.dongnao.workbench.vipStudent.model.VipStudent;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -181,15 +187,56 @@ public class EmpCheckController{
 		}
 	}
 	
-	/**
+/*	*//**
 	 * 修改方法
 	 * @param empCheck EmpCheck：实体对象
 	 * @param response HttpServletResponse
 	 * @return: ajax输入json字符串
-	 */	
+	 *//*	
 	@RequestMapping("/update")
 	public void update(EmpCheck empCheck,HttpServletRequest request,HttpServletResponse response){
 		empCheck.setState(2);
 		AjaxUtils.sendAjaxForObjectStr(response,empCheckService.update(empCheck));	
+	}
+	*/
+	/**
+	 * 进入员工考核表格页面方法
+	 * @param key String：实体id
+	 * @return ModelAndView: 查询实体
+	 */	
+	@RequestMapping("/toCheckTable")
+	public ModelAndView toCheckTable(String key){
+		ModelAndView mv = new ModelAndView(
+				"WEB-INF/jsp/school/empCheck/module/职能部门工资考核表");
+		EmpCheck empCheck = empCheckService.getByPrimaryKey(key);
+		ArrayList<Object> arr = new ArrayList<>();
+		for(int i=0;i<30;i++){
+			arr.add(i+1);
+		}
+		mv.addObject("empCheck", empCheck);
+		mv.addObject("arr", arr);
+		return mv;
+	}
+	
+	/**
+	 * 员工考核记录成绩与生成html文件方法
+	 * @param response HttpServletResponse
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/checkproducehtml")
+	public void addLot(@RequestBody String param,HttpServletRequest request,HttpServletResponse response){
+		if(param == null) {
+			return;	
+		}
+		JSONArray ja = JSONArray.fromObject(param);
+		for(Object o : ja) {
+			JSONObject jo = (JSONObject)o;
+			EmpCheck empCheck = new EmpCheck();
+			empCheck.setCheckMonth(jo.getString("checkMonth"));
+			empCheck.setEmpName(jo.getString("empName"));
+			empCheck.setCheckPoint(jo.getString("checkPoint"));
+			empCheck.setState(2);
+			empCheckService.update(empCheck);
+		}
 	}
 }

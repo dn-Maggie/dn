@@ -271,18 +271,38 @@
 			</tr>
 			<tr style="text-indent: 4em"><td colspan="4"><i class="icon_bg icon_plan"></i> 员工其他信息</td></tr>
 			<tr>
-				<td class="inputLabelTd">是否被考核：</td>
-				<td class="inputTd">
-					<select style="float:none" class="small_input_select" name="isAssess" id="edit_isAssess" mainid="isAssess">
-						<option value="1" <c:if test="${employee.isassess eq 1}" >selected</c:if>>是</option>
-						<option value="2" <c:if test="${employee.isassess eq 2}" >selected</c:if>>否</option>
-					</select>
-				</td>
-				<td class="inputLabelTd">考核人：</td>
-				<td class="inputTd">
-					<input id="edit_checkName" name="checkName" type="text" class="text" value=""/>
-				</td>
-			</tr>
+						<td class="inputLabelTd">是否被考核：</td>
+						<td class="inputTd"><select style="float: none"
+							class="small_input_select" name="isAssess" id="edit_isAssess"
+							mainid="isAssess" onchange="checkstatechange('${employee.isAssess}',this.value)">
+								<option value="1"
+									<c:if test="${employee.isAssess eq 1}" >selected</c:if>>是</option>
+								<option value="2"
+									<c:if test="${employee.isAssess eq 2}" >selected</c:if>>否</option>
+						</select></td>
+						<td class="inputLabelTd">考核人：</td>
+						<td class="inputTd"><c:choose>
+								<c:when test="${employee.isAssess == '1'}">
+									<div class="checknotediv1" id="checknotediv1">
+										<input id="edit_checkName1" name="checkName" type="text"
+											class="text" list="employeeList1"
+											value="${employee.checkName}"
+											onchange="getEmpIDByName(this,this.value);" />
+										<datalist id="employeeList1">
+											<c:forEach var="tutor" items="${tutor}">
+												<option did="${tutor.id}" value="${tutor.nickName}"
+													label="${tutor.name}"></option>
+											</c:forEach>
+										</datalist>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="checknotediv2" id="checknotediv2">
+										<label class="checknote2" id="checknote2">无</label>
+									</div>
+								</c:otherwise>
+							</c:choose></td>
+					</tr>
 			<tr class="addEnable">
 				<td class="inputLabelTd" title="工资发放银行">储蓄银行：</td>
 				<td class="inputTd" title="工资发放银行">
@@ -576,6 +596,37 @@ function delBankMsg(Object){
 	{$(Object).parents('.addEnable').remove();}
 	else return;
 };
+
+
+/*自动搜寻考核人 自动完成(Autocomplete) 根据用户输入值进行搜索和过滤,让用户快速找到并从预设值列表中选择*/
+function getEmpIDByName(obj,value) {
+	var did = $("#employeeList").find("option[value="+value+"]").attr('did');
+	$(obj).parents('.addEnable').find("#checkName").val(did);
+}
+
+function checkstatechange(originalvalue,changevalue){
+	console.log(originalvalue);
+	if(originalvalue == '1'){
+		if(changevalue=='2'){
+			$("#edit_checkName1").remove();
+			$("#employeeList1").remove();
+			$("#checknotediv1").append('<label class="checknote1" id="checknote1">无</label>');
+		}else{
+			$("#checknote1").remove();
+			$("#checknotediv1").append('<input id="edit_checkName1" name="checkName" type="text" class="text" list="employeeList1" onchange="getEmpIDByName(this,this.value);"/><datalist id="employeeList1"><c:forEach var="tutor" items="${tutor}"><option did="${tutor.id}" value="${tutor.nickName}" label="${tutor.name}"></option></c:forEach></datalist>');
+		}
+	}else{
+		if(changevalue=='2'){
+			$("#edit_checkName2").remove();
+			$("#employeeList2").remove();
+			$("#checknotediv2").append('<label class="checknote2" id="checknote2">无</label>');
+		}else{
+			$("#checknote2").remove();
+			$("#checknotediv2").append('<input id="edit_checkName2" name="checkName" type="text" class="text" list="employeeList2" onchange="getEmpIDByName(this,this.value);"/><datalist id="employeeList2"><c:forEach var="tutor" items="${tutor}"><option did="${tutor.id}" value="${tutor.nickName}" label="${tutor.name}"></option></c:forEach></datalist>');
+		}
+	}
+	
+}
 </script>
 
 </body>

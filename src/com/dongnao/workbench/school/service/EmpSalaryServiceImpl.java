@@ -99,7 +99,7 @@ public class EmpSalaryServiceImpl implements EmpSalaryService{
 	}
 
 	/**
-	 * 修改数据是否添加到财务流水表中状态
+	 * 已生成流水，删除词条工资记录
 	 * @param empSalary EmpSalary 实体对象
 	 */	
 	@Override

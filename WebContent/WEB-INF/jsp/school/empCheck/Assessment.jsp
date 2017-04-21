@@ -17,9 +17,9 @@ $(function(){
        	sortorder:"desc",
        	multiselect:true,
        	multiboxonly:true,
-       	cellEdit:true,//是否开启单元格的编辑功能  
+/*        	cellEdit:true,//是否开启单元格的编辑功能  
        	cellsubmit:'remote',//or 'clientArray',remote代表每次编辑提交后进行服务器保存，  clientArray只保存到数据表格不保存到服务器  
-       	cellurl:'<m:url value='/empCheck/update.do'/>',//cellsubmit要提交的后台路径  
+       	cellurl:'<m:url value='/empCheck/update.do'/>',//cellsubmit要提交的后台路径 */  
        	forceFit:true,
        /* 	pager: '#remote_prowed' ,*//*,分页栏id，这里特殊不适用分页，操作完一页数据选择刷新表格*/
  		rowList:[10,20,50,100],//每页显示记录数
@@ -28,9 +28,13 @@ $(function(){
 			{name : "id",hidden : true,key : true,label:"主键",index : "id"},	
 			{name : "empNo",label:"员工编号",index : "emp_no",width:'20'},
 			{name : "empName",label:"员工姓名",index : "emp_name",width:'20'},		
-			{name : "nickName",label:"昵称",index : "nickname",width:'30'},	
-			{name : "post",label:"岗位",index : "post",width:'30'},		
-			{name : "checkPoint",label:"考核分",index : "check_point",width:'20',editable:true},
+			{name : "nickName",label:"昵称",index : "nickname",width:'20'},	
+			{name : "department",label:"部门",index : "department",width:'20'},
+			{name : "post",label:"岗位",index : "post",width:'20'},		
+			{name : "",label:"考核",index : "operate",width:'20',align: 'center',formatter: function (cellvalue, options, rowObject) {
+				return "<input id=\"begaincheck\" type=\"button\" class=\"ti_bottom\" value=\"开始考核\" onclick=\"begaincheck(\'" +rowObject.id+"\')\"/>"; 
+				},
+            },
        	],
        	serializeGridData:function(postData){//添加查询条件值
 			var obj = getQueryCondition();
@@ -78,13 +82,13 @@ $(function(){
 	function today() {
 		var today = new Date();
 		var h = today.getFullYear();
-		var m = today.getMonth() + 1;
+		var m = today.getMonth();
 		var d = today.getDate();
 		m = m < 10 ? "0" + m : m; //  这里判断月份是否<10,如果是在月份前面加'0'
 		d = d < 10 ? "0" + d : d; //  这里判断日期是否<10,如果是在日期前面加'0'
 		return h + "-" + m;
 	}
-	function test() {
+	function test() {//打开单元格编辑功能时使用这个方法
 		//最后一条数据在关闭窗口前要用saveCell函数结束文本编辑状态，不然
 		$("#remote_rowed").jqGrid("saveCell", businessplanmag_iRow,
 				businessplanmag_iCol);
@@ -94,6 +98,36 @@ $(function(){
 	function closeass() {
 		window.parent.closeAss()
 	}
+	
+	function begaincheck(value){//跳转到在线考核页面，value是该条记录的主键
+		console.log(value);
+	}
+	
+	
+	//考核表格弹出框
+	var check_iframe_dialog;
+  	 
+    function begaincheck(key){
+/*     	var key = ICSS.utils.getSelectRowData("id");
+		if(key.indexOf(",")>-1||key==""){
+			showMessage("请选择一条员工数据！");
+			return ;
+		} */
+		var url="<m:url value='/empCheck/toCheckTable.do'/>?key="+key;
+		check_iframe_dialog = new biz.dialog({
+		 	id:$('<div id="checkwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+			modal: true,
+			width: $(window).width(),
+			height:$(window).height(),
+				title: "员工考核表"
+		});
+		check_iframe_dialog.open();
+    }
+    
+    //关闭查看页面，供子页面调用
+    function closeCheck(){
+    	check_iframe_dialog.close();
+    }
 </script>
 </head>
 
@@ -108,17 +142,14 @@ $(function(){
 				</div>
 				<div class="search border-bottom">
 					<ul>
+					
 						<li><span>考核月份:</span>
 							<div class="time_bg">
-								<input id="checkMonth" name="checkMonth" type="text" class="search_time150"
-									onClick="WdatePicker({minDate:'%y-{%M-1}',maxDate:'%y-%M',dateFmt:'yyyy-MM'})" />
-								<i class="search_time_ico2"
-									onclick="WdatePicker({el:'checkMonth',maxDate:'%y-%M',dateFmt:'yyyy-MM'})"></i>
+								<input id="checkMonth" name="checkMonth" type="text" class="search_time150" readonly="true"/>
+								<!-- <i class="search_time_ico2"
+									onclick="WdatePicker({el:'checkMonth',maxDate:'%y-%M',dateFmt:'yyyy-MM'})"></i> -->
+									
 							</div></li>
-						<li style="width:130px;"><input type="button" class="search_btn mr22 "
-							onclick="doSearch();" value="查询"></li>
-						<li style="float: right;width:120px;"><span>部&nbsp;&nbsp;&nbsp;&nbsp;门&nbsp;:&nbsp;<lable
-									style="color:red;">${org.orgName}</lable></span></li>
 					</ul>
 				</div>
 	

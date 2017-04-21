@@ -543,7 +543,7 @@ public class EmpSalaryController{
 					accountFlowService.add(accountFlow);
 					entity.setAssignFlag("2");
 					//entity.setNote("已生成流水");
-					empSalaryService.assign(entity);/*删除此条记录*/
+					empSalaryService.assign(entity);/*删除此条工资记录*/
 				map.put("msg", "成功");
 			}else{
 				map.put("msg", "存在工资流水插入失败的记录");

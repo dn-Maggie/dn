@@ -12,7 +12,7 @@ var gridObj = {};
             id:"#remote_rowed",/*html部分table id*/
             url: "<m:url value='/empCheck/listEmpCheck.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
-           	sortname:"create_time",
+           	sortname:"department",
            	sortorder:"desc",
            	multiselect:true,
            	multiboxonly:true,
@@ -29,8 +29,9 @@ var gridObj = {};
 				{name : "department",label:"部门",index : "department",width:'20'},
 				/* {name : "basePoints",label:"基础分",index : "base_points",width:'20'},	 */
 				{name : "checkPoint",label:"考核分",index : "check_point",width:'20'},
-				{name : "checkMonth",label:"考核月份",index : "check_month",width:'40'},
-				{name : "createTime",label:"考核时间",index : "create_time",width:'40'},
+				{name : "checkMonth",label:"考核月份",index : "check_month",width:'30'},
+				{name : "createTime",label:"考核时间",index : "create_time",width:'30'},
+				{name : "checkPeople",label:"考核人",index : "checkpeople",width:'20'},
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
@@ -121,7 +122,7 @@ var gridObj = {};
     function today(){
    	    var today=new Date();
    	    var h=today.getFullYear();
-   	    var m=today.getMonth()+1;
+   	    var m=today.getMonth();
    	    var d=today.getDate();
    	    m= m<10?"0"+m:m;   //  这里判断月份是否<10,如果是在月份前面加'0'
    	    d= d<10?"0"+d:d;   //  这里判断日期是否<10,如果是在日期前面加'0'
@@ -188,7 +189,7 @@ var gridObj = {};
 							</a>
 							</li>
 							<li><a href="javascript:;" onClick="ShowAssessmentinfo();"> <i
-							class="icon_bg icon_ckxq"></i> <span>查看单个员工考核信息</span>
+							class="icon_bg icon_ckxq"></i> <span>查看单个员工历史考核信息</span>
 							</a></li>
 					</c:if>
 					</ul>

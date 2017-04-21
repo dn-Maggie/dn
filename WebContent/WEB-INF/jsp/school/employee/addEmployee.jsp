@@ -240,17 +240,24 @@
 				</td>
 			</tr>
 			<tr style="text-indent: 4em"><td colspan="4"><i class="icon_bg icon_plan"></i> 员工其他信息</td></tr>
-			<tr>
+			<tr class="addEnable">
 				<td class="inputLabelTd">是否被考核：</td>
 				<td class="inputTd">
-					<select style="float:none" class="small_input_select" name="isAssess" id="edit_probation" mainid="isassess">
-						<option value="1" <c:if test="${employee.isassess eq 1}" >selected</c:if>>是</option>
-						<option value="2" <c:if test="${employee.isassess eq 2}" >selected</c:if>>否</option>
+					<select style="float:none" class="small_input_select" name="isAssess" id="edit_probation" mainid="isassess" onchange="checkstatechange(this.value)">
+						<option value="1" <c:if test="${employee.isAssess eq 1}" >selected</c:if>>是</option>
+						<option value="2" <c:if test="${employee.isAssess eq 2}" >selected</c:if>>否</option>
 					</select>
 				</td>
 				<td class="inputLabelTd">考核人：</td>
 				<td class="inputTd">
-					<input id="edit_inspectionempid" name="checkName" type="text" class="text" value=""/>
+				<div class="checknotediv" id="checknotediv">
+					<input id="edit_checkName" name="checkName" type="text" class="text"  list="employeeList"  onchange="getEmpIDByName(this,this.value);"/>
+					<datalist id="employeeList">
+						<c:forEach var="tutor" items="${tutor}">
+							<option did="${tutor.id}" value="${tutor.nickName}" label="${tutor.name}"></option>
+			             </c:forEach>
+					</datalist>		
+				</div>
 				</td>
 			</tr>
 			<tr class="addEnable">
@@ -557,6 +564,23 @@ function delBankMsg(Object){
 	{$(Object).parents('.addEnable').remove();}
 	else return;
 };
+
+/*自动搜寻考核人 自动完成(Autocomplete) 根据用户输入值进行搜索和过滤,让用户快速找到并从预设值列表中选择*/
+function getEmpIDByName(obj,value) {
+	var did = $("#employeeList").find("option[value="+value+"]").attr('did');
+	$(obj).parents('.addEnable').find("#checkName").val(did);
+}
+
+function checkstatechange(value){
+	if(value=='2'){
+		$("#edit_checkName").remove();
+		$("#employeeList").remove();
+		$("#checknotediv").append('<label class="checknote" id="checknote">无</label>');
+	}else{
+		$("#checknote").remove();
+		$("#checknotediv").append('<input id="edit_checkName" name="checkName" type="text" class="text" list="employeeList" onchange="getEmpIDByName(this,this.value);"/><datalist id="employeeList"><c:forEach var="tutor" items="${tutor}"><option did="${tutor.id}" value="${tutor.nickName}" label="${tutor.name}"></option></c:forEach></datalist>');
+	}
+}
 </script>
 
 </body>

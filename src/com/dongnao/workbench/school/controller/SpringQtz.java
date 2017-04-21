@@ -50,10 +50,11 @@ public class SpringQtz {
 			rqclistr.add(rqcr);
 			rqclistc.add(rqcc);
 		}
-		System.out.println("--------------1-------------");
+		//System.out.println("--------------1-------------");
 		accountFlowMapper.timedupdatecostprofitr(rqclistr);
+		//accountFlowService.timedupdatecostprofitr(rqclistr);也可以用
 		accountFlowMapper.timedupdatecostprofitc(rqclistc);
-		System.out.println("--------------2-------------");
-		System.out.println("");
+		//System.out.println("--------------2-------------");
+		//System.out.println("");
 	}
 }

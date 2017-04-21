@@ -79,12 +79,11 @@
 					</div>
 				<div class="inputTd"  style="display:block;margin-top:50px; text-align:center;">
 				<!-- <input id="submit" type="button" class="ti_bottom" value="审核" /> -->
-				<c:if test="${isLastAudit}">
-					<input id="submitl" type="button" class="ti_bottom" value="审核" onclick="audit('lastaudit')"/>
-					</c:if>
-				<c:if test="${isFounder}">
+				<input id="submitl" type="button" class="ti_bottom" value="审核" onclick="audit('lastaudit')"/>
+				
+				<%-- <c:if test="${isFounder}">
 				<input id="submitf" type="button" class="ti_bottom" value="初审" onclick="audit('firstaudit')"/>
-				</c:if>
+				</c:if> --%>
 					<input id="reset" type="button" class="ti_bottom" value="取消" onclick="window.parent.closeAudit()"/>
 				</div>
 			</div>
