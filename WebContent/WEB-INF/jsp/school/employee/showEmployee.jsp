@@ -137,6 +137,18 @@ var y = today.getFullYear();
 				<td class="inputTd">${employee.checkName}</td>
 			</tr>
 			<tr>
+				<td class="inputLabelTd">考核标准：</td>
+				<td class="inputTd">
+					<c:if test="${employee.checkStanderd eq 0}"><c:out value="无"></c:out></c:if>
+					<c:if test="${employee.checkStanderd eq 1}"><c:out value="职能部门基本工资考核"></c:out></c:if>
+					<c:if test="${employee.checkStanderd eq 2}"><c:out value="客服基本工资考核"></c:out></c:if>
+					<c:if test="${employee.checkStanderd eq 3}"><c:out value="公开课讲师基本工资考核"></c:out></c:if>
+					<c:if test="${employee.checkStanderd eq 4}"><c:out value="VIP讲师基本工资考核"></c:out></c:if>
+					<c:if test="${employee.checkStanderd eq 5}"><c:out value="助教基本工资考核"></c:out></c:if>
+					<c:if test="${employee.checkStanderd eq 6}"><c:out value="班主任基本工资考核"></c:out></c:if>
+				</td>
+			</tr>
+			<tr>
 				<td class="inputLabelTd">银行卡号：</td>
 				<td class="inputTd">${employee.bankCard}</td>
 				<td class="inputLabelTd">银行名称：</td>

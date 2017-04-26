@@ -17,20 +17,20 @@ $(function(){
        	sortorder:"desc",
        	multiselect:true,
        	multiboxonly:true,
-/*        	cellEdit:true,//是否开启单元格的编辑功能  
+/*      cellEdit:true,//是否开启单元格的编辑功能  
        	cellsubmit:'remote',//or 'clientArray',remote代表每次编辑提交后进行服务器保存，  clientArray只保存到数据表格不保存到服务器  
        	cellurl:'<m:url value='/empCheck/update.do'/>',//cellsubmit要提交的后台路径 */  
        	forceFit:true,
-       /* 	pager: '#remote_prowed' ,*//*,分页栏id，这里特殊不适用分页，操作完一页数据选择刷新表格*/
+ 		pager: '#remote_prowed' ,/*,分页栏id，这里特殊不适用分页，操作完一页数据选择刷新表格*/
  		rowList:[10,20,50,100],//每页显示记录数
 		rowNum:10,//默认显示15条
         colModel:[
 			{name : "id",hidden : true,key : true,label:"主键",index : "id"},	
-			{name : "empNo",label:"员工编号",index : "emp_no",width:'20'},
-			{name : "empName",label:"员工姓名",index : "emp_name",width:'20'},		
-			{name : "nickName",label:"昵称",index : "nickname",width:'20'},	
+			{name : "empNo",label:"员工编号",index : "emp_no",width:'10'},
+			{name : "empName",label:"员工姓名",index : "emp_name",width:'10'},		
+			{name : "nickName",label:"昵称",index : "nickname",width:'10'},	
 			{name : "department",label:"部门",index : "department",width:'20'},
-			{name : "post",label:"岗位",index : "post",width:'20'},		
+			{name : "post",label:"岗位",index : "post",width:'10'},		
 			{name : "",label:"考核",index : "operate",width:'20',align: 'center',formatter: function (cellvalue, options, rowObject) {
 				return "<input id=\"begaincheck\" type=\"button\" class=\"ti_bottom\" value=\"开始考核\" onclick=\"begaincheck(\'" +rowObject.id+"\')\"/>"; 
 				},
@@ -127,6 +127,7 @@ $(function(){
     //关闭查看页面，供子页面调用
     function closeCheck(){
     	check_iframe_dialog.close();
+    	window.location.reload();
     }
 </script>
 </head>
@@ -135,14 +136,13 @@ $(function(){
 	<div id="editDialog" style="margin-bottom:15px;">
 		<form id="queryForm">
 			<div class="wrap">
-				<input type="hidden" id="department" name="department" 
-					value="${org.orgName}" />
+<%-- 				<input type="hidden" id="department" name="department" 
+					value="${org.orgName}" /> --%>
 				<div class="top_head" style="margin-bottom:10px;">
 					<h2 class="top_name">员工考核</h2>
 				</div>
 				<div class="search border-bottom">
-					<ul>
-					
+					<ul>		
 						<li><span>考核月份:</span>
 							<div class="time_bg">
 								<input id="checkMonth" name="checkMonth" type="text" class="search_time150" readonly="true"/>
@@ -152,7 +152,6 @@ $(function(){
 							</div></li>
 					</ul>
 				</div>
-	
 			</div>
 		</form>
 	</div>
@@ -165,7 +164,7 @@ $(function(){
 		</div>
 	</div>
 	<div class="inputTd"  style="display:block;margin-top:50px; text-align:center;">
-	<input id="savereload" type="button" class="ti_bottom" value="保存数据" onclick="test()"/>
+<!-- 	<input id="savereload" type="button" class="ti_bottom" value="保存数据" onclick="test()"/> -->
 	<input id="closewindow" type="button" class="ti_bottom" value="关闭" onclick="closeass()"/>
 	</div>
 </body>

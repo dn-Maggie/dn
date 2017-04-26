@@ -10,27 +10,24 @@ var gridObj = {};
 		document.getElementById("checkMonth").value = today();
   		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
-            url: "<m:url value='/empCheck/listEmpCheck.do'/>",/*grid初始化请求数据的远程地址*/
+            url: "<m:url value='/empCheck/CheckReport.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
-           	sortname:"department",
+           	sortname:"check_point",
            	sortorder:"desc",
            	multiselect:true,
            	multiboxonly:true,
            	forceFit:true,
            	pager: '#remote_prowed' /*分页栏id*/,
-     		rowList:[20,50,100],//每页显示记录数
-    		rowNum:20,//默认显示15条
+     		rowList:[15,50,100],//每页显示记录数
+    		rowNum:15,//默认显示15条
             colModel:[
 				{name : "id",hidden : true,key : true,label:"主键",index : "id"},	
 				{name : "empNo",label:"员工编号",index : "emp_no",width:'20'},
 				{name : "empName",label:"员工姓名",index : "emp_name",width:'20'},		
 				{name : "nickName",label:"昵称",index : "nickname",width:'30'},	
 				{name : "post",label:"岗位",index : "post",width:'30'},		
-				{name : "department",label:"部门",index : "department",width:'20'},
-				/* {name : "basePoints",label:"基础分",index : "base_points",width:'20'},	 */
 				{name : "checkPoint",label:"考核分",index : "check_point",width:'20'},
 				{name : "checkMonth",label:"考核月份",index : "check_month",width:'30'},
-				{name : "createTime",label:"考核时间",index : "create_time",width:'30'},
 				{name : "checkPeople",label:"考核人",index : "checkpeople",width:'20'},
            	],
            	serializeGridData:function(postData){//添加查询条件值
@@ -67,7 +64,7 @@ var gridObj = {};
 		show_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: $(window).width()*0.4,
+			width: $(window).width()*0.7,
 			height:$(window).height()*0.55,
 				title: "员工考核信息"
 		});
@@ -99,44 +96,6 @@ var gridObj = {};
     function resetForm(formId){
 		document.getElementById(formId).reset();
 	}
-    
-	//员工考核的弹出框
-	var ass_iframe_dialog;
-    function Assessment(){
-    	var url="<m:url value='/empCheck/toAssessment.do'/>";
-    	ass_iframe_dialog = new biz.dialog({
-		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: $(window).width()*0.6,
-			height:$(window).height()*0.7,
-				title: "员工考核"
-		});
-		ass_iframe_dialog.open();
-    }
-    //关闭查看页面，供子页面调用
-    function closeAss(){
-    	ass_iframe_dialog.close();
-    }
-    
-	//查看单个员工考核数据的弹出框
-	var report_iframe_dialog;
-  	 
-    function ShowCheckReport(){
-		var url="<m:url value='/empCheck/toCheckReport.do'/>";
-		report_iframe_dialog = new biz.dialog({
-		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: $(window).width()*0.7,
-			height:$(window).height()*0.8,
-				title: "考核报表"
-		});
-		report_iframe_dialog.open();
-    }
-    
-    //关闭查看页面，供子页面调用
-    function closeReport(){
-    	report_iframe_dialog.close();
-    }
     
     //设置日期选择控件默认显示当前日期
     function today(){
@@ -172,14 +131,13 @@ var gridObj = {};
 						<li>
 						<input id="checkMonth" name="checkMonth" type="hidden"/>
 					<select style="float:none" class="search_select" name="department" id="edit_department" mainid="department" >
-							<option value="">--所有--</option>
 						<c:forEach var="org" items="${org}">
 							<option value="${org.orgName}" ><c:out value="${org.orgName}"></c:out></option>
 			             </c:forEach>
 			        </select>
 				<span>部门:</span>
 				</li>
-						<li class="date_area"><span>考核时间:</span>
+<!-- 						<li class="date_area"><span>考核时间:</span>
 							<div class="time_bg">
 								<input id="startDate" type="text" class="search_time150"
 									name="propsMap['startDate']" mainid="startDate"> <i
@@ -189,7 +147,7 @@ var gridObj = {};
 								<input id="endDate" type="text" class="search_time150"
 									name="propsMap['endDate']" mainid="endDate"> <i
 									class="search_time_ico2"></i>
-							</div></li>
+							</div></li> -->
 					<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置">
 						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li>
 				</ul>
@@ -199,22 +157,9 @@ var gridObj = {};
 				<!--功能按钮begin-->
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>	
-					<c:if test="${isCheckview}">
-						<li><a href="javascript:;" onClick="Assessment();"> <i
-							class="icon_bg import_icon"></i> <span>员工考核</span>
-							</a>
-						</li>
-					</c:if>
-					<c:if test="${isResponsible}">
 						<li><a href="javascript:;" onClick="ShowAssessmentinfo();"> <i
 							class="icon_bg icon_ckxq"></i> <span>查看单个员工历史考核信息</span>
-							</a></li>
-					</c:if>			
-					<c:if test="${isReport}">
-						<li><a href="javascript:;" onClick="ShowCheckReport();"> <i
-							class="icon_bg icon_ckxq"></i> <span>考核报表</span>
-							</a></li>
-					</c:if>
+							</a></li>		
 					</ul>
 				</div>
 	

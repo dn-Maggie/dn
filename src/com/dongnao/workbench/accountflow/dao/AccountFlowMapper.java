@@ -90,14 +90,24 @@ public interface AccountFlowMapper  {
 	
 
 	/**
-	 * 定时更新收入成本临时表方法(插入今年最新数据--业绩)
+	 * 定时更新收入成本临时表方法(插入今年最新数据--业绩) 批量插入
 	 */
 	public void timedupdatecostprofitr(List<ReportQuerycondition> rqc);
 	
 	/**
-	 *  定时更新收入成本临时表方法(插入今年最新数据--成本)
+	 *  定时更新收入成本临时表方法(插入今年最新数据--成本) 批量插入
 	 */
 	public void timedupdatecostprofitc(List<ReportQuerycondition> rqc);
+	
+	/**
+	 * 定时更新收入成本临时表方法(插入今年最新数据--业绩) 单条插入
+	 */
+	public void timedupdatecostprofitrs(ReportQuerycondition rqc);
+	
+	/**
+	 *  定时更新收入成本临时表方法(插入今年最新数据--成本) 单条插入
+	 */
+	public void timedupdatecostprofitcs(ReportQuerycondition rqc);
 	
 	/**
 	 * 定时更新收入成本临时表方法(删除今年旧数据)

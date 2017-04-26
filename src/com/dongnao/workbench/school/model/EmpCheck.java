@@ -30,6 +30,7 @@ public class EmpCheck extends Model{
 	    private String endDate;	
 	    private int state;
 	    private String checkPeople;
+	    private int checkStanderd;
 		public String getId() {
 			return id;
 		}
@@ -114,6 +115,12 @@ public class EmpCheck extends Model{
 		}
 		public void setCheckPeople(String checkPeople) {
 			this.checkPeople = checkPeople;
+		}
+		public int getCheckStanderd() {
+			return checkStanderd;
+		}
+		public void setCheckStanderd(int checkStanderd) {
+			this.checkStanderd = checkStanderd;
 		}
 		
 }

@@ -194,6 +194,7 @@ public class Employee extends Model{
 					    
 					    private Integer isAssess;/*是否被考核*/
 					    private String checkName;/*考核人*/
+					    private Integer checkStanderd;/*考核标准*/
 						   		
 					/**
 					 * 岗位级别
@@ -918,6 +919,14 @@ public class Employee extends Model{
 
 				public void setNotDining(String notDining) {
 					this.notDining = notDining;
+				}
+
+				public Integer getCheckStanderd() {
+					return checkStanderd;
+				}
+
+				public void setCheckStanderd(Integer checkStanderd) {
+					this.checkStanderd = checkStanderd;
 				}
 		
 			

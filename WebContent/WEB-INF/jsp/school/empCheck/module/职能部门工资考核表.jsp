@@ -194,18 +194,25 @@ div.Section0 {
 						style="text-align: center; line-height: 114%;">
 						<b><span
 							style="font-family: 仿宋; color: rgb(0, 0, 0); font-weight: bold; font-size: 14.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span></b>
-							<lable>${empCheck.empName}</lable><input name="empName" type="hidden" value="${empCheck.empName}">
-							<input name="post" type="hidden" value="${empCheck.post}">
-							<input checkMonth type="hidden" value="${empCheck.checkMonth}">
-							<input name="table1" type="hidden" value="1">
+							<span style="color:red;">${empCheck.empName}</span>
+							<input name="empName" type="hidden" value="${empCheck.empName}">
+							<input name="checkStanderd" type="hidden" value="${empCheck.checkStanderd}">
+							<input name="checkMonth" type="hidden" value="${empCheck.checkMonth}">
 					</p></td>
-				<td width=362 valign=top colspan=2
-					style="width: 271.5000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: 1.0000pt solid windowtext; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
-						class=MsoNormal align=center
-						style="text-align: center; line-height: 114%;">
-						<b><span
-							style="font-family: 仿宋; color: rgb(0, 0, 0); font-weight: bold; font-size: 14.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span></b>
-					</p></td>
+                <td width=181 valign=top
+                    style="width:110.7500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:1.0000pt solid windowtext;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
+                    <p class=MsoNormal align=center style="text-align:center;line-height:200%;"><b><span
+                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-weight:bold;font-size:14.0000pt;mso-font-kerning:1.0000pt;">考核月份</span></b><b><span
+                            style="font-family:仿宋;color:rgb(0,0,0);font-weight:bold;font-size:14.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></b>
+                    </p>
+                </td>
+                <td width=181 valign=top colspan=2
+                    style="width:160.7500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:1.0000pt solid windowtext;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
+                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><b><span
+                            style="font-family:仿宋;color:rgb(0,0,0);font-weight:bold;font-size:14.0000pt;mso-font-kerning:1.0000pt;"><o:p>&nbsp;</o:p></span></b>
+                            <label style="color: orangered">${empCheck.checkMonth}</label>
+                    </p>
+                </td>
 			</tr>
 			<tr style="height: 22.8500pt;">
 				<td width=92 valign=center
@@ -271,8 +278,8 @@ div.Section0 {
 							style="font-family: 微软雅黑; color: rgb(0, 0, 0); font-size: 14.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
 						<select id="core1" name="core1" onchange="corechange()">
 							<c:forEach var="intNum" items="${arr}">
-								<option value="<c:out value="${intNum}"/>" <c:if test="${intNum == '20' }">selected</c:if>>   <c:out value="${intNum}" /></option>
-						
+								<option value="<c:out value="${intNum}"/>" 
+								<c:if test="${intNum == '20' }">selected</c:if>>   <c:out value="${intNum}" /></option>
 							</c:forEach>
 						</select>
 					</p></td>
@@ -316,7 +323,8 @@ div.Section0 {
 							style="font-family: 微软雅黑; color: rgb(0, 0, 0); font-size: 14.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
 					<select id="core2" name="core2" onchange="corechange()">
 							<c:forEach var="intNum" items="${arr}">
-								<option value="<c:out value="${intNum}"/>" <c:if test="${intNum == '20' }">selected</c:if>>   <c:out value="${intNum}" /></option>
+								<option value="<c:out value="${intNum}"/>" <c:if test="${intNum == '20' }">selected</c:if>>   
+								<c:out value="${intNum}" /></option>
 							</c:forEach>
 						</select>
 					</p></td>
@@ -361,8 +369,8 @@ div.Section0 {
 							style="font-family: 微软雅黑; color: rgb(0, 0, 0); font-size: 14.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
 					<select id="core3" name="core3" onchange="corechange()">
 							<c:forEach var="intNum" items="${arr}">
-								<option value="<c:out value="${intNum}"/>" <c:if test="${intNum == '20' }">selected</c:if>>   <c:out value="${intNum}" /></option>
-						
+								<option value="<c:out value="${intNum}"/>" <c:if test="${intNum == '20' }">selected</c:if>>   
+								<c:out value="${intNum}" /></option>
 							</c:forEach>
 						</select>
 					</p></td>
@@ -407,7 +415,8 @@ div.Section0 {
 							style="font-family: 微软雅黑; color: rgb(0, 0, 0); font-size: 14.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
 					<select id="core4" name="core4" onchange="corechange()">
 							<c:forEach var="intNum" items="${arr}">
-								<option value="<c:out value="${intNum}"/>" <c:if test="${intNum == '20' }">selected</c:if>>   <c:out value="${intNum}" /></option>
+								<option value="<c:out value="${intNum}"/>" <c:if test="${intNum == '20' }">selected</c:if>>   
+								<c:out value="${intNum}" /></option>
 							</c:forEach>
 						</select>
 					</p></td>
@@ -456,6 +465,11 @@ div.Section0 {
 								<option value="3" >3</option>
 								<option value="4" >4</option>
 								<option value="5" >5</option>
+								<option value="6" >6</option>
+								<option value="7" >7</option>
+								<option value="8" >8</option>
+								<option value="9" >9</option>
+								<option value="10" >10</option>
 						</select>
 					</p></td>
 			</tr>
@@ -516,11 +530,12 @@ div.Section0 {
 							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
 					</p></td>
 			</tr>
-			<tr>
-				<td valign=center>
-					<input type="button" value="提交" onclick="ajaxUpload()">
-				</td>
-			</tr>
+			<tr style="height:18.8500pt;"></tr>
+            <tr align="center">
+                <td colspan=5>
+                    <input type="button" value="提交" style="width: 70px;" onclick="ajaxUpload()">
+                </td>
+            </tr>
 		</table>
 	</form>
 		<p class=MsoNormal>
@@ -536,20 +551,15 @@ function corechange(){
 	$("#totalcore").val(sum);
 }
 
-	function ajaxUpload(){
+function ajaxUpload(){
  		var options = {
 				url : "<m:url value='/empCheck/checkproducehtml.do'/>",
 				type : "post",
 				dataType:"text",
 				success :function(d) {
-					if(d.status){
-						window.parent.closeCheck();
-					}else{
-						showMessage(d.message);
-					}
+					window.parent.closeCheck();
 				}
 			};
-			// 将options传给ajaxForm
 			$('#form').ajaxSubmit(options);
  	}
 

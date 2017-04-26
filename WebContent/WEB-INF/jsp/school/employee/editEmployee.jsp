@@ -270,40 +270,60 @@
 				</td>
 			</tr>
 			<tr style="text-indent: 4em"><td colspan="4"><i class="icon_bg icon_plan"></i> 员工其他信息</td></tr>
-			<tr>
+			<tr >
 						<td class="inputLabelTd">是否被考核：</td>
 						<td class="inputTd"><select style="float: none"
 							class="small_input_select" name="isAssess" id="edit_isAssess"
-							mainid="isAssess" onchange="checkstatechange('${employee.isAssess}',this.value)">
+							mainid="isAssess" onchange="checkstatechange('${employee.isAssess}','${employee.checkStanderd}',this.value)">
 								<option value="1"
 									<c:if test="${employee.isAssess eq 1}" >selected</c:if>>是</option>
 								<option value="2"
 									<c:if test="${employee.isAssess eq 2}" >selected</c:if>>否</option>
 						</select></td>
 						<td class="inputLabelTd">考核人：</td>
-						<td class="inputTd"><c:choose>
+						<td class="inputTd">
+						<input id="edit_checkNameT" name="checkName" type="hidden" value="${employee.id}"/>
+						<c:choose>
 								<c:when test="${employee.isAssess == '1'}">
-									<div class="checknotediv1" id="checknotediv1">
-										<input id="edit_checkName1" name="checkName" type="text"
-											class="text" list="employeeList1"
+									<div class="checknotediv" id="checknotediv">
+										<input id="edit_checkNameF" name="checkNameF" type="text"
+											class="text" list="employeeList"
 											value="${employee.checkName}"
 											onchange="getEmpIDByName(this,this.value);" />
-										<datalist id="employeeList1">
+										<datalist id="employeeList">
 											<c:forEach var="tutor" items="${tutor}">
-												<option did="${tutor.id}" value="${tutor.nickName}"
-													label="${tutor.name}"></option>
+												<option did="${tutor.id}" value="${tutor.name}"
+													label="${tutor.nickName}"></option>
 											</c:forEach>
 										</datalist>
 									</div>
 								</c:when>
 								<c:otherwise>
-									<div class="checknotediv2" id="checknotediv2">
-										<label class="checknote2" id="checknote2">无</label>
+									<div class="checknotediv" id="checknotediv">
+										<label class="checknote" id="checknote">无</label>
 									</div>
 								</c:otherwise>
 							</c:choose></td>
 					</tr>
-			<tr class="addEnable">
+			<tr >
+				<td class="inputLabelTd">考核标准：</td>
+				<td class="inputTd">
+					<div id="checkStanderddiv">
+						<select style="float:none" class="input_select" name="checkStanderd" id="edit_checkStanderd" mainid="checkStanderd" >
+							<option value="0" <c:if test="${employee.checkStanderd eq 0}" >selected</c:if>>无</option>
+							<option value="2" <c:if test="${employee.checkStanderd eq 2}" >selected</c:if>>客服基本工资考核</option>
+							<option value="5" <c:if test="${employee.checkStanderd eq 5}" >selected</c:if>>助教基本工资考核</option>
+							<option value="6" <c:if test="${employee.checkStanderd eq 6}" >selected</c:if>>班主任基本工资考核</option>
+							<option value="1" <c:if test="${employee.checkStanderd eq 1}" >selected</c:if>>职能部门基本工资考核</option>
+							<option value="3" <c:if test="${employee.checkStanderd eq 3}" >selected</c:if>>公开课讲师基本工资考核</option>
+							<option value="4" <c:if test="${employee.checkStanderd eq 4}" >selected</c:if>>VIP讲师基本工资考核</option>
+						</select>
+					</div>
+
+				</td>
+			</tr>
+			<tr></tr>
+		    <tr class="addEnable">
 				<td class="inputLabelTd" title="工资发放银行">储蓄银行：</td>
 				<td class="inputTd" title="工资发放银行">
 					<select id="edit_bankName" name="bankName" class="input_select">
@@ -601,28 +621,30 @@ function delBankMsg(Object){
 /*自动搜寻考核人 自动完成(Autocomplete) 根据用户输入值进行搜索和过滤,让用户快速找到并从预设值列表中选择*/
 function getEmpIDByName(obj,value) {
 	var did = $("#employeeList").find("option[value="+value+"]").attr('did');
-	$(obj).parents('.addEnable').find("#checkName").val(did);
+	$("#edit_checkNameT").val(did);
 }
 
-function checkstatechange(originalvalue,changevalue){
-	console.log(originalvalue);
+function checkstatechange(originalvalue,optionvalue,changevalue){
+	//console.log(originalvalue);
 	if(originalvalue == '1'){
 		if(changevalue=='2'){
-			$("#edit_checkName1").remove();
-			$("#employeeList1").remove();
-			$("#checknotediv1").append('<label class="checknote1" id="checknote1">无</label>');
+			$("#edit_checkNameF").remove();
+			$("#employeeList").remove();
+			$("#checknotediv").append('<label class="checknote" id="checknote">无</label>');
+			$("#edit_checkStanderd").val("无");
 		}else{
-			$("#checknote1").remove();
-			$("#checknotediv1").append('<input id="edit_checkName1" name="checkName" type="text" class="text" list="employeeList1" onchange="getEmpIDByName(this,this.value);"/><datalist id="employeeList1"><c:forEach var="tutor" items="${tutor}"><option did="${tutor.id}" value="${tutor.nickName}" label="${tutor.name}"></option></c:forEach></datalist>');
+			$("#checknote").remove();
+			$("#checknotediv").append('<input id="edit_checkNameF" name="checkNameF" type="text" class="text" list="employeeList" value="${employee.checkName}" onchange="getEmpIDByName(this,this.value);"/><datalist id="employeeList"><c:forEach var="tutor" items="${tutor}"><option did="${tutor.id}" value="${tutor.nickName}" label="${tutor.name}"></option></c:forEach></datalist>');
+			$("#edit_checkStanderd").val("无");  
 		}
 	}else{
 		if(changevalue=='2'){
-			$("#edit_checkName2").remove();
-			$("#employeeList2").remove();
-			$("#checknotediv2").append('<label class="checknote2" id="checknote2">无</label>');
+			$("#edit_checkNameF").remove();
+			$("#employeeList").remove();
+			$("#checknotediv").append('<label class="checknote" id="checknote">无</label>');
 		}else{
-			$("#checknote2").remove();
-			$("#checknotediv2").append('<input id="edit_checkName2" name="checkName" type="text" class="text" list="employeeList2" onchange="getEmpIDByName(this,this.value);"/><datalist id="employeeList2"><c:forEach var="tutor" items="${tutor}"><option did="${tutor.id}" value="${tutor.nickName}" label="${tutor.name}"></option></c:forEach></datalist>');
+			$("#checknote").remove();
+			$("#checknotediv").append('<input id="edit_checkNameF" name="checkNameF" type="text" class="text" list="employeeList" onchange="getEmpIDByName(this,this.value);"/><datalist id="employeeList"><c:forEach var="tutor" items="${tutor}"><option did="${tutor.id}" value="${tutor.nickName}" label="${tutor.name}"></option></c:forEach></datalist>');
 		}
 	}
 	

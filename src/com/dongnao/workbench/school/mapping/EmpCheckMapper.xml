@@ -14,6 +14,7 @@
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="state" property="state" jdbcType="INTEGER" />
 		<result column="checkpeople" property="checkPeople" jdbcType="VARCHAR" />
+		<result column="checkstanderd" property="checkStanderd" jdbcType="INTEGER" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
@@ -28,7 +29,8 @@
 					check_point,
 					create_time,
 					state,
-					checkpeople
+					(select name from employee where id=e.checkpeople) as checkpeople,
+					checkstanderd
 	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -44,7 +46,8 @@
 					e.check_point,
 					e.create_time,
 					e.state,
-					e.checkpeople				
+					(select name from employee where id=e.checkpeople) as checkpeople,	
+					e.checkstanderd			
 		from emp_check as e
 		where e.id =#{id,jdbcType=VARCHAR}
 	</select>
@@ -62,7 +65,8 @@
 					e.check_point,
 					e.create_time,
 					e.state,
-					e.checkpeople
+					(select name from employee where id=e.checkpeople) as checkpeople,
+					e.checkstanderd
 		from emp_check as e
 		where 1=1
 		<if test="id != null and '' != id">  
@@ -101,6 +105,9 @@
 		<if test="checkPeople != null and '' != checkPeople">  
 			and e.checkpeople = #{checkPeople,jdbcType=INTEGER}
 		</if>
+		<if test="checkStanderd != null and '' != checkStanderd">  
+			and e.checkstanderd = #{checkStanderd,jdbcType=INTEGER}
+		</if>
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 			<![CDATA[
 			and DATE_FORMAT(e.create_time,'%Y-%m') >= #{propsMap.startDate,jdbcType=TIMESTAMP}
@@ -127,16 +134,14 @@
 					check_point,
 					create_time,
 					nickname,
-					state   
-		)values 
-		<foreach collection ="list" item="item" index= "index" separator =",">
-                 (
-                 #{item.empNo}, #{item.empName},#{item.post},#{item.department},
-                 #{item.checkMonth}, #{item.basePoints}, #{item.checkPoint},
-                 now(),#{item.nickName}, #{item.state}
-                 )
-             </foreach >
-
+					state,
+					checkpeople,
+					checkstanderd) values
+				<foreach collection ="list" item="item" index= "index" separator =",">
+                 (#{item.empNo,jdbcType=VARCHAR}, #{item.empName,jdbcType=VARCHAR},#{item.post,jdbcType=VARCHAR},#{item.department,jdbcType=VARCHAR},
+                 #{item.checkMonth,jdbcType=VARCHAR}, #{item.basePoints,jdbcType=VARCHAR}, #{item.checkPoint,jdbcType=VARCHAR},
+                 now(),#{item.nickName,jdbcType=VARCHAR},#{item.state,jdbcType=INTEGER},#{item.checkPeople,jdbcType=VARCHAR},#{item.checkStanderd,jdbcType=INTEGER})
+       		    </foreach >
 	</insert>
 	
 	<update id="update" parameterType="com.dongnao.workbench.school.model.EmpCheck">

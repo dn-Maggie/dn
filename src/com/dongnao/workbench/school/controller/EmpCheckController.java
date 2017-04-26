@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.*;
+import java.io.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +36,7 @@ import com.dongnao.workbench.nation.service.NationService;
 import com.dongnao.workbench.salary.model.SalStandard;
 import com.dongnao.workbench.salary.service.SalStandardService;
 import com.dongnao.workbench.common.util.FormatEntity;
+import com.dongnao.workbench.school.model.CheckHtmlForm;
 import com.dongnao.workbench.school.model.EmpCheck;
 import com.dongnao.workbench.school.model.EmpSalary;
 import com.dongnao.workbench.school.model.Employee;
@@ -114,6 +117,7 @@ public class EmpCheckController{
 			HttpServletResponse response, Page page){
 		empCheck.setPage(page);	
 		empCheck.setState(2);
+		empCheck.setCheckPeople(Utils.getLoginUserInfo(request).getId());
 		List<EmpCheck> list = empCheckService.listByCondition(empCheck);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
@@ -139,17 +143,18 @@ public class EmpCheckController{
 	@RequestMapping("/toAssessment")
 	public ModelAndView toAssessment(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/empCheck/Assessment");
-		Employee entity = employeeService.getByPrimaryKey(Utils.getLoginUserInfo(request).getId());
+/*		Employee entity = employeeService.getByPrimaryKey(Utils.getLoginUserInfo(request).getId());
 		Org org = new Org();
 		org.setOrgNo(entity.getDeptNo());
 		org=orgService.listByCondition(org).get(0);
- 		mv.addObject("org",org);
+ 		mv.addObject("org",org);*/
 		return mv;
 	}
 	
 	@RequestMapping("/saveAssinfo")
 	public void saveAssinfo(EmpCheck empCheck,HttpServletRequest request,
 			HttpServletResponse response, Page page){	
+		empCheck.setCheckPeople(Utils.getLoginUserInfo(request).getId());
 		List<EmpCheck> lt = empCheckService.listByCondition(empCheck);
 		if(lt.size()>0){
 			empCheck.setState(1);
@@ -157,11 +162,9 @@ public class EmpCheckController{
 			List<EmpCheck> list = empCheckService.listByCondition(empCheck);
 			AjaxUtils.sendAjaxForPage(request, response, page, list);
 		}else{
-			Org org = new Org();
-			org.setOrgName(empCheck.getDepartment());
-			org=orgService.listByCondition(org).get(0);
 			Employee employee=new Employee();
-			employee.setDeptNo(org.getOrgNo());
+			employee.setCheckName(Utils.getLoginUserInfo(request).getId());
+			employee.setIsAssess(1);
 			List<Employee> list = employeeService.listByCondition(employee);
 			List<EmpCheck> empc = new ArrayList<EmpCheck>();
 			Iterator it = list.iterator();
@@ -177,10 +180,14 @@ public class EmpCheckController{
 				ec.setCheckPoint("");
 				ec.setNickName(e.getNickName());
 				ec.setState(1);
+				ec.setCheckPeople(e.getCheckName());
+				ec.setCheckStanderd(e.getCheckStanderd());
 				empc.add(ec);
 			}
 			//插入部门所有员工未考核的数据
-			empCheckService.add(empc);
+			if(empc.size()>0){
+				empCheckService.add(empc);
+			}
 			empCheck.setPage(page);	
 			List<EmpCheck> list2 = empCheckService.listByCondition(empCheck);
 			AjaxUtils.sendAjaxForPage(request, response, page, list2);
@@ -206,9 +213,18 @@ public class EmpCheckController{
 	 */	
 	@RequestMapping("/toCheckTable")
 	public ModelAndView toCheckTable(String key){
-		ModelAndView mv = new ModelAndView(
-				"WEB-INF/jsp/school/empCheck/module/职能部门工资考核表");
 		EmpCheck empCheck = empCheckService.getByPrimaryKey(key);
+		String mvstr = "";
+		int checkstanderd = empCheck.getCheckStanderd();
+	    switch (checkstanderd){
+	        case 2:mvstr = "WEB-INF/jsp/school/empCheck/module/客服基本工资考核表";break;
+	        case 3:mvstr = "WEB-INF/jsp/school/empCheck/module/公开课讲师基本工资考核表";break;
+	        case 4:mvstr = "WEB-INF/jsp/school/empCheck/module/VIP讲师基本工资考核表";break;
+	        case 5:mvstr = "WEB-INF/jsp/school/empCheck/module/助教基本工资考核表";break;
+	        case 6:mvstr = "WEB-INF/jsp/school/empCheck/module/班主任基本工资考核表";break;
+	        default:mvstr = "WEB-INF/jsp/school/empCheck/module/职能部门工资考核表";break;
+	    }
+	    ModelAndView mv = new ModelAndView(mvstr);
 		ArrayList<Object> arr = new ArrayList<>();
 		for(int i=0;i<30;i++){
 			arr.add(i+1);
@@ -219,24 +235,89 @@ public class EmpCheckController{
 	}
 	
 	/**
-	 * 员工考核记录成绩与生成html文件方法
+	 * 员工考核--记录成绩与生成html文件方法
 	 * @param response HttpServletResponse
 	 * @return: ajax输入json字符串
 	 */
 	@RequestMapping("/checkproducehtml")
-	public void addLot(@RequestBody String param,HttpServletRequest request,HttpServletResponse response){
-		if(param == null) {
-			return;	
-		}
-		JSONArray ja = JSONArray.fromObject(param);
-		for(Object o : ja) {
-			JSONObject jo = (JSONObject)o;
+	public void addLot(CheckHtmlForm checkHtmlForm,HttpServletRequest request,HttpServletResponse response){
 			EmpCheck empCheck = new EmpCheck();
-			empCheck.setCheckMonth(jo.getString("checkMonth"));
-			empCheck.setEmpName(jo.getString("empName"));
-			empCheck.setCheckPoint(jo.getString("checkPoint"));
+			empCheck.setCheckMonth(checkHtmlForm.getCheckMonth());
+			empCheck.setEmpName(checkHtmlForm.getEmpName());
+			empCheck.setCheckPoint(checkHtmlForm.getTotalcore());
 			empCheck.setState(2);
 			empCheckService.update(empCheck);
-		}
+			int checkStanderd = checkHtmlForm.getCheckStanderd();
+			String filePath = "";
+		    switch (checkStanderd){
+		        case 2:filePath = "D:\\TestFile\\客服基本工资考核.html";break;///usr/dnfile/checkmodel/
+		        case 3:filePath = "D:\\TestFile\\公开课讲师基本工资考核.html";break;
+		        case 4:filePath = "D:\\TestFile\\VIP讲师基本工资考核.html";break;
+		        case 5:filePath = "D:\\TestFile\\助教基本工资考核.html";break;
+		        case 6:filePath = "D:\\TestFile\\班主任基本工资考核.html";break;
+		        default:filePath = "D:\\TestFile\\职能部门工资考核表.html"; break;
+		    }
+	        try {
+	        	System.out.println(filePath);
+	        	String templateContent = "";
+	        	FileInputStream fileinputstream = new FileInputStream(filePath);// 读取模板文件
+	        	int lenght = fileinputstream.available();
+	        	byte bytes[] = new byte[lenght];
+	        	fileinputstream.read(bytes);
+	        	fileinputstream.close();
+	        	templateContent = new String(bytes);
+	        	//System.out.println(templateContent);
+	        	templateContent = templateContent.replaceAll("#name#", checkHtmlForm.getEmpName());
+	        	templateContent = templateContent.replaceAll("#month#", checkHtmlForm.getCheckMonth());
+	        	templateContent = templateContent.replaceAll("#core1#", checkHtmlForm.getCore1());
+	        	templateContent = templateContent.replaceAll("#core2#", checkHtmlForm.getCore2());
+	        	templateContent = templateContent.replaceAll("#core3#", checkHtmlForm.getCore3());
+	        	templateContent = templateContent.replaceAll("#core4#", checkHtmlForm.getCore4());
+	        	templateContent = templateContent.replaceAll("#core5#", checkHtmlForm.getCore5());
+	        	templateContent = templateContent.replaceAll("#total#", checkHtmlForm.getTotalcore());
+	        	if(checkHtmlForm.getCore6()!=null){
+	        		templateContent = templateContent.replaceAll("#core6#", checkHtmlForm.getCore6());
+	        	}
+	        	if(checkHtmlForm.getCore7()!=null){
+	        		templateContent = templateContent.replaceAll("#core7#", checkHtmlForm.getCore7());
+	        	}
+	        	if(checkHtmlForm.getCore8()!=null){
+	        		templateContent = templateContent.replaceAll("#core8#", checkHtmlForm.getCore8());
+	        	}
+	        	String fileame = checkHtmlForm.getEmpName() + checkHtmlForm.getCheckMonth() + ".html";//文件名
+	        	fileame = "D:\\TestFile\\checkfile\\" + fileame;//生成的html文件保存路径。
+	        	FileOutputStream fileoutputstream = new FileOutputStream(fileame);//建立文件输出流
+	        	byte tag_bytes[] = templateContent.getBytes();
+	        	fileoutputstream.write(tag_bytes);
+	        	fileoutputstream.close();
+	        } catch (Exception e) {
+	        	System.out.println(e.toString());
+	        }
+	}
+	
+	/**
+	 * 进入考核报表页面
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/toCheckReport")
+	public ModelAndView toCheckReport(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/empCheck/checkReport");
+		Org org = new Org();
+		org.setParentOrgId("1");
+ 		mv.addObject("org",orgService.listByCondition(org));
+		return mv;
+	}
+	
+	/**
+	 * 考核报表页面数据查询
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/CheckReport")
+	public void CheckReport(EmpCheck empCheck,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		empCheck.setPage(page);	
+		empCheck.setState(2);
+		List<EmpCheck> list = empCheckService.listByCondition(empCheck);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 }

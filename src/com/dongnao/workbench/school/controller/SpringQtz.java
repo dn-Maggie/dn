@@ -12,6 +12,7 @@ import com.dongnao.workbench.subject.service.SubjectService;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class SpringQtz {
@@ -34,7 +35,7 @@ public class SpringQtz {
 		String nowyear = sdf.format(date);
 		rqc.setYear(nowyear);
 		int a =accountFlowMapper.timedupdatecostprofitdelete(rqc);
-		//System.out.println("已删除数据行数："+a);
+		System.out.println("已删除数据行数："+a);
 		List<ReportQuerycondition> rqclistr = new ArrayList<ReportQuerycondition>();
 		List<ReportQuerycondition> rqclistc = new ArrayList<ReportQuerycondition>();
 		List<Subject> Deptlist = subjectService.listByCondition(new Subject());
@@ -49,12 +50,14 @@ public class SpringQtz {
 			rqcc.setClasstype("cost");
 			rqclistr.add(rqcr);
 			rqclistc.add(rqcc);
+			//System.out.println("--------------Singel1-------------");
+			//accountFlowMapper.timedupdatecostprofitrs(rqcr);//不采用批量插入
+			//accountFlowMapper.timedupdatecostprofitcs(rqcc);
+			//System.out.println("--------------Singel2-------------");
 		}
 		//System.out.println("--------------1-------------");
-		accountFlowMapper.timedupdatecostprofitr(rqclistr);
-		//accountFlowService.timedupdatecostprofitr(rqclistr);也可以用
+		accountFlowMapper.timedupdatecostprofitr(rqclistr);//批量插入
 		accountFlowMapper.timedupdatecostprofitc(rqclistc);
 		//System.out.println("--------------2-------------");
-		//System.out.println("");
 	}
 }
