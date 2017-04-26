@@ -35,7 +35,7 @@ public class SpringQtz {
 		String nowyear = sdf.format(date);
 		rqc.setYear(nowyear);
 		int a =accountFlowMapper.timedupdatecostprofitdelete(rqc);
-		System.out.println("已删除数据行数："+a);
+		//System.out.println("已删除数据行数："+a);
 		List<ReportQuerycondition> rqclistr = new ArrayList<ReportQuerycondition>();
 		List<ReportQuerycondition> rqclistc = new ArrayList<ReportQuerycondition>();
 		List<Subject> Deptlist = subjectService.listByCondition(new Subject());

@@ -215,14 +215,15 @@ public class EmpCheckController{
 	public ModelAndView toCheckTable(String key){
 		EmpCheck empCheck = empCheckService.getByPrimaryKey(key);
 		String mvstr = "";
-		int checkstanderd = empCheck.getCheckStanderd();
+		int checkstanderd = 1;
+		checkstanderd = empCheck.getCheckStanderd();
 	    switch (checkstanderd){
-	        case 2:mvstr = "WEB-INF/jsp/school/empCheck/module/客服基本工资考核表";break;
-	        case 3:mvstr = "WEB-INF/jsp/school/empCheck/module/公开课讲师基本工资考核表";break;
-	        case 4:mvstr = "WEB-INF/jsp/school/empCheck/module/VIP讲师基本工资考核表";break;
-	        case 5:mvstr = "WEB-INF/jsp/school/empCheck/module/助教基本工资考核表";break;
-	        case 6:mvstr = "WEB-INF/jsp/school/empCheck/module/班主任基本工资考核表";break;
-	        default:mvstr = "WEB-INF/jsp/school/empCheck/module/职能部门工资考核表";break;
+	        case 2:mvstr = "WEB-INF/jsp/school/empCheck/module/kf";break;
+	        case 3:mvstr = "WEB-INF/jsp/school/empCheck/module/gkkjs";break;
+	        case 4:mvstr = "WEB-INF/jsp/school/empCheck/module/vipjs";break;
+	        case 5:mvstr = "WEB-INF/jsp/school/empCheck/module/zj";break;
+	        case 6:mvstr = "WEB-INF/jsp/school/empCheck/module/bzr";break;
+	        default:mvstr = "WEB-INF/jsp/school/empCheck/module/znbm";break;
 	    }
 	    ModelAndView mv = new ModelAndView(mvstr);
 		ArrayList<Object> arr = new ArrayList<>();
@@ -250,24 +251,29 @@ public class EmpCheckController{
 			int checkStanderd = checkHtmlForm.getCheckStanderd();
 			String filePath = "";
 		    switch (checkStanderd){
-		        case 2:filePath = "D:\\TestFile\\客服基本工资考核.html";break;///usr/dnfile/checkmodel/
-		        case 3:filePath = "D:\\TestFile\\公开课讲师基本工资考核.html";break;
-		        case 4:filePath = "D:\\TestFile\\VIP讲师基本工资考核.html";break;
-		        case 5:filePath = "D:\\TestFile\\助教基本工资考核.html";break;
-		        case 6:filePath = "D:\\TestFile\\班主任基本工资考核.html";break;
-		        default:filePath = "D:\\TestFile\\职能部门工资考核表.html"; break;
+		        case 2:filePath = "/usr/dnfile/checkmodel/kf.html";break;
+		        case 3:filePath = "/usr/dnfile/checkmodel/gkkjs.html";break;
+		        case 4:filePath = "/usr/dnfile/checkmodel/vipjs.html";break;
+		        case 5:filePath = "/usr/dnfile/checkmodel/zj.html";break;
+		        case 6:filePath = "/usr/dnfile/checkmodel/bzr.html";break;
+		        default:filePath = "/usr/dnfile/checkmodel/znbm.html"; break;
+//			    case 2:filePath = "D:\\TestFile\\kf.html";break;
+//		        case 3:filePath = "D:\\TestFile\\gkkjs.html";break;
+//		        case 4:filePath = "D:\\TestFile\\vipjs.html";break;
+//		        case 5:filePath = "D:\\TestFile\\zj.html";break;
+//		        case 6:filePath = "D:\\TestFile\\bzr.html";break;
+//		        default:filePath = "D:\\TestFile\\znbm.html"; break;
 		    }
+
 	        try {
-	        	System.out.println(filePath);
 	        	String templateContent = "";
-	        	FileInputStream fileinputstream = new FileInputStream(filePath);// 读取模板文件
-	        	int lenght = fileinputstream.available();
-	        	byte bytes[] = new byte[lenght];
-	        	fileinputstream.read(bytes);
-	        	fileinputstream.close();
-	        	templateContent = new String(bytes);
-	        	//System.out.println(templateContent);
-	        	templateContent = templateContent.replaceAll("#name#", checkHtmlForm.getEmpName());
+	            Reader r=new BufferedReader(new FileReader(filePath));     
+	            int temp=0;      
+	            while ((temp=r.read())!=-1) {   
+	            	templateContent+=(char)temp;  
+	            }   
+	            //System.out.println("文件内容:"+templateContent);
+	            templateContent = templateContent.replaceAll("#name#", checkHtmlForm.getEmpName());
 	        	templateContent = templateContent.replaceAll("#month#", checkHtmlForm.getCheckMonth());
 	        	templateContent = templateContent.replaceAll("#core1#", checkHtmlForm.getCore1());
 	        	templateContent = templateContent.replaceAll("#core2#", checkHtmlForm.getCore2());
@@ -285,14 +291,54 @@ public class EmpCheckController{
 	        		templateContent = templateContent.replaceAll("#core8#", checkHtmlForm.getCore8());
 	        	}
 	        	String fileame = checkHtmlForm.getEmpName() + checkHtmlForm.getCheckMonth() + ".html";//文件名
-	        	fileame = "D:\\TestFile\\checkfile\\" + fileame;//生成的html文件保存路径。
-	        	FileOutputStream fileoutputstream = new FileOutputStream(fileame);//建立文件输出流
-	        	byte tag_bytes[] = templateContent.getBytes();
-	        	fileoutputstream.write(tag_bytes);
-	        	fileoutputstream.close();
-	        } catch (Exception e) {
-	        	System.out.println(e.toString());
+	        	fileame = "/usr/dnfile/checkfile/" + fileame;//生成的html文件保存路径。        	
+	        	//Writer w=new FileWriter(fileame);   
+	        	Writer writer = new OutputStreamWriter(new FileOutputStream(fileame), "gb2312");
+	        	writer.write(templateContent);     
+	        	writer.flush();     
+	        	writer.close(); 
+	        } catch (FileNotFoundException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
 	        }
+		    
+//	        try {
+//	        	System.out.println(filePath);
+//	        	String templateContent = "";
+//	        	FileInputStream fileinputstream = new FileInputStream(filePath);// 读取模板文件
+//	        	int lenght = fileinputstream.available();
+//	        	byte bytes[] = new byte[lenght];
+//	        	fileinputstream.read(bytes);
+//	        	fileinputstream.close();
+//	        	templateContent = new String(bytes);
+//	        	//System.out.println(templateContent);
+//	        	templateContent = templateContent.replaceAll("#name#", checkHtmlForm.getEmpName());
+//	        	templateContent = templateContent.replaceAll("#month#", checkHtmlForm.getCheckMonth());
+//	        	templateContent = templateContent.replaceAll("#core1#", checkHtmlForm.getCore1());
+//	        	templateContent = templateContent.replaceAll("#core2#", checkHtmlForm.getCore2());
+//	        	templateContent = templateContent.replaceAll("#core3#", checkHtmlForm.getCore3());
+//	        	templateContent = templateContent.replaceAll("#core4#", checkHtmlForm.getCore4());
+//	        	templateContent = templateContent.replaceAll("#core5#", checkHtmlForm.getCore5());
+//	        	templateContent = templateContent.replaceAll("#total#", checkHtmlForm.getTotalcore());
+//	        	if(checkHtmlForm.getCore6()!=null){
+//	        		templateContent = templateContent.replaceAll("#core6#", checkHtmlForm.getCore6());
+//	        	}
+//	        	if(checkHtmlForm.getCore7()!=null){
+//	        		templateContent = templateContent.replaceAll("#core7#", checkHtmlForm.getCore7());
+//	        	}
+//	        	if(checkHtmlForm.getCore8()!=null){
+//	        		templateContent = templateContent.replaceAll("#core8#", checkHtmlForm.getCore8());
+//	        	}
+//	        	String fileame = checkHtmlForm.getEmpName() + checkHtmlForm.getCheckMonth() + ".html";//文件名
+//	        	fileame = "/usr/dnfile/checkfile" + fileame;//生成的html文件保存路径。
+//	        	FileOutputStream fileoutputstream = new FileOutputStream(fileame);//建立文件输出流
+//	        	byte tag_bytes[] = templateContent.getBytes();
+//	        	fileoutputstream.write(tag_bytes);
+//	        	fileoutputstream.close();
+//	        } catch (Exception e) {
+//	        	System.out.println(e.toString());
+//	        }
 	}
 	
 	/**
