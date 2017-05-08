@@ -282,6 +282,10 @@ public class EmployeeController{
 	 */	
 	@RequestMapping("/updateEmployee")
 	public void update(Employee employee,HttpServletRequest request,HttpServletResponse response){
+		if(employee.getIsAssess()!=1){
+			employee.setCheckName("");
+			employee.setCheckStanderd(0);
+		}
 		AjaxUtils.sendAjaxForObjectStr(response,employeeService.update(employee));	
 	}
 	/**
@@ -341,5 +345,18 @@ public class EmployeeController{
 		List<Employee> list = employeeService.listByCondition(employee);
 		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),
 				"员工信息列表", "员工信息列表");
+	}
+ 	
+	/**
+	 * 考核人输入框数据验证方法
+	 * @param response HttpServletResponse
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/checkNameValidation")
+	public void checkNameValidation(String checkName,HttpServletResponse response){
+		String num = String.valueOf(employeeService.checkNameValidation(checkName));
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("flag", num);
+		AjaxUtils.sendAjaxForMap(response, map);
 	}
 }

@@ -70,4 +70,8 @@ public interface EmployeeService  {
 
 	public ResultMessage updateNotDining(Employee employee);
 	
+	/**
+	 * 
+	 */
+	public int checkNameValidation(String checkName);
 }

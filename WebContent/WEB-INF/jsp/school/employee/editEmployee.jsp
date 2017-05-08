@@ -289,7 +289,7 @@
 										<input id="edit_checkNameF" name="checkNameF" type="text"
 											class="text" list="employeeList"
 											value="${employee.checkName}"
-											onchange="getEmpIDByName(this,this.value);" />
+											onchange="getEmpIDByName(this,this.value);" onblur="checkNameValidation()"/>
 										<datalist id="employeeList">
 											<c:forEach var="tutor" items="${tutor}">
 												<option did="${tutor.id}" value="${tutor.name}"
@@ -475,6 +475,7 @@ $(function() {
 		dateFmt:'yyyy-MM-dd',
 		value:'%y-%M-%d'
 	});
+
 });
 //岗位级别联动
 function positionChange(){
@@ -554,7 +555,6 @@ function editEmp(){
 							window.parent.closeEdit();
 				     		window.parent.doSearch();
 						});
-						
 					}else{
 						showMessage(d.message);
 					}
@@ -629,12 +629,13 @@ function checkstatechange(originalvalue,optionvalue,changevalue){
 	if(originalvalue == '1'){
 		if(changevalue=='2'){
 			$("#edit_checkNameF").remove();
+			$("#edit_checkNameT").val("无");
 			$("#employeeList").remove();
 			$("#checknotediv").append('<label class="checknote" id="checknote">无</label>');
 			$("#edit_checkStanderd").val("无");
 		}else{
 			$("#checknote").remove();
-			$("#checknotediv").append('<input id="edit_checkNameF" name="checkNameF" type="text" class="text" list="employeeList" value="${employee.checkName}" onchange="getEmpIDByName(this,this.value);"/><datalist id="employeeList"><c:forEach var="tutor" items="${tutor}"><option did="${tutor.id}" value="${tutor.nickName}" label="${tutor.name}"></option></c:forEach></datalist>');
+			$("#checknotediv").append('<input id="edit_checkNameF" name="checkNameF" type="text" class="text" list="employeeList" value="${employee.checkName}" onchange="getEmpIDByName(this,this.value);" onblur="checkNameValidation()"/><datalist id="employeeList"><c:forEach var="tutor" items="${tutor}"><option did="${tutor.id}" value="${tutor.nickName}" label="${tutor.name}"></option></c:forEach></datalist>');
 			$("#edit_checkStanderd").val("无");  
 		}
 	}else{
@@ -644,10 +645,35 @@ function checkstatechange(originalvalue,optionvalue,changevalue){
 			$("#checknotediv").append('<label class="checknote" id="checknote">无</label>');
 		}else{
 			$("#checknote").remove();
-			$("#checknotediv").append('<input id="edit_checkNameF" name="checkNameF" type="text" class="text" list="employeeList" onchange="getEmpIDByName(this,this.value);"/><datalist id="employeeList"><c:forEach var="tutor" items="${tutor}"><option did="${tutor.id}" value="${tutor.nickName}" label="${tutor.name}"></option></c:forEach></datalist>');
+			$("#checknotediv").append('<input id="edit_checkNameF" name="checkNameF" type="text" class="text" list="employeeList" onchange="getEmpIDByName(this,this.value);" onblur="checkNameValidation()"/><datalist id="employeeList"><c:forEach var="tutor" items="${tutor}"><option did="${tutor.id}" value="${tutor.nickName}" label="${tutor.name}"></option></c:forEach></datalist>');
 		}
 	}
-	
+}
+
+//为考核人input框绑定失去焦点事件
+function checkNameValidation(){
+	var cname = $("#edit_checkNameF").val();
+	var paramDatas = {
+			checkName:cname,
+			};
+		$.ajax({
+				type: "post",	
+				url : "<m:url value='/employee/checkNameValidation.do'/>",
+				data: paramDatas,
+				cache : false,
+				async : false,
+				dataType:"json",
+				success : function(data, textStatus, jqXHR) {
+					if(data.flag>=1){
+						console.log(data.flag);
+					}else{
+						console.log(data.flag);
+						showMessage("请选择正确的考核人！","","",function(){	
+							$("#edit_checkNameF")[0].focus();
+						});
+					}
+				}
+			});
 }
 </script>
 

@@ -67,4 +67,10 @@ public interface EmployeeMapper  {
 	public Employee getEmpByEmpNo(String empNo);
 
 	void notDin(Employee employee);
+	
+	/**
+	 * 删除员工方法
+	 * @param key String:多个由“，”分割开的id字符串
+	 */
+	int checkNameValidation(String checkName);
 }

@@ -31,6 +31,7 @@ import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.continuePay.model.ContinuePay;
 import com.dongnao.workbench.course.model.Course;
 import com.dongnao.workbench.course.service.CourseService;
+import com.dongnao.workbench.fileUpload.FileUpload;
 import com.dongnao.workbench.nation.model.Nation;
 import com.dongnao.workbench.nation.service.NationService;
 import com.dongnao.workbench.salary.model.SalStandard;
@@ -51,6 +52,7 @@ import com.dongnao.workbench.vipStudent.model.VipStudent;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -68,6 +70,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("empCheck")
 public class EmpCheckController{
+	
+	Logger logger = Logger.getLogger(EmpCheckController.class);// 日志
+	
     @Resource
 	private EmployeeService employeeService;
     @Resource
@@ -251,28 +256,30 @@ public class EmpCheckController{
 			int checkStanderd = checkHtmlForm.getCheckStanderd();
 			String filePath = "";
 		    switch (checkStanderd){
-		        case 2:filePath = "/usr/dnfile/checkmodel/kf.html";break;
-		        case 3:filePath = "/usr/dnfile/checkmodel/gkkjs.html";break;
-		        case 4:filePath = "/usr/dnfile/checkmodel/vipjs.html";break;
-		        case 5:filePath = "/usr/dnfile/checkmodel/zj.html";break;
-		        case 6:filePath = "/usr/dnfile/checkmodel/bzr.html";break;
-		        default:filePath = "/usr/dnfile/checkmodel/znbm.html"; break;
-//			    case 2:filePath = "D:\\TestFile\\kf.html";break;
-//		        case 3:filePath = "D:\\TestFile\\gkkjs.html";break;
-//		        case 4:filePath = "D:\\TestFile\\vipjs.html";break;
-//		        case 5:filePath = "D:\\TestFile\\zj.html";break;
-//		        case 6:filePath = "D:\\TestFile\\bzr.html";break;
-//		        default:filePath = "D:\\TestFile\\znbm.html"; break;
+//		        case 2:filePath = "/usr/dnfile/checkmodel/kf.html";break;
+//		        case 3:filePath = "/usr/dnfile/checkmodel/gkkjs.html";break;
+//		        case 4:filePath = "/usr/dnfile/checkmodel/vipjs.html";break;
+//		        case 5:filePath = "/usr/dnfile/checkmodel/zj.html";break;
+//		        case 6:filePath = "/usr/dnfile/checkmodel/bzr.html";break;
+//		        default:filePath = "/usr/dnfile/checkmodel/znbm.html"; break;
+			    case 2:filePath = "D:\\TestFile\\kf.html";break;
+		        case 3:filePath = "D:\\TestFile\\gkkjs.html";break;
+		        case 4:filePath = "D:\\TestFile\\vipjs.html";break;
+		        case 5:filePath = "D:\\TestFile\\zj.html";break;
+		        case 6:filePath = "D:\\TestFile\\bzr.html";break;
+		        default:filePath = "D:\\TestFile\\znbm.html"; break;
 		    }
 
 	        try {
+	        	System.setProperty("sun.jnu.encoding","UTF-8");
+	        	final String encoding = System.getProperty("file.encoding");      
+	            System.out.println("encoding-----------------------:"+encoding); 
 	        	String templateContent = "";
-	            Reader r=new BufferedReader(new FileReader(filePath));     
-	            int temp=0;      
-	            while ((temp=r.read())!=-1) {   
-	            	templateContent+=(char)temp;  
-	            }   
-	            //System.out.println("文件内容:"+templateContent);
+	        	BufferedReader  r=new BufferedReader(new InputStreamReader(new FileInputStream(filePath),"UTF-8"));    
+	            String str="";
+	            while((str = r.readLine())!=null) {
+	            	templateContent += str;
+	            }
 	            templateContent = templateContent.replaceAll("#name#", checkHtmlForm.getEmpName());
 	        	templateContent = templateContent.replaceAll("#month#", checkHtmlForm.getCheckMonth());
 	        	templateContent = templateContent.replaceAll("#core1#", checkHtmlForm.getCore1());
@@ -290,10 +297,26 @@ public class EmpCheckController{
 	        	if(checkHtmlForm.getCore8()!=null){
 	        		templateContent = templateContent.replaceAll("#core8#", checkHtmlForm.getCore8());
 	        	}
-	        	String fileame = checkHtmlForm.getEmpName() + checkHtmlForm.getCheckMonth() + ".html";//文件名
-	        	fileame = "/usr/dnfile/checkfile/" + fileame;//生成的html文件保存路径。        	
-	        	//Writer w=new FileWriter(fileame);   
-	        	Writer writer = new OutputStreamWriter(new FileOutputStream(fileame), "gb2312");
+	        	logger.debug("文件内容=====" + templateContent);
+	        	String fileame = checkHtmlForm.getEmpNo() + "-" + checkHtmlForm.getCheckMonth() + ".html";//文件名
+	        	//System.out.println(checkHtmlForm.getEmpName());
+	        	fileame = "D:\\TestFile\\checkfile\\" + fileame;//生成的html文件保存路径。D:\\TestFile\\checkfile\\   --/usr/dnfile/checkfile/     	
+	        	logger.debug("====================文件名1====================" + fileame);
+	        	byte[] bytes = fileame.getBytes("UTF-8");
+	        	String f = new String(bytes,"UTF-8");
+	        	logger.debug("====================文件名2====================" + f);
+//	        	BufferedWriter  writer1 = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("/usr/dnfile/checkfile/test.text"),"UTF-8"));
+//	        	writer1.write(f);     
+//	        	writer1.flush();     
+//	        	writer1.close(); 
+//	        	BufferedReader  r2=new BufferedReader(new InputStreamReader(new FileInputStream("/usr/dnfile/checkfile/test.text"),"UTF-8"));    
+//	            String str2="";
+//	            String templateContent2="";
+//	            while((str2 = r2.readLine())!=null) {
+//	            	templateContent2 += str2;
+//	            }
+//	            logger.debug("====================templateContent2====================" + templateContent2);
+	        	BufferedWriter  writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f),"UTF-8"));
 	        	writer.write(templateContent);     
 	        	writer.flush();     
 	        	writer.close(); 
@@ -302,43 +325,6 @@ public class EmpCheckController{
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
-		    
-//	        try {
-//	        	System.out.println(filePath);
-//	        	String templateContent = "";
-//	        	FileInputStream fileinputstream = new FileInputStream(filePath);// 读取模板文件
-//	        	int lenght = fileinputstream.available();
-//	        	byte bytes[] = new byte[lenght];
-//	        	fileinputstream.read(bytes);
-//	        	fileinputstream.close();
-//	        	templateContent = new String(bytes);
-//	        	//System.out.println(templateContent);
-//	        	templateContent = templateContent.replaceAll("#name#", checkHtmlForm.getEmpName());
-//	        	templateContent = templateContent.replaceAll("#month#", checkHtmlForm.getCheckMonth());
-//	        	templateContent = templateContent.replaceAll("#core1#", checkHtmlForm.getCore1());
-//	        	templateContent = templateContent.replaceAll("#core2#", checkHtmlForm.getCore2());
-//	        	templateContent = templateContent.replaceAll("#core3#", checkHtmlForm.getCore3());
-//	        	templateContent = templateContent.replaceAll("#core4#", checkHtmlForm.getCore4());
-//	        	templateContent = templateContent.replaceAll("#core5#", checkHtmlForm.getCore5());
-//	        	templateContent = templateContent.replaceAll("#total#", checkHtmlForm.getTotalcore());
-//	        	if(checkHtmlForm.getCore6()!=null){
-//	        		templateContent = templateContent.replaceAll("#core6#", checkHtmlForm.getCore6());
-//	        	}
-//	        	if(checkHtmlForm.getCore7()!=null){
-//	        		templateContent = templateContent.replaceAll("#core7#", checkHtmlForm.getCore7());
-//	        	}
-//	        	if(checkHtmlForm.getCore8()!=null){
-//	        		templateContent = templateContent.replaceAll("#core8#", checkHtmlForm.getCore8());
-//	        	}
-//	        	String fileame = checkHtmlForm.getEmpName() + checkHtmlForm.getCheckMonth() + ".html";//文件名
-//	        	fileame = "/usr/dnfile/checkfile" + fileame;//生成的html文件保存路径。
-//	        	FileOutputStream fileoutputstream = new FileOutputStream(fileame);//建立文件输出流
-//	        	byte tag_bytes[] = templateContent.getBytes();
-//	        	fileoutputstream.write(tag_bytes);
-//	        	fileoutputstream.close();
-//	        } catch (Exception e) {
-//	        	System.out.println(e.toString());
-//	        }
 	}
 	
 	/**

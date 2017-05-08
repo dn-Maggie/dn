@@ -30,8 +30,6 @@
 		<result column="assign_flag" property="assignFlag" jdbcType="INTEGER" />
 		<result column="note" property="note" jdbcType="VARCHAR" />
 		<result column="actualattendance" property="actualattendance" jdbcType="DECIMAL" />
-		<result column="trafficsubsidies" property="trafficsubsidies" jdbcType="DECIMAL" />
-		<result column="note_two" property="notetwo" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 	 	id
@@ -59,7 +57,6 @@
 		,note
 		,actualattendance
 		,trafficsubsidies
-		,note_two
 	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -102,7 +99,6 @@
 			,es.note
 			,es.actualattendance
 			,es.trafficsubsidies
-			,es.note_two
 		from emp_salary as es
 		LEFT JOIN employee as e on es.emp_id = e.id
 		LEFT JOIN employee as e1 on es.check_id = e1.id
@@ -165,7 +161,6 @@
 			,es.note
 			,es.actualattendance
 			,es.trafficsubsidies
-			,es.note_two
 		FROM emp_salary AS es
 		LEFT JOIN  employee AS e ON es.emp_id = e.id
 		<if test="empStatus != null and '' != empStatus">  
@@ -230,9 +225,6 @@
 		</if>
 		<if test="actualattendance != null and '' != actualattendance">  
 			and es.actualattendance = #{actualattendance,jdbcType=DECIMAL}
-		</if>
-		<if test="notetwo != null and '' != notetwo">  
-			and es.note_two = #{notetwo,jdbcType=VARCHAR}
 		</if>
 		<if test="null != createDate and createDate != ''">
 			<![CDATA[
@@ -309,7 +301,6 @@
 				,note
 				,actualattendance
 				,trafficsubsidies
-				,note_two
 		)values (
 			#{id,jdbcType=VARCHAR}
 			,#{createDate,jdbcType=TIMESTAMP}
@@ -340,7 +331,6 @@
 			,#{note,jdbcType=VARCHAR}
 			,#{actualattendance,jdbcType=DECIMAL}
 			,#{trafficsubsidies,jdbcType=DECIMAL}
-			,#{notetwo,jdbcType=VARCHAR}
 		)
 	</insert>
 	
@@ -385,35 +375,74 @@
 	</insert>
 	
 	<update id="update" parameterType="com.dongnao.workbench.school.model.EmpSalary">
-		update emp_salary set
-			emp_bank = #{empBank,jdbcType=VARCHAR}
-			,emp_bank_card = #{empBankCard,jdbcType=VARCHAR}
-			,social_security = #{socialSecurity,jdbcType=DOUBLE}
-			,late_early_time = #{lateEarlyTime,jdbcType=INTEGER}
-			,attendance_anomaly_time = #{attendanceAnomalyTime,jdbcType=INTEGER}
-			,leave_day = #{leaveDay,jdbcType=DOUBLE}
-			,late_early_cost = #{lateEarlyCost,jdbcType=DOUBLE}
-			,attendance_anomaly_cost = #{attendanceAnomalyCost,jdbcType=DOUBLE}
-			,leave_cost = #{leaveCost,jdbcType=DOUBLE} 
-			,table_money = #{tableMoney,jdbcType=DOUBLE}
-			,housing_allowance = #{housingAllowance,jdbcType=DOUBLE}
-			,merit_raise = #{meritRaise,jdbcType=DOUBLE}
-			,rests = #{rests,jdbcType=DOUBLE}
-			,should_salary = #{shouldSalary,jdbcType=DOUBLE} 
-			,actual_salary = should_salary -social_security
-			-leave_cost
-			-late_early_cost
-			-attendance_anomaly_cost
-			+table_money
-			+housing_allowance
-			+merit_raise
-			+rests
-			<!-- ,basic_salary = #{basicSalary,jdbcType=DOUBLE}
-			,duty_level_salary = #{dutyLevelSalary,jdbcType=DOUBLE} -->
-			,note = #{note,jdbcType=VARCHAR}
+		update emp_salary 
+			 <trim prefix="set" suffixOverrides=",">
+				<if test="id != null and '' != id"> 
+					id = #{id,jdbcType=VARCHAR},
+				</if>
+				<if test="leaveDay != null and '' != leaveDay">
+					leave_day= #{leaveDay,jdbcType=DOUBLE},
+				</if>
+				<if test="attendanceAnomalyCost != null and '' != attendanceAnomalyCost"> 
+					attendance_anomaly_cost= #{attendanceAnomalyCost,jdbcType=DOUBLE},
+				</if>
+				<if test="attendanceAnomalyTime != null and '' != attendanceAnomalyTime">
+					attendance_anomaly_time= #{attendanceAnomalyTime,jdbcType=INTEGER},
+				</if>
+				<if test="dutyLevelSalary != null and '' != dutyLevelSalary">  
+					duty_level_salary= #{dutyLevelSalary,jdbcType=DOUBLE},
+				</if>
+				<if test="lateEarlyTime != null and '' != lateEarlyTime">  
+					late_early_time = #{lateEarlyTime,jdbcType=INTEGER},
+				</if>
+				<if test="lateEarlyCost != null and '' != lateEarlyCost">  
+					late_early_cost = #{lateEarlyCost,jdbcType=DOUBLE},
+				</if>		
+				<if test="empBankCard != null and '' != empBankCard">  
+					emp_bank_card= #{empBankCard,jdbcType=VARCHAR},
+				</if>		
+				<if test="empBank != null and '' != empBank">  
+					emp_bank= #{empBank,jdbcType=VARCHAR},
+				</if>	
+				<if test="basicSalary != null and '' != basicSalary">  
+					basic_salary= #{basicSalary,jdbcType=DOUBLE},
+				</if>
+				<if test="shouldSalary != null and '' != shouldSalary">  
+					should_salary = #{shouldSalary,jdbcType=DOUBLE},
+				</if>
+				<if test="socialSecurity != null and '' != socialSecurity">  
+					social_security = #{socialSecurity,jdbcType=DOUBLE},
+				</if>
+				<if test="leaveCost != null and '' != leaveCost">  
+					leave_cost = #{leaveCost,jdbcType=DOUBLE},
+				</if>
+				<if test="tableMoney != null and '' != tableMoney">  
+					table_money = #{tableMoney,jdbcType=DOUBLE},
+				</if>
+				<if test="housingAllowance != null and '' != housingAllowance">  
+					housing_allowance= #{housingAllowance,jdbcType=DOUBLE},
+				</if>
+				<if test="meritRaise != null and '' != meritRaise">  
+					merit_raise = #{meritRaise,jdbcType=DOUBLE},
+				</if>
+				<if test="rests != null and '' != rests">  
+					rests = #{rests,jdbcType=DOUBLE},
+				</if>
+				<if test="actualSalary != null and '' != actualSalary">  
+					actual_salary = #{actualSalary,jdbcType=DECIMAL},
+				</if>
+				<if test="note != null and '' != note">  
+					note= #{note,jdbcType=VARCHAR},
+				</if>
+				<if test="trafficsubsidies != null and '' != trafficsubsidies">  
+					trafficsubsidies = #{trafficsubsidies,jdbcType=DECIMAL},
+				</if>
+				<if test="actualattendance != null and '' != actualattendance">  
+					actualattendance = #{actualattendance,jdbcType=DECIMAL},
+				</if>
+			</trim>
 		where id = #{id,jdbcType=VARCHAR} 
 	</update>
-	
 	
 	<update id="audit" parameterType="com.dongnao.workbench.school.model.EmpSalary">
 		update emp_salary  set

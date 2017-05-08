@@ -177,7 +177,7 @@ public class EmpSalaryController{
                 empSalary.setEmpBeFullDate(StringUtil.valueOf(lo.get(10)));
                 empSalary.setBasicSalary(StringUtil.toDouble(lo.get(12)));
                 empSalary.setActualattendance(StringUtil.toDouble(lo.get(11)));
-                /*empSalary.setDutyLevelSalary(employee.getSalary());*/
+                empSalary.setDutyLevelSalary(employee.getSalary());
                 empSalary.setShouldSalary(StringUtil.toDouble(lo.get(13)));
                 empSalary.setSocialSecurity(StringUtil.toDouble(lo.get(14)));
             	empSalary.setLateEarlyTime(StringUtil.toInteger(lo.get(7)));
@@ -192,7 +192,6 @@ public class EmpSalaryController{
                 empSalary.setRests(StringUtil.toDouble(lo.get(24)));
                 empSalary.setActualSalary(StringUtil.toDouble(lo.get(26)));
                 empSalary.setNote(StringUtil.valueOf(lo.get(25)));
-                empSalary.setNotetwo(StringUtil.valueOf(lo.get(27)));
                 empSalaryService.add(empSalary);
             }catch(Exception e){
             	continue;
@@ -251,8 +250,8 @@ public class EmpSalaryController{
 	        props.setProperty("mail.transport.protocol", "smtp");    // 发送邮件协议名称  
 	        Session session = Session.getInstance(props);  // 设置环境信息  
 	        
-	        String sendFrom = "suqin@dongnaoedu.com";
-      		String sendPwd = "Sq123456";
+	        String sendFrom = "meimei@dongnaoedu.com";
+      		String sendPwd = "Dn123456";
 	        
       		//1.通过id， 根据employee表取到所有的发送人邮箱地址 设置为 sendTo
 	        //2.通过id， 根据empSalary表取到需要发送的内容 设置为 sendBody
@@ -285,18 +284,18 @@ public class EmpSalaryController{
         		+ "注：1、请核对好工资、卡号，如有疑问，请及时到行政部核对，核对截止时间今日15:00；</br>"
         		+"    2、薪酬工资属于保密，核对无误后，请及时删除本邮件；</br>"
         		+ "3、该工资条属于"+DateUtil.parseDate(empSalary.getCreateDate(), "yyyy-MM")+"月份工资。</h3>"
-        		+ "<table  border='2' ><thead><tr><th>姓名</th><th>昵称</th>"
-        		+ "<th>电话号码</th><th>请假天数</th><th>迟到早退（次）</th>"/*<th>银行</th><th>卡号</th>s*/
+        		+ "<table  border='2' ><thead><tr><th>姓名</th><th>昵称</th><th>银行</th><th>卡号</th>"
+        		+ "<th>电话号码</th><th>请假天数</th><th>迟到早退（次）</th>"
         		+ "<th>打卡异常（次）</th><th>入职时间</th><th>转正日期</th><th>基本工资</th>"
         		/*+ "<th>薪级工资</th>"*/
         		+ "<th>应发工资</th><th>社保扣款</th><th>请假扣款</th>"
         		+ "<th>迟到早退扣款</th><th>打卡异常扣款</th><th>餐补</th><th>住房补贴</th><th>交通补贴</th>"
-        		+ "<th>绩效奖金</th><th>其他</th><th>其他扣款</th><th>实发工资</th><th>备注</th></tr></thead>"
+        		+ "<th>绩效奖金</th><th>其他</th><th>备注</th><th>实发工资</th></tr></thead>"
         		+ "<tbody><tr>"
         		+ "<td>"+StringUtil.valueOf(empSalary.getEmpName())+"</td>"
         		+ "<td>"+StringUtil.valueOf(empSalary.getEmpNickName())+"</td>"
-				/*+ "<td>"+StringUtil.valueOf(empSalary.getEmpBank())+"</td>"*/
-        		/*+ "<td>"+StringUtil.valueOf(empSalary.getEmpBankCard())+"</td>"*/
+				+ "<td>"+StringUtil.valueOf(empSalary.getEmpBank())+"</td>"
+        		+ "<td>"+StringUtil.valueOf(empSalary.getEmpBankCard())+"</td>"
         		+ "<td>"+StringUtil.valueOf(empSalary.getEmpMobile())+"</td>"
         		+ "<td>"+StringUtil.toDouble(empSalary.getLeaveDay())+"</td>"
         		+ "<td>"+StringUtil.toInteger(empSalary.getLateEarlyTime())+"</td>"
@@ -317,7 +316,6 @@ public class EmpSalaryController{
         		+ "<td>"+StringUtil.toDouble(empSalary.getRests())+"</td>"
         		+ "<td>"+StringUtil.toDouble(empSalary.getNote())+"</td>"
         		+ "<td>"+StringUtil.toDouble(empSalary.getActualSalary())+"</td>"
-        		+ "<td>"+StringUtil.valueOf("")+"</td>"
         		+ "</tr></tbody></table>"
 		;
         mbp.setContent(htmlText,"text/html;charset=UTF-8");
@@ -542,7 +540,6 @@ public class EmpSalaryController{
 					accountFlow.setEmpId(entity.getEmpId());
 					accountFlowService.add(accountFlow);
 					entity.setAssignFlag("2");
-					//entity.setNote("已生成流水");
 					empSalaryService.assign(entity);/*删除此条工资记录*/
 				map.put("msg", "成功");
 			}else{

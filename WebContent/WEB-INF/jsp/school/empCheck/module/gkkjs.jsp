@@ -185,6 +185,7 @@ div.Section0{page:Section0;}</style></head><body style="tab-interval:36pt;" ><!-
 							<input name="empName" type="hidden" value="${empCheck.empName}">
 							<input name="checkStanderd" type="hidden" value="${empCheck.checkStanderd}">
 							<input name="checkMonth" type="hidden" value="${empCheck.checkMonth}">
+							<input name="empNo" type="hidden" value="${empCheck.empNo}">
                     </p>
                 </td>
                 <td width=190 valign=center

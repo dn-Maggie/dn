@@ -198,6 +198,7 @@ div.Section0 {
 							<input name="empName" type="hidden" value="${empCheck.empName}">
 							<input name="checkStanderd" type="hidden" value="${empCheck.checkStanderd}">
 							<input name="checkMonth" type="hidden" value="${empCheck.checkMonth}">
+							<input name="empNo" type="hidden" value="${empCheck.empNo}">
 					</p></td>
                 <td width=181 valign=top
                     style="width:110.7500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:1.0000pt solid windowtext;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">

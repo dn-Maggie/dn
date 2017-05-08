@@ -134,7 +134,8 @@ var y = today.getFullYear();
 				<td class="inputTd"><c:if test="${employee.isAssess eq 1}"><c:out value="是"></c:out></c:if>
 							<c:if test="${employee.isAssess eq 2}"><c:out value="否"></c:out></c:if></td>
 				<td class="inputLabelTd">考核人：</td>
-				<td class="inputTd">${employee.checkName}</td>
+				<td class="inputTd"><c:if test="${employee.isAssess eq 1}"><c:out value="${employee.checkName}"></c:out></c:if>
+							<c:if test="${employee.isAssess eq 2}"><c:out value="无"></c:out></c:if></td>
 			</tr>
 			<tr>
 				<td class="inputLabelTd">考核标准：</td>

@@ -50,7 +50,7 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
  		        }},
 				{name : "empBank",label:"银行",index : "empBank", editable:true ,width:"8"},
 				{name : "empBankCard",label:"银行卡号",index : "empBankCard", editable:true ,width:"6"},
-				{name : "empMobile",label:"电话号码",index : "empMobile",width:"8",hidden : true,},
+				{name : "empMobile",label:"电话号码",index : "empMobile",width:"8",hidden : true},
 				{name : "leaveDay",label:"请假天数",index : "leave_day", width:"3",editable:true,number:true},
 				{name : "lateEarlyTime",label:"迟到早退(次)",width:"3",index : "late_early_time", editable:true,number:true,editoptions : {size: 2}},
 				{name : "attendanceAnomalyTime",label:"打卡异常(次)",width:"3",index : "attendance_anomaly_time", editable:true,number:true,editoptions : {size: 2}},
@@ -59,8 +59,8 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
 				{name : "actualattendance",label:"出勤天数",width:"3",index : "actualattendance"}, 
 				{name : "basicSalary",label:"基本工资",width:"5",index : "basic_salary",editable:true,
 					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},	
-				/* {name : "dutyLevelSalary",label:"薪级工资",width:"5",index : "duty_level_salary",editable:true,
-					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},	 */
+				{name : "dutyLevelSalary",label:"薪级工资",width:"5",hidden : true,index : "duty_level_salary",editable:true,
+					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},
 				{name : "shouldSalary",label:"应发工资",width:"5",index : "should_salary", editable:true,
 					formatter:'integer', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},				
 				{name : "socialSecurity",label:"社保扣款",width:"4",index : "social_security", editable:true,number:true,
@@ -95,8 +95,7 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
 		 				 	return '已审核';
 		 				 }
 	 			}},	 
-				{name : "note",label:"备注1",width:"4.5",index : "note", editable:true},
-				{name : "note",label:"备注2",width:"4.5",index : "notetwo", editable:true}	
+				{name : "note",label:"备注",width:"4.5",index : "note", editable:true},	
            	],
            	serializeGridData:function(postData){//添加查询条件值，把数据进行序列化
 				var obj = getQueryCondition();

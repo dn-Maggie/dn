@@ -209,10 +209,9 @@ public class EmpSalary extends Model implements java.io.Serializable{
 	                 **/
 				   			private String assignFlag; 
 				   	/**
-	                 * 备注1
+	                 * 备注
 	                 **/
 				   			private String note;
-				   			private String notetwo;//备注2
 		   			/**
 	                 * 创建时间
 	                 **/
@@ -585,13 +584,7 @@ public class EmpSalary extends Model implements java.io.Serializable{
 				this.trafficsubsidies = trafficsubsidies;
 			}
 
-			public String getNotetwo() {
-				return notetwo;
-			}
 
-			public void setNotetwo(String notetwo) {
-				this.notetwo = notetwo;
-			}
 			
 			
 		}

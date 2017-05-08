@@ -250,15 +250,10 @@
 				</td>
 				<td class="inputLabelTd">考核人：</td>
 				<td class="inputTd">
-				<div class="checknotediv" id="checknotediv">
 					<input id="edit_checkNameT" name="checkName" type="hidden"/>
-					<input id="edit_checkNameF" name="checkNameF" type="text" class="text"  list="employeeList"  onchange="getEmpIDByName(this,this.value);"/>
-					<datalist id="employeeList">
-						<c:forEach var="tutor" items="${tutor}">
-							<option did="${tutor.id}" value="${tutor.name}" label="${tutor.nickName}"></option>
-			             </c:forEach>
-					</datalist>		
-				</div>
+					<div class="checknotediv" id="checknotediv">
+						<label class="checknote" id="checknote">无</label>		
+					</div>
 				</td>
 			</tr>
 			<tr class="addEnable">
@@ -593,8 +588,34 @@ function checkstatechange(value){
 		$("#checknotediv").append('<label class="checknote" id="checknote">无</label>');
 	}else{
 		$("#checknote").remove();
-		$("#checknotediv").append('<input id="edit_checkNameF" name="checkNameF" type="text" class="text" list="employeeList" onchange="getEmpIDByName(this,this.value);"/><datalist id="employeeList"><c:forEach var="tutor" items="${tutor}"><option did="${tutor.id}" value="${tutor.nickName}" label="${tutor.name}"></option></c:forEach></datalist>');
+		$("#checknotediv").append('<input id="edit_checkNameF" name="checkNameF" type="text" class="text" list="employeeList" onchange="getEmpIDByName(this,this.value);" onblur="checkNameValidation()"/><datalist id="employeeList"><c:forEach var="tutor" items="${tutor}"><option did="${tutor.id}" value="${tutor.nickName}" label="${tutor.name}"></option></c:forEach></datalist>');
 	}
+}
+
+//为考核人input框绑定失去焦点事件
+function checkNameValidation(){
+	var cname = $("#edit_checkNameF").val();
+	var paramDatas = {
+			checkName:cname,
+			};
+		$.ajax({
+				type: "post",	
+				url : "<m:url value='/employee/checkNameValidation.do'/>",
+				data: paramDatas,
+				cache : false,
+				async : false,
+				dataType:"json",
+				success : function(data, textStatus, jqXHR) {
+					if(data.flag>=1){
+						console.log(data.flag);
+					}else{
+						console.log(data.flag);
+						showMessage("请选择正确的考核人！","","",function(){	
+							$("#edit_checkNameF")[0].focus();
+						});
+					}
+				}
+			});
 }
 </script>
 

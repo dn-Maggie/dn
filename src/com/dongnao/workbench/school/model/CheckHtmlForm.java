@@ -11,6 +11,7 @@ public class CheckHtmlForm extends Model{
 	
 	private String empName;
 	private String checkMonth;
+	private String empNo;
 	private String core1;
 	private String core2;
 	private String core3;
@@ -106,6 +107,12 @@ public class CheckHtmlForm extends Model{
 	}
 	public void setCore1(String core1) {
 		this.core1 = core1;
+	}
+	public String getEmpNo() {
+		return empNo;
+	}
+	public void setEmpNo(String empNo) {
+		this.empNo = empNo;
 	}
 	
 	

@@ -111,5 +111,13 @@ public class EmployeeServiceImpl implements EmployeeService{
 			return AjaxUtils.getResultMessage(0,e.getMessage());
 		}
 		return AjaxUtils.getSuccessMessage();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.dongnao.workbench.school.service.EmployeeService#checkNameValidation(java.lang.String)
+	 */
+	@Override
+	public int checkNameValidation(String checkName) {
+		return employeeMapper.checkNameValidation(checkName);
 	};
 }

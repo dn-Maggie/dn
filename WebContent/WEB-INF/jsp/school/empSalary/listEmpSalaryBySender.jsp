@@ -21,18 +21,21 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
            	sortname:"empNo",
            	sortorder:"asc", 
-           	forceFit:true,/*固定宽度*/
+           	//forceFit:true,/*固定宽度*/
            	autoWidth:true,
            	rownumbers:false,/*不显示数据数*/
         	multiselect:true,/*可多选*/
            	multiboxonly:false,/*仅可通过checkBox多选*/
            	emptyrecords: "无记录可显示",
         	footerrow:true,
+        	cellEdit:true,//是否开启单元格的编辑功能  
+           	cellsubmit:'remote',//or 'clientArray',remote代表每次编辑提交后进行服务器保存，  clientArray只保存到数据表格不保存到服务器  
+           	cellurl:'<m:url value='/empSalary/updateEmpSalary.do'/>',//cellsubmit要提交的后台路径  
            	pager: '#remote_prowed' /*分页栏id*/,
      		rowList:[10,15,50,100],//每页显示记录数
     		rowNum:10,//默认显示15条
-    		navtype:"top" /*导航栏类型*/,
-    		navopt:{edit : false,add : false,del : false,reloadAfterSubmit:true},
+/*     		navtype:"top" ,
+    		navopt:{edit : true,add : false,del : false,reloadAfterSubmit:true}, */
             colModel:[
 				{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
 				{name : "createDate",index : "create_date",hidden : true},
@@ -47,42 +50,46 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
 	 				 else if (cellvalue==4){return '兼职';}
 	 			}},	
 				{name : "empNickName",label:"昵称",index : "empNickName"},
+				{name : "empBank",label:"银行",index : "empBank",hidden:true},
 				{name : "empBankCard",label:"卡号",index : "empBankCard"},
 				{name : "empMobile",label:"电话号码",index : "empMobile"},
-				{name : "leaveDay",label:"请假天数",index : "leave_day"},
-				{name : "lateEarlyTime",label:"迟到早退(次)",index : "late_early_time"},
-				{name : "attendanceAnomalyTime",label:"打卡异常(次)",index : "attendance_anomaly_time"},
-				{name : "empEntryDate",label:"入职时间",index : "empEntryDate"},
-				{name : "empBeFullDate",label:"转正日期",index : "empBeFullDate"}, 
-				{name : "basicSalary",label:"基本工资",index : "basic_salary",
+				{name : "leaveDay",label:"请假天数",index : "leave_day",editable:true},
+				{name : "lateEarlyTime",label:"迟到早退(次)",index : "late_early_time",editable:true},
+				{name : "attendanceAnomalyTime",label:"打卡异常(次)",index : "attendance_anomaly_time",editable:true},
+				{name : "empEntryDate",label:"入职时间",index : "empEntryDate",hidden:true},
+				{name : "empBeFullDate",label:"转正日期",index : "empBeFullDate",hidden:true},
+				{name : "actualattendance",label:"出勤天数",index : "actualattendance",editable:true},
+				{name : "basicSalary",label:"基本工资",index : "basic_salary",editable:true,
 					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},	
-				{name : "dutyLevelSalary",label:"薪级工资",index : "duty_level_salary", formatter:'currency', 
+				{name : "dutyLevelSalary",label:"薪级工资",hidden : true,index : "duty_level_salary",formatter:'currency', 
 					formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},
-				{name : "shouldSalary",label:"应发工资",index : "should_salary", formatter:'currency',
+				{name : "shouldSalary",label:"应发工资",index : "should_salary",editable:true,formatter:'currency',
 					formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},				
-				{name : "socialSecurity",label:"社保扣款",index : "social_security", formatter:'currency', 
+				{name : "socialSecurity",label:"社保扣款",index : "social_security",editable:true,formatter:'currency', 
 					formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},				
-				{name : "leaveCost",label:"请假扣款",index : "leave_cost", formatter:'currency',
+				{name : "leaveCost",label:"请假扣款",index : "leave_cost", editable:true,formatter:'currency',
 						formatter:function(cellvalue, options, rowObject){
 			 				 	return Math.round(cellvalue);
 	 			}},
-				{name : "lateEarlyCost",label:"迟到早退扣款",index : "late_early_cost", formatter:'currency',
+				{name : "lateEarlyCost",label:"迟到早退扣款",index : "late_early_cost",editable:true, formatter:'currency',
 					formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},		
-				{name : "attendanceAnomalyCost",label:"打卡异常扣款",index : "attendance_anomaly_cost", formatter:'currency',
+				{name : "attendanceAnomalyCost",label:"打卡异常扣款",index : "attendance_anomaly_cost",editable:true, formatter:'currency',
 					formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},		
-				{name : "tableMoney",label:"餐补",index : "table_money",formatter:'currency', 
+				{name : "tableMoney",label:"餐补",index : "table_money",editable:true,formatter:'currency', 
 					formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},				
-				{name : "housingAllowance",label:"住房补贴",index : "housing_allowance",formatter:'currency',
-					formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},				
-				{name : "meritRaise",label:"绩效奖金",index : "merit_raise",
+				{name : "housingAllowance",label:"住房补贴",index : "housing_allowance",editable:true,formatter:'currency',
+					formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},	
+				{name : "trafficsubsidies",label:"交通补贴",index : "trafficsubsidies", editable:true,
+					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},
+				{name : "meritRaise",label:"绩效奖金",index : "merit_raise",editable:true,
 					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},				
-				{name : "rests",label:"其他",index : "rests",formatter:'currency', 
+				{name : "rests",label:"其他",index : "rests",editable:true,formatter:'currency', 
 					formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},				
-				{name : "actualSalary",label:"实发工资",index : "actual_salary",
+				{name : "actualSalary",label:"实发工资",index : "actual_salary",editable:true,
 						formatter:function(cellvalue, options, rowObject){
 			 				 	return Math.round(cellvalue);
 	 			}},	
-				{name : "note",label:"备注",index : "note"},
+				{name : "note",label:"备注",index : "note",editable:true},
 				{name : "sendFlag",label:"分发状态",index : "send_flag",
 					formatter:function(cellvalue, options, rowObject){
 		 				 if (cellvalue==1) {
@@ -91,17 +98,43 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
 		 				 	return '已发送';
 		 				 }
 	 			}},	 
+				{name : "",label:"保存",index : "operate",width:220,align: 'center',formatter: function (cellvalue, options, rowObject) {
+					return "<input id=\"savecell\" type=\"button\" class=\"ti_bottom\" value=\"保存\" onclick=\"test()\"/>"; 
+					},
+	            },
+	        
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
     			$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
     			return obj;
     		},
-    		editurl : "<m:url value='/empSalary/operEmpSalary.do'/>",
+    		beforeEditCell:function(rowid,cellname,value,iRow,iCol){
+                businessplanmag_iRow=iRow;//全局变量
+                businessplanmag_iCol=iCol;
+            },
+    		/* editurl : "<m:url value='/empSalary/operEmpSalary.do'/>", */
     		gridComplete:function(){
     			$(".ui-jqgrid-sdiv").show();
            		//如果需要统计则需要定义
-               	getFooterJsonData($(this));
+               	//getFooterJsonData($(this));
+    			$(this).footerData("set",
+             		   {"操作":"合计",
+             	  		"leaveDay":$(this).getCol("leaveDay",false,"sum"),
+             	  		"lateEarlyTime":$(this).getCol("lateEarlyTime",false,"sum"),
+             	  		"attendanceAnomalyTime":$(this).getCol("attendanceAnomalyTime",false,"sum"),
+             	  		"basicSalary":$(this).getCol("basicSalary",false,"sum"),
+             	   		"shouldSalary":$(this).getCol("shouldSalary",false,"sum"),
+             	   		"actualSalary":$(this).getCol("actualSalary",false,"sum"),
+             	   		"socialSecurity":$(this).getCol("socialSecurity",false,"sum"),
+             	   		"leaveCost":$(this).getCol("leaveCost",false,"sum"),
+             	   		"lateEarlyCost":$(this).getCol("lateEarlyCost",false,"sum"),
+             	   		"attendanceAnomalyCost":$(this).getCol("attendanceAnomalyCost",false,"sum"),
+             	   		"tableMoney":$(this).getCol("tableMoney",false,"sum"),
+             	   		"housingAllowance":$(this).getCol("housingAllowance",false,"sum"),
+             	   		"meritRaise":$(this).getCol("meritRaise",false,"sum"),
+             	   		"rests":$(this).getCol("rests",false,"sum"),
+             	   		});
 	 		}
       	});
   		
@@ -217,6 +250,14 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
     		}}) ;   
     	}  	
     }
+    
+	function test() {
+		//最后一条数据在关闭窗口前要用saveCell函数结束文本编辑状态，不然
+		$("#remote_rowed").jqGrid("saveCell", businessplanmag_iRow,
+				businessplanmag_iCol);
+/* 		gridObj.trigger('reloadGrid'); 这个刷新无效要用下面的*****/
+		window.location.reload();
+	}
     </script>
 </head>
 <body style="height:100%;">

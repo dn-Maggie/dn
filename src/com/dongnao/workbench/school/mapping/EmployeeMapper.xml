@@ -133,7 +133,7 @@
 					e.bank_card,
 					e.bank_name,
 					e.isassess,
-					e.checkname,
+					(select name from employee where id=e.checkname) as checkname,
 					e.checkstanderd,
 					e.note,
 					e.curr_state,
@@ -548,4 +548,7 @@
 			where id = #{id,jdbcType=VARCHAR}
 	</update>
 	
+	<select id="checkNameValidation" resultType="java.lang.Integer" parameterType="java.lang.String">
+		select count(*) from employee where name=#{checkName,jdbcType=VARCHAR} or nick_name=#{checkName,jdbcType=VARCHAR}
+	</select>
 </mapper>
