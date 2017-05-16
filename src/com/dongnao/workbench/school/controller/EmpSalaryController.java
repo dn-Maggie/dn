@@ -185,13 +185,13 @@ public class EmpSalaryController{
                 empSalary.setLeaveCost(StringUtil.toDouble(lo.get(15)));
                 empSalary.setLateEarlyCost(StringUtil.toDouble(lo.get(16)));
                 empSalary.setAttendanceAnomalyCost(StringUtil.toDouble(lo.get(17)));
-                empSalary.setTableMoney(StringUtil.toDouble(lo.get(20)));
-                empSalary.setHousingAllowance(StringUtil.toDouble(lo.get(21)));
-                empSalary.setTrafficsubsidies(StringUtil.toDouble(lo.get(22)));
-                empSalary.setMeritRaise(StringUtil.toDouble(lo.get(23)));
-                empSalary.setRests(StringUtil.toDouble(lo.get(24)));
-                empSalary.setActualSalary(StringUtil.toDouble(lo.get(26)));
-                empSalary.setNote(StringUtil.valueOf(lo.get(25)));
+                empSalary.setTableMoney(StringUtil.toDouble(lo.get(18)));
+                empSalary.setHousingAllowance(StringUtil.toDouble(lo.get(19)));
+                empSalary.setTrafficsubsidies(StringUtil.toDouble(lo.get(20)));
+                empSalary.setMeritRaise(StringUtil.toDouble(lo.get(21)));
+                empSalary.setRests(StringUtil.toDouble(lo.get(22)));
+                empSalary.setNote(StringUtil.valueOf(lo.get(23)));
+                empSalary.setActualSalary(StringUtil.toDouble(lo.get(24)));
                 empSalaryService.add(empSalary);
             }catch(Exception e){
             	continue;

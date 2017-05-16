@@ -504,7 +504,7 @@ function addEmp(){
 							window.parent.closeAdd();
 				     		window.parent.doSearch();
 						});
-						
+
 					}else{
 						showMessage(d.message);
 					}
