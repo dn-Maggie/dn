@@ -107,6 +107,15 @@ public class EmpSalaryServiceImpl implements EmpSalaryService{
 		empSalaryMapper.assign(empSalary);
 		return AjaxUtils.getSuccessMessage();
 	}
+
+	/* (non-Javadoc)
+	 * @see com.dongnao.workbench.school.service.EmpSalaryService#addBatch(java.util.List)
+	 */
+	@Override
+	public ResultMessage addBatch(List<EmpSalary> emp) {
+		empSalaryMapper.addBatch(emp);
+		return null;
+	}
 	
 
 	

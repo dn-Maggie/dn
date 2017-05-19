@@ -149,6 +149,7 @@ public class EmpSalaryController{
         if(file.isEmpty()){  
             throw new Exception("文件不存在！");  
         }  
+        List<EmpSalary> emplist = new ArrayList<EmpSalary>();
         in = file.getInputStream();  
         listob = new ImportExcelUtil().getBankListByExcel(in,file.getOriginalFilename());
         //该处可调用service相应方法进行数据保存到数据库中，现只对数据输出  
@@ -192,11 +193,13 @@ public class EmpSalaryController{
                 empSalary.setRests(StringUtil.toDouble(lo.get(22)));
                 empSalary.setNote(StringUtil.valueOf(lo.get(23)));
                 empSalary.setActualSalary(StringUtil.toDouble(lo.get(24)));
-                empSalaryService.add(empSalary);
+                emplist.add(empSalary);
             }catch(Exception e){
             	continue;
             }
         }  
+        System.out.println(emplist.size());
+        empSalaryService.addBatch(emplist);
         PrintWriter out = null;  
         response.setCharacterEncoding("utf-8");  //防止ajax接受到的中文信息乱码  
         out = response.getWriter();  

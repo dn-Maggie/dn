@@ -17,6 +17,10 @@ public interface EmpSalaryMapper  {
 	 * @param empSalary EmpSalary:实体类
 	 */
 	void add(EmpSalary empSalary);
+	/*
+	 * 批量新增员工工资数据
+	 */
+	void addBatch(List<EmpSalary> emp);
 	
 	/**
 	 * 删除员工工资表方法

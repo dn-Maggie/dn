@@ -13,6 +13,8 @@ var gridObj = {};
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
            	sortname:"enter_date",
            	sortorder:"desc",
+           	multiselect:true,
+           	multiboxonly:true,
            	pager: '#remote_prowed' /*分页栏id*/,
      		rowList:[10,15,50,100],//每页显示记录数
     		rowNum:10,//默认显示15条
@@ -219,9 +221,9 @@ var gridObj = {};
 							<li><a title="申请" href="javascript:;"
 								onclick="add();"> <i class="back_icon add_icon"> </i> <span>申请</span>
 							</a></li>
-							<li><a title="<m:message code="button.edit"/>" href="javascript:;"
+<%-- 							<li><a title="<m:message code="button.edit"/>" href="javascript:;"
 								onclick="edit();"><i class="icon_bg icon_edit"></i> <span><m:message
-											code="button.edit" /></span> </a></li>
+											code="button.edit" /></span> </a></li> --%>
 					
 							<li><a title="<m:message code="button.delete"/>" href="javascript:;"
 								onclick="batchDelete();"> <i class="icon_bg icon_del"></i> <span><m:message

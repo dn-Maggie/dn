@@ -63,4 +63,6 @@ public interface ExpenseAccountMapper  {
 	public ExpenseAccount getMyExpense(ExpenseAccount expenseAccount);
 
 	public List<ExpenseAccount> staticExpenseAccount(ExpenseAccount expenseAccount);
+	
+	
 }

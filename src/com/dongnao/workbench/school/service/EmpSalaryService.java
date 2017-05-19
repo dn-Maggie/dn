@@ -20,6 +20,12 @@ public interface EmpSalaryService  {
 	 */
 	public ResultMessage add(EmpSalary empSalary);
 	
+	
+	/**
+	 * 批量新增员工工资数据
+	 * @param empSalary EmpSalary:实体类
+	 */
+	public ResultMessage addBatch(List<EmpSalary> emp);
 	/**
 	 * 删除员工工资表方法
 	 * @param key:多个由“，”分割开的id字符串

@@ -75,28 +75,53 @@ $(function() {
 						</select>
 					</td>
 				</tr>
+				<tr>
+					<td colspan='4'>
+						<div style="display:block; float: right; margin-top:5px;margin-right: 20px;"><span class="required">*</span>附单据
+							<input id="edit_docAttach" name="docAttach" type="text" class="text" style="width: 50px;text-align: center;" value="${expenseAccount.docAttach}" readonly/>张
+							<input id="edit_checkFlag" name="checkFlag" type="hidden" value="${expenseAccount.checkFlag}"/>
+						</div>
+					</td>
+				</tr>
 			</table>
-			<div style="display:block; float: right; margin-top:5px;margin-right: 20px;"><span class="required">*</span>附单据
-				<input id="edit_docAttach" name="docAttach" type="text" class="text" style="width: 50px;text-align: center;" value="${expenseAccount.docAttach}" readonly/>张
-				<input id="edit_checkFlag" name="checkFlag" type="hidden" value="${expenseAccount.checkFlag}"/>
-			</div>
+			
 			 <%--<c:if test="${expenseAccount.fileUrl} !=''">
 				<div style="display:block; margin-top:5px">
 					<img alt="图片证明" style="height:600px;width: 100%" src="${expenseAccount.fileUrl}"> 
 				</div>
 			</c:if> --%>
-					<div style="display: block; margin-top: 5px">
+					<div style="display: block; margin-top: 5px;text-align: center;">
 						<c:choose>
 							<c:when test="${not empty expenseAccount.fileUrl}">
-								<img alt="图片证明" style="height: 600px; width: 100%"
+								<img alt="图片证明" style=""
 									src="${expenseAccount.fileUrl}">
 							</c:when>
 							<c:otherwise>
 								注：无图片证明
 							</c:otherwise>
 						</c:choose>
-
 					</div>
+					<table class="table" style="margin-top: 15px;">
+						<c:choose>
+							<c:when test="${not empty expenseAccount.checkPizhu}">
+								<tr>
+									<td class="inputLabelTd" style='text-align: left;'><span class="required">*</span>审核凭证截图</td>
+								</tr>
+								<tr>
+									<td style='text-align: center;'>
+										<div style="width: 100%; margin-top: 5px; margin-bottom: 5px;">
+											<img alt="审核凭证截图" style="" src="${expenseAccount.checkPizhu}">
+										</div>
+									</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<tr>
+									<td class="inputLabelTd" style='text-align: left;'><span class="required">*</span>注：暂无审核凭证截图</td>
+								</tr>
+							</c:otherwise>
+						</c:choose>
+					</table>
 				</div>
     </div>
 	</form>

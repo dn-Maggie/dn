@@ -353,6 +353,49 @@ public class ExpenseAccountController{
 	}
 
 	/**
+	 * 单条审核方法
+	 * @param response HttpServletResponse
+	 * @param key String:多个由“，”分割开的id字符串
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/singaleaudit")
+	public void singaleaudit(ExpenseAccount expenseAccount, HttpServletRequest request, HttpServletResponse response) {
+		UserInfo user = Utils.getLoginUserInfo(request);
+		String checkPid = user.getId();
+		String checkName = user.getFullName();
+		Calendar calendar = Calendar.getInstance();
+		Map<String, String> map = new HashMap<String, String>();
+			ExpenseAccount entity = expenseAccountService.getByPrimaryKey(expenseAccount.getId());
+			int flag = entity.getCheckFlag();
+			if (flag == 1) {
+				entity.setCheckFlag(2);
+				entity.setCheckPid(checkPid);
+				entity.setCheckName(checkName);
+				entity.setCheckDate(calendar.getTime());
+				entity.setCheckPizhu(expenseAccount.getCheckPizhu());
+				expenseAccountService.auditByKey(entity);
+				map.put("msg", "审核完成！");
+			} else {
+				map.put("msg", "该报销单已审核通过！");
+			} 
+			/*if (flag == 1) {有双重审核时放开
+				entity.setCheckFlag(3);
+				entity.setCheckPid(checkPid);
+				entity.setCheckName(checkName);
+				entity.setCheckDate(calendar.getTime());
+				expenseAccountService.auditByKey(entity);
+				map.put("msg", "初审审核完成！");
+			} else if (flag == 3) {
+				map.put("msg", "该报销单已经通过了初审！");
+				continue;
+			} else {
+				map.put("msg", "该报销单已经审核通过！");
+				continue;
+			}*/
+		AjaxUtils.sendAjaxForMap(response, map);
+	}
+	
+	/**
 	 * 报销资金发放方法
 	 * @param response HttpServletResponse
 	 * @param key String:多个由“，”分割开的id字符串

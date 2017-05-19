@@ -334,6 +334,73 @@
 		)
 	</insert>
 	
+	<insert id="addBatch" parameterType="java.util.List">
+	insert into emp_salary (
+				id
+			 	,create_date
+				,emp_id
+				,emp_bank
+				,emp_bank_card
+				,basic_salary
+				,should_salary
+				,duty_level_salary
+				,social_security
+				,late_early_time
+				,late_early_cost
+				,attendance_anomaly_time
+				,attendance_anomaly_cost
+				,leave_day
+				,leave_cost
+				,table_money
+				,housing_allowance
+				,merit_raise
+				,rests
+				,actual_salary
+				,send_flag
+				,check_id
+				,send_date
+				,check_date
+				,check_flag
+				,assign_flag
+				,note
+				,actualattendance
+				,trafficsubsidies
+		)values 
+		<foreach collection ="list" item="item" index= "index" separator =",">
+		(
+			#{item.id,jdbcType=VARCHAR}
+			,#{item.createDate,jdbcType=TIMESTAMP}
+			,#{item.empId,jdbcType=VARCHAR}
+			,#{item.empBank,jdbcType=VARCHAR}
+			,#{item.empBankCard,jdbcType=VARCHAR}
+			,#{item.basicSalary,jdbcType=DECIMAL}
+			,#{item.shouldSalary,jdbcType=DECIMAL}
+			,#{item.dutyLevelSalary,jdbcType=DECIMAL}
+			,#{item.socialSecurity,jdbcType=DECIMAL}
+			,#{item.lateEarlyTime,jdbcType=INTEGER}
+			,#{item.lateEarlyCost,jdbcType=DOUBLE}
+			,#{item.attendanceAnomalyTime,jdbcType=INTEGER}
+			,#{item.attendanceAnomalyCost,jdbcType=DOUBLE}
+			,#{item.leaveDay,jdbcType=DOUBLE}
+			,#{item.leaveCost,jdbcType=DOUBLE}
+			,#{item.tableMoney,jdbcType=DECIMAL}
+			,#{item.housingAllowance,jdbcType=DECIMAL}
+			,#{item.meritRaise,jdbcType=DECIMAL}
+			,#{item.rests,jdbcType=DECIMAL}
+			,#{item.actualSalary,jdbcType=DECIMAL}
+			,#{item.sendFlag,jdbcType=INTEGER}
+			,#{item.checkId,jdbcType=VARCHAR}
+			,#{item.sendDate,jdbcType=TIMESTAMP}
+			,#{item.checkDate,jdbcType=TIMESTAMP}
+			,#{item.checkFlag,jdbcType=INTEGER}
+			,#{item.assignFlag,jdbcType=INTEGER}
+			,#{item.note,jdbcType=VARCHAR}
+			,#{item.actualattendance,jdbcType=DECIMAL}
+			,#{item.trafficsubsidies,jdbcType=DECIMAL}
+		)
+		 </foreach >
+	</insert>
+	
 	<insert id="autoAdd" parameterType="com.dongnao.workbench.school.model.EmpSalary">
 		INSERT INTO emp_salary (
 			id,

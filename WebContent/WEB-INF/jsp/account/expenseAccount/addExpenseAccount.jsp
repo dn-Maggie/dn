@@ -10,10 +10,10 @@ $(function() {
 	$("#enterDate").val(createDate);
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
-		$("#submit").prop('disabled', true).css({'cursor':'not-allowed'});
+		/* $("#submit").prop('disabled', true).css({'cursor':'not-allowed'}); */
 		if(!biz.validate("valid",$('#expenseAccountFormEdit')[0])){
 			showWarn("数据验证失败",3000);
-			$("#submit").prop('disabled', false).css({'cursor':'pointer'});
+			/* $("#submit").prop('disabled', false).css({'cursor':'pointer'}); */
 			return;
 		}
 		var options = {
@@ -69,7 +69,6 @@ $(function() {
 	new biz.validate({
 		id:"#expenseAccountFormEdit",
 		rules:{
-			"expenseWay" :{required : true},
 			"expenseMoney" : {required : true,number:true},
 			"content" :{required : true,},
 			"enterPid" : {required : true},
@@ -95,6 +94,51 @@ function getOrgIDByName(obj,value) {
 	var did = $("#orgList").find("option[value="+value+"]").attr('did');
 	$(obj).parents('td').find("#edit_deptNo").val(did);
 }
+
+
+//图片上传预览功能
+function setImagePreviews(avalue) {
+     var docObj = document.getElementById("file");
+     var dd = document.getElementById("preview");
+     dd.innerHTML = "";
+     var fileList = docObj.files;
+     for (var i = 0; i < fileList.length; i++) {            
+         dd.innerHTML += "<div align='center'> <img id='img" + i + "'  /> </div>";
+         var imgObjPreview = document.getElementById("img"+i); 
+         if (docObj.files && docObj.files[i]) {
+             //火狐下，直接设img属性
+             imgObjPreview.style.display = 'block';
+             //imgObjPreview.style.width = '250px';//设置图片显示尺寸
+             //imgObjPreview.style.height = '280px';
+             //imgObjPreview.src = docObj.files[0].getAsDataURL();
+             //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+             imgObjPreview.src = window.URL.createObjectURL(docObj.files[i]);
+         }
+         else {
+             //IE下，使用滤镜
+             docObj.select();
+             var imgSrc = document.selection.createRange().text;
+             alert(imgSrc)
+             var localImagId = document.getElementById("img" + i);
+             //必须设置初始大小
+             //localImagId.style.width = "250px";
+             //localImagId.style.height = "280px";
+             //图片异常的捕捉，防止用户修改后缀来伪造图片
+             try {
+                 localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                 localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+             }
+             catch (e) {
+                 alert("您上传的图片格式不正确，请重新选择!");
+                 return false;
+             }
+             imgObjPreview.style.display = 'none';
+             document.selection.empty();
+         }
+     }  
+     return true;
+ }
+
 </script>
 </head>
   
@@ -167,25 +211,32 @@ function getOrgIDByName(obj,value) {
 					</td>
 				</tr>
 				<tr>
-					<td class="inputLabelTd">
-					<span class="required">*</span>附单据：</td>
-					<td class="inputTd" >
-						<input id="edit_docAttach" name="docAttach" type="number" class="text" style="width: 70px;text-align: center;"/>张
+					<td class="inputLabelTd" colspan="4" style='text-align:right'>
+					<span class="required">*</span>附单据：
+					<input id="edit_docAttach" name="docAttach" type="number" class="text" style="width: 70px;text-align: center;"/>张
 						<input id="edit_checkFlag" name="checkFlag" type="hidden" value="1"/>
-						<input id="edit_assignFlag" name="assignFlag" type="hidden" value="1"/>
-					</td>		
+						<input id="edit_assignFlag" name="assignFlag" type="hidden" value="1"/></td>
+						</tr>
+						<tr>		
 					<td class="inputLabelTd">图片证明：</td>
-					<td class="inputTd">
+					<td class="inputTd" colspan="3">
 						<input id="fileData" name="fileUrl" type="hidden">
-						<input id="file" type="file" class="text" style="height: 20px;line-height: 20px;"/>
+						<input id="file" type="file" class="text" style="height: 20px;line-height: 20px;" onchange="javascript:setImagePreviews();"/>
 					</td>
+					
+				</tr>
+				<tr>
+				<td class="inputTd" colspan="4">
+						<div id="preview" style="width:100%;margin-top:5px;margin-bottom:5px;text-align:center;"><span class="required">*</span>暂未上传图片</div>
+					</td>
+					
 				</tr>
 			</table>
 <!-- 			<div style="display:block; float: left; margin-top:5px;margin-left: 20px;"><span class="required">*</span>附单据 -->
 <!-- 				<input id="edit_docAttach" name="docAttach" type="text" class="text" style="width: 50px;text-align: center;"/>张 -->
 				
 <!-- 			</div> -->
-			<div class="inputTd"  style="display:block;margin-top:50px; text-align:center;">
+			<div class="inputTd"  style="display:block;margin-top:10px; text-align:center;">
 				<input id="submit" type="button" class="ti_bottom" value="提交申请"/>
 			</div>
 		</div>

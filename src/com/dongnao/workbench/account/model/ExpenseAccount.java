@@ -97,6 +97,10 @@ public class ExpenseAccount extends Model{
 			                 * 图片地址
 			                 **/
 				   			private String fileUrl;
+				   		 /**
+			                 * 审核批注截图
+			                 **/
+				   			private String checkPizhu;
 				
 		  	/**
 			 * 获取 
@@ -377,8 +381,13 @@ public class ExpenseAccount extends Model{
 			public void setFileUrl(String fileUrl) {
 				this.fileUrl = fileUrl;
 			}
+
+			public String getCheckPizhu() {
+				return checkPizhu;
+			}
+
+			public void setCheckPizhu(String checkPizhu) {
+				this.checkPizhu = checkPizhu;
+			}
 		  		
-		
-		
-			
 			}

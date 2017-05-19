@@ -19,6 +19,7 @@
 													<result column="check_flag" property="checkFlag" jdbcType="INTEGER" />
 													<result column="assign_flag" property="assignFlag" jdbcType="INTEGER" />
 													<result column="file_url" property="fileUrl" jdbcType="BLOB" />
+													<result column="check_pizhu" property="checkPizhu" jdbcType="BLOB" />
 									</resultMap>
 	<sql id="Base_Column_List">
 						 	id
@@ -38,6 +39,7 @@
 										,check_flag
 										,assign_flag
 										,file_url
+										,check_pizhu
 						</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -375,6 +377,7 @@
 				,#{checkFlag,jdbcType=INTEGER}
 				,#{assignFlag,jdbcType=INTEGER}
 				,#{fileUrl,jdbcType=BLOB}
+				,#{checkPizhu,jdbcType=BLOB}
 			)
 	</insert>
 	
@@ -400,11 +403,12 @@
 	</update>
 	
 	<update id="auditByKey" parameterType="com.dongnao.workbench.account.model.ExpenseAccount">
-		update emp_expense_account  set 
+		update emp_expense_account set 
 			 check_date = #{checkDate,jdbcType=TIMESTAMP}
 			,check_pid = #{checkPid,jdbcType=VARCHAR}
 			,check_name = #{checkName,jdbcType=VARCHAR}
 			,check_flag= #{checkFlag,jdbcType=VARCHAR}
+			,check_pizhu = #{checkPizhu,jdbcType=BLOB}
 			where id = #{id,jdbcType=VARCHAR}
 	</update>
 	

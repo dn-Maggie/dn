@@ -52,6 +52,22 @@
 							<option value="">所有</option>
 					</select><span>发放状态:</span>
 				</li><!-- 输入框--></c:if>
+				<c:if test="${isAssign}">
+				<li style="width:180px;">
+						<select class="search_choose" name="checkFlag" id="checkFlag" mainid="checkFlag" style="width:100px;">
+							<option value="1" selected = "selected">待审核</option>
+							<option value="3">初审已通过</option>
+							<option value="2">已通过审核</option>
+							<option value="">所有</option>
+					</select><span>审核状态:</span>
+				</li><!-- 输入框-->
+				<li style="width:180px;">
+						<select class="search_choose" name="assignFlag" id="assignFlag" mainid="assignFlag" style="width:100px;">
+							<option value="1">未发放</option>
+							<option value="2">已发放</option>
+							<option value="">所有</option>
+					</select><span>发放状态:</span>
+				</li><!-- 输入框--></c:if>
 			<!-- 	<li style="width:180px;">
 						<select class="search_choose" name="expenseType" id="expenseType" mainid="expenseType" style="width:100px;">
 							<option value="支付现款">支付现款</option>
@@ -226,6 +242,11 @@
     		return ;
     	}
     	else if(key.indexOf(",")>-1){
+    		var checkFlag = ICSS.utils.getSelectRowData("checkFlag");
+    		if(checkFlag=="审核已通过"){
+    			showMessage("已审核通过的数据不能重复审核");
+    			return ;
+    		}
     		new biz.alert({type:"confirm",message:"审核以后将无法进行修改，确定继续？",title:I18N.promp,callback:function(result){
     			if(result){
     				$ .ajax({
@@ -239,6 +260,11 @@
     			}
     		}}) ;   
     	}else {
+    		var checkFlag = ICSS.utils.getSelectRowData("checkFlag");
+    		if(checkFlag=="审核已通过"){
+    			showMessage("已审核通过的数据不能重复审核");
+    			return ;
+    		}
     		var url="<m:url value='/expenseAccount/toAuditExpenseAccount.do'/>?key="+key;
     		audit_iframe_dialog = new biz.dialog({
 			 	id:$('<div id="auditwindow_iframe"></div>').html('<iframe id="iframesettlement" name="iframesettlement" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
@@ -307,6 +333,11 @@
     		showMessage("请至少选择一条数据！");
     		return ;
     	}else{
+    		var checkFlag = ICSS.utils.getSelectRowData("checkFlag");
+    		if(checkFlag=="审核已通过"){
+    			showMessage("已审核的数据不能删除");
+    			return ;
+    		}
     		new biz.alert({type:"confirm",message:I18N.msg_del_confirm,title:I18N.promp,callback:function(result){
     			if(result){
     				$ .ajax({

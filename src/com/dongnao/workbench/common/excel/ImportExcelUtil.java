@@ -51,8 +51,12 @@ public class ImportExcelUtil {
                 //遍历所有的列  
                 List<Object> li = new ArrayList<Object>();  
                 for (int y = row.getFirstCellNum(); y < row.getLastCellNum(); y++) {  
-                    cell = row.getCell(y);  
-                    li.add(this.getCellValue(cell));  
+                    cell = row.getCell(y); 
+                    if(cell==null){
+                    	li.add("");  //20170516更新
+                    }else{
+                    	li.add(this.getCellValue(cell));  
+                    }
                 }  
                 list.add(li); 
             }  

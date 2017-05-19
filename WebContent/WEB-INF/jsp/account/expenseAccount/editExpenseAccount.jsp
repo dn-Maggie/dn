@@ -20,7 +20,7 @@ $(function() {
 				success : function(d) {
 					if(d.status){
 						showMessage(d.message,"","",function(){
-							window.parent.closeAdd();
+							window.parent.closeEdit();
 				     		window.parent.doSearch();
 						});
 					}else{
@@ -73,6 +73,13 @@ function getOrgIDByName(obj,value) {
 		<input type="hidden" id="edit_id" name="id" type="text" value="${expenseAccount.id}"/>
 		<div class="top_head">
 			<h2 class="top_name">报   销   单</h2>
+			<div style="top:40px; left:0px;height: 25px;line-height: 25px;position:absolute;">
+					<span>报销类型：</span>
+					<select class="input_select" name="expenseType" id="edit_expenseType" mainid="expenseType" style="width:100px">
+						<option value="个人报销" <c:if test="${expenseAccount.expenseType=='个人报销'}">selected</c:if>>个人报销</option>
+						<option value="集体报销" <c:if test="${expenseAccount.expenseType=='集体报销'}">selected</c:if>>集体报销</option>
+					</select>
+				</div>
 			<div class="time_bg" style="top:40px; right:0px;height: 25px;line-height: 25px;position:absolute;">
 				<span>申请日期&nbsp;&nbsp;</span>
 				<input id="enterDate" type="text" class="search_time150" name="enterDate" style="height: 25px;" value="${expenseAccount.enterDate}">
@@ -121,19 +128,20 @@ function getOrgIDByName(obj,value) {
 					<td class="inputTd">
 						<select class="input_select text" name="expenseWay" id="edit_expenseWay" mainid="expenseWay" style="width: 97%">
 							<option value="支付现款"<c:if test="${expenseAccount.expenseWay=='支付现款'}">selected</c:if>>支付现款</option>
-							<option value="银行转账"<c:if test="${expenseAccount.expenseWay=='支付现款'}">selected</c:if>>银行转账</option>
+							<option value="银行转账"<c:if test="${expenseAccount.expenseWay=='银行转账'}">selected</c:if>>银行转账</option>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<td class="inputLabelTd">
-					<span class="required">*</span>附单据：</td>
-					<td class="inputTd" >
-						<input id="edit_docAttach" name="docAttach" type="text" class="text" style="width: 50px;text-align: center;" value="${expenseAccount.docAttach}"/>张
+					<td class="inputLabelTd" colspan="4" style='text-align:right'>
+					<span class="required">*</span>附单据：
+					<input id="edit_docAttach" name="docAttach" type="text" class="text" style="width: 50px;text-align: center;" value="${expenseAccount.docAttach}"/>张
 						<input id="edit_checkFlag" name="checkFlag" type="hidden" value="${expenseAccount.checkFlag}"/>
 					</td>		
+				</tr>
+				<tr>
 					<td class="inputLabelTd">图片证明：</td>
-					<td class="inputTd">
+					<td class="inputTd" colspan="3">
 						<input id="fileData" name="fileUrl" type="hidden" value="${expenseAccount.fileUrl}">
 						<input id="file" type="file" class="text" style="height: 20px;line-height: 20px;"/>
 					</td>
