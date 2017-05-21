@@ -49,6 +49,12 @@ public interface VipStudentService  {
 	 */
 	public Statistical getStatistical(VipStudent vipStudent);
 	
+	
+	/**
+	 * 获得当日统计数据
+	 */
+	public Statistical getStatisticaltoday(String today);
+	
 	/**
 	 * 分科目获得统计数据
 	 * @return: 统计数据map

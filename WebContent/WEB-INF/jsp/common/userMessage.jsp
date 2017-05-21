@@ -545,6 +545,114 @@ body{-moz-user-select:none;-webkit-user-select:none;
 				</ul>
 			</li>
 			
+			<li  class="cd-popular" style="width:33.3%" >
+				<ul class="cd-pricing-wrapper">
+					<li data-type="monthly" class="is-visible oor"  did="continuePay" id="ContinuePay" term="month" onclick="lookMore(this.id,this.attributes['did'].value,this.attributes['term'].value)">
+						<div class="cd-pricing-header topper">
+							<span class="nameTop">
+								<i class="iconfont">&#xe6cc;</i>
+								<label>今日业绩
+								<i class="info-iconfont" title="当日业绩总额">&#xe637;</i>
+								</label>
+							</span>
+							<div class="cd-price">
+								<span class="cd-value-big" >
+									<fmt:formatNumber value="${model.today.xfsr-model.today.xfsr+model.today.xfsr}" pattern="0" type="number"></fmt:formatNumber>
+								</span>
+							</div>
+						</div> 
+					</li>
+
+					<li data-type="yearly" class="is-hidden oor"  did="continuePay" id="ContinuePay" term="year" onclick="lookMore(this.id,this.attributes['did'].value,this.attributes['term'].value)">
+						<div class="cd-pricing-header topper">
+							<span class="nameTop">
+								<i class="iconfont">&#xe81d;</i>
+								<label>今日业绩
+								<i class="info-iconfont" title="当日业绩总额">&#xe637;</i>
+								</label>
+							</span>
+							<div class="cd-price" >
+								<span class="cd-value-big"> 
+									<fmt:formatNumber value="${model.today.xfsr-model.today.xfsr+model.today.xfsr}" pattern="0" type="number"></fmt:formatNumber>
+								</span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</li>
+			
+			<li  class="cd-popular" style="width:33.3%" >
+				<ul class="cd-pricing-wrapper">
+					<li data-type="monthly" class="is-visible oor"  did="continuePay" id="ContinuePay" term="month" onclick="lookMore(this.id,this.attributes['did'].value,this.attributes['term'].value)">
+						<div class="cd-pricing-header topper">
+							<span class="nameTop">
+								<i class="iconfont">&#xe6cc;</i>
+								<label>今日补款
+								<i class="info-iconfont" title="当日补款总额">&#xe637;</i>
+								</label>
+							</span>
+							<div class="cd-price">
+								<span class="cd-value-big" >
+									<fmt:formatNumber value="${model.today.xfbk-model.today.xfbk+model.today.xfbk}" pattern="0" type="number"></fmt:formatNumber>
+								</span>
+							</div>
+						</div> 
+					</li>
+
+					<li data-type="yearly" class="is-hidden oor"  did="continuePay" id="ContinuePay" term="year" onclick="lookMore(this.id,this.attributes['did'].value,this.attributes['term'].value)">
+						<div class="cd-pricing-header topper">
+							<span class="nameTop">
+								<i class="iconfont">&#xe81d;</i>
+								<label>今日补款
+								<i class="info-iconfont" title="当日补款总额">&#xe637;</i>
+								</label>
+							</span>
+							<div class="cd-price" >
+								<span class="cd-value-big"> 
+									<fmt:formatNumber value="${model.today.xfbk-model.today.xfbk+model.today.xfbk}" pattern="0" type="number"></fmt:formatNumber>
+								</span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</li>
+			
+			<li  class="cd-popular" style="width:33.3%" >
+				<ul class="cd-pricing-wrapper">
+					<li data-type="monthly" class="is-visible oor"  did="continuePay" id="ContinuePay" term="month" onclick="lookMore(this.id,this.attributes['did'].value,this.attributes['term'].value)">
+						<div class="cd-pricing-header topper">
+							<span class="nameTop">
+								<i class="iconfont">&#xe6cc;</i>
+								<label>今日实收业绩
+								<i class="info-iconfont" title="当日业绩总额+当日补款总额-当日退款总额">&#xe637;</i>
+								</label>
+							</span>
+							<div class="cd-price">
+								<span class="cd-value-big" >
+									<fmt:formatNumber value="${model.today.xfsr+model.today.xfbk-model.today.xftk}" pattern="0" type="number"></fmt:formatNumber>
+								</span>
+							</div>
+
+						</div> 
+					</li>
+
+					<li data-type="yearly" class="is-hidden oor"  did="continuePay" id="ContinuePay" term="year" onclick="lookMore(this.id,this.attributes['did'].value,this.attributes['term'].value)">
+						<div class="cd-pricing-header topper">
+							<span class="nameTop">
+								<i class="iconfont">&#xe8                                                 1d;</i>
+								<label>今日实收业绩
+								<i class="info-iconfont" title="当日业绩总额+当日补款总额-当日退款总额">&#xe637;</i>
+								</label>
+							</span>
+							<div class="cd-price" >
+								<span class="cd-value-big"> 
+									<fmt:formatNumber value="${model.today.xfsr+model.today.xfbk-model.today.xftk}" pattern="0" type="number"></fmt:formatNumber>
+								</span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</li>
 		</ul> <!-- .cd-pricing-list -->
 	</div> <!-- .cd-pricing-container -->
 	

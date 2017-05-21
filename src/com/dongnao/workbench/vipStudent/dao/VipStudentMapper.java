@@ -46,6 +46,11 @@ public interface VipStudentMapper  {
 	 */
 	public Statistical getStatistical(VipStudent vipStudent);
 	
+	
+	/**
+	 * 获得当日统计数据
+	 */
+	public Statistical getStatisticaltoday(String today);
 	/**
 	 * 修改会员信息管理表方法
 	 * @param vipStudent VipStudent：实体对象

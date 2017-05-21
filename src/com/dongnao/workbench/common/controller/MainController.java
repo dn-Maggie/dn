@@ -1,6 +1,8 @@
 package com.dongnao.workbench.common.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -151,6 +153,7 @@ public class MainController {
 	 */
 	@RequestMapping("/adminHomePage")
 	public ModelAndView adminHomePage(HttpServletRequest request) {
+		SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
 		ModelAndView mv = null;
 		Map<String,Object> model = new HashMap<String,Object>();
 		Calendar curr = Calendar.getInstance();
@@ -169,6 +172,7 @@ public class MainController {
 		}		
 		VipStudent vipStudent = new VipStudent();
 		model.put("all", vipStudentService.getStatistical(null));
+		model.put("today", vipStudentService.getStatisticaltoday(curr.get(Calendar.YEAR)+""+(curr.get(Calendar.MONTH)+1)+""+curr.get(Calendar.DATE)));
 		vipStudent.setJointime(curr.get(Calendar.YEAR)+""+(curr.get(Calendar.MONTH)+1));
 		model.put("currMonth", vipStudentService.getStatistical(vipStudent));
 		vipStudent.setJointime(curr.get(Calendar.YEAR)+"");
@@ -243,6 +247,7 @@ public class MainController {
 		
 		VipStudent vipStudent = new VipStudent();
 		vipStudent.setJointime(year+""+month);
+		model.put("today", vipStudentService.getStatisticaltoday(calendar.get(Calendar.YEAR)+""+(calendar.get(Calendar.MONTH)+1)+""+calendar.get(Calendar.DATE)));
 		model.put("currMonth", vipStudentService.getStatistical(vipStudent));
 		vipStudent.setJointime(StringUtil.formatDateyyyyMM(before.getTime()));
 		model.put("beforeMonth", vipStudentService.getStatistical(vipStudent));

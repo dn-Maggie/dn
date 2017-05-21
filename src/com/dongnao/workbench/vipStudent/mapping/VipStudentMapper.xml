@@ -113,6 +113,18 @@
 		</if>
 	</select>
 	
+		
+	<select id="getStatisticaltoday" resultType="com.dongnao.workbench.vipStudent.model.Statistical" parameterType="java.lang.String">
+		SELECT 
+(select sum(case WHEN ACCOUNT_NO ='XFSR' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1  AND DATE_FORMAT(create_date,'%Y%c%d') like CONCAT('%',#{today,jdbcType=VARCHAR},'%')) xfsr,
+(select sum(case WHEN ACCOUNT_NO ='XFBK' and money>0 THEN MONEY ELSE 0 END) AS xfbk from account_flow where 1=1 AND DATE_FORMAT(create_date,'%Y%c%d') like CONCAT('%',#{today,jdbcType=VARCHAR},'%')) xfbk,
+(select sum(case WHEN ACCOUNT_NO ='XFTK' and money>0 THEN MONEY ELSE 0 END) AS xftk from account_flow where 1=1 AND DATE_FORMAT(create_date,'%Y%c%d') like CONCAT('%',#{today,jdbcType=VARCHAR},'%')) xftk
+		FROM 
+		 	vip_student
+		WHERE DATE_FORMAT(join_time,'%Y%c%d') like CONCAT('%',#{today,jdbcType=VARCHAR},'%') limit 0,1
+
+	</select>
+	
 	<select id="getTotal" resultType="com.dongnao.workbench.vipStudent.model.Statistical" parameterType="com.dongnao.workbench.vipStudent.model.VipStudent">
 		SELECT 
 			COUNT(*) cnt,

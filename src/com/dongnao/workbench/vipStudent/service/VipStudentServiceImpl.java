@@ -95,6 +95,15 @@ public class VipStudentServiceImpl implements VipStudentService{
 		return vipStudentMapper.getStatistical(vipStudent);
 	}
 	
+	
+	/**
+	 * 获得当日统计数据
+	 * @return: 统计数据map
+	 */
+	public Statistical getStatisticaltoday(String today){
+		return vipStudentMapper.getStatisticaltoday(today);
+	}
+	
 	/**
 	 * 分科目获得统计数据
 	 * @return: 统计数据map
@@ -149,6 +158,7 @@ public class VipStudentServiceImpl implements VipStudentService{
 	public List<Statistical> getTotal(VipStudent vipStudent) {
 		return vipStudentMapper.getTotal(vipStudent);
 	}
+
 
 	
 	
