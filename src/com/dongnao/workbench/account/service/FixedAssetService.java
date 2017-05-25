@@ -39,11 +39,24 @@ public interface FixedAssetService  {
 	 */
 	public List<FixedAsset> listByCondition(FixedAsset fixedAsset);
 	
+	
+	/**
+	 * 查询待回收资源
+	 * @param fixedAsset FixedAsset 实体对象（查询条件）
+	 * @return: 实体对象的list
+	 */
+	public List<FixedAsset> listRecovery(FixedAsset fixedAsset);
 	/**
 	 * 修改固定资产信息方法
 	 * @param fixedAsset FixedAsset 实体对象
 	 */	
 	public ResultMessage update(FixedAsset fixedAsset);
+	
+	/**
+	 * 回收资源方法
+	 * @param fixedAsset FixedAsset 实体对象
+	 */	
+	public ResultMessage recovery(FixedAsset fixedAsset);
 	
 	/**
 	 * 新增资产项目信息方法

@@ -748,7 +748,6 @@
 									<fmt:formatNumber value="${model.today.xfsr+model.today.xfbk-model.today.xftk}" pattern="0" type="number"></fmt:formatNumber>
 								</span>
 							</div>
-
 						</div> 
 					</li>
 

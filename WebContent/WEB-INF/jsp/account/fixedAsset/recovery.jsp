@@ -19,7 +19,7 @@ $(function() {
 	
 		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
-            url: "<m:url value='/fixedAsset/listAssetItem.do'/>",/*grid初始化请求数据的远程地址*/
+            url: "<m:url value='/fixedAsset/listRecovery.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
            	sortname:"id",
            	sortorder:"asc",
@@ -27,113 +27,74 @@ $(function() {
            	multiboxonly:true,
            	pager: '#remote_prowed' /*分页栏id*/,
      		rowList:[5,10,50],//每页显示记录数
-    		rowNum:5,//默认显示15条
+    		rowNum:10,//默认显示15条
             colModel:[
-				{name : "id",key : true,label:"编号",index : "id"},								
-				{name : "assetName",label:"资产项目名称",index : "asset_name"},	
-				{name : "assetType",label:"资产类别",index : "asset_type"}
+				{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
+				{name : "assetNo",label:"资产编号",index : "asset_no"},				
+				{name : "assetName",label:"资产名称",index : "asset_name"},	
+				{name : "useOrg",label:"使用部门",index : "use_org"},
+				{name : "workNumber",label:"使用人",index : "work_number"},
+				/* {name : "assetItemId",label:"资产项目名称",index : "asset_item_id"},				
+				{name : "model",label:"规格型号",index : "model"},	 */			
+				{name : "beginDate",label:"开始使用日期",index : "begin_date"},				
+				/* {name : "initialValue",label:"资产原值",index : "initial_value"},		
+				{name : "perDepred",label:"本期折旧 "},	 */
+				{name : "propertyState",label:"资产状态 ",align:"center",
+					formatter:function(cellvalue, options, rowObject){
+	 				 if (cellvalue==1) {
+		 				 	return '使用中';
+		 				 }else if (cellvalue==2) {
+		 				 	return '维修中';
+		 				 }else if(cellvalue==3){
+		 					return '已报废';
+		 				 }else if(cellvalue==4){
+		 					return '停用中';
+		 				 }
+		 			}}
            	],
       });
 	
 	$("#submit").click(function() {
-		/* $("#submit").prop('disabled', true).css({'cursor':'not-allowed'}); */
-		if(!biz.validate("valid",$('#fixedAssetFormEdit')[0])){
-			showWarn("数据验证失败",3000);
-			$("#submit").prop('disabled', false).css({'cursor':'pointer'});
-			return;
-		}
 		var options = {
-			url : "<m:url value='/fixedAsset/addAssetItem.do'/>",
+			url : "<m:url value='/fixedAsset/recovery.do'/>",
 			type : "post",
 				dataType:"json",
 				success : function(d) {
-					if(d.status){
-						showMessage(d.message,"","",function(){
-							resetForm();
-							gridObj.trigger('reloadGrid');
-						});
-					}else{
-						showMessage(d.message);
-					}
+					window.parent.closeRecovery();
 				}
 		};
-		// 将options传给ajaxForm
 		$('#fixedAssetFormEdit').ajaxSubmit(options);
 	});
 
-	/*编辑表单数据验证*/
-	new biz.validate({
-		id:"#fixedAssetFormEdit",
-		rules:{
-			"assetName" :{required : true},
-			"assetType" : {required : true},
-		}
-	}); 
-	
-	/*日期格式化*/
-	new biz.datepicker({
-		id : "#edit_beginDate",
-		dateFmt:'yyyy-MM-dd'
-	});
 });
-
-//重置查询表单
-function resetForm(){
-	/* $("#assetName").val("");
-	$("#assetType").val("固定资产"); */
-	$('#fixedAssetFormEdit')[0].reset()
-}
-
 
 </script>
 </head>
   
 <body>
-
 <div id="editDialog">
 	<form id="fixedAssetFormEdit" name="fixedAssetFormEdit">
     <div class="wrap" >
     	<div class="top_head">
-			<h3 class="top_name">添加资产项目</h3>
+			<h3 class="top_name">待回收的资源</h3>
 		</div>
 		<!-- <input type="hidden" id="edit_id" name="id" type="text" /> -->
-		<table class="table">
-			<tr ><td colspan="4" class="cut"><i class="icon_bg icon_plan"></i> 基本信息</td></tr>
-			<tr>
-				<td class="inputLabelTd"><span class="required">*</span>资产项目名称 ：</td>
-				<td class="inputTd">
-					<input id="assetName" name="assetName" type="text" class="text" />
-				</td>
-				<td class="inputLabelTd"><span class="required">*</span>资产类别：</td>
-				<td class="inputTd">
-					<select class="input_select text" name="assetType" id="assetType" mainid="assetType" >
-							<option value="固定资产">固定资产</option>
-							<option value="无形资产">无形资产</option>
-							<option value="流动资产">流动资产</option>
-							<option value="长期资产">长期资产</option>
-							<option value="递延资产">递延资产</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td class="inputTd" colspan="6" style="text-align:center;">
-					<input id="submit" type="button" class="ti_bottom" value="保存"/>
-					<input id="resetbutton" type="button" class="ti_bottom" value="重置" onclick="resetForm()"/>
-				</td>
-			</tr>
-			<tr>
-				
-			</tr>
-		</table>
-		<i class="icon_bg icon_plan"></i> 已添加的条目
+		<i class="icon_bg icon_plan"></i>资源列表
 		<div class="listtable_box">
 					<!--此处放表格-->
 				<table  id="remote_rowed" ></table>
 				<div  id="remote_prowed"></div>		
-				</div>
+		</div>
+		<table class="table">
+			<tr>
+				<td class="inputTd" colspan="6" style="text-align:center;">
+					<input id="submit" type="button" class="ti_bottom" value="一键回收"/>
+					<input id="resetbutton" type="button" class="ti_bottom" value="取消" onclick="window.parent.closeRecovery();"/>
+				</td>
+			</tr>
+		</table>
     </div>
 	</form>
-
 </div>
 </body>
 </html>

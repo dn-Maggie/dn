@@ -183,8 +183,8 @@ var gridObj = {};
 		recovery_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="recoverywindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: $(window).width()*0.35,
-			height:$(window).height()*0.6,
+			width: $(window).width()*0.6,
+			height:$(window).height()*0.45,
 				title: "待回收的资源"
 		});
 		recovery_iframe_dialog.open();
@@ -311,11 +311,11 @@ var gridObj = {};
 							onclick="show();"> <i class="icon_bg icon_ckxq"></i> <span><m:message
 										code="button.view" /></span>
 						</a></li>
-						<c:if test="${manage}">
+<%-- 						<c:if test="${manage}">
 						<li><a title="计提折旧" href="javascript:"
 							onclick=";"> <i class="icon_bg icon_submit"></i> <span>计提折旧</span>
 						</a></li>
-						</c:if>
+						</c:if> --%>
 						<li><a title="添加资产项目" href="javascript:"
 							onclick="assetitem();"> <i class="icon_bg icon_submit"></i> <span>添加资产项目</span>
 						</a></li>

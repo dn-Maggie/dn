@@ -79,4 +79,16 @@ public class FixedAssetServiceImpl implements FixedAssetService{
 	public List<AssetItem> listAssetItem(AssetItem assetItem) {
 		return fixedAssetMapper.listAssetItem(assetItem);
 	}
+
+
+	@Override
+	public List<FixedAsset> listRecovery(FixedAsset fixedAsset) {
+		return fixedAssetMapper.listRecovery(fixedAsset);
+	}
+
+	@Override
+	public ResultMessage recovery(FixedAsset fixedAsset) {
+		fixedAssetMapper.recovery(fixedAsset);
+		return AjaxUtils.getSuccessMessage();
+	}
 }

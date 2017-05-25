@@ -98,7 +98,7 @@ function resetForm(){
 		</div>
 		<!-- <input type="hidden" id="edit_id" name="id" type="text" /> -->
 		<table class="table">
-			<tr ><td colspan="4" class="cut"><i class="icon_bg icon_plan"></i> 基本信息</td></tr>
+			<tr ><td colspan="4"><i class="icon_bg icon_plan"></i>基本信息</td></tr>
 			<tr>
 				<td class="inputLabelTd"><span class="required">*</span>资产项目名称 ：</td>
 				<td class="inputTd">

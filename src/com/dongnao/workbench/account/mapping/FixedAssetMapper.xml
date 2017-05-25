@@ -219,6 +219,46 @@
 		
 	</select>
 
+
+	<select id="listRecovery" resultMap="BaseResultMap"
+		parameterType="com.dongnao.workbench.account.model.FixedAsset">
+		select
+		fa.id,
+		fa.asset_no,
+		fa.asset_name,
+		date_format(fa.enter_date,'%Y-%m-%d') as enter_date,
+		fa.model,
+		fa.add_type,
+		ad.asset_name as asset_item_id,
+		date_format(fa.begin_date,'%Y-%m-%d') as begin_date,
+		bo.org_name as use_org,
+		fa.work_number,
+		fa.depre_method,
+		fa.is_deprenow,
+		fa.ljzj_subject,
+		fa.zjfy_subject,
+		fa.zichan_clear,
+		fa.initial_value,
+		fa.remain_ratio,
+		fa.remain_value,
+		fa.use_period,
+		fa.depred_month,
+		fa.remain_use_month,
+		fa.used_depre,
+		fa.currdate,
+		fa.per_depred,
+		fa.property_state
+		from company_property as fa
+		LEFT JOIN employee e ON e.emp_no = fa.work_number
+		LEFT join basic_org bo on fa.use_org = bo.org_no
+		LEFT join asset_details ad on ad.id = fa.asset_item_id
+		where e.emp_no = fa.work_number and e.curr_state=3
+		<if test="orderFields != null and '' != orderFields">
+			order by ${orderFields} ${order}
+		</if>
+	</select>
+
+
 	<select id="listAssetItem" resultMap="AssetItemResultMap"
 		parameterType="com.dongnao.workbench.account.model.AssetItem">
 		select
@@ -305,5 +345,12 @@
 		,per_depred = #{perDepred,jdbcType=DOUBLE}
 		,property_state = #{propertyState,jdbcType=INTEGER}
 		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="recovery" parameterType="com.dongnao.workbench.account.model.FixedAsset">
+		update company_property cp set
+		work_number = #{workNumber,jdbcType=VARCHAR}
+		,property_state = #{propertyState,jdbcType=INTEGER}
+		where  cp.work_number in(select emp_no from employee where curr_state=3)
 	</update>
 </mapper>

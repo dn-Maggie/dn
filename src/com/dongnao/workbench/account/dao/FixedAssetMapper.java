@@ -43,6 +43,13 @@ public interface FixedAssetMapper  {
 	 */
 	public List<FixedAsset>  listByCondition(FixedAsset fixedAsset);
 	
+	
+	/**
+	 *  查询待回收资源
+	 * @param FixedAsset fixedAsset：实体对象（查询条件）
+	 * @return List<FixedAsset>: 实体对象的list
+	 */
+	public List<FixedAsset>  listRecovery(FixedAsset fixedAsset);
 	/**
 	 * 根据条件查找资产项目信息列表方法
 	 * @param AssetItem assetItem：实体对象（查询条件）
@@ -55,4 +62,10 @@ public interface FixedAssetMapper  {
 	 * @param fixedAsset FixedAsset：实体对象
 	 */	
 	public void update(FixedAsset fixedAsset);
+	
+	/**
+	 * 回收资源方法
+	 * @param fixedAsset FixedAsset：实体对象
+	 */	
+	public void recovery(FixedAsset fixedAsset);
 }
