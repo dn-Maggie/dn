@@ -259,7 +259,6 @@ public class StandardController{
 		if(months!=""||subjectName!=""){
 			//拆分几个年月
 			String[] yearMonth = months.split(",");
-			
 			//有月份，没有科目名
 			if(yearMonth.length>0&&subjectName==""){
 				//输入或没输入科目，有月份

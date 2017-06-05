@@ -147,6 +147,7 @@
 			            </c:forEach>
 					</select><span>学科:</span>
 					</li><!-- 输入框-->
+					
 					<li style="width: 300px">
 						<span>月份:</span>
 						<input type="text" id="monthChoose" class="search_choose" style="width: 200px;float:left;"/>
@@ -163,26 +164,13 @@
 						</div>
 					</li>	
 					<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm');months=[]" value="重置"><!-- 重置 -->
-						<c:choose>
-						    <c:when test="${isAdmin}">
-						    	<input type="button" class="search_btn mr22 " onclick="arr=[];ajaxGetStatistic();drawMainChart();" value="查询">
-						    </c:when>
-						    <c:otherwise>
-					    		<input type="button" class="search_btn mr22 " onclick="arr=[];ajaxGetStatistic();drawSubChart();" value="查询">
-						    </c:otherwise>
-					    </c:choose>
+						<input type="button" class="search_btn mr22 " onclick="arr=[];ajaxGetStatistic();drawMainChart();" value="查询">
 					</li><!-- 查询-->
 				</ul>
 		   </div>
 	    </form>
-	    <c:choose>
-		    <c:when test="${isAdmin}">
-		    	<div id="main"></div>
-		    </c:when>
-		    <c:otherwise>
-	    		<div id="subchart"></div>
-		    </c:otherwise>
-	    </c:choose>
+		
+		<div id="main"></div>
 	</div>
 	
 		<script type="text/template" id="yearTemp">
@@ -216,11 +204,10 @@
 			}  
 			return false;  
 		};
-		
 		//获取数据库结果集并把结果放入arr[]中
 		ajaxGetStatistic();
 		//绘制图表
-		$("#main").length>0?drawMainChart():drawSubChart();
+		drawMainChart();
 	})
 	.on('mouseover', '.yearItem', function() {
 		//给带有yearItem类的标签绑定鼠标划动事件，清除其他年份上的active类
@@ -327,7 +314,6 @@
 		if(arr.length>0){
 			for(var key in arr[0]){//遍历data数据放入names 
 				names.push(key);//names存放的是key值 ：比如2016-09
-				//console.log(names);
 			}
 			names.sort(function compare(v1,v2){
 				return  v1.split("-")[0]==v2.split("-")[0]?v1.split("-")[1]-v2.split("-")[1]:v1.split("-")[0]>v2.split("-")[0];
@@ -335,7 +321,6 @@
 			var name;
 			for(var j=0;j<names.length;j++){    
 				name = arr[0][names[j]];
-				//console.log(arr[0][names[j]].xfsr);
 				if(name){
 					actualPay.push(Math.round(name.xfsr));
 					allCome.push(Math.round(name.xfbk+name.xfsr));
@@ -424,110 +409,6 @@
 		mainChart.setOption(option);
 	}
 	
-	function drawSubChart(){
-		//初始化变量
-		var names = [];
-		var actualPay = []
-		var allCome = [];
-		var shouldPay = [];
-		
-
-		//先判断结果集是否存在，通过遍历结果集，分别获得月份名、实收报名费、总业绩、应收学费
-		if(arr.length>0){
-			for(var key in arr[0]){
-				names.push(key);
-			}
-			names.sort(function compare(v1,v2){
-				return  v1.split("-")[0]==v2.split("-")[0]?v1.split("-")[1]-v2.split("-")[1]:v1.split("-")[0]>v2.split("-")[0];
-			});
-			var name;
-
-			for(var j=0;j<names.length;j++){    
-				name = arr[0][names[j]];
-				
-				if(name){
-					actualPay.push(Math.round(name.xfsr));
-					allCome.push(Math.round(name.xfbk+name.xfsr-name.xftk));
-					shouldPay.push(Math.round(name.shouldPay));
-				}else{
-					allCome.push(0);actualPay.push(0);shouldPay.push(0);
-				}
-				
-				
-				
-				
-				createmonthdata
-	        } 
-		}
-		var subChart = echarts.init(document.getElementById("subchart"));
-		$(window).on('resize',function(){
-			subChart.resize();
-		});
-		var option = {
-			tooltip: {
-				show:true,
-		        trigger: 'axis'
-		    },
-		     toolbox: {
-		        feature: {
-		            dataView: {show: true, readOnly: true,title:'数据视图'},
-		            magicType: {show: true, type: ['line', 'bar']},
-		            saveAsImage: {show: true}
-		        }
-		    },
-			title: {
-	            text: '数据统计分析表'
-	        },
-	        legend: {
-	            data:['总业绩','应收总额','实收报名费','业绩增长比']//更换成指标项 ：总业绩、应收总额、实收报名费
-	        },
-	        //x坐标
-	        xAxis: [
-	        	{
-	   				type: 'category', //坐标轴类型
-	   				axisLabel:{ show:true },
-	                data:  names //更换成动态数据，最近6个月
-				}
-	        ],
-	        //y坐标
-	        yAxis: {
-	            type: 'value',
-	            name: '金额',
-	            min: 0,
-	            max: 1000000,
-	            interval: 100000,
-	            axisLabel: {
-	                formatter: '￥ {value}'
-	            }
-	        },
-			series: [{
-	                name: '总业绩',
-	                type: 'bar',
-	                data: allCome //更换成动态数据
-	          	}, {
-		            name:'应收总额',
-		            type:'bar',
-		            data:shouldPay //更换成动态数据
-		        },
-		        {
-		            name:'实收报名费',
-		            type:'bar',
-		            data:actualPay //更换成动态数据
-		        },
-		        {
-		            name:'业绩增长比',
-		            type:'line',
-		            data:allCome //更换成动态数据
-		        }
-		    ],
-		    color:['#f68484',  '#75b9e6', 'rgb(135, 184, 127)', '#c4ccd3'],
-		}
-		subChart.setOption(option);
-	}
-
-	
-	
-	
 	function hideMonthMap(){
 		$(".timeWrapper").css("display", "none"); 
 	} 
@@ -541,13 +422,11 @@
 	   			async : false,
 	   			dataType:"json",
 	   			success : function(data) {
-	   				console.log(data);
 	   				arr.push(data);
-	   				console.log(arr);
+	   				//console.log(arr);
 	   			}
 	   		});
     };
-    </script>
-	
+    </script>	
 </body>
 </html>

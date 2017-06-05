@@ -714,20 +714,15 @@ body{-moz-user-select:none;-webkit-user-select:none;
 					</div>
 					<div class="itemBoxInfo">
 						<ul class="infos">
-							<li class="infoItem"><a class="fastItem"><i class="iconfont-xsmall">&#xe7c6; </i>我的业绩</a><a class="fastItem"><i class="iconfont-xsmall">&#xe7c6; </i>费用借款</a></li>
-							<!-- <li class="infoItem"><a class="fastItem" id="notDining"><i class="iconfont-xsmall">&#xe7c6; </i>修改信息长期退餐</a> -->
 							<li class="infoItem">
-							<c:choose>
-								<c:when test="${employee.notDining=='1'}">
-									<a class="fastItem" id="dining"><i class="iconfont-xsmall">&#xe7c6; </i>取消长期退餐</a><a class="fastItem" id="expenseApply"><i class="iconfont-xsmall">&#xe7c6; </i>费用报销</a>
-								</c:when>
-								<c:otherwise>
-									<a class="fastItem" id="notDining"><i class="iconfont-xsmall">&#xe7c6; </i>长期退餐</a><a class="fastItem" id="expenseApply"><i class="iconfont-xsmall">&#xe7c6; </i>费用报销</a>
-								</c:otherwise>
-							</c:choose>
+								<a class="fastItem"><i class="iconfont-xsmall">&#xe7c6; </i>我的业绩</a><a class="fastItem"><i class="iconfont-xsmall">&#xe7c6; </i>费用借款</a>
 							</li>
-							<li class="infoItem"><a class="fastItem" id="orderLunch"><i class="iconfont-xsmall">&#xe7c6; </i>退订中餐</a><a class="fastItem"><i class="iconfont-xsmall">&#xe7c6; </i>调休申请</a></li>
-							<li class="infoItem"><a class="fastItem" id="orderSupper"><i class="iconfont-xsmall">&#xe7c6; </i>退订晚餐</a><a class="fastItem" id="leaveApply"><i class="iconfont-xsmall">&#xe7c6; </i>请假申请</a></li>
+							<li class="infoItem">
+								<a class="fastItem" id="leaveApply"><i class="iconfont-xsmall">&#xe7c6; </i>请假申请</a><a class="fastItem"><i class="iconfont-xsmall">&#xe7c6; </i>调休申请</a>
+							</li>
+							<li class="infoItem">
+								<a class="fastItem" id="expenseApply"><i class="iconfont-xsmall">&#xe7c6; </i>费用报销</a>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -787,8 +782,7 @@ body{-moz-user-select:none;-webkit-user-select:none;
     //查看公告的弹出框
 	/* var showNotice_iframe_dialog; */
 	
-	$(document)
-	.ready(function(){
+	$(document).ready(function(){
 		//获取父框架修改密码和用户资料按钮
 		var _iframe = window.parent;
 		var _userMessBtn =_iframe.document.getElementById('userMessBtn');
