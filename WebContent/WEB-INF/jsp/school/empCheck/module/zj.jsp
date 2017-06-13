@@ -157,373 +157,453 @@ margin-right:90.0000pt;
 size:595.3000pt 841.9000pt;
 layout-grid:15.6000pt;
 }
-div.Section0{page:Section0;}</style></head><body style="tab-interval:21pt;text-justify-trim:punctuation;" ><!--StartFragment-->
-    <div class="Section0" style="layout-grid:15.6000pt;">
-        <p class=MsoNormal align=center style="text-align:center;"><span
-                style="mso-spacerun:'yes';font-family:微软雅黑;font-size:16.0000pt;mso-font-kerning:1.0000pt;"><font
-                face="微软雅黑">动脑学院助教推广基本工资考核表</font></span><span
-                style="mso-spacerun:'yes';font-family:微软雅黑;font-size:16.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-        </p>
-        <form id="form" >
-        <table class=MsoNormalTable align=center
-               style="border-collapse:collapse;width:435.4500pt;mso-table-layout-alt:fixed;mso-padding-alt:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;">
-            <tr style="height:24.0500pt;">
-                <td width=93 valign=center
-                    style="width:69.7500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:1.0000pt solid windowtext;mso-border-left-alt:0.5000pt solid windowtext;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:1.0000pt solid windowtext;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><b><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-weight:bold;font-size:14.0000pt;mso-font-kerning:1.0000pt;">员工姓名</span></b><b><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-weight:bold;font-size:14.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></b>
-                    </p>
-                </td>
-                <td width=139 valign=center
-                    style="width:104.7000pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:1.0000pt solid windowtext;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><b><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-weight:bold;font-size:14.0000pt;mso-font-kerning:1.0000pt;"><o:p>&nbsp;</o:p></span></b>
-                        <span style="color:red;">${empCheck.empName}</span>
+div.Section0{page:Section0;}</style></head>
+
+<body style="tab-interval: 21pt; text-justify-trim: punctuation;">
+	<!--StartFragment-->
+	<div class="Section0" style="layout-grid: 15.6000pt;">
+		<p class=MsoNormal align=center style="text-align: center;">
+			<span
+				style="mso-spacerun: 'yes'; font-family: 微软雅黑; font-size: 16.0000pt; mso-font-kerning: 1.0000pt;"><font
+				face="微软雅黑">动脑学院助教推广</font></span><span
+				style="mso-spacerun: 'yes'; font-family: 微软雅黑; font-size: 16.0000pt; mso-font-kerning: 1.0000pt;"><font
+				face="微软雅黑">月度</font></span><span
+				style="mso-spacerun: 'yes'; font-family: 微软雅黑; font-size: 16.0000pt; mso-font-kerning: 1.0000pt;"><font
+				face="微软雅黑">考核表</font></span><span
+				style="mso-spacerun: 'yes'; font-family: 微软雅黑; font-size: 16.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+		</p>
+		 <form id="form" >
+		<table class=MsoNormalTable align=center
+			style="border-collapse: collapse; width: 435.4500pt; mso-table-layout-alt: fixed; mso-padding-alt: 0.0000pt 5.4000pt 0.0000pt 5.4000pt;">
+			<tr style="height: 24.0500pt;">
+				<td width=93 valign=center
+					style="width: 69.7500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: 1.0000pt solid windowtext; mso-border-left-alt: 0.5000pt solid windowtext; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: 1.0000pt solid windowtext; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<b><span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-weight: bold; font-size: 14.0000pt; mso-font-kerning: 1.0000pt;">姓名</span></b><b><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-weight: bold; font-size: 14.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></b>
+					</p></td>
+				<td width=139 valign=center
+					style="width: 104.7000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: 1.0000pt solid windowtext; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<b><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-weight: bold; font-size: 14.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span></b>
+							<span style="color:red;">${empCheck.empName}</span>
 							<input name="empName" type="hidden" value="${empCheck.empName}">
 							<input name="checkStanderd" type="hidden" value="${empCheck.checkStanderd}">
 							<input name="checkMonth" type="hidden" value="${empCheck.checkMonth}">
 							<input name="empNo" type="hidden" value="${empCheck.empNo}">
-                    </p>
-                </td>
-                <td width=174 valign=center
-                    style="width:130.5000pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:1.0000pt solid windowtext;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><b><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-weight:bold;font-size:14.0000pt;mso-font-kerning:1.0000pt;">考核月份</span></b><b><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-weight:bold;font-size:14.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></b>
-                    </p>
-                </td>
-                <td width=174 valign=center colspan=2
-                    style="width:130.5000pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:1.0000pt solid windowtext;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><b><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-weight:bold;font-size:14.0000pt;mso-font-kerning:1.0000pt;"><o:p>&nbsp;</o:p></span></b>
-                       <label style="color: orangered">${empCheck.checkMonth}</label>
-                    </p>
-                </td>
-            </tr>
-            <tr style="height:24.0500pt;">
-                <td width=93 valign=center
-                    style="width:69.7500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:1.0000pt solid windowtext;mso-border-left-alt:0.5000pt solid windowtext;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><b><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-weight:bold;font-size:14.0000pt;mso-font-kerning:1.0000pt;">考核项</span></b><b><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-weight:bold;font-size:14.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></b>
-                    </p>
-                </td>
-                <td width=139 valign=center
-                    style="width:104.7000pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><b><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-weight:bold;font-size:14.0000pt;mso-font-kerning:1.0000pt;">基准标准</span></b><b><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-weight:bold;font-size:14.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></b>
-                    </p>
-                </td>
-                <td width=283 valign=center colspan=2
-                    style="width:212.9500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><b><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-weight:bold;font-size:14.0000pt;mso-font-kerning:1.0000pt;">加减分条件</span></b><b><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-weight:bold;font-size:14.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></b>
-                    </p>
-                </td>
-                <td width=64 valign=center
-                    style="width:48.0500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><b><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-weight:bold;font-size:14.0000pt;mso-font-kerning:1.0000pt;">得分</span></b><b><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-weight:bold;font-size:14.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></b>
-                    </p>
-                </td>
-            </tr>
-            <tr style="height:20.9000pt;">
-                <td width=93 valign=center rowspan=2
-                    style="width:69.7500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:1.0000pt solid windowtext;mso-border-left-alt:0.5000pt solid windowtext;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:none;;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">月总录入量</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=139 valign=center rowspan=2
-                    style="width:104.7000pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:none;;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal style="line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">基准分20分。标准：完成基准推广录入量</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=283 valign=center colspan=2
-                    style="width:212.9500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal style="line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">加：高于基准录入量</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=64 valign=center rowspan=2
-                    style="width:48.0500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:none;;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p>&nbsp;</o:p></span>
-                        <select id="core1" name="core1" onchange="corechange()">
+					</p></td>
+				<td width=174 valign=center
+					style="width: 130.5000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: 1.0000pt solid windowtext; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<b><span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-weight: bold; font-size: 14.0000pt; mso-font-kerning: 1.0000pt;">考核月份</span></b><b><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-weight: bold; font-size: 14.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></b>
+					</p></td>
+				<td width=174 valign=center colspan=2
+					style="width: 130.5000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: 1.0000pt solid windowtext; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<b><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-weight: bold; font-size: 14.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span></b>
+							<label style="color: orangered">${empCheck.checkMonth}</label>
+					</p></td>
+			</tr>
+			<tr style="height: 24.0500pt;">
+				<td width=93 valign=center
+					style="width: 69.7500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: 1.0000pt solid windowtext; mso-border-left-alt: 0.5000pt solid windowtext; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<b><span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-weight: bold; font-size: 14.0000pt; mso-font-kerning: 1.0000pt;">考核项</span></b><b><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-weight: bold; font-size: 14.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></b>
+					</p></td>
+				<td width=139 valign=center
+					style="width: 104.7000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<b><span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-weight: bold; font-size: 14.0000pt; mso-font-kerning: 1.0000pt;">基准标准</span></b><b><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-weight: bold; font-size: 14.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></b>
+					</p></td>
+				<td width=174 valign=center
+					style="width: 130.5000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<b><span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-weight: bold; font-size: 14.0000pt; mso-font-kerning: 1.0000pt;">加减分条件</span></b><b><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-weight: bold; font-size: 14.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></b>
+					</p></td>
+				<td width=58 valign=center
+					style="width: 44.0500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<b><span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-weight: bold; font-size: 14.0000pt; mso-font-kerning: 1.0000pt;">得分</span></b><b><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-weight: bold; font-size: 14.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></b>
+					</p></td>
+				<td width=115 valign=center
+					style="width: 86.4500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: 1.0000pt solid windowtext; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<b><span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-weight: bold; font-size: 14.0000pt; mso-font-kerning: 1.0000pt;">备注</span></b><b><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-weight: bold; font-size: 14.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></b>
+					</p></td>
+			</tr>
+			<tr style="height: 20.9000pt;">
+				<td width=93 valign=center rowspan=2
+					style="width: 69.7500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: 1.0000pt solid windowtext; mso-border-left-alt: 0.5000pt solid windowtext; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">月总录入量</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=139 valign=center rowspan=2
+					style="width: 104.7000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal style="line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">基准分20分。标准：完成基准推广录入量</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=174 valign=center
+					style="width: 130.5000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal style="line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">加：高于基准录入量</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=58 valign=center rowspan=2
+					style="width: 44.0500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
+							<select id="core1" name="core1" onchange="corechange()">
 							<c:forEach var="intNum" items="${arr}">
 								<option value="<c:out value="${intNum}"/>" 
 								<c:if test="${intNum == '20' }">selected</c:if>>   <c:out value="${intNum}" /></option>
 							</c:forEach>
 						</select>
-                    </p>
-                </td>
-            </tr>
-            <tr style="height:19.7500pt;">
-                <td width=283 valign=center colspan=2
-                    style="width:212.9500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal style="line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">减：低于基准录入量</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-            </tr>
-            <tr style="height:37.1000pt;">
-                <td width=93 valign=center rowspan=2
-                    style="width:69.7500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:1.0000pt solid windowtext;mso-border-left-alt:0.5000pt solid windowtext;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:none;;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">业绩</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=139 valign=center rowspan=2
-                    style="width:104.7000pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:none;;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal style="line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">基准分12分。标准：</span><span
-                            style="mso-spacerun:'yes';font-family:仿宋;font-size:12.0000pt;mso-font-kerning:1.0000pt;">当月业绩额=成本</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=283 valign=center colspan=2
-                    style="width:212.9500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal style="line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">此项因有绩效提成作为计算标准，故此考核体系不做加分</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=64 valign=center rowspan=2
-                    style="width:48.0500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:none;;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p>&nbsp;</o:p></span>
-					<select id="core2" name="core2" onchange="corechange()">
+					</p></td>
+				<td width=115 valign=center rowspan=2
+					style="position:relative;width: 86.4500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
+					<textarea id="text1" name="text1" style="position:absolute;width:90%;height:84%;margin-left:-56px;margin-top:-16px;border:none"></textarea>
+					</p></td>
+			</tr>
+			<tr style="height: 19.7500pt;">
+				<td width=174 valign=center
+					style="width: 130.5000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal style="line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">减：低于基准录入量</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+			</tr>
+			<tr style="height: 37.1000pt;">
+				<td width=93 valign=center rowspan=2
+					style="width: 69.7500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: 1.0000pt solid windowtext; mso-border-left-alt: 0.5000pt solid windowtext; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">业绩</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=139 valign=center rowspan=2
+					style="width: 104.7000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal style="line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">基准分12分。标准：</span><span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">当月业绩额=成本</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=174 valign=center
+					style="width: 130.5000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal style="line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">此项因有绩效提成作为计算标准，故此考核体系不做加分</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=58 valign=center rowspan=2
+					style="width: 44.0500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
+							<select id="core2" name="core2" onchange="corechange()">
 							<c:forEach var="intNum" items="${arr}">
 								<option value="<c:out value="${intNum}"/>" <c:if test="${intNum == '12' }">selected</c:if>>   
 								<c:out value="${intNum}" /></option>
 							</c:forEach>
 						</select>
-                    </p>
-                </td>
-            </tr>
-            <tr style="height:13.5500pt;">
-                <td width=283 valign=center colspan=2
-                    style="width:212.9500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal style="line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">减：</span><span
-                            style="mso-spacerun:'yes';font-family:仿宋;font-size:12.0000pt;mso-font-kerning:1.0000pt;">当月业绩额&#60;成本</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-            </tr>
-            <tr style="height:34.3500pt;">
-                <td width=93 valign=center rowspan=2
-                    style="width:69.7500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:1.0000pt solid windowtext;mso-border-left-alt:0.5000pt solid windowtext;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:none;;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">回访工作</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=139 valign=center rowspan=2
-                    style="width:104.7000pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:none;;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal style="line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">基准分12分。标准：按质按量完成每月回访任务</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=283 valign=center colspan=2
-                    style="width:212.9500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal style="line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">加：回访按质按量完成，并通过回访帮助学生解决了问题</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=64 valign=center rowspan=2
-                    style="width:48.0500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:none;;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p>&nbsp;</o:p></span>
-					<select id="core3" name="core3" onchange="corechange()">
+					</p></td>
+				<td width=115 valign=center rowspan=2
+					style="position:relative;width: 86.4500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
+					<textarea id="text2" name="text2" style="position:absolute;width:90%;height:88%;margin-left:-56px;margin-top:-28px;border:none"></textarea>
+					</p></td>
+			</tr>
+			<tr style="height: 13.5500pt;">
+				<td width=174 valign=center
+					style="width: 130.5000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal style="line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">减：</span><span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">当月业绩额&#60;成本</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+			</tr>
+			<tr style="height: 34.3500pt;">
+				<td width=93 valign=center rowspan=2
+					style="width: 69.7500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: 1.0000pt solid windowtext; mso-border-left-alt: 0.5000pt solid windowtext; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">回访工作</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=139 valign=center rowspan=2
+					style="width: 104.7000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal style="line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">基准分12分。标准：按质按量完成每月回访任务</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=174 valign=center
+					style="width: 130.5000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal style="line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">加：回访按质按量完成，并通过回访帮助学生解决了问题</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=58 valign=center rowspan=2
+					style="width: 44.0500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
+							<select id="core3" name="core3" onchange="corechange()">
 							<c:forEach var="intNum" items="${arr}">
 								<option value="<c:out value="${intNum}"/>" <c:if test="${intNum == '12' }">selected</c:if>>   
 								<c:out value="${intNum}" /></option>
 							</c:forEach>
 						</select>
-                    </p>
-                </td>
-            </tr>
-            <tr style="height:26.6000pt;">
-                <td width=283 valign=center colspan=2
-                    style="width:212.9500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal style="line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">减：未完成回访任务</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-            </tr>
-            <tr style="height:19.7500pt;">
-                <td width=93 valign=center rowspan=2
-                    style="width:69.7500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:1.0000pt solid windowtext;mso-border-left-alt:0.5000pt solid windowtext;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:none;;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">工作纪律</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=139 valign=center rowspan=2
-                    style="width:104.7000pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:none;;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">基准分12分。标准：遵守公司各项规章制度</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=283 valign=center colspan=2
-                    style="width:212.9500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">加：全勤等</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=64 valign=center rowspan=2
-                    style="width:48.0500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:none;;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;"><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p>&nbsp;</o:p></span>
-					<select id="core4" name="core4" onchange="corechange()">
+					</p></td>
+				<td width=115 valign=center rowspan=2
+					style="position:relative;width: 86.4500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
+					<textarea id="text3" name="text3" style="position:absolute;width:90%;height:86%;margin-left:-56px;margin-top:-28px;border:none"></textarea>
+					</p></td>
+			</tr>
+			<tr style="height: 26.6000pt;">
+				<td width=174 valign=center
+					style="width: 130.5000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal style="line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">减：未完成回访任务</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+			</tr>
+			<tr style="height: 19.7500pt;">
+				<td width=93 valign=center rowspan=2
+					style="width: 69.7500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: 1.0000pt solid windowtext; mso-border-left-alt: 0.5000pt solid windowtext; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">工作纪律</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=139 valign=center rowspan=2
+					style="width: 104.7000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal>
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">基准分12分。标准：遵守公司各项规章制度</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=174 valign=center
+					style="width: 130.5000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal>
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">加：全勤等</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=58 valign=center rowspan=2
+					style="width: 44.0500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center style="text-align: center;">
+						<span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
+							<select id="core4" name="core4" onchange="corechange()">
 							<c:forEach var="intNum" items="${arr}">
 								<option value="<c:out value="${intNum}"/>" <c:if test="${intNum == '12' }">selected</c:if>>   
 								<c:out value="${intNum}" /></option>
 							</c:forEach>
 						</select>
-                    </p>
-                </td>
-            </tr>
-            <tr style="height:40.9000pt;">
-                <td width=283 valign=center colspan=2
-                    style="width:212.9500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">减：工作时间玩手机、看视频等做与工作无关的事；迟到、早退、旷工等</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-            </tr>
-            <tr style="height:30.9500pt;">
-                <td width=93 valign=center rowspan=2
-                    style="width:69.7500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:1.0000pt solid windowtext;mso-border-left-alt:0.5000pt solid windowtext;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:none;;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">工作态度</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=139 valign=center rowspan=2
-                    style="width:104.7000pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:none;;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">基准分12分。标准：工作态度良好</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=283 valign=center colspan=2
-                    style="width:212.9500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">加：平时主动加班；节假日主动值班并未调休；帮助部门负责人积极处理部门工作</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=64 valign=center rowspan=2
-                    style="width:48.0500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:none;;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;"><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p>&nbsp;</o:p></span>
-					<select id="core5" name="core5" onchange="corechange()">
+					</p></td>
+				<td width=115 valign=center rowspan=2
+					style="position:relative;width: 86.4500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center style="text-align: center;">
+						<span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
+					<textarea id="text4" name="text4" style="position:absolute;width:90%;height:88%;margin-left:-56px;margin-top:-36px;border:none"></textarea>
+					</p></td>
+			</tr>
+			<tr style="height: 40.9000pt;">
+				<td width=174 valign=center
+					style="width: 130.5000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal>
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">减：工作时间玩手机、看视频等做与工作无关的事；迟到、早退、旷工等</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+			</tr>
+			<tr style="height: 30.9500pt;">
+				<td width=93 valign=center rowspan=2
+					style="width: 69.7500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: 1.0000pt solid windowtext; mso-border-left-alt: 0.5000pt solid windowtext; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">工作态度</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=139 valign=center rowspan=2
+					style="width: 104.7000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal>
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">基准分12分。标准：工作态度良好</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=174 valign=center
+					style="width: 130.5000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal>
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">加：平时主动加班；节假日主动值班并未调休；帮助部门负责人积极处理部门工作</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=58 valign=center rowspan=2
+					style="width: 44.0500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center style="text-align: center;">
+						<span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
+							<select id="core5" name="core5" onchange="corechange()">
 							<c:forEach var="intNum" items="${arr}">
 								<option value="<c:out value="${intNum}"/>" <c:if test="${intNum == '12' }">selected</c:if>>   
 								<c:out value="${intNum}" /></option>
 							</c:forEach>
 						</select>
-                    </p>
-                </td>
-            </tr>
-            <tr style="height:30.6000pt;">
-                <td width=283 valign=center colspan=2
-                    style="width:212.9500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">减：不服从管理、工作态度消极、态度恶劣等</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-            </tr>
-            <tr style="height:26.8000pt;">
-                <td width=93 valign=center rowspan=2
-                    style="width:69.7500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:1.0000pt solid windowtext;mso-border-left-alt:0.5000pt solid windowtext;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:none;;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">工作水平</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=139 valign=center rowspan=2
-                    style="width:104.7000pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:none;;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">基准分12分。标准：符合推广岗位基本工作水平</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=283 valign=center colspan=2
-                    style="width:212.9500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">加：积极分享岗位工作心得；帮助同事一起进步；积极在课堂配合；积极参与公司或部门推广活动策划；创新工作方法</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=64 valign=center rowspan=2
-                    style="width:48.0500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:none;;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;"><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p>&nbsp;</o:p></span>
-					<select id="core6" name="core6" onchange="corechange()">
+					</p></td>
+				<td width=115 valign=center rowspan=2
+					style="position:relative;width: 86.4500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center style="text-align: center;">
+						<span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
+					<textarea id="text5" name="text5" style="position:absolute;width:90%;height:88%;margin-left:-56px;margin-top:-51px;border:none"></textarea>
+					</p></td>
+			</tr>
+			<tr style="height: 30.6000pt;">
+				<td width=174 valign=center
+					style="width: 130.5000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal>
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">减：不服从管理、工作态度消极、态度恶劣等</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+			</tr>
+			<tr style="height: 26.8000pt;">
+				<td width=93 valign=center rowspan=2
+					style="width: 69.7500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: 1.0000pt solid windowtext; mso-border-left-alt: 0.5000pt solid windowtext; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">工作水平</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=139 valign=center rowspan=2
+					style="width: 104.7000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal>
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">基准分12分。标准：符合推广岗位基本工作水平</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=174 valign=center
+					style="width: 130.5000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal>
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">加：积极分享岗位工作心得；帮助同事一起进步；积极在课堂配合；积极参与公司或部门推广活动策划；创新工作方法</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=58 valign=center rowspan=2
+					style="width: 44.0500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center style="text-align: center;">
+						<span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
+							<select id="core6" name="core6" onchange="corechange()">
 							<c:forEach var="intNum" items="${arr}">
 								<option value="<c:out value="${intNum}"/>" <c:if test="${intNum == '12' }">selected</c:if>>   
 								<c:out value="${intNum}" /></option>
 							</c:forEach>
 						</select>
-                    </p>
-                </td>
-            </tr>
-            <tr style="height:23.0000pt;">
-                <td width=283 valign=center colspan=2
-                    style="width:212.9500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">减：不能自主解决推广工作中遇到的问题；管理群资源等处置不当引起学生投诉等</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-            </tr>
-            <tr style="height:43.0500pt;">
-                <td width=93 valign=center
-                    style="width:69.7500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:1.0000pt solid windowtext;mso-border-left-alt:0.5000pt solid windowtext;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">附加贡献加分</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=139 valign=center
-                    style="width:104.7000pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">加分项。参与助教外其他工作</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=283 valign=center colspan=2
-                    style="width:212.9500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">主持；对公司有突出贡献；工作有突出成绩等</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=64 valign=center
-                    style="width:48.0500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;"><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p>&nbsp;</o:p></span>
-					<select id="core7" name="core7" onchange="corechange()">
+					</p></td>
+				<td width=115 valign=center rowspan=2
+					style="position:relative;width: 86.4500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center style="text-align: center;">
+						<span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
+					<textarea id="text6" name="text6" style="position:absolute;width:90%;height:94%;margin-left:-56px;margin-top:-90px;border:none"></textarea>
+					</p></td>
+			</tr>
+			<tr style="height: 23.0000pt;">
+				<td width=174 valign=center
+					style="width: 130.5000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal>
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">减：不能自主解决推广工作中遇到的问题；管理群资源等处置不当引起学生投诉等</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+			</tr>
+			<tr style="height: 43.0500pt;">
+				<td width=93 valign=center
+					style="width: 69.7500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: 1.0000pt solid windowtext; mso-border-left-alt: 0.5000pt solid windowtext; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">附加贡献加分</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=139 valign=center
+					style="width: 104.7000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal>
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">加分项。参与助教外其他工作</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=174 valign=center
+					style="width: 130.5000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal>
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">主持；对公司有突出贡献；工作有突出成绩等</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=58 valign=center
+					style="width: 44.0500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center style="text-align: center;">
+						<span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
+							<select id="core7" name="core7" onchange="corechange()">
 								<option value="0" >0</option>
 								<option value="1" >1</option>
 								<option value="2" >2</option>
@@ -536,69 +616,81 @@ div.Section0{page:Section0;}</style></head><body style="tab-interval:21pt;text-j
 								<option value="9" >9</option>
 								<option value="10" >10</option>
 						</select>
-                    </p>
-                </td>
-            </tr>
-            <tr style="height:25.8500pt;">
-                <td width=93 valign=center
-                    style="width:69.7500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:1.0000pt solid windowtext;mso-border-left-alt:0.5000pt solid windowtext;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">总分</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=487 valign=top colspan=4
-                    style="width:365.7000pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;"><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p>&nbsp;</o:p></span>
-<input id="totalcore" name="totalcore" readonly="true" value="80" style="border:0px;"/>
-                    </p>
-                </td>
-            </tr>
-     
-            <tr style="height:28.3500pt;">
-                <td width=93 valign=center
-                    style="width:69.7500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:1.0000pt solid windowtext;mso-border-left-alt:0.5000pt solid windowtext;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">确认签字</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=487 valign=top colspan=4
-                    style="width:365.7000pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;"><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p>&nbsp;</o:p></span>
-							
-                    </p>
-                </td>
-            </tr>
-            <tr style="height:18.8500pt;">
-                <td width=93 valign=center
-                    style="width:69.7500pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:1.0000pt solid windowtext;mso-border-left-alt:0.5000pt solid windowtext;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal align=center style="text-align:center;line-height:114%;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">说明</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-                <td width=487 valign=top colspan=4
-                    style="width:365.7000pt;padding:0.0000pt 5.4000pt 0.0000pt 5.4000pt ;border-left:none;;mso-border-left-alt:none;;border-right:1.0000pt solid windowtext;mso-border-right-alt:0.5000pt solid windowtext;border-top:none;;mso-border-top-alt:0.5000pt solid windowtext;border-bottom:1.0000pt solid windowtext;mso-border-bottom-alt:0.5000pt solid windowtext;">
-                    <p class=MsoNormal style="text-indent:6.0000pt;mso-char-indent-count:0.5000;"><span
-                            style="mso-spacerun:'yes';font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;">80分为基本工资线超过或低于80分每1分加减15元，分数不设上下限，工资加减上下限为300元。试用期员工考核结果仅作为能否转正的依据。各项适用加减分的情况由岗位负责人根据部门整体分值分配加减。</span><span
-                            style="font-family:仿宋;color:rgb(0,0,0);font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span>
-                    </p>
-                </td>
-            </tr>
-            			<tr style="height:18.8500pt;"></tr>
+					</p></td>
+				<td width=115 valign=center
+					style="position:relative;width: 86.4500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center style="text-align: center;">
+						<span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
+					<textarea id="text7" name="text7" style="position:absolute;width:90%;height:84%;margin-left:-56px;margin-top:-16px;border:none"></textarea>
+					</p></td>
+			</tr>
+			<tr style="height: 25.8500pt;">
+				<td width=93 valign=center
+					style="width: 69.7500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: 1.0000pt solid windowtext; mso-border-left-alt: 0.5000pt solid windowtext; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">总分</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=487 valign=top colspan=4
+					style="width: 365.7000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center style="text-align: center;">
+						<span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
+							<input id="totalcore" name="totalcore" readonly="true" value="80" style="border:0px;"/>
+					</p></td>
+			</tr>
+			<tr style="height: 28.3500pt;">
+				<td width=93 valign=center
+					style="width: 69.7500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: 1.0000pt solid windowtext; mso-border-left-alt: 0.5000pt solid windowtext; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">确认签字</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=487 valign=top colspan=4
+					style="width: 365.7000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center style="text-align: center;">
+						<span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
+					</p></td>
+			</tr>
+			<tr style="height: 18.8500pt;">
+				<td width=93 valign=center
+					style="width: 69.7500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: 1.0000pt solid windowtext; mso-border-left-alt: 0.5000pt solid windowtext; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal align=center
+						style="text-align: center; line-height: 114%;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">说明</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+				<td width=487 valign=top colspan=4
+					style="width: 365.7000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
+						class=MsoNormal
+						style="text-indent: 6.0000pt; mso-char-indent-count: 0.5000;">
+						<span
+							style="mso-spacerun: 'yes'; font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">80分为基本工资线超过或低于80分每1分加减15元，分数不设上下限，工资加减上下限为300元。试用期员工考核结果仅作为能否转正的依据。各项适用加减分的情况由岗位负责人根据部门整体分值分配加减。</span><span
+							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span>
+					</p></td>
+			</tr>
+			<tr style="height:18.8500pt;"></tr>
             <tr align="center">
                 <td colspan=5>
                     <input type="button" value="提交" style="width: 70px;" onclick="ajaxUpload()">
                 </td>
             </tr>
-        </table>
-        <p class=MsoNormal><span
-                style="mso-spacerun:'yes';font-family:仿宋;font-size:12.0000pt;mso-font-kerning:1.0000pt;"><o:p>&nbsp;</o:p></span>
-        </p>
-    </div><!--EndFragment--></body>
+		</table>
+		</form>
+		<p class=MsoNormal>
+			<span
+				style="mso-spacerun: 'yes'; font-family: 仿宋; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
+		</p>
+	</div>
+	<!--EndFragment-->
+</body>
 <script type="text/javascript">
 
 function corechange(){

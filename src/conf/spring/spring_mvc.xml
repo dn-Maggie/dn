@@ -89,7 +89,7 @@ spring3.1之后RequestMappingHandlerMapping RequestMappingHandlerAdapter -->
 			</list>
 		</property>
 	</bean>
-
+   <!-- Enables the Spring MVC @Controller programming model --> 
 	<mvc:annotation-driven />
 
 

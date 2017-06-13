@@ -52,6 +52,7 @@ import com.dongnao.workbench.vipStudent.model.VipStudent;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -256,18 +257,18 @@ public class EmpCheckController{
 			int checkStanderd = checkHtmlForm.getCheckStanderd();
 			String filePath = "";
 		    switch (checkStanderd){
-//		        case 2:filePath = "/usr/dnfile/checkmodel/kf.html";break;
-//		        case 3:filePath = "/usr/dnfile/checkmodel/gkkjs.html";break;
-//		        case 4:filePath = "/usr/dnfile/checkmodel/vipjs.html";break;
-//		        case 5:filePath = "/usr/dnfile/checkmodel/zj.html";break;
-//		        case 6:filePath = "/usr/dnfile/checkmodel/bzr.html";break;
-//		        default:filePath = "/usr/dnfile/checkmodel/znbm.html"; break;
-			    case 2:filePath = "D:\\TestFile\\kf.html";break;
-		        case 3:filePath = "D:\\TestFile\\gkkjs.html";break;
-		        case 4:filePath = "D:\\TestFile\\vipjs.html";break;
-		        case 5:filePath = "D:\\TestFile\\zj.html";break;
-		        case 6:filePath = "D:\\TestFile\\bzr.html";break;
-		        default:filePath = "D:\\TestFile\\znbm.html"; break;
+		        case 2:filePath = "/usr/dnfile/checkmodel/kf.html";break;
+		        case 3:filePath = "/usr/dnfile/checkmodel/gkkjs.html";break;
+		        case 4:filePath = "/usr/dnfile/checkmodel/vipjs.html";break;
+		        case 5:filePath = "/usr/dnfile/checkmodel/zj.html";break;
+		        case 6:filePath = "/usr/dnfile/checkmodel/bzr.html";break;
+		        default:filePath = "/usr/dnfile/checkmodel/znbm.html"; break;
+//			    case 2:filePath = "D:\\TestFile\\kf.html";break;
+//		        case 3:filePath = "D:\\TestFile\\gkkjs.html";break;
+//		        case 4:filePath = "D:\\TestFile\\vipjs.html";break;
+//		        case 5:filePath = "D:\\TestFile\\zj.html";break;
+//		        case 6:filePath = "D:\\TestFile\\bzr.html";break;
+//		        default:filePath = "D:\\TestFile\\znbm.html"; break;
 		    }
 
 	        try {
@@ -287,6 +288,11 @@ public class EmpCheckController{
 	        	templateContent = templateContent.replaceAll("#core3#", checkHtmlForm.getCore3());
 	        	templateContent = templateContent.replaceAll("#core4#", checkHtmlForm.getCore4());
 	        	templateContent = templateContent.replaceAll("#core5#", checkHtmlForm.getCore5());
+	        	templateContent = templateContent.replaceAll("#note1#", StringUtils.defaultIfEmpty(checkHtmlForm.getText1(),""));
+	        	templateContent = templateContent.replaceAll("#note2#", StringUtils.defaultIfEmpty(checkHtmlForm.getText2(),""));
+	        	templateContent = templateContent.replaceAll("#note3#", StringUtils.defaultIfEmpty(checkHtmlForm.getText3(),""));
+	        	templateContent = templateContent.replaceAll("#note4#", StringUtils.defaultIfEmpty(checkHtmlForm.getText4(),""));
+	        	templateContent = templateContent.replaceAll("#note5#", StringUtils.defaultIfEmpty(checkHtmlForm.getText5(),""));
 	        	templateContent = templateContent.replaceAll("#total#", checkHtmlForm.getTotalcore());
 	        	if(checkHtmlForm.getCore6()!=null){
 	        		templateContent = templateContent.replaceAll("#core6#", checkHtmlForm.getCore6());
@@ -297,10 +303,20 @@ public class EmpCheckController{
 	        	if(checkHtmlForm.getCore8()!=null){
 	        		templateContent = templateContent.replaceAll("#core8#", checkHtmlForm.getCore8());
 	        	}
+	        	if(checkHtmlForm.getText6()!=null){
+	        		templateContent = templateContent.replaceAll("#note6#", checkHtmlForm.getText6());
+	        	}
+	        	if(checkHtmlForm.getText7()!=null){
+	        		templateContent = templateContent.replaceAll("#note7#", checkHtmlForm.getText7());
+	        	}
+	        	if(checkHtmlForm.getText8()!=null){
+	        		templateContent = templateContent.replaceAll("#note8#", checkHtmlForm.getText8());
+	        	}
+	        	
 	        	logger.debug("文件内容=====" + templateContent);
 	        	String fileame = checkHtmlForm.getEmpNo() + "-" + checkHtmlForm.getCheckMonth() + ".html";//文件名
 	        	//System.out.println(checkHtmlForm.getEmpName());
-	        	fileame = "D:\\TestFile\\checkfile\\" + fileame;//生成的html文件保存路径。D:\\TestFile\\checkfile\\   --/usr/dnfile/checkfile/     	
+	        	fileame = "/usr/dnfile/checkfile/" + fileame;//生成的html文件保存路径。D:\\TestFile\\checkfile\\   --/usr/dnfile/checkfile/     	
 	        	logger.debug("====================文件名1====================" + fileame);
 	        	byte[] bytes = fileame.getBytes("UTF-8");
 	        	String f = new String(bytes,"UTF-8");
