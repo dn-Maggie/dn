@@ -284,12 +284,20 @@ div.Section0{page:Section0;}</style></head>
 						style="text-align: center; line-height: 114%;">
 						<span
 							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
-							<select id="core1" name="core1" onchange="corechange()">
+							
+							<c:choose> 
+					  <c:when test="${type eq 'check'}">   
+					    <select id="core1" name="core1" onchange="corechange()">
 							<c:forEach var="intNum" items="${arr}">
 								<option value="<c:out value="${intNum}"/>" 
 								<c:if test="${intNum == '20' }">selected</c:if>>   <c:out value="${intNum}" /></option>
 							</c:forEach>
 						</select>
+					  </c:when>  
+					  <c:otherwise>   
+					    <label style="color: orangered">${checkHtmlForm.core1}</label>  
+					  </c:otherwise> 
+					</c:choose>
 					</p></td>
 				<td width=115 valign=center rowspan=2
 					style="position:relative;width: 86.4500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
@@ -297,7 +305,15 @@ div.Section0{page:Section0;}</style></head>
 						style="text-align: center; line-height: 114%;">
 						<span
 							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
-					<textarea id="text1" name="text1" style="position:absolute;width:90%;height:84%;margin-left:-56px;margin-top:-16px;border:none"></textarea>
+					<c:choose> 
+					  <c:when test="${type eq 'check'}">   
+					    <textarea id="text1" name="text1" style="position:absolute;width:90%;height:84%;margin-left:-56px;margin-top:-16px;border:none"></textarea>
+					  </c:when>  
+					  <c:otherwise>   
+					    <label style="color: orangered">${checkHtmlForm.text1}</label>  
+					  </c:otherwise> 
+					</c:choose>
+					
 					</p></td>
 			</tr>
 			<tr style="height: 19.7500pt;">
@@ -339,12 +355,20 @@ div.Section0{page:Section0;}</style></head>
 						style="text-align: center; line-height: 114%;">
 						<span
 							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
-							<select id="core2" name="core2" onchange="corechange()">
+								<c:choose> 
+					  <c:when test="${type eq 'check'}">   
+					   <select id="core2" name="core2" onchange="corechange()">
 							<c:forEach var="intNum" items="${arr}">
 								<option value="<c:out value="${intNum}"/>" <c:if test="${intNum == '12' }">selected</c:if>>   
 								<c:out value="${intNum}" /></option>
 							</c:forEach>
-						</select>
+						</select> 
+					  </c:when>  
+					  <c:otherwise>   
+					    <label style="color: orangered">${checkHtmlForm.core2}</label>  
+					  </c:otherwise> 
+					</c:choose>
+							
 					</p></td>
 				<td width=115 valign=center rowspan=2
 					style="position:relative;width: 86.4500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
@@ -352,7 +376,15 @@ div.Section0{page:Section0;}</style></head>
 						style="text-align: center; line-height: 114%;">
 						<span
 							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
-					<textarea id="text2" name="text2" style="position:absolute;width:90%;height:88%;margin-left:-56px;margin-top:-28px;border:none"></textarea>
+					<c:choose> 
+					  <c:when test="${type eq 'check'}">   
+					  <textarea id="text2" name="text2" style="position:absolute;width:90%;height:88%;margin-left:-56px;margin-top:-28px;border:none"></textarea>
+					  </c:when>  
+					  <c:otherwise>   
+					    <label style="color: orangered">${checkHtmlForm.text2}</label>  
+					  </c:otherwise> 
+					</c:choose>
+					
 					</p></td>
 			</tr>
 			<tr style="height: 13.5500pt;">
@@ -394,12 +426,20 @@ div.Section0{page:Section0;}</style></head>
 						style="text-align: center; line-height: 114%;">
 						<span
 							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
-							<select id="core3" name="core3" onchange="corechange()">
+								<c:choose> 
+					  <c:when test="${type eq 'check'}">   
+					   <select id="core3" name="core3" onchange="corechange()">
 							<c:forEach var="intNum" items="${arr}">
 								<option value="<c:out value="${intNum}"/>" <c:if test="${intNum == '12' }">selected</c:if>>   
 								<c:out value="${intNum}" /></option>
 							</c:forEach>
 						</select>
+					  </c:when>  
+					  <c:otherwise>   
+					    <label style="color: orangered">${checkHtmlForm.core3}</label>  
+					  </c:otherwise> 
+					</c:choose>
+							
 					</p></td>
 				<td width=115 valign=center rowspan=2
 					style="position:relative;width: 86.4500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
@@ -407,7 +447,15 @@ div.Section0{page:Section0;}</style></head>
 						style="text-align: center; line-height: 114%;">
 						<span
 							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
-					<textarea id="text3" name="text3" style="position:absolute;width:90%;height:86%;margin-left:-56px;margin-top:-28px;border:none"></textarea>
+					<c:choose> 
+					  <c:when test="${type eq 'check'}">   
+					   <textarea id="text3" name="text3" style="position:absolute;width:90%;height:86%;margin-left:-56px;margin-top:-28px;border:none"></textarea>
+					  </c:when>  
+					  <c:otherwise>   
+					    <label style="color: orangered">${checkHtmlForm.text3}</label>  
+					  </c:otherwise> 
+					</c:choose>
+					
 					</p></td>
 			</tr>
 			<tr style="height: 26.6000pt;">
@@ -447,19 +495,35 @@ div.Section0{page:Section0;}</style></head>
 						class=MsoNormal align=center style="text-align: center;">
 						<span
 							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
-							<select id="core4" name="core4" onchange="corechange()">
+							<c:choose> 
+					  <c:when test="${type eq 'check'}">   
+					  <select id="core4" name="core4" onchange="corechange()">
 							<c:forEach var="intNum" items="${arr}">
 								<option value="<c:out value="${intNum}"/>" <c:if test="${intNum == '12' }">selected</c:if>>   
 								<c:out value="${intNum}" /></option>
 							</c:forEach>
 						</select>
+					  </c:when>  
+					  <c:otherwise>   
+					    <label style="color: orangered">${checkHtmlForm.core4}</label>  
+					  </c:otherwise> 
+					</c:choose>
+							
 					</p></td>
 				<td width=115 valign=center rowspan=2
 					style="position:relative;width: 86.4500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
 						class=MsoNormal align=center style="text-align: center;">
 						<span
 							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
-					<textarea id="text4" name="text4" style="position:absolute;width:90%;height:88%;margin-left:-56px;margin-top:-36px;border:none"></textarea>
+					<c:choose> 
+					  <c:when test="${type eq 'check'}">   
+					   <textarea id="text4" name="text4" style="position:absolute;width:90%;height:88%;margin-left:-56px;margin-top:-36px;border:none"></textarea> 
+					  </c:when>  
+					  <c:otherwise>   
+					    <label style="color: orangered">${checkHtmlForm.text4}</label>  
+					  </c:otherwise> 
+					</c:choose>
+					
 					</p></td>
 			</tr>
 			<tr style="height: 40.9000pt;">
@@ -499,19 +563,35 @@ div.Section0{page:Section0;}</style></head>
 						class=MsoNormal align=center style="text-align: center;">
 						<span
 							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
-							<select id="core5" name="core5" onchange="corechange()">
+							<c:choose> 
+					  <c:when test="${type eq 'check'}">   
+					 <select id="core5" name="core5" onchange="corechange()">
 							<c:forEach var="intNum" items="${arr}">
 								<option value="<c:out value="${intNum}"/>" <c:if test="${intNum == '12' }">selected</c:if>>   
 								<c:out value="${intNum}" /></option>
 							</c:forEach>
 						</select>
+					  </c:when>  
+					  <c:otherwise>   
+					    <label style="color: orangered">${checkHtmlForm.core5}</label>  
+					  </c:otherwise> 
+					</c:choose>
+							
 					</p></td>
 				<td width=115 valign=center rowspan=2
 					style="position:relative;width: 86.4500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
 						class=MsoNormal align=center style="text-align: center;">
 						<span
 							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
-					<textarea id="text5" name="text5" style="position:absolute;width:90%;height:88%;margin-left:-56px;margin-top:-51px;border:none"></textarea>
+					<c:choose> 
+					  <c:when test="${type eq 'check'}">   
+					   <textarea id="text5" name="text5" style="position:absolute;width:90%;height:88%;margin-left:-56px;margin-top:-51px;border:none"></textarea>
+					  </c:when>  
+					  <c:otherwise>   
+					    <label style="color: orangered">${checkHtmlForm.text5}</label>  
+					  </c:otherwise> 
+					</c:choose>
+					
 					</p></td>
 			</tr>
 			<tr style="height: 30.6000pt;">
@@ -551,19 +631,35 @@ div.Section0{page:Section0;}</style></head>
 						class=MsoNormal align=center style="text-align: center;">
 						<span
 							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
-							<select id="core6" name="core6" onchange="corechange()">
+							<c:choose> 
+					  <c:when test="${type eq 'check'}">   
+					 <select id="core6" name="core6" onchange="corechange()">
 							<c:forEach var="intNum" items="${arr}">
 								<option value="<c:out value="${intNum}"/>" <c:if test="${intNum == '12' }">selected</c:if>>   
 								<c:out value="${intNum}" /></option>
 							</c:forEach>
 						</select>
+					  </c:when>  
+					  <c:otherwise>   
+					    <label style="color: orangered">${checkHtmlForm.core6}</label>  
+					  </c:otherwise> 
+					</c:choose>
+							
 					</p></td>
 				<td width=115 valign=center rowspan=2
 					style="position:relative;width: 86.4500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: none;; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
 						class=MsoNormal align=center style="text-align: center;">
 						<span
 							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
-					<textarea id="text6" name="text6" style="position:absolute;width:90%;height:94%;margin-left:-56px;margin-top:-90px;border:none"></textarea>
+					<c:choose> 
+					  <c:when test="${type eq 'check'}">   
+					   <textarea id="text6" name="text6" style="position:absolute;width:90%;height:94%;margin-left:-56px;margin-top:-90px;border:none"></textarea>
+					  </c:when>  
+					  <c:otherwise>   
+					    <label style="color: orangered">${checkHtmlForm.text6}</label>  
+					  </c:otherwise> 
+					</c:choose>
+					
 					</p></td>
 			</tr>
 			<tr style="height: 23.0000pt;">
@@ -603,7 +699,9 @@ div.Section0{page:Section0;}</style></head>
 						class=MsoNormal align=center style="text-align: center;">
 						<span
 							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
-							<select id="core7" name="core7" onchange="corechange()">
+							<c:choose> 
+					  <c:when test="${type eq 'check'}">   
+					 <select id="core7" name="core7" onchange="corechange()">
 								<option value="0" >0</option>
 								<option value="1" >1</option>
 								<option value="2" >2</option>
@@ -616,13 +714,27 @@ div.Section0{page:Section0;}</style></head>
 								<option value="9" >9</option>
 								<option value="10" >10</option>
 						</select>
+					  </c:when>  
+					  <c:otherwise>   
+					    <label style="color: orangered">${checkHtmlForm.core7}</label>  
+					  </c:otherwise> 
+					</c:choose>
+							
 					</p></td>
 				<td width=115 valign=center
 					style="position:relative;width: 86.4500pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
 						class=MsoNormal align=center style="text-align: center;">
 						<span
 							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
-					<textarea id="text7" name="text7" style="position:absolute;width:90%;height:84%;margin-left:-56px;margin-top:-16px;border:none"></textarea>
+					<c:choose> 
+					  <c:when test="${type eq 'check'}">   
+					   <textarea id="text7" name="text7" style="position:absolute;width:90%;height:84%;margin-left:-56px;margin-top:-16px;border:none"></textarea>
+					  </c:when>  
+					  <c:otherwise>   
+					    <label style="color: orangered">${checkHtmlForm.text7}</label>  
+					  </c:otherwise> 
+					</c:choose>
+					
 					</p></td>
 			</tr>
 			<tr style="height: 25.8500pt;">
@@ -639,7 +751,15 @@ div.Section0{page:Section0;}</style></head>
 						class=MsoNormal align=center style="text-align: center;">
 						<span
 							style="font-family: 仿宋; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
-							<input id="totalcore" name="totalcore" readonly="true" value="80" style="border:0px;"/>
+							<c:choose> 
+					  <c:when test="${type eq 'check'}">   
+					   <input id="totalcore" name="totalcore" readonly="true" value="80" style="border:0px;"/>
+					  </c:when>  
+					  <c:otherwise>   
+					    <label style="color: orangered">${checkHtmlForm.totalcore}</label>  
+					  </c:otherwise> 
+					</c:choose>
+							
 					</p></td>
 			</tr>
 			<tr style="height: 28.3500pt;">
@@ -679,7 +799,19 @@ div.Section0{page:Section0;}</style></head>
 			<tr style="height:18.8500pt;"></tr>
             <tr align="center">
                 <td colspan=5>
-                    <input type="button" value="提交" style="width: 70px;" onclick="ajaxUpload()">
+                    <c:choose> 
+					  <c:when test="${type eq 'check'}">   
+					   <input type="button" value="提交" style="width: 70px;" onclick="ajaxUpload()">
+					   <input type="button" value="关闭" style="width: 70px;" onclick="cancelCheck()"> 
+					  </c:when>  
+					  <c:otherwise>   
+					  	<c:if test="${commonEmp}">
+							<input type="button" value="确认无误" style="width: 70px;" onclick="empConfirm(3,'${empCheck.empName}','${empCheck.checkMonth}')">
+					     	<input type="button" value="有异议" style="width: 70px;" onclick="empConfirm(2,'${empCheck.empName}','${empCheck.checkMonth}')">
+						</c:if>	
+						<input type="button" value="关闭" style="width: 70px;" onclick="cancelShow()"> 
+					  </c:otherwise> 
+					</c:choose>
                 </td>
             </tr>
 		</table>
@@ -700,15 +832,45 @@ function corechange(){
 
 function ajaxUpload(){
  		var options = {
-				url : "<m:url value='/empCheck/checkproducehtml.do'/>",
+				url : "<m:url value='/empCheck/saveCheckData.do'/>",
 				type : "post",
 				dataType:"text",
 				success :function(d) {
 						window.parent.closeCheck();
+						window.location.reload();
 				}
 			};
 			$('#form').ajaxSubmit(options);
  	}
 
+
+function empConfirm(num,empName,checkMonth){
+	var paramDatas = {
+			isConfirm:num,
+			empName:empName,
+			checkMonth:checkMonth
+			};
+		$.ajax({
+					url : "<m:url value='/empCheck/empConfirm.do'/>",
+					cache : false,
+					data: paramDatas,
+					async : false,
+					dataType:"json",
+					success : function(data, textStatus, jqXHR) {
+						window.parent.closeShowCheckForm();
+						window.location.reload();
+					}
+				});
+}
+
+function cancelCheck(){
+	window.parent.closeCheck();
+	window.location.reload();
+}
+
+function cancelShow(){
+	window.parent.closeShowCheckForm();
+	window.location.reload();
+}
 </script>
 </html>

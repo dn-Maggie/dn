@@ -25,10 +25,15 @@ var gridObj = {};
 				{name : "empNo",label:"员工编号",index : "emp_no",width:'20'},
 				{name : "empName",label:"员工姓名",index : "emp_name",width:'20'},		
 				{name : "nickName",label:"昵称",index : "nickname",width:'30'},	
-				{name : "post",label:"岗位",index : "post",width:'30'},		
+				{name : "post",label:"岗位",index : "post",width:'30'},
+				{name : "department",label:"部门",index : "department",width:'20'},
 				{name : "checkPoint",label:"考核分",index : "check_point",width:'20'},
 				{name : "checkMonth",label:"考核月份",index : "check_month",width:'30'},
 				{name : "checkPeople",label:"考核人",index : "checkpeople",width:'20'},
+	 			{name : "",label:"查看考核单",index : "operate",width:'30',align: 'center',formatter: function (cellvalue, options, rowObject) {
+					return "<input id=\"showCheckForm\" type=\"button\" class=\"ti_bottom\" value=\"查看考核单\" onclick=\"showCheckForm(\'" +rowObject.id+"\')\"/>"; 
+					},
+	            },
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
@@ -65,7 +70,7 @@ var gridObj = {};
 		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
 			width: $(window).width()*0.7,
-			height:$(window).height()*0.55,
+			height:$(window).height()*0.9,
 				title: "员工考核信息"
 		});
   		show_iframe_dialog.open();
@@ -107,6 +112,25 @@ var gridObj = {};
    	    d= d<10?"0"+d:d;   //  这里判断日期是否<10,如果是在日期前面加'0'
    	    return h+"-"+m;
    	}
+    
+ 	//考核表格弹出框
+	var showCheckForm_iframe_dialog;
+    function showCheckForm(key){
+    	var url="<m:url value='/empCheck/showCheckForm.do'/>?key="+key;
+    	showCheckForm_iframe_dialog = new biz.dialog({
+		 	id:$('<div id="checkwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+			modal: true,
+			width: $(window).width(),
+			height:$(window).height(),
+				title: "员工考核单"
+		});
+    	showCheckForm_iframe_dialog.open();
+    }
+    
+    function closeShowCheckForm(){
+    	showCheckForm_iframe_dialog.close();
+    	window.location.reload();
+    }
     </script>
 </head>
 <body style="height:100%;">
@@ -128,9 +152,20 @@ var gridObj = {};
 									class="search_time_ico2"
 									onclick="WdatePicker({el:'checkMonth',maxDate:'%y-%M',dateFmt:'yyyy-MM'})"></i>
 							</div></li>
+									<li>
+						<input id="post" name="post" type="hidden"/>
+					<select style="float:none" class="search_select" name="post" id="edit_post" mainid="post" >
+						<option value="" >所有</option>
+						<c:forEach var="duty" items="${duty}">
+							<option value="${duty.dutyName}" ><c:out value="${duty.dutyName}"></c:out></option>
+			             </c:forEach>
+			        </select>
+				<span>职位:</span>
+				</li>
 						<li>
 						<input id="checkMonth" name="checkMonth" type="hidden"/>
 					<select style="float:none" class="search_select" name="department" id="edit_department" mainid="department" >
+						<option value="" >所有</option>
 						<c:forEach var="org" items="${org}">
 							<option value="${org.orgName}" ><c:out value="${org.orgName}"></c:out></option>
 			             </c:forEach>

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.dongnao.workbench.account.model.AccountFinance;
 import com.dongnao.workbench.area.model.ChinaArea;
 import com.dongnao.workbench.area.service.ChinaAreaService;
+import com.dongnao.workbench.basic.model.Duty;
 import com.dongnao.workbench.basic.model.Org;
 import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.basic.service.DutyLevelService;
@@ -182,12 +183,13 @@ public class EmpCheckController{
 				ec.setPost(e.getPosition());
 				ec.setDepartment(e.getDept());
 				ec.setCheckMonth(empCheck.getCheckMonth());
-				ec.setBasePoints("");
+				ec.setCheckNote("");
 				ec.setCheckPoint("");
 				ec.setNickName(e.getNickName());
 				ec.setState(1);
 				ec.setCheckPeople(e.getCheckName());
 				ec.setCheckStanderd(e.getCheckStanderd());
+				ec.setIsConfirm(1);
 				empc.add(ec);
 			}
 			//插入部门所有员工未考核的数据
@@ -218,7 +220,9 @@ public class EmpCheckController{
 	 * @return ModelAndView: 查询实体
 	 */	
 	@RequestMapping("/toCheckTable")
-	public ModelAndView toCheckTable(String key){
+	public ModelAndView toCheckTable(String key,HttpServletRequest request,
+			HttpServletResponse response){
+		UserInfo user = Utils.getLoginUserInfo(request);
 		EmpCheck empCheck = empCheckService.getByPrimaryKey(key);
 		String mvstr = "";
 		int checkstanderd = 1;
@@ -238,6 +242,60 @@ public class EmpCheckController{
 		}
 		mv.addObject("empCheck", empCheck);
 		mv.addObject("arr", arr);
+		mv.addObject("user", user);
+		mv.addObject("type", "check");
+		return mv;
+	}
+	
+	/**
+	 * 查看员工考核情况方法
+	 * @param key String：实体id
+	 * @return ModelAndView: 查询实体
+	 */	
+	@RequestMapping("/showCheckForm")
+	public ModelAndView showCheckForm(String key,String commonEmp,HttpServletRequest request,
+			HttpServletResponse response){
+		UserInfo user = Utils.getLoginUserInfo(request);
+		EmpCheck empCheck = empCheckService.showCheckFormKey(key);
+		String mvstr = "";
+		int checkstanderd = 1;
+		checkstanderd = empCheck.getCheckStanderd();
+	    switch (checkstanderd){
+	        case 2:mvstr = "WEB-INF/jsp/school/empCheck/module/kf";break;
+	        case 3:mvstr = "WEB-INF/jsp/school/empCheck/module/gkkjs";break;
+	        case 4:mvstr = "WEB-INF/jsp/school/empCheck/module/vipjs";break;
+	        case 5:mvstr = "WEB-INF/jsp/school/empCheck/module/zj";break;
+	        case 6:mvstr = "WEB-INF/jsp/school/empCheck/module/bzr";break;
+	        default:mvstr = "WEB-INF/jsp/school/empCheck/module/znbm";break;
+	    }
+	    CheckHtmlForm checkHtmlForm = new CheckHtmlForm();
+	    String checkPointStr = empCheck.getCheckPoint();
+    	String checkNoteStr = empCheck.getCheckNote();
+    	String[] pointArray = checkPointStr.split(",");
+        String[] noteArray = checkNoteStr.split("_");
+        checkHtmlForm.setCore1(pointArray[0]);
+        checkHtmlForm.setCore2(pointArray[1]);
+        checkHtmlForm.setCore3(pointArray[2]);
+        checkHtmlForm.setCore4(pointArray[3]);
+        checkHtmlForm.setCore5(pointArray[4]);
+        checkHtmlForm.setCore6(StringUtils.defaultIfEmpty(pointArray[5],"0"));
+        checkHtmlForm.setCore7(StringUtils.defaultIfEmpty(pointArray[6],"0"));
+        checkHtmlForm.setCore8(StringUtils.defaultIfEmpty(pointArray[7],"0"));
+        checkHtmlForm.setTotalcore(StringUtils.defaultIfEmpty(pointArray[8],"0"));
+        checkHtmlForm.setText1(noteArray[0]);
+        checkHtmlForm.setText2(noteArray[1]);
+        checkHtmlForm.setText3(noteArray[2]);
+        checkHtmlForm.setText4(noteArray[3]);
+        checkHtmlForm.setText5(noteArray[4]);
+        checkHtmlForm.setText6(StringUtils.defaultIfEmpty(noteArray[5],"无"));
+        checkHtmlForm.setText7(StringUtils.defaultIfEmpty(noteArray[6],"无"));
+        checkHtmlForm.setText8(StringUtils.defaultIfEmpty(noteArray[7],"无"));
+	    ModelAndView mv = new ModelAndView(mvstr);
+		mv.addObject("empCheck", empCheck);
+		mv.addObject("checkHtmlForm", checkHtmlForm);
+		mv.addObject("type", "show");
+		mv.addObject("user", user);
+		mv.addObject("commonEmp", commonEmp);
 		return mv;
 	}
 	
@@ -344,6 +402,40 @@ public class EmpCheckController{
 	}
 	
 	/**
+	 * 员工考核--保存考核数据到数据库
+	 * @param response HttpServletResponse
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/saveCheckData")
+	public void saveCheckData(CheckHtmlForm checkHtmlForm,HttpServletRequest request,HttpServletResponse response){
+				EmpCheck empCheck = new EmpCheck();
+				empCheck.setCheckMonth(checkHtmlForm.getCheckMonth());
+				empCheck.setEmpName(checkHtmlForm.getEmpName());
+				empCheck.setState(2);
+	        	String checkPointStr = "";
+	        	String checkNoteStr = "";
+	        	checkPointStr = checkHtmlForm.getCore1() + "," + checkHtmlForm.getCore2() + "," + checkHtmlForm.getCore3() + "," + checkHtmlForm.getCore4() + "," + checkHtmlForm.getCore5();
+	        	checkNoteStr = StringUtils.defaultIfEmpty(checkHtmlForm.getText1(),"无") + "|" + StringUtils.defaultIfEmpty(checkHtmlForm.getText2(),"无")+ "|" + StringUtils.defaultIfEmpty(checkHtmlForm.getText3(),"无")+ "|" + StringUtils.defaultIfEmpty(checkHtmlForm.getText4(),"无")+ "|" + StringUtils.defaultIfEmpty(checkHtmlForm.getText5(),"无");
+	        	if(checkHtmlForm.getCore6()!=null){
+	        		checkPointStr = checkPointStr + ',' + checkHtmlForm.getCore6();
+	        		checkNoteStr = checkNoteStr + '|' + StringUtils.defaultIfEmpty(checkHtmlForm.getText6(),"无");
+	        	}
+	        	if(checkHtmlForm.getCore7()!=null){
+	        		checkPointStr = checkPointStr + ',' + checkHtmlForm.getCore7();
+	        		checkNoteStr = checkNoteStr + '|' + StringUtils.defaultIfEmpty(checkHtmlForm.getText7(),"无");
+	        	}
+	        	if(checkHtmlForm.getCore8()!=null){
+	        		checkPointStr = checkPointStr + ',' + checkHtmlForm.getCore8();
+	        		checkNoteStr = checkNoteStr + '|' + StringUtils.defaultIfEmpty(checkHtmlForm.getText8(),"无");
+	        	}
+	        	checkPointStr = checkPointStr + "," + checkHtmlForm.getTotalcore();
+	        	empCheck.setCheckPoint(checkPointStr);
+	        	empCheck.setCheckNote(checkNoteStr);
+	        	empCheckService.update(empCheck);
+	}
+	
+	
+	/**
 	 * 进入考核报表页面
 	 * @return ModelAndView
 	 */
@@ -352,7 +444,10 @@ public class EmpCheckController{
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/empCheck/checkReport");
 		Org org = new Org();
 		org.setParentOrgId("1");
+		Duty duty = new Duty();
+		duty.setDutySort("1");
  		mv.addObject("org",orgService.listByCondition(org));
+ 		mv.addObject("duty",dutyService.listByCondition(duty));
 		return mv;
 	}
 	
@@ -365,7 +460,19 @@ public class EmpCheckController{
 			HttpServletResponse response, Page page){
 		empCheck.setPage(page);	
 		empCheck.setState(2);
+		empCheck.setIsConfirm(3);
 		List<EmpCheck> list = empCheckService.listByCondition(empCheck);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
+	
+	/**
+	 * 员工确认考核单方法
+	 * @throws UnsupportedEncodingException 
+	 */	
+	@RequestMapping("/empConfirm")
+	public void empConfirm(EmpCheck empCheck,HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException{
+		empCheck.setEmpName(new String(empCheck.getEmpName().getBytes("ISO-8859-1"),"utf-8")); 
+		empCheckService.empConfirm(empCheck);
+		AjaxUtils.sendAjaxSuccessMessage(response);
 	}
 }

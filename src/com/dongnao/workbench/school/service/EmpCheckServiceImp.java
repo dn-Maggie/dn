@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.dongnao.workbench.basic.model.Duty;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.school.dao.EmpCheckMapper;
@@ -29,6 +30,10 @@ public class EmpCheckServiceImp implements EmpCheckService {
 	}
 
 	@Override
+	public EmpCheck showCheckFormKey(String key) {
+		return empCheckMapper.showCheckFormKey(key);
+	}
+	@Override
 	public void add(List<EmpCheck> empc) {
 		empCheckMapper.add(empc);
 	}
@@ -41,6 +46,12 @@ public class EmpCheckServiceImp implements EmpCheckService {
 			return AjaxUtils.getResultMessage(0,e.getMessage());
 		}
 		return AjaxUtils.getSuccessMessage();
+	}
+
+	
+	@Override
+	public void empConfirm(EmpCheck empc) {
+		empCheckMapper.empConfirm(empc);
 	}
 
 }

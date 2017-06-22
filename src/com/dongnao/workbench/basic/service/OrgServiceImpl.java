@@ -155,17 +155,7 @@ public class OrgServiceImpl implements OrgService {
 		return orgTree.toString();
 	}
 
-	/*
-	 * (非 Javadoc) <p>Title: listJoinOrgs</p> <p>Description: </p>
-	 * 
-	 * @param org
-	 * 
-	 * @return
-	 * 
-	 * @see
-	 * com.dongnao.workbench.basic.service.OrgService#listJoinOrgs(com.dongnao.workbench.basic
-	 * .model.Org)
-	 */
+
 	@Override
 	public List<Org> listJoinStockOrgs(Org org) {
 		return orgMapper.listJoinStockOrgs(org);

@@ -2,6 +2,7 @@ package com.dongnao.workbench.school.service;
 
 import java.util.List;
 
+import com.dongnao.workbench.basic.model.Duty;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.school.model.EmpCheck;
 import com.dongnao.workbench.school.model.Employee;
@@ -35,4 +36,18 @@ public interface EmpCheckService {
 	 * @param EmpCheck
 	 */
 	public ResultMessage update(EmpCheck empc);
+	
+	
+	/**
+	 * 根据主键查找员工姓名作为查询条件查询该员工所有审核信息的方法
+	 * @param key String：实体主键
+	 * @return employee Employee 实体对象
+	 */
+	public EmpCheck showCheckFormKey(String key);
+	
+	/**
+	 * 员工确认考核单方法
+	 * @param List<EmpCheck> :集合
+	 */
+	public void empConfirm(EmpCheck empc);
 }

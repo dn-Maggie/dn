@@ -27,11 +27,29 @@ var gridObj = {};
 				{name : "nickName",label:"昵称",index : "nickname",width:'30'},	
 				{name : "post",label:"岗位",index : "post",width:'30'},		
 				{name : "department",label:"部门",index : "department",width:'20'},
-				/* {name : "basePoints",label:"基础分",index : "base_points",width:'20'},	 */
 				{name : "checkPoint",label:"考核分",index : "check_point",width:'20'},
 				{name : "checkMonth",label:"考核月份",index : "check_month",width:'30'},
 				{name : "createTime",label:"考核时间",index : "create_time",width:'30'},
 				{name : "checkPeople",label:"考核人",index : "checkpeople",width:'20'},
+				{name : "isConfirm",label:"员工反馈",index : "isconfirm",width:'20',
+					formatter:function(cellvalue, options, rowObject){
+	 				 if (cellvalue==1) {
+		 				 	return '未确认';
+		 				 }else if (cellvalue==2) {
+		 				 	return '有异议';
+		 				 }else{
+		 					return '已确认';
+		 				 }
+	 			}},
+	 			{name : "",label:"查看考核单",index : "operate",width:'30',align: 'center',formatter: function (cellvalue, options, rowObject) {
+					return "<input id=\"showCheckForm\" type=\"button\" class=\"ti_bottom\" value=\"查看考核单\" onclick=\"showCheckForm(\'" +rowObject.id+"\')\"/>"; 
+					},
+	            },
+	 			{name : "",label:"重新考核",index : "operate",width:'30',align: 'center',formatter: function (cellvalue, options, rowObject) {
+					return "<input id=\"begaincheck\" type=\"button\" class=\"ti_bottom\" value=\"重新考核\" onclick=\"begaincheck(\'" +rowObject.id+"\')\"/>"; 
+					},
+	            },
+	            
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
@@ -67,8 +85,8 @@ var gridObj = {};
 		show_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: $(window).width()*0.4,
-			height:$(window).height()*0.55,
+			width: $(window).width()*0.6,
+			height:$(window).height()*0.7,
 				title: "员工考核信息"
 		});
   		show_iframe_dialog.open();
@@ -148,6 +166,46 @@ var gridObj = {};
    	    d= d<10?"0"+d:d;   //  这里判断日期是否<10,如果是在日期前面加'0'
    	    return h+"-"+m;
    	}
+    
+	//考核表格弹出框
+	var check_iframe_dialog;
+	
+    function begaincheck(key){
+    			var url="<m:url value='/empCheck/toCheckTable.do'/>?key="+key;
+    			check_iframe_dialog = new biz.dialog({
+    			 	id:$('<div id="checkwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+    				modal: true,
+    				width: $(window).width(),
+    				height:$(window).height(),
+    					title: "员工考核表"
+    			});
+    			check_iframe_dialog.open();
+    	    }
+    
+    //关闭查看页面，供子页面调用
+    function closeCheck(){
+    	check_iframe_dialog.close();
+    	window.location.reload();
+    }
+    
+ 	//考核表格弹出框
+	var showCheckForm_iframe_dialog;
+    function showCheckForm(key){
+    	var url="<m:url value='/empCheck/showCheckForm.do'/>?key="+key+"&commonEmp="+${commonEmp};
+    	showCheckForm_iframe_dialog = new biz.dialog({
+		 	id:$('<div id="checkwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+			modal: true,
+			width: $(window).width(),
+			height:$(window).height(),
+				title: "员工考核单"
+		});
+    	showCheckForm_iframe_dialog.open();
+    }
+    
+    function closeShowCheckForm(){
+    	showCheckForm_iframe_dialog.close();
+    	window.location.reload();
+    }
     </script>
 </head>
 <body style="height:100%;">

@@ -22,7 +22,7 @@ public class EmpCheck extends Model{
 		private String post;
 		private String department;
 		private String checkMonth;
-		private String basePoints;
+		private String checkNote;
 		private String checkPoint;
 		@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
 		private Date createTime;
@@ -31,6 +31,7 @@ public class EmpCheck extends Model{
 	    private int state;
 	    private String checkPeople;
 	    private int checkStanderd;
+	    private int isConfirm;
 		public String getId() {
 			return id;
 		}
@@ -74,11 +75,18 @@ public class EmpCheck extends Model{
 		public void setCheckMonth(String checkMonth) {
 			this.checkMonth = checkMonth;
 		}
-		public String getBasePoints() {
-			return basePoints;
+		
+		public String getCheckNote() {
+			return checkNote;
 		}
-		public void setBasePoints(String basePoints) {
-			this.basePoints = basePoints;
+		public void setCheckNote(String checkNote) {
+			this.checkNote = checkNote;
+		}
+		public int getIsConfirm() {
+			return isConfirm;
+		}
+		public void setIsConfirm(int isConfirm) {
+			this.isConfirm = isConfirm;
 		}
 		public String getCheckPoint() {
 			return checkPoint;

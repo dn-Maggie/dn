@@ -96,7 +96,8 @@ $(function(){
 		window.location.reload();
 	}
 	function closeass() {
-		window.parent.closeAss()
+		window.parent.closeAss();
+		window.location.reload();
 	}
 	
 	function begaincheck(value){//跳转到在线考核页面，value是该条记录的主键

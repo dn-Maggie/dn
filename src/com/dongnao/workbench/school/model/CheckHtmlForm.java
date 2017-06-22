@@ -35,6 +35,7 @@ public class CheckHtmlForm extends Model{
 	private String text8;
 	private String text9;
 	private String text10;
+	
 	public String getEmpName() {
 		return empName;
 	}

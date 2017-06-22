@@ -54,4 +54,5 @@ public interface DutyService  {
 	 * @return
 	 */
 	public String initDutyTree(Duty duty);
+
 }
