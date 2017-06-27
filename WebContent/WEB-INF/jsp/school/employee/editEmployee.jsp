@@ -282,7 +282,7 @@
 						</select></td>
 						<td class="inputLabelTd">考核人：</td>
 						<td class="inputTd">
-						<input id="edit_checkNameT" name="checkName" type="hidden" value="${employee.id}"/>
+						<input id="edit_checkNameT" name="checkName" type="hidden" value="${employee.checkName}"/>
 						<c:choose>
 								<c:when test="${employee.isAssess == '1'}">
 									<div class="checknotediv" id="checknotediv">
@@ -292,7 +292,7 @@
 											onchange="getEmpIDByName(this,this.value);" onblur="checkNameValidation()"/>
 										<datalist id="employeeList">
 											<c:forEach var="tutor" items="${tutor}">
-												<option did="${tutor.id}" value="${tutor.name}"
+												<option did="${tutor.name}" value="${tutor.name}"
 													label="${tutor.nickName}"></option>
 											</c:forEach>
 										</datalist>

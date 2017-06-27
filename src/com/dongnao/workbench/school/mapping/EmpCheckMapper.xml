@@ -30,7 +30,7 @@
 					create_time,
 					nickname,
 					state,
-					(select name from employee where id=e.checkpeople) as checkpeople,
+					checkpeople,
 					checkstanderd,
 					isconfirm
 	</sql>
@@ -48,7 +48,7 @@
 					e.create_time,
 					e.nickname,
 					e.state,
-					(select name from employee where id=e.checkpeople) as checkpeople,	
+					e.checkpeople,	
 					e.checkstanderd,
 					e.isconfirm			
 		from emp_check as e
@@ -68,7 +68,7 @@
 					e.create_time,
 					e.nickname,
 					e.state,
-					(select name from employee where id=e.checkpeople) as checkpeople,	
+					e.checkpeople,	
 					e.checkstanderd,
 					e.isconfirm			
 		from emp_check as e
@@ -88,7 +88,7 @@
 					e.create_time,
 					e.nickname,
 					e.state,
-					(select name from employee where id=e.checkpeople) as checkpeople,
+					e.checkpeople,
 					e.checkstanderd,
 					e.isconfirm	
 		from emp_check as e
@@ -177,7 +177,8 @@
 	                set 
 	                  check_point = #{checkPoint,jdbcType=VARCHAR},
 	                  check_note = #{checkNote,jdbcType=VARCHAR},
-	                  state = #{state,jdbcType=INTEGER}
+	                  state = #{state,jdbcType=INTEGER},
+	                  isconfirm = #{isConfirm,jdbcType=INTEGER}
 	                where emp_name = #{empName,jdbcType=VARCHAR} and check_month = #{checkMonth,jdbcType=VARCHAR}
 	</update>
 	

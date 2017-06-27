@@ -22,10 +22,13 @@ import com.dongnao.workbench.account.service.ExpenseAccountService;
 import com.dongnao.workbench.account.service.OrderInfoService;
 import com.dongnao.workbench.accountflow.model.AccountFlow;
 import com.dongnao.workbench.accountflow.service.AccountFlowService;
+import com.dongnao.workbench.basic.model.Org;
 import com.dongnao.workbench.basic.model.UserInfo;
+import com.dongnao.workbench.basic.service.OrgService;
 import com.dongnao.workbench.basic.service.UserInfoService;
 import com.dongnao.workbench.common.Constant;
 import com.dongnao.workbench.common.bean.ResultMessage;
+import com.dongnao.workbench.common.bean.ResultMoney;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.DateUtil;
 import com.dongnao.workbench.common.util.MD5Encryption;
@@ -40,8 +43,12 @@ import com.dongnao.workbench.school.service.EmpNoticeService;
 import com.dongnao.workbench.school.service.EmpPerformanceService;
 import com.dongnao.workbench.school.service.EmployeeService;
 import com.dongnao.workbench.school.service.LeaveApplyService;
+import com.dongnao.workbench.subject.model.Subject;
+import com.dongnao.workbench.subject.service.SubjectService;
 import com.dongnao.workbench.system.model.Module;
+import com.dongnao.workbench.system.model.Role;
 import com.dongnao.workbench.system.service.ModuleService;
+import com.dongnao.workbench.system.service.RoleService;
 import com.dongnao.workbench.vipStudent.model.VipStudent;
 import com.dongnao.workbench.vipStudent.service.VipStudentService;
 
@@ -78,6 +85,12 @@ public class MainController {
 	private LeaveApplyService leaveApplyService;
 	@Resource
 	private EmpNoticeService empNoticeService;
+	@Resource
+	private OrgService orgService;
+	@Resource
+	private SubjectService subjectService;
+	@Resource
+	private RoleService roleService;
 	/**
 	 * 设置service
 	 * 
@@ -239,6 +252,24 @@ public class MainController {
 		Employee entity = employeeService.getByPrimaryKey(Utils.getLoginUserInfo(request).getId());
 		mv.addObject("employee",entity);
 		
+		Org org = new Org();
+		Subject sub = new Subject();
+		org.setOrgName(entity.getDept());
+		sub.setName(orgService.listByCondition(org).get(0).getPinyin());
+		boolean isHavePerformance = false;
+		if(subjectService.listByCondition(sub).size()>0){
+			isHavePerformance=true;
+		}
+		mv.addObject("isHavePerformance",isHavePerformance);//添加是否有业绩指标标识(区分有业绩指标的部门和无业绩指标的部门)
+		
+		Role role = new Role();
+		role.setRoleId(user.getRoleId());
+		boolean ViewPerformance=false;
+		if(roleService.listByCondition(role).get(0).getHpvp()==1){
+			ViewPerformance=true;
+		};
+		mv.addObject("ViewPerformance",ViewPerformance);//添加是否有权限查看公司总业绩等信息标识
+		
 		Calendar calendar = Calendar.getInstance();
 		int year = calendar.get(Calendar.YEAR);
 		int month = calendar.get(Calendar.MONTH)+1;
@@ -270,6 +301,9 @@ public class MainController {
 		model.put("myExpense", expenseAccountService.getMyExpense(user.getId(),year+"-"+month+"-01"));
 		model.put("myMessage", employeeService.getMyMessage(user.getId()));
 		model.put("myPerformance", empPerformanceService.getMyPerformance(user.getId(),year+"-"+month+"-01"));
+		accountxf.setCreateTime(year+""+month);
+		accountxf.setSubjectName(orgService.listByCondition(org).get(0).getPinyin());
+		model.put("deptPerformance", accountFlowService.getBarStatistic(accountxf));
 		
 		mv.addObject("noticeList", empNoticeService.listByCondition(new EmpNotice()));
 		

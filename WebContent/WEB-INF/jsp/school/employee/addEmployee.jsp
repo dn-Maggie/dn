@@ -588,7 +588,7 @@ function checkstatechange(value){
 		$("#checknotediv").append('<label class="checknote" id="checknote">无</label>');
 	}else{
 		$("#checknote").remove();
-		$("#checknotediv").append('<input id="edit_checkNameF" name="checkNameF" type="text" class="text" list="employeeList" onchange="getEmpIDByName(this,this.value);" onblur="checkNameValidation()"/><datalist id="employeeList"><c:forEach var="tutor" items="${tutor}"><option did="${tutor.id}" value="${tutor.nickName}" label="${tutor.name}"></option></c:forEach></datalist>');
+		$("#checknotediv").append('<input id="edit_checkNameF" name="checkNameF" type="text" class="text" list="employeeList" onchange="getEmpIDByName(this,this.value);" onblur="checkNameValidation()"/><datalist id="employeeList"><c:forEach var="tutor" items="${tutor}"><option did="${tutor.name}" value="${tutor.nickName}" label="${tutor.name}"></option></c:forEach></datalist>');
 	}
 }
 

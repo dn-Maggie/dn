@@ -875,8 +875,12 @@ function empConfirm(num,empName,checkMonth){
 						/* console.log(data);     -- {"data":null,"jsessionid":"","message":"操作成功","status":1}
 						console.log(textStatus);  -- success
 						console.log(jqXHR);       -- 是个object*/
-						window.parent.closeShowCheckForm();
-						window.location.reload();
+						if(data.status==1){
+							cancelShow();
+						}else{
+							alert("操作失败，请联系管理员！");
+							window.location.reload();
+						}
 					}
 				});
 }

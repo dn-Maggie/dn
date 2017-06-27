@@ -220,6 +220,7 @@ public class Employee extends Model{
 					 * 请假日期（统计用）
 					 **/	
 					    private Double leaveDays;
+					    
 				  	 /**
 					 * 获取 主键
 					 * @return String this.id

@@ -100,6 +100,8 @@ public class EmpCheckController{
 	 */
 	@RequestMapping("/toListEmpCheck")
 	public ModelAndView toList(HttpServletRequest request){
+		UserInfo user = Utils.getLoginUserInfo(request);
+		Employee employee = employeeService.getByPrimaryKey(user.getId());
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/empCheck/listEmpCheck");
 //		Employee entity = employeeService.getByPrimaryKey(Utils.getLoginUserInfo(request).getId());
 //		Org org = new Org();
@@ -108,6 +110,7 @@ public class EmpCheckController{
 		Org org = new Org();
 		org.setParentOrgId("1");
  		mv.addObject("org",orgService.listByCondition(org));
+ 		mv.addObject("employee", employee);
 		return mv;
 	}
 	
@@ -124,7 +127,16 @@ public class EmpCheckController{
 			HttpServletResponse response, Page page){
 		empCheck.setPage(page);	
 		empCheck.setState(2);
-		empCheck.setCheckPeople(Utils.getLoginUserInfo(request).getId());
+		empCheck.setCheckPeople(Utils.getLoginUserInfo(request).getFullName());
+		List<EmpCheck> list = empCheckService.listByCondition(empCheck);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
+	
+	@RequestMapping("/listEmpCheckTwo")
+	public void listByConditionTwo(EmpCheck empCheck,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		empCheck.setPage(page);	
+		empCheck.setState(2);
 		List<EmpCheck> list = empCheckService.listByCondition(empCheck);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
@@ -143,6 +155,23 @@ public class EmpCheckController{
 		return mv;
 	}
 	
+	
+	/**
+	 * 员工进入查看自己的考核信息页面方法
+	 * @param key String：实体id
+	 * @return ModelAndView: 查询实体
+	 */	
+	@RequestMapping("/toShowMyAssinfo")
+	public ModelAndView ShowMyAssinfo(HttpServletRequest request,HttpServletResponse response){
+		UserInfo user = Utils.getLoginUserInfo(request);
+		ModelAndView mv = new ModelAndView(
+				"WEB-INF/jsp/school/empCheck/ShowAssessmentinfo");
+		EmpCheck empCheck = new EmpCheck();
+		empCheck.setEmpName(user.getFullName());
+		mv.addObject("empCheck", empCheck);
+		mv.addObject("user", user);
+		return mv;
+	}
 	/**
 	 * 进入当月考核页面
 	 * @return ModelAndView
@@ -161,7 +190,7 @@ public class EmpCheckController{
 	@RequestMapping("/saveAssinfo")
 	public void saveAssinfo(EmpCheck empCheck,HttpServletRequest request,
 			HttpServletResponse response, Page page){	
-		empCheck.setCheckPeople(Utils.getLoginUserInfo(request).getId());
+		empCheck.setCheckPeople(Utils.getLoginUserInfo(request).getFullName());
 		List<EmpCheck> lt = empCheckService.listByCondition(empCheck);
 		if(lt.size()>0){
 			empCheck.setState(1);
@@ -170,7 +199,7 @@ public class EmpCheckController{
 			AjaxUtils.sendAjaxForPage(request, response, page, list);
 		}else{
 			Employee employee=new Employee();
-			employee.setCheckName(Utils.getLoginUserInfo(request).getId());
+			employee.setCheckName(Utils.getLoginUserInfo(request).getFullName());
 			employee.setIsAssess(1);
 			List<Employee> list = employeeService.listByCondition(employee);
 			List<EmpCheck> empc = new ArrayList<EmpCheck>();
@@ -278,18 +307,49 @@ public class EmpCheckController{
         checkHtmlForm.setCore3(pointArray[2]);
         checkHtmlForm.setCore4(pointArray[3]);
         checkHtmlForm.setCore5(pointArray[4]);
-        checkHtmlForm.setCore6(StringUtils.defaultIfEmpty(pointArray[5],"0"));
-        checkHtmlForm.setCore7(StringUtils.defaultIfEmpty(pointArray[6],"0"));
-        checkHtmlForm.setCore8(StringUtils.defaultIfEmpty(pointArray[7],"0"));
-        checkHtmlForm.setTotalcore(StringUtils.defaultIfEmpty(pointArray[8],"0"));
         checkHtmlForm.setText1(noteArray[0]);
         checkHtmlForm.setText2(noteArray[1]);
         checkHtmlForm.setText3(noteArray[2]);
         checkHtmlForm.setText4(noteArray[3]);
         checkHtmlForm.setText5(noteArray[4]);
-        checkHtmlForm.setText6(StringUtils.defaultIfEmpty(noteArray[5],"无"));
-        checkHtmlForm.setText7(StringUtils.defaultIfEmpty(noteArray[6],"无"));
-        checkHtmlForm.setText8(StringUtils.defaultIfEmpty(noteArray[7],"无"));
+        switch (checkstanderd) {
+		case 1:
+			checkHtmlForm.setTotalcore(pointArray[5]);
+			break;
+		case 2:
+			checkHtmlForm.setCore6(pointArray[5]);
+        	checkHtmlForm.setTotalcore(pointArray[6]);
+        	checkHtmlForm.setText6(noteArray[5]);
+			break;
+		case 3:
+			checkHtmlForm.setCore6(pointArray[5]);
+        	checkHtmlForm.setTotalcore(pointArray[6]);
+        	checkHtmlForm.setText6(noteArray[5]);
+			break;
+		case 4:
+			checkHtmlForm.setCore6(pointArray[5]);
+        	checkHtmlForm.setCore7(pointArray[6]);
+        	checkHtmlForm.setTotalcore(pointArray[7]);
+        	checkHtmlForm.setText6(noteArray[5]);
+        	checkHtmlForm.setText7(noteArray[6]);
+			break;
+		case 5:
+			checkHtmlForm.setCore6(pointArray[5]);
+        	checkHtmlForm.setCore7(pointArray[6]);
+        	checkHtmlForm.setTotalcore(pointArray[7]);
+        	checkHtmlForm.setText6(noteArray[5]);
+        	checkHtmlForm.setText7(noteArray[6]);
+			break;
+		default:
+			checkHtmlForm.setCore6(pointArray[5]);
+        	checkHtmlForm.setCore7(pointArray[6]);
+        	checkHtmlForm.setCore8(pointArray[7]);
+        	checkHtmlForm.setTotalcore(pointArray[8]);
+        	checkHtmlForm.setText6(noteArray[5]);
+        	checkHtmlForm.setText7(noteArray[6]);
+        	checkHtmlForm.setText8(noteArray[7]);
+			break;
+		}     
 	    ModelAndView mv = new ModelAndView(mvstr);
 		mv.addObject("empCheck", empCheck);
 		mv.addObject("checkHtmlForm", checkHtmlForm);
@@ -412,21 +472,22 @@ public class EmpCheckController{
 				empCheck.setCheckMonth(checkHtmlForm.getCheckMonth());
 				empCheck.setEmpName(checkHtmlForm.getEmpName());
 				empCheck.setState(2);
+				empCheck.setIsConfirm(1);
 	        	String checkPointStr = "";
 	        	String checkNoteStr = "";
 	        	checkPointStr = checkHtmlForm.getCore1() + "," + checkHtmlForm.getCore2() + "," + checkHtmlForm.getCore3() + "," + checkHtmlForm.getCore4() + "," + checkHtmlForm.getCore5();
-	        	checkNoteStr = StringUtils.defaultIfEmpty(checkHtmlForm.getText1(),"无") + "|" + StringUtils.defaultIfEmpty(checkHtmlForm.getText2(),"无")+ "|" + StringUtils.defaultIfEmpty(checkHtmlForm.getText3(),"无")+ "|" + StringUtils.defaultIfEmpty(checkHtmlForm.getText4(),"无")+ "|" + StringUtils.defaultIfEmpty(checkHtmlForm.getText5(),"无");
+	        	checkNoteStr = StringUtils.defaultIfEmpty(checkHtmlForm.getText1(),"无") + "_" + StringUtils.defaultIfEmpty(checkHtmlForm.getText2(),"无")+ "_" + StringUtils.defaultIfEmpty(checkHtmlForm.getText3(),"无")+ "_" + StringUtils.defaultIfEmpty(checkHtmlForm.getText4(),"无")+ "_" + StringUtils.defaultIfEmpty(checkHtmlForm.getText5(),"无");
 	        	if(checkHtmlForm.getCore6()!=null){
 	        		checkPointStr = checkPointStr + ',' + checkHtmlForm.getCore6();
-	        		checkNoteStr = checkNoteStr + '|' + StringUtils.defaultIfEmpty(checkHtmlForm.getText6(),"无");
+	        		checkNoteStr = checkNoteStr + '_' + StringUtils.defaultIfEmpty(checkHtmlForm.getText6(),"无");
 	        	}
 	        	if(checkHtmlForm.getCore7()!=null){
 	        		checkPointStr = checkPointStr + ',' + checkHtmlForm.getCore7();
-	        		checkNoteStr = checkNoteStr + '|' + StringUtils.defaultIfEmpty(checkHtmlForm.getText7(),"无");
+	        		checkNoteStr = checkNoteStr + '_' + StringUtils.defaultIfEmpty(checkHtmlForm.getText7(),"无");
 	        	}
 	        	if(checkHtmlForm.getCore8()!=null){
 	        		checkPointStr = checkPointStr + ',' + checkHtmlForm.getCore8();
-	        		checkNoteStr = checkNoteStr + '|' + StringUtils.defaultIfEmpty(checkHtmlForm.getText8(),"无");
+	        		checkNoteStr = checkNoteStr + '_' + StringUtils.defaultIfEmpty(checkHtmlForm.getText8(),"无");
 	        	}
 	        	checkPointStr = checkPointStr + "," + checkHtmlForm.getTotalcore();
 	        	empCheck.setCheckPoint(checkPointStr);
