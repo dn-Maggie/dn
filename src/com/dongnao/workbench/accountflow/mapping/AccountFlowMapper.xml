@@ -386,6 +386,16 @@ values
 		<if test="accountNameExcept != null and '' != accountNameExcept">  
 			and af.account_name not in (#{accountNameExcept,jdbcType=VARCHAR},'学费调减')
 		</if>
+		<if test="null != startDate and startDate != ''">
+			<![CDATA[
+			and DATE_FORMAT(af.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			]]>
+		</if>
+		<if test="null != endDate and endDate != ''">
+			<![CDATA[
+				and DATE_FORMAT(af.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			]]>
+		</if>
 	</select>
 	
 	<select id="getBarStatistic" resultMap="MoneyResultMap" parameterType="com.dongnao.workbench.accountflow.model.AccountFlow">

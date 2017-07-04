@@ -424,7 +424,7 @@
             contentType: false, // 告诉jQuery不要去设置Content-Type请求头
    			success : function(data) {
    				if(data.money){
-	   				resObj.lend= parseFloat(data.money.lend-data.money.xftk);
+	   				resObj.lend= parseFloat(data.money.lend);
 	   				resObj.loan = parseFloat(data.money.loan);
    				}
    			}

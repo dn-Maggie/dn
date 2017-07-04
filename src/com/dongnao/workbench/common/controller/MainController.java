@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -166,7 +167,6 @@ public class MainController {
 	 */
 	@RequestMapping("/adminHomePage")
 	public ModelAndView adminHomePage(HttpServletRequest request) {
-		SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
 		ModelAndView mv = null;
 		Map<String,Object> model = new HashMap<String,Object>();
 		Calendar curr = Calendar.getInstance();
@@ -175,14 +175,45 @@ public class MainController {
 		
 		UserInfo user = Utils.getLoginUserInfo(request);
 		
+		Org org = new Org();
 		if (Utils.isSuperAdmin(request)||user.getRoleId().equals("")){
 			mv = new ModelAndView("WEB-INF/jsp/common/adminHomePage");
 		}else {
 			mv = new ModelAndView("WEB-INF/jsp/common/userMessage");
+			mv.addObject("user",user);
 			Employee entity = employeeService.getByPrimaryKey(Utils.getLoginUserInfo(request).getId());
 			mv.addObject("employee",entity);
-			mv.addObject("user",user);
+			
+			Subject sub = new Subject();
+			org.setOrgName(entity.getDept());
+			sub.setName(orgService.listByCondition(org).get(0).getPinyin());
+			boolean isHavePerformance = false;
+			if(subjectService.listByCondition(sub).size()>0){
+				isHavePerformance=true;
+			}
+			mv.addObject("isHavePerformance",isHavePerformance);//添加是否有业绩指标标识(区分有业绩指标的部门和无业绩指标的部门)
+			
+			Subject subject = new Subject();
+			List<Subject> listsub = subjectService.listByCondition(sub);
+			if(listsub.size()>0){
+				subject = listsub.get(0);//查询部门业绩目标
+			}else{			
+				subject.setPerfTarget(0);
+			}
+			model.put("subject", subject);
+			
+			Role role = new Role();
+			role.setRoleId(user.getRoleId());
+			boolean ViewPerformance=false;
+			if(roleService.listByCondition(role).get(0).getHpvp()==1){
+				ViewPerformance=true;
+			};
+			mv.addObject("ViewPerformance",ViewPerformance);//添加是否有权限查看公司总业绩等信息标识
 		}		
+		
+		int perfTarget = subjectService.queryPerfTarget();//查询这个月的总业绩目标
+		model.put("perfTarget", perfTarget);
+
 		VipStudent vipStudent = new VipStudent();
 		model.put("all", vipStudentService.getStatistical(null));
 		model.put("today", vipStudentService.getStatisticaltoday(curr.get(Calendar.YEAR)+""+(curr.get(Calendar.MONTH)+1)+""+curr.get(Calendar.DATE)));
@@ -225,13 +256,22 @@ public class MainController {
 		model.put("beforeYearxf", accountFlowService.getXFMoney(accountxf));
 		mv.addObject("model", model);		
 		
-		
 		model.put("myExpense", expenseAccountService.getMyExpense(user.getId(),curr.get(Calendar.YEAR)+"-"+(curr.get(Calendar.MONTH)+1)+"-01"));
 		model.put("myMessage", employeeService.getMyMessage(user.getId()));
 		model.put("myPerformance", empPerformanceService.getMyPerformance(user.getId(),curr.get(Calendar.YEAR)+"-"+(curr.get(Calendar.MONTH)+1)+"-01"));
+		accountxf.setCreateTime(curr.get(Calendar.YEAR)+""+(curr.get(Calendar.MONTH)+1));
+		accountxf.setSubjectName(orgService.listByCondition(org).get(0).getPinyin());
+		model.put("deptPerformance", accountFlowService.getBarStatistic(accountxf));
 		//消息中心
  		mv.addObject("noticeList", empNoticeService.listByCondition(new EmpNotice()));
-		return mv;
+		
+		List<Subject> sublist = subjectService.listByCondition(new Subject());
+		for(int i=0;i<sublist.size();i++){
+			String deptname = sublist.get(i).getName();
+			accountxf.setSubjectName(deptname);
+			model.put(deptname, accountFlowService.getBarStatistic(accountxf));
+		}
+ 		return mv;
 	}
 
 	
@@ -246,6 +286,9 @@ public class MainController {
 	public ModelAndView userHomePage(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/common/userMessage");
 		Map<String,Object> model = new HashMap<String,Object>();
+		Calendar calendar = Calendar.getInstance();
+		Calendar before = Calendar.getInstance();
+		before.add(Calendar.MONTH, -1);
 		
 		UserInfo user = Utils.getLoginUserInfo(request);
 		mv.addObject("user",user);
@@ -270,43 +313,53 @@ public class MainController {
 		};
 		mv.addObject("ViewPerformance",ViewPerformance);//添加是否有权限查看公司总业绩等信息标识
 		
-		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(Calendar.YEAR);
-		int month = calendar.get(Calendar.MONTH)+1;
-		Calendar before = Calendar.getInstance();
-		before.add(Calendar.MONTH, -1);
-		
+		int perfTarget = subjectService.queryPerfTarget();//查询这个月的总业绩目标
+		model.put("perfTarget", perfTarget);
+		Subject subject = new Subject();
+		List<Subject> listsub = subjectService.listByCondition(sub);
+		if(listsub.size()>0){
+			subject = listsub.get(0);//查询部门业绩目标
+		}else{			
+			subject.setPerfTarget(0);
+		}
+		model.put("subject", subject);
 		VipStudent vipStudent = new VipStudent();
-		vipStudent.setJointime(year+""+month);
+		vipStudent.setJointime(calendar.get(Calendar.YEAR)+""+(calendar.get(Calendar.MONTH)+1));
 		model.put("today", vipStudentService.getStatisticaltoday(calendar.get(Calendar.YEAR)+""+(calendar.get(Calendar.MONTH)+1)+""+calendar.get(Calendar.DATE)));
 		model.put("currMonth", vipStudentService.getStatistical(vipStudent));
 		vipStudent.setJointime(StringUtil.formatDateyyyyMM(before.getTime()));
 		model.put("beforeMonth", vipStudentService.getStatistical(vipStudent));
 		
-		model.put("currMonthMarkStu", marketStudentService.getMarkStuCount(year+""+month));
+		model.put("currMonthMarkStu", marketStudentService.getMarkStuCount(calendar.get(Calendar.YEAR)+""+(calendar.get(Calendar.MONTH)+1)));
 		model.put("beforeMonthMarkStu", marketStudentService.getMarkStuCount(StringUtil.formatDateyyyyMM(before.getTime())));
 		
 		AccountFlow accountEnt = new AccountFlow();
-		accountEnt.setStartDate(year+""+month+"01");
+		accountEnt.setStartDate(calendar.get(Calendar.YEAR)+""+(calendar.get(Calendar.MONTH)+1)+"01");
 		model.put("currMonthMoney", accountFlowService.getCountMoney(accountEnt));
 		accountEnt.setStartDate(StringUtil.formatDateyyyyMMdd(before.getTime()));
 		model.put("beforeMonthMoney", accountFlowService.getCountMoney(accountEnt));
 		
 		AccountFlow accountxf = new AccountFlow();
-		accountxf.setCreateTime(year+""+month);
+		accountxf.setCreateTime(calendar.get(Calendar.YEAR)+""+(calendar.get(Calendar.MONTH)+1));
 		model.put("currMonthxf", accountFlowService.getXFMoney(accountxf));
 		accountxf.setCreateTime(StringUtil.formatDateyyyyMM(before.getTime()));
 		model.put("beforeMonthxf", accountFlowService.getXFMoney(accountxf));
 		
-		model.put("myExpense", expenseAccountService.getMyExpense(user.getId(),year+"-"+month+"-01"));
+		model.put("myExpense", expenseAccountService.getMyExpense(user.getId(),calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-01"));
 		model.put("myMessage", employeeService.getMyMessage(user.getId()));
-		model.put("myPerformance", empPerformanceService.getMyPerformance(user.getId(),year+"-"+month+"-01"));
-		accountxf.setCreateTime(year+""+month);
+		model.put("myPerformance", empPerformanceService.getMyPerformance(user.getId(),calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-01"));
+		accountxf.setCreateTime(calendar.get(Calendar.YEAR)+""+(calendar.get(Calendar.MONTH)+1));
 		accountxf.setSubjectName(orgService.listByCondition(org).get(0).getPinyin());
 		model.put("deptPerformance", accountFlowService.getBarStatistic(accountxf));
 		
 		mv.addObject("noticeList", empNoticeService.listByCondition(new EmpNotice()));
 		
+		List<Subject> sublist = subjectService.listByCondition(new Subject());
+		for(int i=0;i<sublist.size();i++){
+			String deptname = sublist.get(i).getName();
+			accountxf.setSubjectName(deptname);
+			model.put(deptname, accountFlowService.getBarStatistic(accountxf));
+		}
 		mv.addObject("model", model);
 		if(user.getPassword().equals(Constant.INIT_PASSWORD)){//用户密码是初始密码就提示修改密码
 			mv.addObject("isModifyPw", "t");

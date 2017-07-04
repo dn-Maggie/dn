@@ -3,20 +3,27 @@
 <mapper namespace="com.dongnao.workbench.subject.dao.SubjectMapper">
 	<resultMap id="BaseResultMap" type="com.dongnao.workbench.subject.model.Subject">
 		<id column="id" property="id" jdbcType="VARCHAR" />
-															<result column="NAME" property="name" jdbcType="VARCHAR" />
-													<result column="creatDate" property="creatdate" jdbcType="TIMESTAMP" />
-									</resultMap>
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="creatDate" property="creatdate" jdbcType="TIMESTAMP" />
+		<result column="perf_target" property="perfTarget" jdbcType="INTEGER" />
+	</resultMap>
+	
 	<sql id="Base_Column_List">
-						 	id
-										,NAME
-										,creatDate
-						</sql>
+		id
+		,NAME
+		,creatDate
+		,perf_target
+	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
 		from subject
 		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="queryPerfTarget" resultType="Integer" >
+		SELECT sum(perf_target) from subject
 	</select>
 	
 	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.subject.model.Subject">
@@ -54,17 +61,19 @@
 		insert into subject (
 		<include refid="Base_Column_List" />
 		)values (
-										#{id,jdbcType=VARCHAR}
-														,#{name,jdbcType=VARCHAR}
-														,#{creatdate,jdbcType=TIMESTAMP}
-									)
+				#{id,jdbcType=VARCHAR}
+				,#{name,jdbcType=VARCHAR}
+				,#{creatdate,jdbcType=TIMESTAMP}
+				,#{perfTarget,jdbcType=INTEGER}
+		)
 	</insert>
 	
 	<update id="update" parameterType="com.dongnao.workbench.subject.model.Subject">
 		update subject  set
 		ID= #{id,jdbcType=VARCHAR}
-													,NAME = #{name,jdbcType=VARCHAR}
-											,creatDate = #{creatdate,jdbcType=TIMESTAMP}
-							where id = #{id,jdbcType=VARCHAR}
+		,NAME = #{name,jdbcType=VARCHAR}
+		,creatDate = #{creatdate,jdbcType=TIMESTAMP}
+		,perf_target = #{perfTarget,jdbcType=INTEGER}
+		where id = #{id,jdbcType=VARCHAR}
 	</update>
 </mapper>

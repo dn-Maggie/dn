@@ -64,4 +64,13 @@ public class SubjectServiceImpl implements SubjectService{
 		subjectMapper.update(subject);
 		return AjaxUtils.getSuccessMessage();
 	}
+
+	/* (non-Javadoc)
+	 * 查询总业绩目标方法
+	 */
+	@Override
+	public int queryPerfTarget() {
+		int perfTarget = subjectMapper.queryPerfTarget();
+		return perfTarget;
+	}
 }

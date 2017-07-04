@@ -39,4 +39,9 @@ public interface SubjectMapper  {
 	 * @param subject Subject：实体对象
 	 */	
 	public void update(Subject subject);
+	
+	/* (non-Javadoc)
+	 * 查询总业绩目标方法
+	 */
+	public int queryPerfTarget();
 }

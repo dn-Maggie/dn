@@ -356,31 +356,22 @@ body{-moz-user-select:none;-webkit-user-select:none;
 							<span class="nameTop">
 								<i class="iconfont">&#xe6a9;</i>
 								<label>总业绩
-									<i class="info-iconfont" title="本月实收报名费+本月实收补款">&#xe637;</i>
+									<!-- <i class="info-iconfont" title="本月实收报名费+本月实收补款">&#xe637;</i> -->
+									<i class="info-iconfont" title="
+									安卓：<fmt:formatNumber value='${model.ANDROID.xfsr+model.ANDROID.xfbk}' pattern="0" type="number"></fmt:formatNumber>|JAVA：<fmt:formatNumber value='${model.JAVA.xfsr+model.JAVA.xfbk}' pattern="0" type="number"></fmt:formatNumber>|前端：<fmt:formatNumber value='${model.JAVASCRIPT.xfsr+model.JAVASCRIPT.xfbk}' pattern="0" type="number"></fmt:formatNumber>|测试：<fmt:formatNumber value='${model.TEST.xfsr+model.TEST.xfbk}' pattern="0" type="number"></fmt:formatNumber>|Python：<fmt:formatNumber value='${model.Python.xfsr+model.Python.xfbk}' pattern="0" type="number"></fmt:formatNumber>
+									">&#xe637;</i>
 								</label>
 							</span>
 							<div class="cd-price">
- 								<div class="easy-pie-chart percentage" style="margin-right: 10px" data-percent="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk)/10000}" data-size="56">
+ 								<div class="easy-pie-chart percentage" style="margin-right: 10px" data-percent="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk)/(model.perfTarget/100)}" data-size="56">
 									<span class="percent">
-										<fmt:formatNumber value="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk)/10000}" pattern="0.0" type="number"></fmt:formatNumber>
+										<fmt:formatNumber value="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk)/(model.perfTarget/100)}" pattern="0.0" type="number"></fmt:formatNumber>
 									</span>%
 								</div> 
 								<span class="cd-value-big">
 									<fmt:formatNumber value="${model.currMonthxf.xfsr+model.currMonthxf.xfbk}" pattern="0" type="number"></fmt:formatNumber>								
 								</span>
 							</div>
- 							<c:choose>
-								<c:when test="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk) - (model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk)>=0}">
-									<div class="stat stat-success">
-										<fmt:formatNumber value="${((model.currMonthxf.xfsr+model.currMonthxf.xfbk) - (model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk))/(model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk)}" type="percent"></fmt:formatNumber>
-									</div>
-								</c:when>
-								<c:otherwise>
-									<div class="stat stat-important">
-										<fmt:formatNumber value="${((model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk) - (model.currMonthxf.xfsr+model.currMonthxf.xfbk))/(model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk)}" type="percent"></fmt:formatNumber>
-									</div>
-								</c:otherwise>
-							</c:choose>
 						</div> <!-- .cd-pricing-header -->
 					</li>
 
@@ -419,31 +410,21 @@ body{-moz-user-select:none;-webkit-user-select:none;
 							<span class="nameTop">
 								<i class="iconfont">&#xe6a9;</i>
 								<label>实收总业绩
-									<i class="info-iconfont" title="本月实收报名费+本月实收补款-本月退款总额">&#xe637;</i>
+									<i class="info-iconfont" title="
+									安卓：<fmt:formatNumber value='${model.ANDROID.xfsr+model.ANDROID.xfbk-model.ANDROID.xftk}' pattern="0" type="number"></fmt:formatNumber>|JAVA：<fmt:formatNumber value='${model.JAVA.xfsr+model.JAVA.xfbk-model.JAVA.xftk}' pattern="0" type="number"></fmt:formatNumber>|前端：<fmt:formatNumber value='${model.JAVASCRIPT.xfsr+model.JAVASCRIPT.xfbk-model.JAVASCRIPT.xftk}' pattern="0" type="number"></fmt:formatNumber>|测试：<fmt:formatNumber value='${model.TEST.xfsr+model.TEST.xfbk-model.TEST.xftk}' pattern="0" type="number"></fmt:formatNumber>|Python：<fmt:formatNumber value='${model.Python.xfsr+model.Python.xfbk-model.Python.xftk}' pattern="0" type="number"></fmt:formatNumber>
+									">&#xe637;</i>
 								</label>
 							</span>
 							<div class="cd-price">
-								<div class="easy-pie-chart percentage" style="margin-right: 10px" data-percent="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk-model.currMonthxf.xftk)/10000}" data-size="56">
+								<div class="easy-pie-chart percentage" style="margin-right: 10px" data-percent="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk-model.currMonthxf.xftk)/(model.perfTarget/100)}" data-size="56">
 									<span class="percent">
-										<fmt:formatNumber value="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk-model.currMonthxf.xftk)/10000}" pattern="0.0" type="number"></fmt:formatNumber>
+										<fmt:formatNumber value="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk-model.currMonthxf.xftk)/(model.perfTarget/100)}" pattern="0.0" type="number"></fmt:formatNumber>
 									</span>%
 								</div>
 								<span class="cd-value-big">
 									<fmt:formatNumber value="${model.currMonthxf.xfsr+model.currMonthxf.xfbk-model.currMonthxf.xftk}" pattern="0" type="number"></fmt:formatNumber>								
 								</span>
 							</div>
-							<c:choose>
-								<c:when test="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk-model.currMonthxf.xftk) - (model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk-model.beforeMonthxf.xftk)>=0}">
-									<div class="stat stat-success">
-										<fmt:formatNumber value="${((model.currMonthxf.xfsr+model.currMonthxf.xfbk-model.currMonthxf.xftk) - (model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk-model.beforeMonthxf.xftk))/(model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk-model.beforeMonthxf.xftk)}" type="percent"></fmt:formatNumber>
-									</div>
-								</c:when>
-								<c:otherwise>
-									<div class="stat stat-important">
-										<fmt:formatNumber value="${((model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk-model.beforeMonthxf.xftk) - (model.currMonthxf.xfsr+model.currMonthxf.xfbk-model.currMonthxf.xftk))/(model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk-model.beforeMonthxf.xftk)}" type="percent"></fmt:formatNumber>
-									</div>
-								</c:otherwise>
-							</c:choose>
 						</div> <!-- .cd-pricing-header -->
 					</li>
 
@@ -682,8 +663,13 @@ body{-moz-user-select:none;-webkit-user-select:none;
 								</label>
 							</span>
 							<div class="cd-price">
-								<span class="cd-value-big" >
-									<fmt:formatNumber value="${model.deptPerformance.xfsr+model.deptPerformance.xfbk-model.deptPerformance.xftk}" pattern="0" type="number"></fmt:formatNumber>
+ 								<div class="easy-pie-chart percentage" style="margin-right: 10px" data-percent="${(model.deptPerformance.xfsr+model.deptPerformance.xfbk-model.deptPerformance.xftk)/(model.subject.perfTarget/100)}" data-size="56">
+									<span class="percent">
+										<fmt:formatNumber value="${(model.deptPerformance.xfsr+model.deptPerformance.xfbk-model.deptPerformance.xftk)/(model.subject.perfTarget/100)}" pattern="0.0" type="number"></fmt:formatNumber>
+									</span>%
+								</div> 
+								<span class="cd-value-big">
+									<fmt:formatNumber value="${model.deptPerformance.xfsr+model.deptPerformance.xfbk-model.deptPerformance.xftk}" pattern="0" type="number"></fmt:formatNumber>								
 								</span>
 							</div>
 						</div> 
