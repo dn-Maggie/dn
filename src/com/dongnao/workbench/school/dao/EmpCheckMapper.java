@@ -36,5 +36,5 @@ public interface EmpCheckMapper {
 	 */
 	void update(EmpCheck empc);
 	
-	void empConfirm(EmpCheck empc);
+	int empConfirm(EmpCheck empc);
 }

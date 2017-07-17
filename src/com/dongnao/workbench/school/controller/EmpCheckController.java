@@ -532,8 +532,12 @@ public class EmpCheckController{
 	 */	
 	@RequestMapping("/empConfirm")
 	public void empConfirm(EmpCheck empCheck,HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException{
-		empCheck.setEmpName(new String(empCheck.getEmpName().getBytes("ISO-8859-1"),"utf-8")); 
-		empCheckService.empConfirm(empCheck);
-		AjaxUtils.sendAjaxSuccessMessage(response);
+/*		Employee employee =new Employee();
+		employee.setName(new String(empCheck.getEmpName().getBytes("ISO-8859-1"),"utf-8"));以后禁止使用中文字段来做匹配*/
+		if(empCheckService.empConfirm(empCheck)>0){
+			AjaxUtils.sendAjaxSuccessMessage(response);
+		}else{
+			AjaxUtils.sendAjaxFailureMessage(response);
+		};
 	}
 }

@@ -816,12 +816,12 @@ div.Section0{page:Section0;}</style></head>
 					  <c:otherwise>   
 						  <c:if test="${empCheck.isConfirm == 1}">
 						  	<c:if test="${commonEmp}">
-								<input type="button" value="确认无误" style="width: 70px;" onclick="empConfirm(3,'${empCheck.empName}','${empCheck.checkMonth}')">
-					     		<input type="button" value="有异议" style="width: 70px;" onclick="empConfirm(2,'${empCheck.empName}','${empCheck.checkMonth}')">
+								<input type="button" value="确认无误" style="width: 70px;" onclick="empConfirm(3,'${empCheck.empNo}','${empCheck.checkMonth}')">
+					     		<input type="button" value="有异议" style="width: 70px;" onclick="empConfirm(2,'${empCheck.empNo}','${empCheck.checkMonth}')">
 							</c:if>
 							<c:if test="${empCheck.empName == user.fullName}">
-								<input type="button" value="确认无误" style="width: 70px;" onclick="empConfirm(3,'${empCheck.empName}','${empCheck.checkMonth}')">
-					     		<input type="button" value="有异议" style="width: 70px;" onclick="empConfirm(2,'${empCheck.empName}','${empCheck.checkMonth}')">
+								<input type="button" value="确认无误" style="width: 70px;" onclick="empConfirm(3,'${empCheck.empNo}','${empCheck.checkMonth}')">
+					     		<input type="button" value="有异议" style="width: 70px;" onclick="empConfirm(2,'${empCheck.empNo}','${empCheck.checkMonth}')">
 							</c:if>
 						  </c:if>
 						<input type="button" value="关闭" style="width: 70px;" onclick="cancelShow()">
@@ -859,17 +859,17 @@ function ajaxUpload(){
 			$('#form').ajaxSubmit(options);
  	}
 
-function empConfirm(num,empName,checkMonth){
+function empConfirm(num,empNo,checkMonth){
 	var paramDatas = {
 			isConfirm:num,
-			empName:empName,
+			empNo:empNo,
 			checkMonth:checkMonth
 			};
 		$.ajax({	
 					url : "<m:url value='/empCheck/empConfirm.do'/>",
 					cache : false,
 					data: paramDatas,
-					async : false,
+					async : true,
 					dataType:"json",
 					success : function(data, textStatus, jqXHR) {
 						/* console.log(data);     -- {"data":null,"jsessionid":"","message":"操作成功","status":1}

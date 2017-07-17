@@ -49,5 +49,5 @@ public interface EmpCheckService {
 	 * 员工确认考核单方法
 	 * @param List<EmpCheck> :集合
 	 */
-	public void empConfirm(EmpCheck empc);
+	public int empConfirm(EmpCheck empc);
 }

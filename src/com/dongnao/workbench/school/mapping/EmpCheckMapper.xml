@@ -186,6 +186,6 @@
 	                update emp_check   
 	                set 
 	                  isconfirm = #{isConfirm,jdbcType=INTEGER}
-	                where emp_name = #{empName,jdbcType=VARCHAR} and check_month = #{checkMonth,jdbcType=VARCHAR} and state=2
+	                where emp_no = #{empNo,jdbcType=VARCHAR} and check_month = #{checkMonth,jdbcType=VARCHAR} and state=2
 	</update>
 </mapper>

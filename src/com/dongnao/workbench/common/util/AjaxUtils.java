@@ -293,6 +293,14 @@ public class AjaxUtils {
 	public static void sendAjaxSuccessMessage(HttpServletResponse response) {
 		sendAjaxForObjectStr(response, getSuccessMessage());
 	}
-	
+	/**
+	 * 将成功消息对象传到前台
+	 * 
+	 * @param response
+	 *            HttpServletResponse
+	 */
+	public static void sendAjaxFailureMessage(HttpServletResponse response) {
+		sendAjaxForObjectStr(response, getFailureMessage("处理失败"));
+	}
 
 }
