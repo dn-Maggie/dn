@@ -35,9 +35,8 @@ public class SpringQtz {
 		String nowyear = sdf.format(date);
 		rqc.setYear(nowyear);
 		int a =accountFlowMapper.timedupdatecostprofitdelete(rqc);
-		//System.out.println("已删除数据行数："+a);
-		List<ReportQuerycondition> rqclistr = new ArrayList<ReportQuerycondition>();
-		List<ReportQuerycondition> rqclistc = new ArrayList<ReportQuerycondition>();
+/*		List<ReportQuerycondition> rqclistr = new ArrayList<ReportQuerycondition>();
+		List<ReportQuerycondition> rqclistc = new ArrayList<ReportQuerycondition>();*/
 		List<Subject> Deptlist = subjectService.listByCondition(new Subject());
 		for (int i = 0; i < Deptlist.size(); i++) {
 			ReportQuerycondition rqcr = new ReportQuerycondition();
@@ -48,16 +47,12 @@ public class SpringQtz {
 			rqcc.setDeptname(Deptlist.get(i).getName());
 			rqcr.setClasstype("achieve");
 			rqcc.setClasstype("cost");
-			rqclistr.add(rqcr);
-			rqclistc.add(rqcc);
-			//System.out.println("--------------Singel1-------------");
-			//accountFlowMapper.timedupdatecostprofitrs(rqcr);//不采用批量插入
-			//accountFlowMapper.timedupdatecostprofitcs(rqcc);
-			//System.out.println("--------------Singel2-------------");
+			accountFlowMapper.timedupdatecostprofitcs(rqcc);//不采用批量插入
+			accountFlowMapper.timedupdatecostprofitrs(rqcr);
+/*			rqclistr.add(rqcr);
+			rqclistc.add(rqcc);*/
 		}
-		//System.out.println("--------------1-------------");
-		accountFlowMapper.timedupdatecostprofitr(rqclistr);//批量插入
-		accountFlowMapper.timedupdatecostprofitc(rqclistc);
-		//System.out.println("--------------2-------------");
+/*		accountFlowMapper.timedupdatecostprofitr(rqclistr);//批量插入
+		accountFlowMapper.timedupdatecostprofitc(rqclistc);*/
 	}
 }
