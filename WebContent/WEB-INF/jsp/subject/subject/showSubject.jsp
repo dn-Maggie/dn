@@ -25,11 +25,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td class="inputLabelTd">名称：</td>
 				<td class="inputTd">${subject.name}</td>
+				<td class="inputLabelTd">月度业绩目标：</td>
+				<td class="inputTd">${subject.perfTarget}</td>
 				<td class="inputLabelTd">创建时间：</td>
 				<td class="inputTd">${subject.creatdate}</td>
 			</tr>
 			<tr>
-				<td class="inputTd" colspan="4" style="text-align:center;">
+				<td class="inputTd" colspan="6" style="text-align:center;">
 					<input class="ti_bottom"  type="button" id="close_button"  value="关闭"/>
 				</td>
 			</tr>

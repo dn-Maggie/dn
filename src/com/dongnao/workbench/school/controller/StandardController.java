@@ -32,6 +32,7 @@ import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.continuePay.service.ContinuePayService;
 import com.dongnao.workbench.marketStudent.service.MarketStudentService;
 import com.dongnao.workbench.school.model.Standard;
+import com.dongnao.workbench.school.model.StudentBarData;
 import com.dongnao.workbench.school.service.StandardService;
 import com.dongnao.workbench.subject.model.Subject;
 import com.dongnao.workbench.subject.service.SubjectService;
@@ -158,7 +159,7 @@ public class StandardController{
 				finStaList.add(zyjobj);
 				finStaList.add(zcbobj);
 			}
-		} else {// param不为空说明有条件传入
+		} else {// param不为空说明有条件传入-
 			JSONObject jso = JSONArray.fromObject(param).getJSONObject(0);
 			if (jso.getString("r_year") == null || jso.getString("r_year").length() == 0) {// 如没有选择年份条件，默认设置当前年份
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
@@ -243,6 +244,21 @@ public class StandardController{
 		}
 		Map<Object, Object> model = new HashMap<Object, Object>();
 		model.put("curr", vipStudentService.getTotal(vipStudent));
+		AjaxUtils.sendAjaxForMap(response, model);
+	}
+	
+	/**
+	 * 获取学生报名人数数据
+	 */
+	
+	@RequestMapping("/getStudentBarData")
+	public void getStudentBarData(String year,String subjectName,HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException {
+		Map<Object,Object> model = new HashMap<Object,Object>();
+		StudentBarData sb = new StudentBarData();
+		sb.setYear(year);
+		sb.setSubjectName(subjectName);
+		sb = vipStudentService.getStudentBarData(sb);
+		model.put("sb", sb);
 		AjaxUtils.sendAjaxForMap(response, model);
 	}
 	

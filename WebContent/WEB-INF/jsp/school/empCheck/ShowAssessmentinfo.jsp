@@ -9,7 +9,7 @@ var gridObj = {};
 	$(function(){
   		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
-            url: "<m:url value='/empCheck/listEmpCheck.do'/>",/*grid初始化请求数据的远程地址*/
+            url: "<m:url value='/empCheck/listEmpCheckTwo.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
            	sortname:"create_time",
            	sortorder:"desc",
@@ -27,6 +27,16 @@ var gridObj = {};
 				{name : "checkMonth",label:"考核月份",index : "check_month",width:'40'},
 				{name : "createTime",label:"考核时间",index : "create_time",width:'40'},
 				{name : "checkPeople",label:"考核人",index : "checkpeople",width:'20'},
+				{name : "isConfirm",label:"状态",index : "isconfirm",width:'20',
+					formatter:function(cellvalue, options, rowObject){
+	 				 if (cellvalue==1) {
+		 				 	return '未确认';
+		 				 }else if (cellvalue==2) {
+		 				 	return '有异议';
+		 				 }else{
+		 					return '已确认';
+		 				 }
+	 			}},
 				{name : "",label:"查看考核单",index : "operate",width:'30',align: 'center',formatter: function (cellvalue, options, rowObject) {
 					return "<input id=\"showCheckForm\" type=\"button\" class=\"ti_bottom\" value=\"查看考核单\" onclick=\"showCheckForm(\'" +rowObject.id+"\')\"/>"; 
 					},

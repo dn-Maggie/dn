@@ -17,6 +17,10 @@
 				<td class="inputTd">
 					<input id="edit_name" name="name" type="text" class="text" value="${subject.name}"/>
 				</td>
+				<td class="inputLabelTd">月度业绩目标：</td>
+				<td class="inputTd">
+					<input id="edit_perfTarget" name="perfTarget" type="text" class="text" value="${subject.perfTarget}"/>
+				</td>
 			</tr>
 			<tr>
 				<td class="inputTd" colspan="4" style="text-align:center;">

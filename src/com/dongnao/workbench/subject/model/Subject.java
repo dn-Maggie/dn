@@ -29,7 +29,10 @@ public class Subject extends Model{
 					@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
 			private Date creatdate;
 		
-
+					/**
+	                 * 月度业绩目标
+	                 **/
+					private int perfTarget;
 					/**
 			 * 获取 
 			 * @return String this.id
@@ -84,4 +87,14 @@ public class Subject extends Model{
 			public void setCreatdate(Date creatdate){
 				this.creatdate = creatdate;
 			}
+
+			public int getPerfTarget() {
+				return perfTarget;
+			}
+
+			public void setPerfTarget(int perfTarget) {
+				this.perfTarget = perfTarget;
+			}
+			
+			
 			}

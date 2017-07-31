@@ -15,13 +15,17 @@
 				<td class="inputTd">
 					<input id="edit_name" name="name" type="text" class="text" value="${subject.name}"/>
 				</td>
+				<td class="inputLabelTd">月度业绩目标：</td>
+				<td class="inputTd">
+					<input id="edit_perfTarget" name="perfTarget" type="text" class="text" value="${subject.perfTarget}"/>
+				</td>
 				<td class="inputLabelTd">创建时间：</td>
 				<td class="inputTd">
 					<input id="edit_creatdate" name="creatdate" type="text" class="text" value="${subject.creatdate}"/>
 				</td>
 			</tr>
 			<tr>
-				<td class="inputTd" colspan="4" style="text-align:center;">
+				<td class="inputTd" colspan="6" style="text-align:center;">
 					<input id="submit" type="button" class="ti_bottom" value="<m:message code='button.save' />"/>
 				</td>
 			</tr>

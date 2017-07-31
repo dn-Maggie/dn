@@ -16,6 +16,7 @@
 		<result column="UPDATER_ID" property="updaterId" jdbcType="VARCHAR" />
 		<result column="BUREAU_ID" property="bureauId" jdbcType="VARCHAR" />
 		<result column="IS_DELETE" property="isDelete" jdbcType="VARCHAR" />
+		<result column="hpvp" property="hpvp" jdbcType="INTEGER" />
 	</resultMap>
 	<sql id="Base_Edit_List">
 		START_TIME
@@ -30,6 +31,7 @@
 		,ROLE_CODE
 		,END_TIME
 		,UPDATER_ID
+		,hpvp
 	</sql>
 
 	<sql id="Base_Query_List">
@@ -45,6 +47,7 @@
 		,r.ROLE_CODE
 		,r.END_TIME
 		,r.UPDATER_ID
+		,r.hpvp
 	</sql>
 	<select id="getByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.String">

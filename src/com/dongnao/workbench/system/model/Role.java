@@ -49,6 +49,11 @@ public class Role extends Model {
 	 * 所属局id
 	 */
 	private String bureauId;
+	
+	/**
+	 * 角色首页查看业绩标识
+	 */
+	private int hpvp;
 
 	/**
 	 * 获取开始时间
@@ -370,5 +375,14 @@ public class Role extends Model {
 	public void setBureauId(String bureauId) {
 		this.bureauId = bureauId;
 	}
+
+	public int getHpvp() {
+		return hpvp;
+	}
+
+	public void setHpvp(int hpvp) {
+		this.hpvp = hpvp;
+	}
+	
 
 }

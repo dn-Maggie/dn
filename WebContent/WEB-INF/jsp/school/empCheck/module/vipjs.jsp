@@ -823,23 +823,6 @@ div.Section0 {
 					</c:choose>
 					</p></td>
 			</tr>
-			<tr style="height: 21.5500pt;">
-				<td width=94 valign=center
-					style="width: 70.6000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: 1.0000pt solid windowtext; mso-border-left-alt: 0.5000pt solid windowtext; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
-						class=MsoNormal align=center
-						style="margin-bottom: 0.0000pt; mso-pagination: none; text-align: center; mso-line-height-alt: 0pt;">
-						<span
-							style="mso-spacerun: 'yes'; font-family: 仿宋; mso-bidi-font-family: 'Times New Roman'; color: rgb(0, 0, 0); font-size: 12.0000pt;">确认签字</span><span
-							style="font-family: 仿宋; mso-bidi-font-family: 'Times New Roman'; color: rgb(0, 0, 0); font-size: 12.0000pt;"><o:p></o:p></span>
-					</p></td>
-				<td width=481 valign=top colspan=4
-					style="width: 361.0000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: none;; mso-border-left-alt: none;; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
-						class=MsoNormal align=justify
-						style="margin-bottom: 0.0000pt; mso-pagination: none; text-align: justify; text-justify: inter-ideograph; mso-line-height-alt: 0pt;">
-						<span
-							style="font-family: 仿宋; mso-bidi-font-family: 'Times New Roman'; color: rgb(0, 0, 0); font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p>&nbsp;</o:p></span>
-					</p></td>
-			</tr>
 			<tr style="height: 59.8500pt;">
 				<td width=94 valign=center
 					style="width: 70.6000pt; padding: 0.0000pt 5.4000pt 0.0000pt 5.4000pt; border-left: 1.0000pt solid windowtext; mso-border-left-alt: 0.5000pt solid windowtext; border-right: 1.0000pt solid windowtext; mso-border-right-alt: 0.5000pt solid windowtext; border-top: none;; mso-border-top-alt: 0.5000pt solid windowtext; border-bottom: 1.0000pt solid windowtext; mso-border-bottom-alt: 0.5000pt solid windowtext;"><p
@@ -887,17 +870,23 @@ div.Section0 {
 			  <tr style="height:18.8500pt;"></tr>
             <tr align="center">
                 <td colspan=5>
-                    <c:choose> 
+                      <c:choose> 
 					  <c:when test="${type eq 'check'}">   
 					   <input type="button" value="提交" style="width: 70px;" onclick="ajaxUpload()">
 					   <input type="button" value="关闭" style="width: 70px;" onclick="cancelCheck()"> 
 					  </c:when>  
 					  <c:otherwise>   
-					  	<c:if test="${commonEmp}">
-							<input type="button" value="确认无误" style="width: 70px;" onclick="empConfirm(3,'${empCheck.empName}','${empCheck.checkMonth}')">
-					     	<input type="button" value="有异议" style="width: 70px;" onclick="empConfirm(2,'${empCheck.empName}','${empCheck.checkMonth}')">
-						</c:if>	
-						<input type="button" value="关闭" style="width: 70px;" onclick="cancelShow()"> 
+						  <c:if test="${empCheck.isConfirm == 1}">
+						  	<c:if test="${commonEmp}">
+								<input type="button" value="确认无误" style="width: 70px;" onclick="empConfirm(3,'${empCheck.empNo}','${empCheck.checkMonth}')">
+					     		<input type="button" value="有异议" style="width: 70px;" onclick="empConfirm(2,'${empCheck.empNo}','${empCheck.checkMonth}')">
+							</c:if>
+							<c:if test="${empCheck.empName == user.fullName}">
+								<input type="button" value="确认无误" style="width: 70px;" onclick="empConfirm(3,'${empCheck.empNo}','${empCheck.checkMonth}')">
+					     		<input type="button" value="有异议" style="width: 70px;" onclick="empConfirm(2,'${empCheck.empNo}','${empCheck.checkMonth}')">
+							</c:if>
+						  </c:if>
+						<input type="button" value="关闭" style="width: 70px;" onclick="cancelShow()">
 					  </c:otherwise> 
 					</c:choose>
                 </td>
@@ -933,21 +922,25 @@ function ajaxUpload(){
  	}
 
 
-function empConfirm(num,empName,checkMonth){
+function empConfirm(num,empNo,checkMonth){
 	var paramDatas = {
 			isConfirm:num,
-			empName:empName,
+			empNo:empNo,
 			checkMonth:checkMonth
 			};
 		$.ajax({
 					url : "<m:url value='/empCheck/empConfirm.do'/>",
 					cache : false,
 					data: paramDatas,
-					async : false,
+					async : true,
 					dataType:"json",
 					success : function(data, textStatus, jqXHR) {
-						window.parent.closeShowCheckForm();
-						window.location.reload();
+						if(data.status==1){
+							cancelShow();
+						}else{
+							alert("操作失败，请联系管理员！");
+							window.location.reload();
+						}
 					}
 				});
 }

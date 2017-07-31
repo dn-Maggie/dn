@@ -1,10 +1,14 @@
-<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<%@ page language="java" pageEncoding="UTF-8" 
+	contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
-<html>
+<html>	
 <head>
 <%@ include file="../../common/header.jsp"%>
+<%@ include file="../../common/ace.jsp"%>
 <title>数据统计图</title>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/echarts-2.2.7/echarts.js" ></script>
+<link rel="stylesheet"
+	href="<%=request.getContextPath() %>/static/css/chosen.css" />
 <style>
 	@charset "utf-8";
 	#monthMap{
@@ -17,7 +21,7 @@
 		display: none;
 	    position: relative;
         z-index: -1;
-        left: 94px;
+        left: 30px;
 		width: 200px;
 		height: 200px;
 		box-sizing: border-box;
@@ -90,8 +94,11 @@
 	.yearItem.active+.timeMon{
 		display: block;
 	}
-	ul li:hover{
+	/* ul li:hover{
 		background: #fff;
+	} */
+	ul{
+	    margin: 0;
 	}
 	.btn-area{
 	    display: block;
@@ -118,61 +125,114 @@
 	.btn-area a:hover{
 		color: #333;
 	}
-	#main{
+	#main,#vipnumber{
 		position:absolute;
 		top:100px;
 		left:0;
 		right:0;
-		bottom:5%;
+		bottom:5%; 
+		height: auto;
+		width: auto;
 	}
-	#subchart{
-		position:absolute;
-		top:100px;
-		left:0;
-		right:0;
-		bottom:5%;
+	.widget-toolbar{
+		float: left;
+	}
+	.tab-pane{
+		display: none;
+	}
+	.tab-pane.active{
+		display: block;
 	}
 </style>
 </head>
-<body style="height:100%;">
-	<div class="main  choice_box">
-		<form id="queryForm"><!-- 查询区 表单 -->
-			<div class="search border-bottom">
-				<ul>
-				<li style="width:160px;">
-						<select class="search_choose" name="subjectName" id="subjectName" mainid="subjectName" style="width:88px;">
-						<option value="">全部</option>
-						<c:forEach var="subject" items="${subject}">
-							<option value="${subject.name}"> <c:out value="${subject.name}"></c:out> </option>
-			            </c:forEach>
-					</select><span>学科:</span>
-					</li><!-- 输入框-->
-					
-					<li style="width: 300px">
-						<span>月份:</span>
-						<input type="text" id="monthChoose" class="search_choose" style="width: 200px;float:left;"/>
-						<div class="timeWrapper">
-							<div class="timeYear">
+<body style="height:100%;background-color:#fff" >
+
+		<div class="main  choice_box">
+		<!-- tab -->
+		<div class="widget-box transparent" id="recent-box">
+			<div class="widget-header">
+				<div class="widget-toolbar no-border">
+					<ul class="nav nav-tabs tabhd" id="recent-tab">
+						<li class="active">
+								<a data-toggle="tab" data-target="achievement-tab">业绩统计</a>
+						</li>
+						<li>
+								<a data-toggle="tab" data-target="vipnumber-tab">学生人数</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="widget-body">
+				<div class="widget-main padding-4">
+					<!-- <div class="tab-content padding-8 overflow-visible tabbd"
+						style="margin: 0 auto;">  --> 
+						<div id="achievement-tab"  class="tab-pane active">
+							<form id="queryForm"><!-- 查询区 表单 -->
+								<div class="search border-bottom">
 								<ul>
+								<li style="width:160px;">
+										<select class="search_choose" name="subjectName" id="subjectName" mainid="subjectName" style="width:88px;">
+										<option value="">全部</option>
+										<c:forEach var="subject" items="${subject}">
+											<option value="${subject.name}"> <c:out value="${subject.name}"></c:out> </option>
+							            </c:forEach>
+									</select><span>学科:</span>
+									</li><!-- 输入框-->
 									
+									<li style="width: 300px">
+										<span>月份:</span>
+										<input type="text" id="monthChoose" class="search_choose" style="width: 200px;float:left;"/>
+										<div class="timeWrapper">
+											<div class="timeYear">
+												<ul></ul>
+											</div>
+											<div class="btn-area">
+												<a href="javascript:0" id="confirm">确定</a>
+												<a href="javascript:0" id="reset">清空</a>
+											</div>
+										</div>
+									</li>	
+									<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm');months=[]" value="重置"><!-- 重置 -->
+										<input type="button" class="search_btn mr22 " onclick="arr=[];ajaxGetStatistic();drawMainChart();" value="查询">
+									</li><!-- 查询-->
 								</ul>
-							</div>
-							<div class="btn-area">
-								<a href="javascript:0" id="confirm">确定</a>
-								<a href="javascript:0" id="reset">清空</a>
-							</div>
-						</div>
-					</li>	
-					<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm');months=[]" value="重置"><!-- 重置 -->
-						<input type="button" class="search_btn mr22 " onclick="arr=[];ajaxGetStatistic();drawMainChart();" value="查询">
-					</li><!-- 查询-->
-				</ul>
-		   </div>
-	    </form>
-		
-		<div id="main"></div>
-	</div>
-	
+						   </div>
+					    </form>
+						<div id="main"></div>
+					</div>		
+					
+					<div id="vipnumber-tab"  class="tab-pane" > 
+							<form id="queryForm"><!-- 查询区 表单 -->
+								<div class="search border-bottom">
+								<ul>
+								<li style="width:160px;">
+										<select class="search_choose" name="subjectName" id="subjectName2" mainid="subjectName" style="width:88px;">
+										<option value="">全部</option>
+										<c:forEach var="subject" items="${subject}">
+											<option value="${subject.name}"> <c:out value="${subject.name}"></c:out> </option>
+							            </c:forEach>
+									</select><span>部门:</span>
+									</li><!-- 输入框-->
+									<li style="width: 300px">
+										<span>年份:</span>
+										<input style="width: 200px;float:left;" type="text"  class="search_time150 date-picker"  data-date-format="yyyy" id="queryTime">
+									</li>	
+									<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm');months=[]" value="重置"><!-- 重置 -->
+										<input type="button" class="search_btn mr22 " onclick="arr=[];ajaxGetStatistic();drawMainChart();" value="查询">
+									</li><!-- 查询-->
+								</ul>
+						   </div>
+					    </form>
+					    <div id="vipnumber"></div>
+					</div>		
+					</div>
+				</div>
+			</div>
+		</div>
+<!-- tab -->
+			
+		<!-- </div>  -->
 		<script type="text/template" id="yearTemp">
 				<li><span class="yearItem " data-key="{{year}}" style="top:0;">{{year}}年</span></li>
 		</script>
@@ -196,8 +256,14 @@
 		</script>
 	<script type="text/javascript">
 	var arr = [];
+	var vipNumbersData = [];
 	var months =[];
 	$(document).ready(function(){
+		//datePicker控件
+		$('.date-picker').datepicker({autoclose:false}).next().on(ace.click_event, function(){
+			$(this).prev().focus();
+		});
+		$("#queryTime").val(new Date().getFullYear());
 		Array.prototype.in_array = function(e){  //?
 			for(i=0;i<this.length;i++){  
 				if(this[i] == e)return true;  
@@ -206,8 +272,10 @@
 		};
 		//获取数据库结果集并把结果放入arr[]中
 		ajaxGetStatistic();
+		ajaxGetVipNumver();
 		//绘制图表
 		drawMainChart();
+		//drawVipnumber();
 	})
 	.on('mouseover', '.yearItem', function() {
 		//给带有yearItem类的标签绑定鼠标划动事件，清除其他年份上的active类
@@ -274,9 +342,25 @@
 	        }
 		}
 	})
+	.on('click', '#queryTime', function() {
+		$(".datepicker-days").remove();
+		$(".datepicker-months").remove();
+		$(".datepicker-years").css("display", "block");
+		$('.datepicker-years span').click(function(){
+			$(".dropdown-menu").css("display", "none");
+			$("#queryTime").val($(this).text());
+		})
+	})
+	
+	
 	.on('click', '#confirm', function() {
 		$("#monthChoose").val(months);
 		$(".timeWrapper").css("display", "none"); 
+	})
+	.on('click', '#recent-tab>li>a', function() {
+		var targetId = $(this).data('target');
+		$(".tab-pane").removeClass("active");
+		$("#"+targetId).addClass("active");
 	})
 	.on('click', '#reset', function() {
 		months=[];
@@ -300,8 +384,7 @@
 			var yearItem = $(".yearItem");
 			yearItem.after($('#monTemp').html());
 		}
-	});
-		
+	})
 	function drawMainChart(){
 		//初始化变量
 		var names = [];
@@ -408,7 +491,112 @@
 		}
 		mainChart.setOption(option);
 	}
-	
+	function drawMainChart(){
+		//初始化变量
+		var names = [];
+		var actualPay = []
+		var allCome = [];
+		var shouldPay = [];
+		var profit = [];
+		var pay = [];
+		//先判断结果集是否存在，通过遍历结果集，分别获得月份名、实收报名费、总业绩、应收学费
+		if(arr.length>0){
+			for(var key in arr[0]){//遍历data数据放入names 
+				names.push(key);//names存放的是key值 ：比如2016-09
+			}
+			names.sort(function compare(v1,v2){
+				return  v1.split("-")[0]==v2.split("-")[0]?v1.split("-")[1]-v2.split("-")[1]:v1.split("-")[0]>v2.split("-")[0];
+			});
+			var name;
+			for(var j=0;j<names.length;j++){    
+				name = arr[0][names[j]];
+				if(name){
+					actualPay.push(Math.round(name.xfsr));
+					allCome.push(Math.round(name.xfbk+name.xfsr));
+					shouldPay.push(Math.round(name.shouldPay));
+					profit.push(Math.round(name.xfbk+name.xfsr-name.pay));
+					pay.push(Math.round(name.pay));
+				}else{
+					actualPay.push(0);allCome.push(0);profit.push(0);pay.push(0);shouldPay.push(0);
+				}
+	        } 
+		}
+		var mainChart = echarts.init(document.getElementById("main"));
+		$(window).on('resize',function(){//大小自适应
+			mainChart.resize();
+		});
+		var option = {
+			tooltip: {
+				show:true,
+		        trigger: 'axis'
+		    },
+		     toolbox: {
+		        feature: {
+		            dataView: {show: true, readOnly: true,title:'数据视图'},//右侧小图标
+		            magicType: {show: true, type: ['line', 'bar']},
+		            saveAsImage: {show: true}//保存为图片
+		        }
+		    },
+			title: {
+	            text: ''
+	        },
+	        legend: {
+	            data:['总业绩','应收总额','实收报名费','总成本','总利润','业绩增长比']//更换成指标项 ：总业绩、应收总额、实收报名费
+	        },
+	        //x坐标
+	        xAxis: [
+	        	{
+	   				type: 'category', //坐标轴类型
+	   				axisLabel:{
+	        			show:true
+	        		},
+	                data:  names //更换成动态数据，最近6个月
+				}
+	        ],
+	        //y坐标
+	        yAxis: {
+	            type: 'value',
+	            name: '金额',
+	            min: 0,
+	            axisLabel: {
+	                formatter: '$ {value}'
+	            }
+	        },
+			series: [{
+	                name: '总业绩',
+	                type: 'bar',
+	                data: allCome //更换成动态数据
+	          	},
+		        {
+		            name:'应收总额',
+		            type:'bar',
+		            data:shouldPay //更换成动态数据
+		        },
+		        {
+		            name:'实收报名费',
+		            type:'bar',
+		            data:actualPay //更换成动态数据
+		        },
+		        {
+		            name:'总成本',
+		            type:'bar',
+		            data:pay //更换成动态数据
+		        },
+		        {
+		            name:'总利润',
+		            type:'bar',
+		            data:profit //更换成动态数据
+		        },
+		        {
+		            name:'业绩增长比',
+		            type:'line',
+		            data:allCome //更换成动态数据
+		        }
+		    ],
+		    color:['#f68484',  '#75b9e6', 'rgb(135, 184, 127)','#ae91e1', '#f6ac61', '#c4ccd3'],
+		}
+		mainChart.setOption(option);
+	}
 	function hideMonthMap(){
 		$(".timeWrapper").css("display", "none"); 
 	} 
@@ -423,7 +611,20 @@
 	   			dataType:"json",
 	   			success : function(data) {
 	   				arr.push(data);
-	   				//console.log(arr);
+	   			}
+	   		});
+    };
+    
+  //根据条件从数据库获取结果集
+	function ajaxGetVipNumver(){
+	  	debugger;
+	       	$.ajax({
+	   			url : "<m:url value='/standard/getStudentBarData.do'/>?year="+$("#queryTime").val()+"&subjectName="+$("#subjectName2").val(),
+	   			cache : false,
+	   			async : false,
+	   			dataType:"json",
+	   			success : function(data) {
+	   				vipNumbersData.push(data);
 	   			}
 	   		});
     };

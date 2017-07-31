@@ -43,4 +43,10 @@ public interface SubjectService  {
 	 * @param subject Subject 实体对象
 	 */	
 	public ResultMessage update(Subject subject);
+	
+	/**
+	 * 查询总业绩目标方法
+	 * @param subject Subject 实体对象
+	 */	
+	public int queryPerfTarget();
 }

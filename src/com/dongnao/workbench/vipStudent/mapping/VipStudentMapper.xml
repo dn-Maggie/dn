@@ -42,6 +42,26 @@
 		<result column="salary" property="salary" jdbcType="VARCHAR" />
 		<result column="enter_emp" property="enterEmp" jdbcType="VARCHAR" />
 	</resultMap>
+	
+	<resultMap id="StudentBarMap"
+		type="com.dongnao.workbench.school.model.StudentBarData">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="s1" property="s1" jdbcType="INTEGER" />
+		<result column="s2" property="s2" jdbcType="INTEGER" />
+		<result column="s3" property="s3" jdbcType="INTEGER" />
+		<result column="s4" property="s4" jdbcType="INTEGER" />
+		<result column="s5" property="s5" jdbcType="INTEGER" />
+		<result column="s6" property="s6" jdbcType="INTEGER" />
+		<result column="s7" property="s7" jdbcType="INTEGER" />
+		<result column="s8" property="s8" jdbcType="INTEGER" />
+		<result column="s9" property="s9" jdbcType="INTEGER" />
+		<result column="s10" property="s10" jdbcType="INTEGER" />
+		<result column="s11" property="s11" jdbcType="INTEGER" />
+		<result column="s12" property="s12" jdbcType="INTEGER" />
+		<result column="year" property="year" jdbcType="VARCHAR" />
+		<result column="subjectName" property="subjectName" jdbcType="VARCHAR" />
+	</resultMap>
+	
 	<sql id="Base_Column_List">
 		id
 		,NAME
@@ -197,6 +217,22 @@
 				and v1.NAME like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
 			</if>
 		
+	</select>
+	
+	<select id="getStudentBarData" resultMap="StudentBarMap"
+		parameterType="com.dongnao.workbench.school.model.StudentBarData">
+		SELECT * from ( (SELECT  count(DISTINCT qq) as s1 FROM `vip_student` where join_time like concat('%',#{year,jdbcType=VARCHAR},'-01%') <if test="subjectName != null and '' != subjectName">and subject_name = #{subjectName,jdbcType=VARCHAR}</if>) as s1,
+							  (SELECT  count(DISTINCT qq) as s2 FROM `vip_student` where   join_time like concat('%',#{year,jdbcType=VARCHAR},'-02%')<if test="subjectName != null and '' != subjectName">and subject_name = #{subjectName,jdbcType=VARCHAR}</if>) as s2,
+								(SELECT  count(DISTINCT qq) as s3 FROM `vip_student` where   join_time like concat('%',#{year,jdbcType=VARCHAR},'-03%')<if test="subjectName != null and '' != subjectName">and subject_name = #{subjectName,jdbcType=VARCHAR}</if>) as s3,
+								(SELECT  count(DISTINCT qq) as s4 FROM `vip_student` where   join_time like concat('%',#{year,jdbcType=VARCHAR},'-04%')<if test="subjectName != null and '' != subjectName">and subject_name = #{subjectName,jdbcType=VARCHAR}</if>) as s4,
+								(SELECT  count(DISTINCT qq) as s5 FROM `vip_student` where   join_time like concat('%',#{year,jdbcType=VARCHAR},'-05%')<if test="subjectName != null and '' != subjectName">and subject_name = #{subjectName,jdbcType=VARCHAR}</if>) as s5,
+								(SELECT  count(DISTINCT qq) as s6 FROM `vip_student` where   join_time like concat('%',#{year,jdbcType=VARCHAR},'-06%')<if test="subjectName != null and '' != subjectName">and subject_name = #{subjectName,jdbcType=VARCHAR}</if>) as s6,
+								(SELECT  count(DISTINCT qq) as s7 FROM `vip_student` where   join_time like concat('%',#{year,jdbcType=VARCHAR},'-07%')<if test="subjectName != null and '' != subjectName">and subject_name = #{subjectName,jdbcType=VARCHAR}</if>) as s7,
+								(SELECT  count(DISTINCT qq) as s8 FROM `vip_student` where   join_time like concat('%',#{year,jdbcType=VARCHAR},'-08%')<if test="subjectName != null and '' != subjectName">and subject_name = #{subjectName,jdbcType=VARCHAR}</if>) as s8,
+								(SELECT  count(DISTINCT qq) as s9 FROM `vip_student` where   join_time like concat('%',#{year,jdbcType=VARCHAR},'-09%')<if test="subjectName != null and '' != subjectName">and subject_name = #{subjectName,jdbcType=VARCHAR}</if>) as s9,
+								(SELECT  count(DISTINCT qq) as s10 FROM `vip_student` where  join_time like concat('%',#{year,jdbcType=VARCHAR},'-10%')<if test="subjectName != null and '' != subjectName">and subject_name = #{subjectName,jdbcType=VARCHAR}</if>) as s10,
+								(SELECT  count(DISTINCT qq) as s11 FROM `vip_student` where  join_time like concat('%',#{year,jdbcType=VARCHAR},'-11%')<if test="subjectName != null and '' != subjectName">and subject_name = #{subjectName,jdbcType=VARCHAR}</if>) as s11,
+								(SELECT  count(DISTINCT qq) as s12 FROM `vip_student` where  join_time like concat('%',#{year,jdbcType=VARCHAR},'-12%')<if test="subjectName != null and '' != subjectName">and subject_name = #{subjectName,jdbcType=VARCHAR}</if>) as s12) 
 	</select>
 	
 	<select id="getByStu" resultMap="BaseResultMap"

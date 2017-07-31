@@ -11,7 +11,7 @@ var gridObj = {};
             id:"#remote_rowed",/*html部分table id*/
             url: "<m:url value='/fixedAsset/listFixedAsset.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
-           	sortname:"id",
+           	sortname:"asset_no",
            	sortorder:"asc",
            	multiselect:true,
            	multiboxonly:true,

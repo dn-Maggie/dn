@@ -133,7 +133,7 @@
 					e.bank_card,
 					e.bank_name,
 					e.isassess,
-					(select name from employee where id=e.checkname) as checkname,
+					e.checkname,
 					e.checkstanderd,
 					e.note,
 					e.curr_state,
@@ -325,6 +325,9 @@
 		</if>
 		<if test="currState != null and '' != currState">  
 			and e.curr_state = #{currState,jdbcType=VARCHAR}
+		</if>
+		<if test="currState == null or '' == currState">  
+			and e.curr_state in('1','2','4')
 		</if>
 		<if test="orderFields != null and '' != orderFields">  
           	order by ${orderFields} ${order}

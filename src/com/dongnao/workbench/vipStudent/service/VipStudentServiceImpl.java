@@ -9,6 +9,7 @@ import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.bean.ResultMoney;
 import com.dongnao.workbench.common.util.AjaxUtils;
+import com.dongnao.workbench.school.model.StudentBarData;
 import com.dongnao.workbench.vipStudent.dao.VipStudentMapper;
 import com.dongnao.workbench.vipStudent.model.Statistical;
 import com.dongnao.workbench.vipStudent.model.VipStudent;
@@ -157,6 +158,14 @@ public class VipStudentServiceImpl implements VipStudentService{
 
 	public List<Statistical> getTotal(VipStudent vipStudent) {
 		return vipStudentMapper.getTotal(vipStudent);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.dongnao.workbench.vipStudent.service.VipStudentService#getStudentBarData(com.dongnao.workbench.school.model.StudentBarData)
+	 */
+	@Override
+	public StudentBarData getStudentBarData(StudentBarData studentBarData) {
+		 return vipStudentMapper.getStudentBarData(studentBarData);
 	}
 
 

@@ -293,7 +293,7 @@ public class EmpSalaryController{
         		/*+ "<th>薪级工资</th>"*/
         		+ "<th>应发工资</th><th>社保扣款</th><th>请假扣款</th>"
         		+ "<th>迟到早退扣款</th><th>打卡异常扣款</th><th>餐补</th><th>住房补贴</th><th>交通补贴</th>"
-        		+ "<th>绩效奖金</th><th>其他</th><th>备注</th><th>实发工资</th></tr></thead>"
+        		+ "<th>绩效奖金</th><th>其他</th><th>个人所得税</th><th>实发工资</th></tr></thead>"
         		+ "<tbody><tr>"
         		+ "<td>"+StringUtil.valueOf(empSalary.getEmpName())+"</td>"
         		+ "<td>"+StringUtil.valueOf(empSalary.getEmpNickName())+"</td>"

@@ -118,7 +118,6 @@ public class SubjectController{
 	public ModelAndView toEdit(String key){
 		Subject entity = subjectService.getByPrimaryKey(key);
 		Map<String,String> subject = FormatEntity.getObjectValue(entity);
-		
 		return new ModelAndView("WEB-INF/jsp/subject/subject/editSubject","subject",subject );
 	}
 	

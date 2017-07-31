@@ -213,32 +213,32 @@ values
 insert into cost_profit_temporary (j_jan,j_feb,j_mar,j_apr,j_may,j_jun,j_jul,j_aug,j_sep,j_oct,j_nov,j_dec,subname,classType,j_year)
 values
 ((SELECT truncate(sum(af2.money),2) from financial_flow af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-01') and af2.stu_id=vs1.id and vs1.subject_name=#{item.deptname}),
+			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-01') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}),
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-02') and af2.stu_id=vs1.id and vs1.subject_name=#{item.deptname}),
+			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-02') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}),
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-03') and af2.stu_id=vs1.id and vs1.subject_name=#{item.deptname}),
+			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-03') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}),
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-04') and af2.stu_id=vs1.id and vs1.subject_name=#{item.deptname}),
+			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-04') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}),
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-05') and af2.stu_id=vs1.id and vs1.subject_name=#{item.deptname}),
+			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-05') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}),
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-06') and af2.stu_id=vs1.id and vs1.subject_name=#{item.deptname}),
+			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-06') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}),
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-07') and af2.stu_id=vs1.id and vs1.subject_name=#{item.deptname}), 
+			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-07') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}), 
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-08') and af2.stu_id=vs1.id and vs1.subject_name=#{item.deptname}), 
+			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-08') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}), 
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-09') and af2.stu_id=vs1.id and vs1.subject_name=#{item.deptname}),
+			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-09') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}),
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-10') and af2.stu_id=vs1.id and vs1.subject_name=#{item.deptname}),
+			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-10') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}),
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-11') and af2.stu_id=vs1.id and vs1.subject_name=#{item.deptname}),
+			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-11') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}),
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-12') and af2.stu_id=vs1.id and vs1.subject_name=#{item.deptname}),
-			#{item.deptname},
-			#{item.classtype},
-			#{item.year})	
+			where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-12') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}),
+			#{deptname,jdbcType=VARCHAR},
+			#{classtype,jdbcType=VARCHAR},
+			#{year,jdbcType=VARCHAR})	
 	</insert>
 	
 	
@@ -246,32 +246,32 @@ values
 insert into cost_profit_temporary (j_jan,j_feb,j_mar,j_apr,j_may,j_jun,j_jul,j_aug,j_sep,j_oct,j_nov,j_dec,subname,classType,j_year)
 values
 ((SELECT truncate(sum(af2.money),2) from financial_flow af2
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-01') and af2.d_name=#{item.deptname}),
+			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-01') and af2.d_name=#{deptname,jdbcType=VARCHAR}),
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-02') and af2.d_name=#{item.deptname}),
+			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-02') and af2.d_name=#{deptname,jdbcType=VARCHAR}),
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-03') and af2.d_name=#{item.deptname}),
+			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-03') and af2.d_name=#{deptname,jdbcType=VARCHAR}),
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-04') and af2.d_name=#{item.deptname}),
+			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-04') and af2.d_name=#{deptname,jdbcType=VARCHAR}),
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-05') and af2.d_name=#{item.deptname}),
+			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-05') and af2.d_name=#{deptname,jdbcType=VARCHAR}),
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-06') and af2.d_name=#{item.deptname}),
+			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-06') and af2.d_name=#{deptname,jdbcType=VARCHAR}),
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-07') and af2.d_name=#{item.deptname}), 
+			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-07') and af2.d_name=#{deptname,jdbcType=VARCHAR}), 
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-08') and af2.d_name=#{item.deptname}), 
+			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-08') and af2.d_name=#{deptname,jdbcType=VARCHAR}), 
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-09') and af2.d_name=#{item.deptname}),
+			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-09') and af2.d_name=#{deptname,jdbcType=VARCHAR}),
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-10') and af2.d_name=#{item.deptname}),
+			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-10') and af2.d_name=#{deptname,jdbcType=VARCHAR}),
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-11') and af2.d_name=#{item.deptname}),
+			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-11') and af2.d_name=#{deptname,jdbcType=VARCHAR}),
 			(SELECT truncate(sum(af2.money),2) from financial_flow af2 
-			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{item.year},'-12') and af2.d_name=#{item.deptname}),
-			#{item.deptname},
-			#{item.classtype},
-			#{item.year})	
+			where af2.ACCOUNT_NO IN ('XFTK','YGJK','GZZC','XFTJ','CCFY','DLJZ','YGFL','CF','BGCDZJ','TJHD','YJ','YGBX','WZCG','QT','ZDFY') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-12') and af2.d_name=#{deptname,jdbcType=VARCHAR}),
+			#{deptname,jdbcType=VARCHAR},
+			#{classtype,jdbcType=VARCHAR},
+			#{year,jdbcType=VARCHAR})	
 	</insert>
 	
 	<insert id="timedupdatecostprofitc" parameterType="java.util.List">
@@ -385,6 +385,16 @@ values
 		</if>
 		<if test="accountNameExcept != null and '' != accountNameExcept">  
 			and af.account_name not in (#{accountNameExcept,jdbcType=VARCHAR},'学费调减')
+		</if>
+		<if test="null != startDate and startDate != ''">
+			<![CDATA[
+			and DATE_FORMAT(af.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			]]>
+		</if>
+		<if test="null != endDate and endDate != ''">
+			<![CDATA[
+				and DATE_FORMAT(af.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			]]>
 		</if>
 	</select>
 	

@@ -59,7 +59,7 @@ public class EmpPerformance extends Model{
 		            /**
 	                 * 绩效奖金
 	                 **/
-				   			private String performance;
+				   			private double performance;
 		   		
 		   			/**
 		   			 * 发生时间
@@ -251,17 +251,7 @@ public class EmpPerformance extends Model{
 			 * 获取 绩效奖金
 			 * @return String this.performance
 			 */
-			public String getPerformance(){
-				return this.performance;
-			}
-			
-			/**
-			 * 设置 绩效奖金
-			 * @param String performance 
-			 */
-			public void setPerformance(String performance){
-				this.performance = performance;
-			}
+
 		   		
 		
 
@@ -272,6 +262,14 @@ public class EmpPerformance extends Model{
 			 */
 			public Date getCreateDate() {
 				return this.createDate;
+			}
+
+			public double getPerformance() {
+				return performance;
+			}
+
+			public void setPerformance(double performance) {
+				this.performance = performance;
 			}
 
 			/**

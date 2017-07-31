@@ -50,8 +50,8 @@ public class EmpCheckServiceImp implements EmpCheckService {
 
 	
 	@Override
-	public void empConfirm(EmpCheck empc) {
-		empCheckMapper.empConfirm(empc);
+	public int empConfirm(EmpCheck empc) {
+		return empCheckMapper.empConfirm(empc);
 	}
 
 }

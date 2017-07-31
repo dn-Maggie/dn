@@ -12,7 +12,7 @@ var subList = {};
             id:"#remote_rowed",/*html部分table id*/
             url: "<m:url value='/subject/listSubject.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
-           	sortname:"id",
+           	sortname:"creatdate",
            	sortorder:"asc",
            	//navtype:"top" /*导航栏类型*/,
            	//height: gridHeight,
@@ -23,7 +23,8 @@ var subList = {};
     		rowNum:10,//默认显示15条
             colModel:[
 				{name : "id",hidden : true,key : true,label:"",index : "id"},				
-				{name : "name",label:"学科名称",index : "NAME"},				
+				{name : "name",label:"学科名称",index : "NAME"},
+				{name : "perfTarget",label:"月度业绩目标",index : "perf_target"},
 				{name : "creatdate",label:"创建时间",index : "creatDate"}				
            	],
            	serializeGridData:function(postData){//添加查询条件值

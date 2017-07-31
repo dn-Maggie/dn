@@ -433,27 +433,15 @@
 								</label>
 							</span>
 							<div class="cd-price">
- 								<div class="easy-pie-chart percentage" style="margin-right: 10px" data-percent="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk)/10000}" data-size="56">
+ 								<div class="easy-pie-chart percentage" style="margin-right: 10px" data-percent="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk)/(model.perfTarget/100)}" data-size="56">
 									<span class="percent">
-										<fmt:formatNumber value="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk)/10000}" pattern="0.0" type="number"></fmt:formatNumber>
+										<fmt:formatNumber value="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk)/(model.perfTarget/100)}" pattern="0.0" type="number"></fmt:formatNumber>
 									</span>%
 								</div> 
 								<span class="cd-value-big">
 									<fmt:formatNumber value="${model.currMonthxf.xfsr+model.currMonthxf.xfbk}" pattern="0" type="number"></fmt:formatNumber>								
 								</span>
 							</div>
- 							<c:choose>
-								<c:when test="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk) - (model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk)>=0}">
-									<div class="stat stat-success">
-										<fmt:formatNumber value="${((model.currMonthxf.xfsr+model.currMonthxf.xfbk) - (model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk))/(model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk)}" type="percent"></fmt:formatNumber>
-									</div>
-								</c:when>
-								<c:otherwise>
-									<div class="stat stat-important">
-										<fmt:formatNumber value="${((model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk) - (model.currMonthxf.xfsr+model.currMonthxf.xfbk))/(model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk)}" type="percent"></fmt:formatNumber>
-									</div>
-								</c:otherwise>
-							</c:choose>
 						</div> <!-- .cd-pricing-header -->
 					</li>
 
@@ -496,27 +484,15 @@
 								</label>
 							</span>
 							<div class="cd-price">
-								<div class="easy-pie-chart percentage" style="margin-right: 10px" data-percent="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk-model.currMonthxf.xftk)/10000}" data-size="56">
+								<div class="easy-pie-chart percentage" style="margin-right: 10px" data-percent="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk-model.currMonthxf.xftk)/(model.perfTarget/100)}" data-size="56">
 									<span class="percent">
-										<fmt:formatNumber value="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk-model.currMonthxf.xftk)/10000}" pattern="0.0" type="number"></fmt:formatNumber>
+										<fmt:formatNumber value="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk-model.currMonthxf.xftk)/(model.perfTarget/100)}" pattern="0.0" type="number"></fmt:formatNumber>
 									</span>%
 								</div>
 								<span class="cd-value-big">
 									<fmt:formatNumber value="${model.currMonthxf.xfsr+model.currMonthxf.xfbk-model.currMonthxf.xftk}" pattern="0" type="number"></fmt:formatNumber>								
 								</span>
 							</div>
-							<c:choose>
-								<c:when test="${(model.currMonthxf.xfsr+model.currMonthxf.xfbk-model.currMonthxf.xftk) - (model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk-model.beforeMonthxf.xftk)>=0}">
-									<div class="stat stat-success">
-										<fmt:formatNumber value="${((model.currMonthxf.xfsr+model.currMonthxf.xfbk-model.currMonthxf.xftk) - (model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk-model.beforeMonthxf.xftk))/(model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk-model.beforeMonthxf.xftk)}" type="percent"></fmt:formatNumber>
-									</div>
-								</c:when>
-								<c:otherwise>
-									<div class="stat stat-important">
-										<fmt:formatNumber value="${((model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk-model.beforeMonthxf.xftk) - (model.currMonthxf.xfsr+model.currMonthxf.xfbk-model.currMonthxf.xftk))/(model.beforeMonthxf.xfsr+model.beforeMonthxf.xfbk-model.beforeMonthxf.xftk)}" type="percent"></fmt:formatNumber>
-									</div>
-								</c:otherwise>
-							</c:choose>
 						</div> <!-- .cd-pricing-header -->
 					</li>
 

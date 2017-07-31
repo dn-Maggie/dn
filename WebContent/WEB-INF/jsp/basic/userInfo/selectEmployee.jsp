@@ -40,8 +40,8 @@ var mrSelectGrid = {};
             id:"#mrSelect_rowed",/*html部分table id*/
             url: "<m:url value='/employee/listEmployee.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
-           	sortname:"emp_no",
-           	sortorder:"asc",
+           	sortname:"entry_date",
+           	sortorder:"desc",
 			singleselect : true,
            	pager: '#mrSelect_prowed' /*分页栏id*/,
      		rowList:[10,20,30,50,100,200],//每页显示记录数
@@ -53,6 +53,7 @@ var mrSelectGrid = {};
     			{name : "name",label:"姓名",width:40}, 
     			{name : "nickName",label:"昵称",width:40},
 				{name : "position",hidden:true},
+				{name : "entryDate",hidden:true,index : "entry_date",width:'40'},
            	],
            	serializeGridData:function(postData){//添加查询条件值
            		var obj = {status:'1'};
