@@ -218,8 +218,8 @@
 										<span>年份:</span>
 										<input style="width: 200px;float:left;" type="text"  class="search_time150 date-picker"  data-date-format="yyyy" id="queryTime">
 									</li>	
-									<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm');months=[]" value="重置"><!-- 重置 -->
-										<input type="button" class="search_btn mr22 " onclick="arr=[];ajaxGetStatistic();drawMainChart();" value="查询">
+									<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm');" value="重置"><!-- 重置 -->
+										<input type="button" class="search_btn mr22 " onclick="vipNumbersData=[];ajaxGetVipNumver();drawVipNumber();" value="查询">
 									</li><!-- 查询-->
 								</ul>
 						   </div>
@@ -275,7 +275,7 @@
 		ajaxGetVipNumver();
 		//绘制图表
 		drawMainChart();
-		//drawVipnumber();
+		drawVipNumber();
 	})
 	.on('mouseover', '.yearItem', function() {
 		//给带有yearItem类的标签绑定鼠标划动事件，清除其他年份上的active类
@@ -597,6 +597,8 @@
 		}
 		mainChart.setOption(option);
 	}
+	
+	
 	function hideMonthMap(){
 		$(".timeWrapper").css("display", "none"); 
 	} 
@@ -617,7 +619,6 @@
     
   //根据条件从数据库获取结果集
 	function ajaxGetVipNumver(){
-	  	debugger;
 	       	$.ajax({
 	   			url : "<m:url value='/standard/getStudentBarData.do'/>?year="+$("#queryTime").val()+"&subjectName="+$("#subjectName2").val(),
 	   			cache : false,
@@ -628,6 +629,83 @@
 	   			}
 	   		});
     };
+    
+    function drawVipNumber(){
+		//初始化变量
+		var xAxis = [];
+		var yAxis = [];
+		
+		//先判断结果集是否存在，通过遍历结果集，分别获得月份名、实收报名费、总业绩、应收学费
+		if(vipNumbersData.length>0){
+			yAxis.push(vipNumbersData[0].sb.s1);
+			yAxis.push(vipNumbersData[0].sb.s2);
+			yAxis.push(vipNumbersData[0].sb.s3);
+			yAxis.push(vipNumbersData[0].sb.s4);
+			yAxis.push(vipNumbersData[0].sb.s5);
+			yAxis.push(vipNumbersData[0].sb.s6);
+			yAxis.push(vipNumbersData[0].sb.s7);
+			yAxis.push(vipNumbersData[0].sb.s8);
+			yAxis.push(vipNumbersData[0].sb.s9);
+			yAxis.push(vipNumbersData[0].sb.s10);
+			yAxis.push(vipNumbersData[0].sb.s11);
+			yAxis.push(vipNumbersData[0].sb.s12);
+		}
+		var vipnumberChart = echarts.init(document.getElementById("vipnumber"));
+		$(window).on('resize',function(){//大小自适应
+			vipnumberChart.resize();
+		});
+		var option = {
+			tooltip: {
+				show:true,
+		        trigger: 'axis'
+		    },
+		     toolbox: {
+		        feature: {
+		            dataView: {show: true, readOnly: true,title:'数据视图'},//右侧小图标
+		            magicType: {show: true, type: ['line', 'bar']},
+		            saveAsImage: {show: true}//保存为图片
+		        }
+		    },
+			title: {
+	            text: '学生人数统计'
+	        },
+	        legend: {
+	            data:['学生人数','学生人数曲线']//更换成指标项 ：总业绩、应收总额、实收报名费
+	        },
+	        //x坐标
+	        xAxis: [
+	        	{
+	   				type: 'category', //坐标轴类型
+	   				axisLabel:{
+	        			show:true
+	        		},
+	                data:["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"] //更换成动态数据，最近6个月
+				}
+	        ],
+	        //y坐标
+	        yAxis: {
+	            type: 'value',
+	            name: '人数',
+	            min: 0,
+	            axisLabel: {
+	                formatter: '{value}'
+	            }
+	        },
+			series: [{
+	                name: '学生人数',
+	                type: 'bar',
+	                data: yAxis //更换成动态数据
+	          	},
+		        {
+		            name:'学生人数曲线',
+		            type:'line',
+		            data:yAxis //更换成动态数据
+		        }
+		    ],
+		    color:['#75b9e6','#c4ccd3'],
+		}
+		vipnumberChart.setOption(option);
+	}
     </script>	
 </body>
 </html>
