@@ -3,6 +3,7 @@ package com.dongnao.workbench.vipStudent.dao;
 import java.util.List;
 
 import com.dongnao.workbench.common.bean.ResultMoney;
+import com.dongnao.workbench.school.model.StudentBarData;
 import com.dongnao.workbench.vipStudent.model.Statistical;
 import com.dongnao.workbench.vipStudent.model.VipStudent;
 /**
@@ -46,6 +47,10 @@ public interface VipStudentMapper  {
 	 */
 	public Statistical getStatistical(VipStudent vipStudent);
 	
+	/**
+	 * 获得学生人数统计数据
+	 */
+	public StudentBarData getStudentBarData(StudentBarData studentBarData);
 	
 	/**
 	 * 获得当日统计数据

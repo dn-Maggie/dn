@@ -168,9 +168,7 @@ input[name='timeQuantum']:checked+label{
 			<div class="widget-header">
 				<div class="widget-toolbar no-border">
 					<ul class="nav nav-tabs tabhd" id="recent-tab">
-						<!-- <li class="active">
-									<a data-toggle="tab" href="#member-tab">会员</a>
-							 </li> -->
+					
 					</ul>
 				</div>
 			</div>

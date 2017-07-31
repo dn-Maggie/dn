@@ -169,8 +169,40 @@
 				</ul>
 		   </div>
 	    </form>
-		
+<!-- 		<div class="widget-box transparent" id="recent-box">
+		<div class="widget-header">
+				<div class="widget-toolbar no-border">
+					<ul class="nav nav-tabs tabhd" id="recent-tab">
+						<li class="active">
+							<a data-toggle="tab" href="#profitdata">业绩</a>
+						</li>
+						<li class="">
+							<a data-toggle="tab" href="#studentnum">学生人数</a>
+						</li>
+					</ul>
+				</div>
+		</div>
+	
+		<div class="widget-body">
+				<div class="widget-main padding-4">
+					<div class="tab-content padding-8 overflow-visible tabbd"
+						style="margin: 0 auto;">
+						<div id="profitdata" class="tab-pane active">
+							<div id="mprofitdata" class="deptchart" style="">
+								<div id="profit"></div>
+							</div>					
+						</div>
+						<div id="studentnum" class="tab-pane">
+							<div id="mstudentnum" class="deptchart" style="">
+								<div id="studentnum"></div>
+							</div>					
+						</div>
+					</div>
+				</div>
+		</div>
+		</div> -->
 		<div id="main"></div>
+
 	</div>
 	
 		<script type="text/template" id="yearTemp">
@@ -343,7 +375,7 @@
 		    },
 		     toolbox: {
 		        feature: {
-		            dataView: {show: true, readOnly: true,title:'数据视图'},//右侧小图标
+		            dataView: {show: true, readOnly: true,title:'数据视图'},//右侧小图标6+
 		            magicType: {show: true, type: ['line', 'bar']},
 		            saveAsImage: {show: true}//保存为图片
 		        }
