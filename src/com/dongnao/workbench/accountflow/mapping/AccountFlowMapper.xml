@@ -37,6 +37,13 @@
 		<result column="j_nov" property="nov" jdbcType="VARCHAR" />
 		<result column="j_dec" property="dec" jdbcType="VARCHAR" />
 	</resultMap>
+	
+	<resultMap id="ThirtyDayResultMap" type="com.dongnao.workbench.school.model.RecentlyThirtyDayData">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="date" property="date" jdbcType="VARCHAR" />
+		<result column="money" property="money" jdbcType="DOUBLE" />
+	</resultMap>
+	
 	<sql id="Base_Column_List">
 			 	id
 				,account_id
@@ -434,6 +441,25 @@ values
 				AND DATE_FORMAT(create_date,'%Y%c') like CONCAT('%',#{month,jdbcType=VARCHAR},'%')
 			</if>
 		  group by account_name;
+	</select>
+	
+	<select id="getRecentlyThirtyDayData" resultMap="ThirtyDayResultMap" parameterType="java.lang.String">
+		SELECT lefttable.date,IFNULL(righttable.m,'0') as money
+FROM 
+		(SELECT date_sub(CURDATE(),interval @i:=@i+1 day) as date 
+				from ( select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all
+							 select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all  
+							 select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all 
+							 select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all 
+							 select 1 union all select 1) as tmp,(select @i:= -1) t) 
+		as lefttable
+LEFT JOIN 
+		(SELECT truncate(sum(af2.money),2) as m,DATE_FORMAT(af2.create_date,'%Y-%m-%d') as gptime 
+				from financial_flow af2,vip_student vs1 
+				where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE(af2.create_date)>=DATE_SUB(CURDATE(), INTERVAL 29 DAY) and af2.stu_id=vs1.id and vs1.subject_name=#{subjectName,jdbcType=VARCHAR} GROUP BY gptime)
+		 as righttable
+ON 
+lefttable.date=righttable.gptime
 	</select>
 	
 	<select id="listCostByCondition" resultMap="BaseResultMap"  parameterType="com.dongnao.workbench.accountflow.model.AccountFlow">

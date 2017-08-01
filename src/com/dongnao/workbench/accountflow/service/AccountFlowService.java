@@ -5,6 +5,7 @@ import java.util.List;
 import com.dongnao.workbench.common.bean.ReportQuerycondition;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.bean.ResultMoney;
+import com.dongnao.workbench.school.model.RecentlyThirtyDayData;
 import com.dongnao.workbench.account.model.FinStatements;
 import com.dongnao.workbench.accountflow.model.AccountFlow;
 
@@ -69,6 +70,13 @@ public interface AccountFlowService  {
 	 * @return: 实体对象的list
 	 */
 	public List<AccountFlow> listByAccountName(String month);
+	
+	/**
+	 * 查询某个部门最近30天每日的业绩
+	 * @param String month（查询条件）
+	 * @return: 实体对象的list
+	 */
+	public List<RecentlyThirtyDayData> getRecentlyThirtyDayData(String subjectName);
 	
 	/**
 	 * 根据月份列出每个月财务流水消费支出列表方法

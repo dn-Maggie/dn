@@ -14,6 +14,7 @@ import com.dongnao.workbench.common.bean.ReportQuerycondition;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.bean.ResultMoney;
 import com.dongnao.workbench.common.util.AjaxUtils;
+import com.dongnao.workbench.school.model.RecentlyThirtyDayData;
 import com.dongnao.workbench.subject.service.SubjectService;
  
 /**
@@ -136,6 +137,14 @@ public class AccountFlowServiceImpl implements AccountFlowService{
 
 	public void timedupdatecostprofit(ReportQuerycondition rqc) {
 		accountFlowMapper.timedupdatecostprofitdelete(rqc);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.dongnao.workbench.accountflow.service.AccountFlowService#getRecentlyThirtyDayData(java.lang.String)
+	 */
+	@Override
+	public List<RecentlyThirtyDayData> getRecentlyThirtyDayData(String subjectName) {
+		return accountFlowMapper.getRecentlyThirtyDayData(subjectName);
 	}
 
 }

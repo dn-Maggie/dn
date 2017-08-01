@@ -31,6 +31,7 @@ import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.continuePay.service.ContinuePayService;
 import com.dongnao.workbench.marketStudent.service.MarketStudentService;
+import com.dongnao.workbench.school.model.RecentlyThirtyDayData;
 import com.dongnao.workbench.school.model.Standard;
 import com.dongnao.workbench.school.model.StudentBarData;
 import com.dongnao.workbench.school.service.StandardService;
@@ -248,7 +249,19 @@ public class StandardController{
 	}
 	
 	/**
-	 * 获取学生报名人数数据
+	 *  获取某个部门最近30天的业绩数据
+	 */
+	
+	@RequestMapping("/getRecentlyThirtyDayData")
+	public void getRecentlyThirtyDayData(String subjectName,HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException {
+		Map<Object,Object> model = new HashMap<Object,Object>();
+		List<RecentlyThirtyDayData> rtdd = accountFlowService.getRecentlyThirtyDayData(subjectName);
+		model.put("rd", rtdd);
+		AjaxUtils.sendAjaxForMap(response, model);
+	}
+	
+	/**
+	 *获取学生报名人数数据
 	 */
 	
 	@RequestMapping("/getStudentBarData")

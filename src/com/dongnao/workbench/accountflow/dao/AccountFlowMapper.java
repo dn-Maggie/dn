@@ -9,6 +9,7 @@ import com.dongnao.workbench.account.model.FinStatements;
 import com.dongnao.workbench.accountflow.model.AccountFlow;
 import com.dongnao.workbench.common.bean.ReportQuerycondition;
 import com.dongnao.workbench.common.bean.ResultMoney;
+import com.dongnao.workbench.school.model.RecentlyThirtyDayData;
 /**
  * 描述：财务流水模块dao接口，提供数据库操作方法
  *
@@ -68,6 +69,13 @@ public interface AccountFlowMapper  {
 	 */
 	public List<AccountFlow> listByAccountName(String month);
 
+	/**
+	 * 查询某个部门最近30天每日的业绩
+	 * @param String month（查询条件）
+	 * @return: 实体对象的list
+	 */
+	public List<RecentlyThirtyDayData> getRecentlyThirtyDayData(String subjectName);
+	
 	/**
 	 * 根据月份列出每个月财务流水消费支出列表方法
 	 * @param accountFlow AccountFlow 实体对象（查询条件）
