@@ -283,6 +283,7 @@ input[name='timeQuantum']:checked+label{
     	
     	for(var i = 0;i<data.length;i++){
     		//取到科目,判断科目是否已经拿到
+    		//jQuery.inArray(value,array)搜索数组中指定值并返回它的索引（如果没有找到则返回-1）
     		if($.inArray(data[i].j_subject, subNameArr)>-1){
     			//科目存在，则不需要新建科目对象
     			//拿到后台传递的某个对象，判断传递的class类型，将月份数据放在模板对象对应的class类型行
@@ -342,6 +343,7 @@ input[name='timeQuantum']:checked+label{
 				}
     		}
     	}
+		
     	//最后把模板添加到html里面
     	//将该对象模板进行替换
     	for(var i = 0;i<subArr.length;i++){
@@ -452,7 +454,6 @@ input[name='timeQuantum']:checked+label{
     	for(var i=0;i<alldata.length-1;i++){
     		drawChart(alldata[i].deptname.toLowerCase());
     	}
-        //console.log(alldata);
     	alldata=[];//页面显示完成后置为空
     	chartarr=[];
     	}
@@ -469,9 +470,9 @@ input[name='timeQuantum']:checked+label{
 				names.push(key);
 				//console.log(names);
 			}
-			names.sort(function compare(v1,v2){//对names进行key值排序
+/* 			names.sort(function compare(v1,v2){//对names进行key值排序
 				return  v1.split("-")[0]==v2.split("-")[0]?v1.split("-")[1]-v2.split("-")[1]:v1.split("-")[0]>v2.split("-")[0];
-			});
+			}); */
 			var name;
 			//存放部门,把后台传回的每一条数据中的部门信息存入deptname
 			for(var j=0;j<names.length;j++){    
@@ -715,9 +716,7 @@ input[name='timeQuantum']:checked+label{
 	   			}
 	   		});
     };
-
-    
-    
+   
     </script>
 </body>
 </html>

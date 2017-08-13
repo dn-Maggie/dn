@@ -456,10 +456,11 @@ FROM
 LEFT JOIN 
 		(SELECT truncate(sum(af2.money),2) as m,DATE_FORMAT(af2.create_date,'%Y-%m-%d') as gptime 
 				from financial_flow af2,vip_student vs1 
-				where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE(af2.create_date)>=DATE_SUB(CURDATE(), INTERVAL 29 DAY) and af2.stu_id=vs1.id and vs1.subject_name=#{subjectName,jdbcType=VARCHAR} GROUP BY gptime)
+				where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE(af2.create_date)>=DATE_SUB(CURDATE(), INTERVAL 29 DAY) and af2.stu_id=vs1.id  <if test="_parameter!=null and _parameter!=''"> and vs1.subject_name=#{subjectName,jdbcType=VARCHAR}</if>GROUP BY gptime)
 		 as righttable
 ON 
 lefttable.date=righttable.gptime
+
 	</select>
 	
 	<select id="listCostByCondition" resultMap="BaseResultMap"  parameterType="com.dongnao.workbench.accountflow.model.AccountFlow">

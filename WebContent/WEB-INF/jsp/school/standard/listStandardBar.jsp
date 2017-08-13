@@ -125,7 +125,7 @@
 	.btn-area a:hover{
 		color: #333;
 	}
-	#main,#vipnumber{
+	#main,#vipnumber,#thirtyData{
 		position:absolute;
 		top:100px;
 		left:0;
@@ -133,6 +133,14 @@
 		bottom:5%; 
 		height: auto;
 		width: auto;
+	}
+	#vipnumber{
+		height: 700px;
+		width: 1500px;
+	}
+	#thirtyData{
+		height: 700px;
+		width: 1500px;
 	}
 	.widget-toolbar{
 		float: left;
@@ -154,10 +162,13 @@
 				<div class="widget-toolbar no-border">
 					<ul class="nav nav-tabs tabhd" id="recent-tab">
 						<li class="active">
-								<a data-toggle="tab" data-target="achievement-tab">业绩统计</a>
+								<a data-toggle="tab" data-target="achievement-tab">月度业绩统计图</a>
 						</li>
 						<li>
-								<a data-toggle="tab" data-target="vipnumber-tab">学生人数</a>
+								<a data-toggle="tab" data-target="vipnumber-tab">报名人数统计图</a>
+						</li>
+						<li>
+								<a data-toggle="tab" data-target="recent30-tab">近30天业绩统计图</a>
 						</li>
 					</ul>
 				</div>
@@ -218,13 +229,34 @@
 										<span>年份:</span>
 										<input style="width: 200px;float:left;" type="text"  class="search_time150 date-picker"  data-date-format="yyyy" id="queryTime">
 									</li>	
-									<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm');months=[]" value="重置"><!-- 重置 -->
-										<input type="button" class="search_btn mr22 " onclick="arr=[];ajaxGetStatistic();drawMainChart();" value="查询">
+									<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm');" value="重置"><!-- 重置 -->
+										<input type="button" class="search_btn mr22 " onclick="vipNumbersData=[];ajaxGetVipNumver();drawVipNumber();" value="查询">
 									</li><!-- 查询-->
 								</ul>
 						   </div>
 					    </form>
 					    <div id="vipnumber"></div>
+					</div>		
+					<div id="recent30-tab"  class="tab-pane" > 
+							<form id="queryForm"><!-- 查询区 表单 -->
+								<div class="search border-bottom">
+								<ul>
+								<li style="width:160px;">
+										<select class="search_choose" name="subjectName" id="subjectName3" mainid="subjectName" style="width:88px;">
+										<option value="">全部</option>
+										<c:forEach var="subject" items="${subject}">
+											<option value="${subject.name}"> <c:out value="${subject.name}"></c:out> </option>
+							            </c:forEach>
+									</select><span>部门:</span>
+									</li><!-- 输入框-->
+									
+									<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm');" value="重置"><!-- 重置 -->
+										<input type="button" class="search_btn mr22 " onclick="thirtyData=[];ajaxGetThirtyData();drawThirtyData()" value="查询">
+									</li><!-- 查询-->
+								</ul>
+						   </div>
+					    </form>
+					    <div id="thirtyData"></div>
 					</div>		
 					</div>
 				</div>
@@ -257,6 +289,7 @@
 	<script type="text/javascript">
 	var arr = [];
 	var vipNumbersData = [];
+	var thirtyData = [];
 	var months =[];
 	$(document).ready(function(){
 		//datePicker控件
@@ -264,7 +297,7 @@
 			$(this).prev().focus();
 		});
 		$("#queryTime").val(new Date().getFullYear());
-		Array.prototype.in_array = function(e){  //?
+		Array.prototype.in_array = function(e){  
 			for(i=0;i<this.length;i++){  
 				if(this[i] == e)return true;  
 			}  
@@ -273,9 +306,11 @@
 		//获取数据库结果集并把结果放入arr[]中
 		ajaxGetStatistic();
 		ajaxGetVipNumver();
+		ajaxGetThirtyData();
 		//绘制图表
 		drawMainChart();
-		//drawVipnumber();
+		drawVipNumber();
+		drawThirtyData();
 	})
 	.on('mouseover', '.yearItem', function() {
 		//给带有yearItem类的标签绑定鼠标划动事件，清除其他年份上的active类
@@ -385,6 +420,7 @@
 			yearItem.after($('#monTemp').html());
 		}
 	})
+	
 	function drawMainChart(){
 		//初始化变量
 		var names = [];
@@ -491,7 +527,7 @@
 		}
 		mainChart.setOption(option);
 	}
-	function drawMainChart(){
+	/* function drawMainChart(){
 		//初始化变量
 		var names = [];
 		var actualPay = []
@@ -597,6 +633,8 @@
 		}
 		mainChart.setOption(option);
 	}
+	 */
+	
 	function hideMonthMap(){
 		$(".timeWrapper").css("display", "none"); 
 	} 
@@ -617,7 +655,6 @@
     
   //根据条件从数据库获取结果集
 	function ajaxGetVipNumver(){
-	  	debugger;
 	       	$.ajax({
 	   			url : "<m:url value='/standard/getStudentBarData.do'/>?year="+$("#queryTime").val()+"&subjectName="+$("#subjectName2").val(),
 	   			cache : false,
@@ -628,6 +665,167 @@
 	   			}
 	   		});
     };
+    
+    //根据条件从数据库获取结果集
+	function ajaxGetThirtyData(){
+	       	$.ajax({
+	   			url : "<m:url value='/standard/getRecentlyThirtyDayData.do'/>?subjectName="+$("#subjectName3").val(),
+	   			cache : false,
+	   			async : false,
+	   			dataType:"json",
+	   			success : function(data) {
+	   				thirtyData.push(data);
+	   			}
+	   		});
+    };
+    
+    function drawVipNumber(){
+		//初始化变量
+		var xAxis = [];
+		var yAxis = [];
+		
+		//先判断结果集是否存在，通过遍历结果集，分别获得月份名、实收报名费、总业绩、应收学费
+		if(vipNumbersData.length>0){
+			yAxis.push(vipNumbersData[0].sb.s1);
+			yAxis.push(vipNumbersData[0].sb.s2);
+			yAxis.push(vipNumbersData[0].sb.s3);
+			yAxis.push(vipNumbersData[0].sb.s4);
+			yAxis.push(vipNumbersData[0].sb.s5);
+			yAxis.push(vipNumbersData[0].sb.s6);
+			yAxis.push(vipNumbersData[0].sb.s7);
+			yAxis.push(vipNumbersData[0].sb.s8);
+			yAxis.push(vipNumbersData[0].sb.s9);
+			yAxis.push(vipNumbersData[0].sb.s10);
+			yAxis.push(vipNumbersData[0].sb.s11);
+			yAxis.push(vipNumbersData[0].sb.s12);
+		}
+		var vipnumberChart = echarts.init(document.getElementById("vipnumber"));
+		$(window).on('resize',function(){//大小自适应
+			vipnumberChart.resize();
+		});
+		var option = {
+			tooltip: {
+				show:true,
+		        trigger: 'axis'
+		    },
+		     toolbox: {
+		        feature: {
+		            dataView: {show: true, readOnly: true,title:'数据视图'},//右侧小图标
+		            magicType: {show: true, type: ['line', 'bar']},
+		            saveAsImage: {show: true}//保存为图片
+		        }
+		    },
+			title: {
+	            text: ''
+	        },
+	        legend: {
+	            data:['学生人数','学生人数曲线']//更换成指标项 ：总业绩、应收总额、实收报名费
+	        },
+	        //x坐标
+	        xAxis: [
+	        	{
+	   				type: 'category', //坐标轴类型
+	   				axisLabel:{
+	        			show:true
+	        		},
+	                data:["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"] //更换成动态数据，最近6个月
+				}
+	        ],
+	        //y坐标
+	        yAxis: {
+	            type: 'value',
+	            name: '人数',
+	            min: 0,
+	            axisLabel: {
+	                formatter: '{value}'
+	            }
+	        },
+			series: [{
+	                name: '学生人数',
+	                type: 'bar',
+	                data: yAxis //更换成动态数据
+	          	},
+		        {
+		            name:'学生人数曲线',
+		            type:'line',
+		            data:yAxis //更换成动态数据
+		        }
+		    ],
+		    color:['#75b9e6','#c4ccd3'],
+		}
+		vipnumberChart.setOption(option);
+	}
+    
+    function drawThirtyData(){
+		//初始化变量
+		var xAxis = [];
+		var yAxis = [];
+		
+		//先判断结果集是否存在，通过遍历结果集，分别获得月份名、实收报名费、总业绩、应收学费
+		if(thirtyData.length>0){
+			for(var i=29;i>-1;i--){
+				yAxis.push(thirtyData[0].rd[i].money);
+			}
+			for(var i=29;i>-1;i--){
+				xAxis.push(thirtyData[0].rd[i].date);
+			}
+		}
+		var thirtyDataChart = echarts.init(document.getElementById("thirtyData"));
+		$(window).on('resize',function(){//大小自适应
+			thirtyDataChart.resize();
+		});
+		var option = {
+			tooltip: {
+				show:true,
+		        trigger: 'axis'
+		    },
+		     toolbox: {
+		        feature: {
+		            dataView: {show: true, readOnly: true,title:'数据视图'},//右侧小图标
+		            magicType: {show: true, type: ['line', 'bar']},
+		            saveAsImage: {show: true}//保存为图片
+		        }
+		    },
+			title: {
+	            text: ''
+	        },
+	        legend: {
+	            data:['当日业绩','当日业绩曲线']
+	        },
+	        //x坐标
+	        xAxis: [
+	        	{
+	   				type: 'category', //坐标轴类型
+	   				axisLabel:{
+	        			show:true
+	        		},
+	                data:xAxis //更换成动态数据
+				}
+	        ],
+	        //y坐标
+	        yAxis: {
+	            type: 'value',
+	            name: '金额',
+	            min: 0,
+	            axisLabel: {
+	                formatter: '{value}'
+	            }
+	        },
+			series: [{
+	                name: '当日业绩',
+	                type: 'bar',
+	                data: yAxis //更换成动态数据
+	          	},
+		        {
+		            name:'当日业绩曲线',
+		            type:'line',
+		            data:yAxis //更换成动态数据
+		        }
+		    ],
+		    color:['#75b9e6','#c4ccd3'],
+		}
+		thirtyDataChart.setOption(option);
+	}
     </script>	
 </body>
 </html>
