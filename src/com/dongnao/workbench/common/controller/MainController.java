@@ -481,7 +481,8 @@ public class MainController {
 		if (!b) {
 			// 密码错误跳转登陆页面，并返回提示
 			rm.setStatus(0);
-			rm.setMessage(Utils.getI18n("user.password.mistake", null));
+			//rm.setMessage(Utils.getI18n("user.password.mistake", null));
+			rm.setMessage("用户名或密码错误！");
 			AjaxUtils.sendAjaxForObjectStr(response, rm);
 			return;
 		}

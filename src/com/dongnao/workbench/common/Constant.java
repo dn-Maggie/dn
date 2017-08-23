@@ -311,7 +311,7 @@ public class Constant {
 	/**
 	 * 普通用户的初始密码
 	 */
-	public static final String INIT_PASSWORD = "e10adc3949ba59abbe56e057f20f883e";
+	public static final String INIT_PASSWORD = "767e2531d46b60b3dac17b5068b22d49";
 
 	/**
 	 * 定义首页颜色显示区域

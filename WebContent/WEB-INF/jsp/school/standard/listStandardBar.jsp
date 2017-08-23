@@ -125,7 +125,7 @@
 	.btn-area a:hover{
 		color: #333;
 	}
-	#main,#vipnumber,#thirtyData{
+	#main,#vipnumber,#thirtyData,#recentThMonth{
 		position:absolute;
 		top:100px;
 		left:0;
@@ -138,7 +138,7 @@
 		height: 700px;
 		width: 1500px;
 	}
-	#thirtyData{
+	#thirtyData,#recentThMonth{
 		height: 700px;
 		width: 1500px;
 	}
@@ -169,6 +169,9 @@
 						</li>
 						<li>
 								<a data-toggle="tab" data-target="recent30-tab">近30天业绩统计图</a>
+						</li>
+						<li>
+								<a data-toggle="tab" data-target="recentThMonth-tab">近3月日业绩累计增长对比图</a>
 						</li>
 					</ul>
 				</div>
@@ -257,7 +260,29 @@
 						   </div>
 					    </form>
 					    <div id="thirtyData"></div>
-					</div>		
+					</div>	
+					
+					<div id="recentThMonth-tab"  class="tab-pane" > 
+							<form id="queryForm"><!-- 查询区 表单 -->
+								<div class="search border-bottom">
+								<ul>
+								<li style="width:160px;">
+										<select class="search_choose" name="subjectName" id="subjectName4" mainid="subjectName" style="width:88px;">
+										<option value="">全部</option>
+										<c:forEach var="subject" items="${subject}">
+											<option value="${subject.name}"> <c:out value="${subject.name}"></c:out> </option>
+							            </c:forEach>
+									</select><span>部门:</span>
+									</li><!-- 输入框-->
+									
+									<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm');" value="重置"><!-- 重置 -->
+										<input type="button" class="search_btn mr22 " onclick="recentThMonthData=[];ajaxGetRecentThMonthData();drawRecentThMonthData()" value="查询">
+									</li><!-- 查询-->
+								</ul>
+						   </div>
+					    </form>
+					    <div id="recentThMonth"></div>
+					</div>	
 					</div>
 				</div>
 			</div>
@@ -290,6 +315,7 @@
 	var arr = [];
 	var vipNumbersData = [];
 	var thirtyData = [];
+	var recentThMonthData = [];
 	var months =[];
 	$(document).ready(function(){
 		//datePicker控件
@@ -307,10 +333,12 @@
 		ajaxGetStatistic();
 		ajaxGetVipNumver();
 		ajaxGetThirtyData();
+		ajaxGetRecentThMonthData();
 		//绘制图表
 		drawMainChart();
 		drawVipNumber();
 		drawThirtyData();
+		drawRecentThMonthData();
 	})
 	.on('mouseover', '.yearItem', function() {
 		//给带有yearItem类的标签绑定鼠标划动事件，清除其他年份上的active类
@@ -477,6 +505,7 @@
 	        xAxis: [
 	        	{
 	   				type: 'category', //坐标轴类型
+	   				name: '月份',
 	   				axisLabel:{
 	        			show:true
 	        		},
@@ -679,6 +708,18 @@
 	   		});
     };
     
+    function ajaxGetRecentThMonthData(){
+    	$.ajax({
+   			url : "<m:url value='/standard/getRecentlyThreeMonthData.do'/>?subjectName="+$("#subjectName4").val(),
+   			cache : false,
+   			async : false,
+   			dataType:"json",
+   			success : function(data) {
+   				recentThMonthData.push(data);
+   			}
+   		});
+    }
+    
     function drawVipNumber(){
 		//初始化变量
 		var xAxis = [];
@@ -716,7 +757,7 @@
 		        }
 		    },
 			title: {
-	            text: ''
+	            text: '报名人数统计图'
 	        },
 	        legend: {
 	            data:['学生人数','学生人数曲线']//更换成指标项 ：总业绩、应收总额、实收报名费
@@ -725,6 +766,7 @@
 	        xAxis: [
 	        	{
 	   				type: 'category', //坐标轴类型
+	   				name: '月份',
 	   				axisLabel:{
 	        			show:true
 	        		},
@@ -775,6 +817,9 @@
 			thirtyDataChart.resize();
 		});
 		var option = {
+				title: {
+		            text: '近30天业绩统计图'
+		        },
 			tooltip: {
 				show:true,
 		        trigger: 'axis'
@@ -786,9 +831,7 @@
 		            saveAsImage: {show: true}//保存为图片
 		        }
 		    },
-			title: {
-	            text: ''
-	        },
+			
 	        legend: {
 	            data:['当日业绩','当日业绩曲线']
 	        },
@@ -796,6 +839,7 @@
 	        xAxis: [
 	        	{
 	   				type: 'category', //坐标轴类型
+	   				name: '日期',
 	   				axisLabel:{
 	        			show:true
 	        		},
@@ -826,6 +870,128 @@
 		}
 		thirtyDataChart.setOption(option);
 	}
+    
+    function drawRecentThMonthData(){
+		//初始化变量
+		var yAxis1 = [];
+		var yAxis2 = [];
+		var yAxis3 = [];
+		var months = [];
+		
+		
+		
+		//先判断结果集是否存在，通过遍历结果集，分别获得月份名、实收报名费、总业绩、应收学费
+		if(recentThMonthData.length>0){
+			months.push(recentThMonthData[0].month0[0].yearMonth);
+			months.push(recentThMonthData[0].month1[0].yearMonth);
+			months.push(recentThMonthData[0].month2[0].yearMonth);
+			
+			var currentMoneyOne = 0;
+			var currentMoneyTwo = 0;
+			var currentMoneyThree = 0;
+			for(var i=0;i<=31;i++){
+				if(recentThMonthData[0].month0[i]!=null){
+					yAxis1.push(Math.round(recentThMonthData[0].month0[i].money + currentMoneyOne));
+					currentMoneyOne += recentThMonthData[0].month0[i].money;
+				}
+					
+				if(recentThMonthData[0].month1[i]!=null){
+					yAxis2.push(Math.round(recentThMonthData[0].month1[i].money + currentMoneyTwo));
+					currentMoneyTwo += recentThMonthData[0].month1[i].money; 
+				}
+				if(recentThMonthData[0].month2[i]!=null){
+					yAxis3.push(Math.round(recentThMonthData[0].month2[i].money + currentMoneyThree));
+					currentMoneyThree += recentThMonthData[0].month2[i].money;
+				}
+			}
+/* 			while(yAxis1.length<31){
+				yAxis1.push(yAxis1[yAxis1.length-1]);
+			}
+			while(yAxis2.length<31){
+				yAxis2.push(yAxis2[yAxis2.length-1]);
+			}
+			while(yAxis3.length<31){
+				yAxis3.push(yAxis3[yAxis3.length-1]);
+			} */
+		}
+		var threeMonthDataChart = echarts.init(document.getElementById("recentThMonth"));
+		$(window).on('resize',function(){//大小自适应
+			threeMonthDataChart.resize();
+		});
+		 var option = {
+				title: {
+		            text: ''
+		        },
+			tooltip: {
+				show:true,
+		        trigger: 'axis'
+		    },
+		    legend: {
+	            data:months
+	        },
+		     toolbox: {
+		        feature: {
+		            dataView: {show: true, readOnly: true,title:'数据视图'},//右侧小图标
+		            magicType: {show: true, type: ['line', 'bar']},
+		            saveAsImage: {show: true}//保存为图片
+		        }
+		    },        
+	        //x坐标
+	        xAxis: [
+	        	{
+	   				type: 'category', //坐标轴类型
+	   			 	name: '日期',
+	   				axisLabel:{
+	        			show:true
+	        		},
+	                data:['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31']
+				}
+	        ],
+	        //y坐标 
+	        yAxis: {
+	            type: 'value',
+	            name: '金额',
+	            min: 0,
+	            axisLabel: {
+	                formatter: '{value}'
+	            }
+	        },
+			series: [
+/* 				{
+			    name: months[0],
+			    type: 'bar',
+			    data: yAxis1 //更换成动态数据
+				}, */
+			     {
+	                name: months[0],
+	                type: 'line',
+	                data: yAxis1 //更换成动态数据
+	          	},
+/* 	          	{
+				    name: months[1],
+				    type: 'bar',
+				    data: yAxis2 //更换成动态数据
+					}, */
+		        {
+		            name:months[1],
+		            type:'line',
+		            data:yAxis2 //更换成动态数据
+		        },
+/* 		        {
+				    name: months[2],
+				    type: 'bar',
+				    data: yAxis3 //更换成动态数据
+					}, */
+		        {
+		            name:months[2],
+		            type:'line',
+		            data:yAxis3 //更换成动态数据
+		        }
+		    ],
+		    color:['#75b9e6','#c4ccd3','#f6ac61'],
+		} 
+		threeMonthDataChart.setOption(option);
+    }
     </script>	
 </body>
 </html>

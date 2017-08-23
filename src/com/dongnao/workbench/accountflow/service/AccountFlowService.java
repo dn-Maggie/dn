@@ -6,6 +6,7 @@ import com.dongnao.workbench.common.bean.ReportQuerycondition;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.bean.ResultMoney;
 import com.dongnao.workbench.school.model.RecentlyThirtyDayData;
+import com.dongnao.workbench.school.model.RecentlyThreeMonthData;
 import com.dongnao.workbench.account.model.FinStatements;
 import com.dongnao.workbench.accountflow.model.AccountFlow;
 
@@ -78,6 +79,13 @@ public interface AccountFlowService  {
 	 */
 	public List<RecentlyThirtyDayData> getRecentlyThirtyDayData(String subjectName);
 	
+	
+	/**
+	 * 获取最近三个月的每日业绩对比数据
+	 * @param RecentlyThreeMonthData（查询条件）
+	 * @return: 实体对象的list
+	 */
+	public List<RecentlyThreeMonthData> getRecentlyThreeMonthData(RecentlyThreeMonthData rt);
 	/**
 	 * 根据月份列出每个月财务流水消费支出列表方法
 	 * @param accountFlow AccountFlow 实体对象（查询条件）
