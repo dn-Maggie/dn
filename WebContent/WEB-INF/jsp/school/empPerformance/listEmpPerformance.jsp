@@ -90,20 +90,37 @@
 			<!--功能按钮end-->
 			<div class="listtable_box" style="position:relative">
 				<!--此处放表格-->
-				<div style="display:inline-block;width:77%;margin-right:15px;">
+				<c:if test="${revenue}">
+				<div style="display:inline-block;width:60%;">
 					<table  id="remote_rowed" ></table>
 					<div  id="remote_prowed"></div>		
 				</div>
-				<div style="display:inline-block;width:20%;position:absolute">
+				<div style="display:inline-block;width:19%;">
 					<table id="emp_table"></table>
 					<div id="remote_prowed2"></div>
 				</div>
+				<div style="display:inline-block;width:19%;">
+					<table  id="emp_revenue" ></table>
+					<div  id="remote_prowed3"></div>
+				</div>
+				</c:if>
+				<c:if test="${!revenue}">
+				<div style="display:inline-block;width:78%;">
+					<table  id="remote_rowed" ></table>
+					<div  id="remote_prowed"></div>		
+				</div>
+				<div style="display:inline-block;width:20%;">
+					<table id="emp_table"></table>
+					<div id="remote_prowed2"></div>
+				</div>
+				</c:if>
 			</div>
 		</div>
 	</div>
 <script type="text/javascript">
 	var gridObj = {};
 	var empObj = {};
+	var revenueObj = {};
 	$(function(){
 		$("#startDate").val(new Date().format('yyyy-MM-01'));
 		$("#endDate").val(new Date().format('yyyy-MM-dd'));
@@ -113,9 +130,10 @@
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
            	sortname:"create_date",
            	sortorder:"desc",
-           	multiselect:true,
+           	multiselect:true, 
            	multiboxonly:true,
            	forceFit:true,
+           /* 	footerrow:true, */
            	pager: '#remote_prowed' /*分页栏id*/,
      		rowList:[10,15,50,100],//每页显示记录数
     		rowNum:10,//默认显示15条
@@ -128,17 +146,31 @@
 				{name : "stuQq",label:"学生QQ",index : "stuQq",width:40},
 				{name : "shouldPay",label:"学费",index : "should_pay",width:30},				
 				{name : "actualPay",label:"已付",index : "actual_pay",width:30},				
-				{name : "comSource",label:"流量来源",index : "comSource",width:40},				
-				{name : "sourceSubclass",label:"来源分类",index : "sourceSubclass",width:40},				
-				{name : "performance",label:"贡献绩效",index : "performance",width:40},				
-				{name : "createDate",label:"发生时间",index : "create_date",width:40},				
+				{name : "comSource",label:"流量来源",index : "comSource",width:20},				
+				{name : "sourceSubclass",label:"来源分类",index : "sourceSubclass",width:20},				
+				{name : "performance",label:"贡献绩效",index : "performance",width:20},				
+				{name : "createDate",label:"发生时间",index : "create_date",width:30},				
 				{name : "note",label:"备注",index : "note",width:90}				
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
     			$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
     			return obj;
-    		}
+    		},
+			gridComplete:function(){//表格加载执行  
+			    $(this).closest(".ui-jqgrid-bdiv").css({'overflow-x' : 'hidden'});
+			 		/* $(".ui-jqgrid-sdiv").show();
+				 	var footerCell = $(this).footerData();
+				 	var footerObj = {};
+				 	for(var i in footerCell){
+				 		footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum").toFixed(3):0;
+				 	}
+				 	footerObj['raw'] = true;
+				 	footerObj['rn'] = "合";
+				 	footerObj['cb'] = "计"; 
+			    	$(this).footerData("set",footerObj); */ //将合计值显示出来
+			}
+
       	});
         
   		
@@ -154,12 +186,42 @@
  			colModel:[
 				{name : "employeeName",label:"员工姓名",index : "employee_name",width:20, frozen : true},	 
 				{name : "nickName",label:"员工昵称",index : "nickName",width:20, frozen : true},
-				{name : "sum",label:"贡献绩效总额",index : "sum",width:40},	
+				{name : "sum",label:"贡献绩效总额",index : "sum",width:25},	
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
     			$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
     			return obj;
+    		},
+    		gridComplete:function(){//表格加载执行  
+			    $(this).closest(".ui-jqgrid-bdiv").css({'overflow-x' : 'hidden'});
+    		}
+    	  });
+  		
+  		revenueObj = new biz.grid({
+  			id:"#emp_revenue",/*html部分table id*/
+          	url: "<m:url value='/empPerformance/recentTwoMonthEmpRevenue.do'/>",
+            datatype: "json",/*数据类型，设置为json数据，默认为json*/
+           	sortname:"empName",
+           	sortorder:"desc",
+           	multiselect:true,
+           	multiboxonly:true,
+           	forceFit:true,
+           	pager: '#remote_prowed3' /*分页栏id*/,
+     		rowList:[10,15,50,100],//每页显示记录数
+    		rowNum:10,//默认显示15条
+ 			colModel:[
+				{name : "empName",label:"员工姓名",index : "empName",width:20, frozen : true},	 
+				{name : "position",label:"岗位",index : "position",width:30, frozen : true},
+				{name : "money",label:"营收总额",index : "money",width:30},	
+           	],
+           	serializeGridData:function(postData){//添加查询条件值
+				var obj = getQueryCondition();
+    			$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
+    			return obj;
+    		},
+    		gridComplete:function(){//表格加载执行  
+			    $(this).closest(".ui-jqgrid-bdiv").css({'overflow-x' : 'hidden'});
     		}
     	  });
   		
@@ -286,6 +348,12 @@
     	if(!isStayCurrentPage)
     		empObj.setGridParam({"page":"1"});
     	empObj.trigger('reloadGrid');
+    	doSearchForRevenue(isStayCurrentPage);
+    }
+    function doSearchForRevenue(isStayCurrentPage){
+    	if(!isStayCurrentPage)
+    		revenueObj.setGridParam({"page":"1"});
+    	revenueObj.trigger('reloadGrid');
     }
     //重置查询表单
     function resetForm(formId){

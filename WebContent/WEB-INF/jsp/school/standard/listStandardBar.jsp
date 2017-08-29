@@ -363,7 +363,7 @@
 				}else{
 					this.className +="choosed";
 					this.parentNode.style.backgroundColor="#FFFFFF";
-					months.push($(".active")[0].getAttribute("data-key")+"-"+this.getAttribute("data-key"));
+					months.push($(".yearItem.active")[0].getAttribute("data-key")+"-"+this.getAttribute("data-key"));
 				}
 				$("#monthChoose").val(months);
 			}

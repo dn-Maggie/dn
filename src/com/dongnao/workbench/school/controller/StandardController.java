@@ -279,6 +279,7 @@ public class StandardController{
 			int queryMonth = 1;
 			if((month - i)<=0){
 				queryMonth = month - i + 12;
+				year--;
 			}else{
 				queryMonth = month - i;
 			}

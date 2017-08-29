@@ -13,6 +13,13 @@
 			<result column="is_pass" property="isPass" jdbcType="VARCHAR" />
 			<result column="stu_id" property="stuId" jdbcType="VARCHAR" />
 	</resultMap>
+	
+	<resultMap id="RtmepfResultMap" type="com.dongnao.workbench.school.model.RecentTwoMonthEmpPerf">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+			<result column="name" property="empName" jdbcType="VARCHAR" />
+			<result column="position" property="position" jdbcType="VARCHAR" />
+			<result column="money" property="money" jdbcType="DOUBLE" />
+	</resultMap>
 	<sql id="Base_Column_List">
 						 	id
 							,employee_id
@@ -90,6 +97,12 @@
 			emp_performance ep
 		LEFT JOIN employee e on e.id = ep.employee_id
 		where e.curr_state !=3
+		<if test="nickName != null and '' != nickName">  
+			and e.nick_name like CONCAT('%',#{nickName,jdbcType=VARCHAR},'%') 
+		</if>
+		<if test="employeeName != null and '' != employeeName">  
+			and e.name like CONCAT('%',#{employeeName,jdbcType=VARCHAR},'%') 
+		</if>
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 			<![CDATA[
 			and DATE_FORMAT(ep.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
@@ -184,9 +197,6 @@
 		<if test="id != null and '' != id">  
 			and ep.id = #{id,jdbcType=VARCHAR}
 		</if>
-		<if test="nickName != null and '' != nickName">  
-			and e.nick_name = #{nickName,jdbcType=VARCHAR}
-		</if>
 		<if test="employeeId != null and '' != employeeId">  
 			and ep.employee_id = #{employeeId,jdbcType=VARCHAR}
 		</if>
@@ -248,6 +258,61 @@
            	order by ${orderFields} ${order}
        	</if>
 	</select>
+	
+	<select id="recentTwoMonthEmpRevenue" parameterType="com.dongnao.workbench.school.model.EmpPerformance" resultMap="RtmepfResultMap">
+		SELECT
+			temp.name,
+			temp.position,
+			SUM(temp.actual_pay) money
+		FROM
+			(
+				SELECT
+					v.qq,
+					e.name,
+					ep.position,
+					ep.actual_pay
+				FROM
+					emp_performance AS ep
+				LEFT JOIN vip_student AS v ON v.follower_id LIKE  CONCAT('%',ep.employee_id,'%')
+ 				AND v.id = ep.stu_id
+				LEFT JOIN employee AS e ON e.id = ep.employee_id
+				WHERE e.curr_state = '1'
+				<if test="nickName != null and '' != nickName">  
+					and e.nick_name like CONCAT('%',#{nickName,jdbcType=VARCHAR},'%') 
+				</if>
+				<if test="empDept != null and '' != empDept">  
+					and e.dept_no = #{empDept,jdbcType=VARCHAR}
+				</if>
+				<if test="employeeName != null and '' != employeeName">  
+					and e.name like CONCAT('%',#{employeeName,jdbcType=VARCHAR},'%') 
+				</if>
+				<if test="null != propsMap.startDate and propsMap.startDate != ''">
+					<![CDATA[
+					and DATE_FORMAT(v.join_time, '%y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP}, '%y-%m-%d')
+					]]>
+				</if>
+				<if test="null != propsMap.endDate and propsMap.endDate != ''">
+					<![CDATA[
+					and DATE_FORMAT(v.join_time, '%y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP}, '%y-%m-%d')
+					]]>
+				</if>
+				GROUP BY
+					ep.employee_id,				
+					position,
+					stu_id,
+					qq
+				ORDER BY
+					qq
+			) AS temp
+			where 1 = 1 
+		<if test="employeeId != null and '' != employeeId">  
+			and ep.employee_id = #{employeeId,jdbcType=VARCHAR}
+		</if>
+		<if test="position != null and '' != position">  
+			and ep.position = #{position,jdbcType=VARCHAR}
+		</if>
+		GROUP BY temp.position,NAME order by money desc
+    </select>
 	
 	<delete id="deleteByKey" parameterType="java.lang.String">
 		delete from emp_performance

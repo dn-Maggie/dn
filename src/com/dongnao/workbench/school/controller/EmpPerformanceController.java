@@ -1,5 +1,7 @@
 package com.dongnao.workbench.school.controller;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,7 @@ import com.dongnao.workbench.course.model.Course;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.school.model.EmpPerformance;
 import com.dongnao.workbench.school.model.Employee;
+import com.dongnao.workbench.school.model.RecentTwoMonthEmpPerf;
 import com.dongnao.workbench.school.model.Standard;
 import com.dongnao.workbench.school.service.EmpPerformanceService;
 import com.dongnao.workbench.school.service.EmployeeService;
@@ -330,4 +333,22 @@ public class EmpPerformanceController{
 		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),"业绩分配信息列表", "业绩分配信息列表");
 	}
 	
+	/**
+	 * 查询最近两个月每个员工的不同岗位（转化、推广、讲师授课、客服等）的营收总额
+	 * */
+	@RequestMapping("/recentTwoMonthEmpRevenue")
+	public void recentTwoMonthEmpRevenue(EmpPerformance empPerformance,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		empPerformance.setPage(page);
+		Calendar now = Calendar.getInstance();
+		int year = now.get(Calendar.YEAR);
+		int month = (now.get(Calendar.MONTH) + 1);
+		/*if((month - 1)<=0){
+			ecentTwoMonthEmpPerf.setBeginDate(year-- + "-" + (month + 11) + "-" + "01");
+		}else{
+			ecentTwoMonthEmpPerf.setBeginDate(year + "-" + (month -1) + "-" + "01");
+		}*/
+		List<RecentTwoMonthEmpPerf> list = empPerformanceService.recentTwoMonthEmpRevenue(empPerformance);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
 }

@@ -2,6 +2,7 @@ package com.dongnao.workbench.school.dao;
 
 import java.util.List;
 import com.dongnao.workbench.school.model.EmpPerformance;
+import com.dongnao.workbench.school.model.RecentTwoMonthEmpPerf;
 /**
  * 描述：员工绩效信息表模块dao接口，提供数据库操作方法
  *
@@ -60,4 +61,9 @@ public interface EmpPerformanceMapper  {
 	 * 获取某员工业绩
 	 */
 	public EmpPerformance getMyPerformance(EmpPerformance empPerformance);
+	
+	/**
+	 * 查询最近两个月每个员工的不同岗位（转化、推广、讲师授课、客服等）的营收总额
+	 */
+	public List<RecentTwoMonthEmpPerf> recentTwoMonthEmpRevenue(EmpPerformance str);
 }

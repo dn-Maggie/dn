@@ -3,6 +3,7 @@ import javax.annotation.Resource;
 import java.util.List;
 import com.dongnao.workbench.school.dao.EmpPerformanceMapper;
 import com.dongnao.workbench.school.model.EmpPerformance;
+import com.dongnao.workbench.school.model.RecentTwoMonthEmpPerf;
 import com.dongnao.workbench.school.service.EmpPerformanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -93,5 +94,13 @@ public class EmpPerformanceServiceImpl implements EmpPerformanceService{
 		empPerformance.setEmployeeId(userId);
 		empPerformance.setStartDate(startDate);
 		return empPerformanceMapper.getMyPerformance(empPerformance);
+	}
+
+	/**
+	 * 查询最近两个月每个员工的不同岗位（转化、推广、讲师授课、客服等）的营收总额
+	 */
+	@Override
+	public List<RecentTwoMonthEmpPerf> recentTwoMonthEmpRevenue(EmpPerformance str) {
+		return empPerformanceMapper.recentTwoMonthEmpRevenue(str);
 	}
 }
