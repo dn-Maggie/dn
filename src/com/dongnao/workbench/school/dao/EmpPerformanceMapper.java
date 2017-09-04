@@ -49,6 +49,11 @@ public interface EmpPerformanceMapper  {
 	 */
 	public List<EmpPerformance> listByEmployee(EmpPerformance empPerformance);
 
+	/**
+	 * 员工奖金总额统计，按员工统计信息
+	 */
+	public List<EmpPerformance> listBonusByEmployee(EmpPerformance empPerformance);
+	
 	void deleteByStuId(EmpPerformance empPerformance);
 	
 	/**
@@ -66,4 +71,9 @@ public interface EmpPerformanceMapper  {
 	 * 查询最近两个月每个员工的不同岗位（转化、推广、讲师授课、客服等）的营收总额
 	 */
 	public List<RecentTwoMonthEmpPerf> recentTwoMonthEmpRevenue(EmpPerformance str);
+
+	/**
+	 * @param empPerformance
+	 */
+	public void addNewPerformance(EmpPerformance empPerformance);
 }

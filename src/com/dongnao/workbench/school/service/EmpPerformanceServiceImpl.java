@@ -1,14 +1,17 @@
 package com.dongnao.workbench.school.service;
-import javax.annotation.Resource;
 import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.alibaba.druid.util.StringUtils;
+import com.dongnao.workbench.common.bean.ResultMessage;
+import com.dongnao.workbench.common.util.AjaxUtils;
+import com.dongnao.workbench.common.util.StringUtil;
 import com.dongnao.workbench.school.dao.EmpPerformanceMapper;
 import com.dongnao.workbench.school.model.EmpPerformance;
 import com.dongnao.workbench.school.model.RecentTwoMonthEmpPerf;
-import com.dongnao.workbench.school.service.EmpPerformanceService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.dongnao.workbench.common.bean.ResultMessage;
-import com.dongnao.workbench.common.util.AjaxUtils;
  
 /**
  * 描述：员工绩效信息表模块service接口实现类，实现service接口方法
@@ -28,6 +31,12 @@ public class EmpPerformanceServiceImpl implements EmpPerformanceService{
 	 */	
 	public ResultMessage add(EmpPerformance empPerformance){
 		empPerformanceMapper.add(empPerformance);
+		empPerformance.setPerformance(Double.parseDouble(empPerformance.getActualPay())*
+				Double.parseDouble(
+						empPerformance.getNewRate()==null?"0":empPerformance.getNewRate())
+				);
+		empPerformance.setNote(empPerformance.getActualPay()+"*"+empPerformance.getNewRate()==null?"0":empPerformance.getNewRate().toString());
+		empPerformanceMapper.addNewPerformance(empPerformance);
 		return AjaxUtils.getSuccessMessage();
 	}
 	
@@ -71,6 +80,13 @@ public class EmpPerformanceServiceImpl implements EmpPerformanceService{
 	 */
 	public List<EmpPerformance> listByEmployee(EmpPerformance empPerformance) {
 		return empPerformanceMapper.listByEmployee(empPerformance);
+	}
+
+	/**
+	 * 员工奖金总额统计，按员工统计信息
+	 */
+	public List<EmpPerformance> listBonusByEmployee(EmpPerformance empPerformance) {
+		return empPerformanceMapper.listBonusByEmployee(empPerformance);
 	}
 
 	

@@ -222,6 +222,14 @@ public class EmpPerformanceController{
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	
+	@RequestMapping("/listBonusByEmployee")
+	public void listBonusByEmployee(EmpPerformance empPerformance,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		empPerformance.setPage(page);	
+		List<EmpPerformance> list = empPerformanceService.listBonusByEmployee(empPerformance);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
+	
 	/**
 	 * 进入修改页面方法
 	 * @param key String：实体id

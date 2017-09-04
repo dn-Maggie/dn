@@ -333,7 +333,7 @@
 			and follower_id like CONCAT('%',#{followerId,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="followerName != null and '' != followerName">
-			and follower_name like CONCAT('%',#{followerName,jdbcType=VARCHAR},'%')
+			and v1.follower_name like CONCAT('%',#{followerName,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="shouldPay != null and '' != shouldPay">
 			and should_pay = #{shouldPay,jdbcType=DOUBLE}
@@ -378,7 +378,7 @@
 		<if test="sourceSubclass != null and '' != sourceSubclass">  
 			and source_subclass = #{sourceSubclass,jdbcType=VARCHAR}
 		</if>
-		  <if test="orderFields != null and '' != orderFields">
+		<if test="orderFields != null and '' != orderFields">
 			order by ${orderFields} ${order}
 		</if>
 	</select>

@@ -428,8 +428,11 @@ public class StandardController{
  		standard.setPositionId(positionId);
  		List<Standard> standards=standardService.listByCondition(standard);
  		if(standards!=null&&standards.size()==1){
- 			AjaxUtils.sendAjaxForObject(response, standards.get(0).getRate());
+ 			AjaxUtils.sendAjaxForObjectStr(response, standards.get(0));
+ 		}else{
+ 			AjaxUtils.sendAjaxForObjectStr(response, standard);
  		}
  		
  	}
+ 	
 }

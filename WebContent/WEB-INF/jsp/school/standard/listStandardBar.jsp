@@ -134,14 +134,10 @@
 		height: auto;
 		width: auto;
 	}
-	#vipnumber{
-		height: 700px;
+
+/* 	#thirtyData,#recentThMonth,#vipnumber{
 		width: 1500px;
-	}
-	#thirtyData,#recentThMonth{
-		height: 700px;
-		width: 1500px;
-	}
+	} */
 	.widget-toolbar{
 		float: left;
 	}
@@ -156,140 +152,134 @@
 <body style="height:100%;background-color:#fff" >
 
 		<div class="main  choice_box">
-		<!-- tab -->
-		<div class="widget-box transparent" id="recent-box">
-			<div class="widget-header">
-				<div class="widget-toolbar no-border">
-					<ul class="nav nav-tabs tabhd" id="recent-tab">
-						<li class="active">
-								<a data-toggle="tab" data-target="achievement-tab">月度业绩统计图</a>
-						</li>
-						<li>
-								<a data-toggle="tab" data-target="vipnumber-tab">报名人数统计图</a>
-						</li>
-						<li>
-								<a data-toggle="tab" data-target="recent30-tab">近30天业绩统计图</a>
-						</li>
-						<li>
-								<a data-toggle="tab" data-target="recentThMonth-tab">近3月日业绩累计增长对比图</a>
-						</li>
-					</ul>
+			<div class="widget-box transparent" id="recent-box">
+				<div class="widget-header">
+					<div class="widget-toolbar no-border">
+						<ul class="nav nav-tabs tabhd" id="recent-tab">
+							<li class="active">
+									<a data-toggle="tab" data-target="achievement-tab">月度业绩统计图</a>
+							</li>
+							<li>
+									<a data-toggle="tab" data-target="vipnumber-tab">报名人数统计图</a>
+							</li>
+							<li>
+									<a data-toggle="tab" data-target="recent30-tab">近30天业绩统计图</a>
+							</li>
+							<li>
+									<a data-toggle="tab" data-target="recentThMonth-tab">近3月日业绩累计增长对比图</a>
+							</li>
+						</ul>
+					</div>
 				</div>
-			</div>
-
-			<div class="widget-body">
-				<div class="widget-main padding-4">
-					<!-- <div class="tab-content padding-8 overflow-visible tabbd"
-						style="margin: 0 auto;">  --> 
+	
+				<div class="widget-body">
+					<div class="widget-main padding-4"> 
 						<div id="achievement-tab"  class="tab-pane active">
-							<form id="queryForm"><!-- 查询区 表单 -->
-								<div class="search border-bottom">
-								<ul>
-								<li style="width:160px;">
-										<select class="search_choose" name="subjectName" id="subjectName" mainid="subjectName" style="width:88px;">
-										<option value="">全部</option>
-										<c:forEach var="subject" items="${subject}">
-											<option value="${subject.name}"> <c:out value="${subject.name}"></c:out> </option>
-							            </c:forEach>
-									</select><span>学科:</span>
-									</li><!-- 输入框-->
-									
-									<li style="width: 300px">
-										<span>月份:</span>
-										<input type="text" id="monthChoose" class="search_choose" style="width: 200px;float:left;"/>
-										<div class="timeWrapper">
-											<div class="timeYear">
-												<ul></ul>
+								<form id="queryForm"><!-- 查询区 表单 -->
+									<div class="search border-bottom">
+									<ul>
+									<li style="width:160px;">
+											<select class="search_choose" name="subjectName" id="subjectName" mainid="subjectName" style="width:88px;">
+											<option value="">全部</option>
+											<c:forEach var="subject" items="${subject}">
+												<option value="${subject.name}"> <c:out value="${subject.name}"></c:out> </option>
+								            </c:forEach>
+										</select><span>学科:</span>
+										</li><!-- 输入框-->
+										
+										<li style="width: 300px">
+											<span>月份:</span>
+											<input type="text" id="monthChoose" class="search_choose" style="width: 200px;float:left;"/>
+											<div class="timeWrapper">
+												<div class="timeYear">
+													<ul></ul>
+												</div>
+												<div class="btn-area">
+													<a href="javascript:0" id="confirm">确定</a>
+													<a href="javascript:0" id="reset">清空</a>
+												</div>
 											</div>
-											<div class="btn-area">
-												<a href="javascript:0" id="confirm">确定</a>
-												<a href="javascript:0" id="reset">清空</a>
-											</div>
-										</div>
-									</li>	
-									<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm');months=[]" value="重置"><!-- 重置 -->
-										<input type="button" class="search_btn mr22 " onclick="arr=[];ajaxGetStatistic();drawMainChart();" value="查询">
-									</li><!-- 查询-->
-								</ul>
-						   </div>
-					    </form>
-						<div id="main"></div>
-					</div>		
-					
-					<div id="vipnumber-tab"  class="tab-pane" > 
-							<form id="queryForm"><!-- 查询区 表单 -->
-								<div class="search border-bottom">
-								<ul>
-								<li style="width:160px;">
-										<select class="search_choose" name="subjectName" id="subjectName2" mainid="subjectName" style="width:88px;">
-										<option value="">全部</option>
-										<c:forEach var="subject" items="${subject}">
-											<option value="${subject.name}"> <c:out value="${subject.name}"></c:out> </option>
-							            </c:forEach>
-									</select><span>部门:</span>
-									</li><!-- 输入框-->
-									<li style="width: 300px">
-										<span>年份:</span>
-										<input style="width: 200px;float:left;" type="text"  class="search_time150 date-picker"  data-date-format="yyyy" id="queryTime">
-									</li>	
-									<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm');" value="重置"><!-- 重置 -->
-										<input type="button" class="search_btn mr22 " onclick="vipNumbersData=[];ajaxGetVipNumver();drawVipNumber();" value="查询">
-									</li><!-- 查询-->
-								</ul>
-						   </div>
-					    </form>
-					    <div id="vipnumber"></div>
-					</div>		
-					<div id="recent30-tab"  class="tab-pane" > 
-							<form id="queryForm"><!-- 查询区 表单 -->
-								<div class="search border-bottom">
-								<ul>
-								<li style="width:160px;">
-										<select class="search_choose" name="subjectName" id="subjectName3" mainid="subjectName" style="width:88px;">
-										<option value="">全部</option>
-										<c:forEach var="subject" items="${subject}">
-											<option value="${subject.name}"> <c:out value="${subject.name}"></c:out> </option>
-							            </c:forEach>
-									</select><span>部门:</span>
-									</li><!-- 输入框-->
-									
-									<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm');" value="重置"><!-- 重置 -->
-										<input type="button" class="search_btn mr22 " onclick="thirtyData=[];ajaxGetThirtyData();drawThirtyData()" value="查询">
-									</li><!-- 查询-->
-								</ul>
-						   </div>
-					    </form>
-					    <div id="thirtyData"></div>
-					</div>	
-					
-					<div id="recentThMonth-tab"  class="tab-pane" > 
-							<form id="queryForm"><!-- 查询区 表单 -->
-								<div class="search border-bottom">
-								<ul>
-								<li style="width:160px;">
-										<select class="search_choose" name="subjectName" id="subjectName4" mainid="subjectName" style="width:88px;">
-										<option value="">全部</option>
-										<c:forEach var="subject" items="${subject}">
-											<option value="${subject.name}"> <c:out value="${subject.name}"></c:out> </option>
-							            </c:forEach>
-									</select><span>部门:</span>
-									</li><!-- 输入框-->
-									
-									<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm');" value="重置"><!-- 重置 -->
-										<input type="button" class="search_btn mr22 " onclick="recentThMonthData=[];ajaxGetRecentThMonthData();drawRecentThMonthData()" value="查询">
-									</li><!-- 查询-->
-								</ul>
-						   </div>
-					    </form>
-					    <div id="recentThMonth"></div>
-					</div>	
+										</li>	
+										<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm');months=[]" value="重置"><!-- 重置 -->
+											<input type="button" class="search_btn mr22 " onclick="arr=[];ajaxGetStatistic();drawMainChart();" value="查询">
+										</li><!-- 查询-->
+									</ul>
+							   </div>
+						    </form>
+							<div id="main"></div>
+						</div>		
+						<div id="vipnumber-tab"  class="tab-pane " > 
+								<form id="queryForm"><!-- 查询区 表单 -->
+									<div class="search border-bottom">
+									<ul>
+									<li style="width:160px;">
+											<select class="search_choose" name="subjectName" id="subjectName2" mainid="subjectName" style="width:88px;">
+											<option value="">全部</option>
+											<c:forEach var="subject" items="${subject}">
+												<option value="${subject.name}"> <c:out value="${subject.name}"></c:out> </option>
+								            </c:forEach>
+										</select><span>部门:</span>
+										</li><!-- 输入框-->
+										<li style="width: 300px">
+											<span>年份:</span>
+											<input style="width: 200px;float:left;" type="text"  class="search_time150 date-picker"  data-date-format="yyyy" id="queryTime">
+										</li>	
+										<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm');" value="重置"><!-- 重置 -->
+											<input type="button" class="search_btn mr22 " onclick="vipNumbersData=[];ajaxGetVipNumver();drawVipNumber();" value="查询">
+										</li><!-- 查询-->
+									</ul>
+							   </div>
+						    </form>
+						    <div id="vipnumber"></div>
+						</div>		
+						<div id="recent30-tab"  class="tab-pane" > 
+								<form id="queryForm"><!-- 查询区 表单 -->
+									<div class="search border-bottom">
+									<ul>
+									<li style="width:160px;">
+											<select class="search_choose" name="subjectName" id="subjectName3" mainid="subjectName" style="width:88px;">
+											<option value="">全部</option>
+											<c:forEach var="subject" items="${subject}">
+												<option value="${subject.name}"> <c:out value="${subject.name}"></c:out> </option>
+								            </c:forEach>
+										</select><span>部门:</span>
+										</li><!-- 输入框-->
+										
+										<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm');" value="重置"><!-- 重置 -->
+											<input type="button" class="search_btn mr22 " onclick="thirtyData=[];ajaxGetThirtyData();drawThirtyData()" value="查询">
+										</li><!-- 查询-->
+									</ul>
+							   </div>
+						    	</form>
+						    <div id="thirtyData"></div>
+						</div>	
+						
+						<div id="recentThMonth-tab"  class="tab-pane" > 
+								<form id="queryForm"><!-- 查询区 表单 -->
+									<div class="search border-bottom">
+									<ul>
+									<li style="width:160px;">
+											<select class="search_choose" name="subjectName" id="subjectName4" mainid="subjectName" style="width:88px;">
+											<option value="">全部</option>
+											<c:forEach var="subject" items="${subject}">
+												<option value="${subject.name}"> <c:out value="${subject.name}"></c:out> </option>
+								            </c:forEach>
+										</select><span>部门:</span>
+										</li><!-- 输入框-->
+										
+										<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm');" value="重置"><!-- 重置 -->
+											<input type="button" class="search_btn mr22 " onclick="recentThMonthData=[];ajaxGetRecentThMonthData();drawRecentThMonthData()" value="查询">
+										</li><!-- 查询-->
+									</ul>
+							   </div>
+						    </form>
+						    <div id="recentThMonth"></div>
+						</div>	
 					</div>
 				</div>
 			</div>
 		</div>
-<!-- tab -->
-			
-		<!-- </div>  -->
+
 		<script type="text/template" id="yearTemp">
 				<li><span class="yearItem " data-key="{{year}}" style="top:0;">{{year}}年</span></li>
 		</script>
@@ -479,9 +469,19 @@
 				}
 	        } 
 		}
-		var mainChart = echarts.init(document.getElementById("main"));
-		$(window).on('resize',function(){//大小自适应
-			mainChart.resize();
+		var mainContainer = document.getElementById('main');
+		//用于使chart自适应高度和宽度,通过窗体高宽计算容器高宽
+		var resizeMainContainer = function () {
+			mainContainer.style.width = window.innerWidth+'px';
+			mainContainer.style.height = window.innerHeight*0.8+'px';
+		};
+		//设置容器高宽
+		resizeMainContainer();
+		// 基于准备好的dom，初始化echarts实例
+		var mainChart = echarts.init(mainContainer);
+		$(window).on('resize',function(){//屏幕大小自适应，重置容器高宽
+		    resizeMainContainer();
+		    mainChart.resize();
 		});
 		var option = {
 			tooltip: {
@@ -740,9 +740,19 @@
 			yAxis.push(vipNumbersData[0].sb.s11);
 			yAxis.push(vipNumbersData[0].sb.s12);
 		}
-		var vipnumberChart = echarts.init(document.getElementById("vipnumber"));
-		$(window).on('resize',function(){//大小自适应
-			vipnumberChart.resize();
+		var worldMapContainer = document.getElementById('vipnumber');
+		//用于使chart自适应高度和宽度,通过窗体高宽计算容器高宽
+		var resizeWorldMapContainer = function () {
+		    worldMapContainer.style.width = window.innerWidth+'px';
+		    worldMapContainer.style.height = window.innerHeight*0.8+'px'; 
+		};
+		//设置容器高宽
+		resizeWorldMapContainer();
+		// 基于准备好的dom，初始化echarts实例
+		var vipnumberChart = echarts.init(worldMapContainer);
+		$(window).on('resize',function(){//大小自适应,重置容器高宽
+		    resizeWorldMapContainer();
+		    vipnumberChart.resize();
 		});
 		var option = {
 			tooltip: {
@@ -757,7 +767,7 @@
 		        }
 		    },
 			title: {
-	            text: '报名人数统计图'
+	            text: ''
 	        },
 	        legend: {
 	            data:['学生人数','学生人数曲线']//更换成指标项 ：总业绩、应收总额、实收报名费
@@ -812,13 +822,23 @@
 				xAxis.push(thirtyData[0].rd[i].date);
 			}
 		}
-		var thirtyDataChart = echarts.init(document.getElementById("thirtyData"));
-		$(window).on('resize',function(){//大小自适应
-			thirtyDataChart.resize();
+		var thirtyDataContainer = document.getElementById('thirtyData');
+		//用于使chart自适应高度和宽度,通过窗体高宽计算容器高宽
+		var resizeThirtyDataContainer = function () {
+			thirtyDataContainer.style.width = window.innerWidth+'px';
+			thirtyDataContainer.style.height = window.innerHeight*0.8+'px';
+		};
+		//设置容器高宽
+		resizeThirtyDataContainer();
+		// 基于准备好的dom，初始化echarts实例
+		var thirtyDataChart = echarts.init(thirtyDataContainer);
+		$(window).on('resize',function(){//屏幕大小自适应，重置容器高宽
+		    resizeThirtyDataContainer();
+		    thirtyDataChart.resize();
 		});
 		var option = {
 				title: {
-		            text: '近30天业绩统计图'
+		            text: ''
 		        },
 			tooltip: {
 				show:true,
@@ -878,8 +898,6 @@
 		var yAxis3 = [];
 		var months = [];
 		
-		
-		
 		//先判断结果集是否存在，通过遍历结果集，分别获得月份名、实收报名费、总业绩、应收学费
 		if(recentThMonthData.length>0){
 			months.push(recentThMonthData[0].month0[0].yearMonth);
@@ -894,7 +912,6 @@
 					yAxis1.push(Math.round(recentThMonthData[0].month0[i].money + currentMoneyOne));
 					currentMoneyOne += recentThMonthData[0].month0[i].money;
 				}
-					
 				if(recentThMonthData[0].month1[i]!=null){
 					yAxis2.push(Math.round(recentThMonthData[0].month1[i].money + currentMoneyTwo));
 					currentMoneyTwo += recentThMonthData[0].month1[i].money; 
@@ -914,9 +931,19 @@
 				yAxis3.push(yAxis3[yAxis3.length-1]);
 			} */
 		}
-		var threeMonthDataChart = echarts.init(document.getElementById("recentThMonth"));
-		$(window).on('resize',function(){//大小自适应
-			threeMonthDataChart.resize();
+		var recentThMonthContainer = document.getElementById('recentThMonth');
+		//用于使chart自适应高度和宽度,通过窗体高宽计算容器高宽
+		var resizeRecentThMonthContainer = function () {
+			recentThMonthContainer.style.width = window.innerWidth+'px';
+			recentThMonthContainer.style.height = window.innerHeight*0.8+'px';
+		};
+		//设置容器高宽
+		resizeRecentThMonthContainer();
+		// 基于准备好的dom，初始化echarts实例
+		var threeMonthDataChart = echarts.init(recentThMonthContainer);
+		$(window).on('resize',function(){//屏幕大小自适应，重置容器高宽
+		    resizeRecentThMonthContainer();
+		    threeMonthDataChart.resize();
 		});
 		 var option = {
 				title: {

@@ -55,7 +55,7 @@ public class Standard extends Model{
 	                 **/
 				   			private String rate;
 		   		
-	
+				   			private String newRate;
 				
 		  			/**
 			 * 获取 主键
@@ -217,6 +217,20 @@ public class Standard extends Model{
 
 			public void setPositionId(String positionId) {
 				this.positionId = positionId;
+			}
+
+			/**
+			 * @return the newRate
+			 */
+			public String getNewRate() {
+				return newRate;
+			}
+
+			/**
+			 * @param newRate the newRate to set
+			 */
+			public void setNewRate(String newRate) {
+				this.newRate = newRate;
 			}
 		   		
 		

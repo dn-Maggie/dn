@@ -273,10 +273,11 @@ function countPerformance(){
 			var folid = followerIds[i];
 			var folposition = followerPositions[i];
 			var folrate = followerRates[i];
-			count(folrate);
+			count(foltype,folrate);
 	}
 	//冲减业绩表中的数据		
-	function count(data){
+	function count(foltype,data){
+		var comSource = $("#comSource").val();
 		var sub = $("#sourceSubclass").val();
 		var subname="";
 		switch (sub) {
@@ -290,7 +291,7 @@ function countPerformance(){
 		var position = folposition;
 		var actualPay = parseFloat(0)-parseFloat($("#edit_refund").val());
 		var performance = parseFloat(actualPay)*parseFloat(data);
-		var sourceSubclass = $("#sourceSubclass").val();
+		var newRate = getNewRate(foltype,comSource,sub);
 		if(($("#edit_time").val()).length>0){
 			createDate = $("#edit_time").val();
 		}else{
@@ -311,6 +312,7 @@ function countPerformance(){
 				isPass:isPass,
 				note:note,
 				stuId:$('#edit_stuId').val(),
+				newRate:newRate
 				};
 		$.ajax({
 				 type: "post",
@@ -321,7 +323,22 @@ function countPerformance(){
 				});
 		}
 }
-
+function getNewRate(foltype,comSource,sub){
+	var newRate = 0;
+	 $.ajax({
+		 url : "<m:url value='/standard/getRate.do'/>?parentId="
+				+ comSource+"&subId="+sub+"&positionId="+foltype,
+		cache : false,
+		async : false,
+		 success:function(response){
+			 newRate = JSON.parse(response).newRate;
+		 },
+		 error:function(){
+			 showError("获取比例出错", 3000);
+		 }
+	 });
+	return newRate;
+}
 //增加订单信息
 function addOrderInfo(){
 	if(Number($("#edit_refund").val()) == Number(allPay)){

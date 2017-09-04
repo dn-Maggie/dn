@@ -354,7 +354,7 @@ function countPerformance(){
 				var folid = followerIds[i];
 				var folposition = followerPositions[i];
 				var folrate = followerRates[i];
-			    count(folrate);
+			    count(foltype,folrate);
 		}
 	}
 // 	//1.未分配业绩订单（及以前遗留订单）
@@ -362,7 +362,8 @@ function countPerformance(){
 // 		count(1,1);
 // 	}
 	//计算业绩并插入一条新数据		
-	function count(folrate){
+	function count(foltype,folrate){
+		var comSource = $("#comSource").val();
 		var sub = $("#sourceSubclass").val();
 		var subname="";
 		switch (sub) {
@@ -385,6 +386,7 @@ function countPerformance(){
 		}	
 		var note = "学费补款-"+$("#subname").val()+actualPay+"*"+folrate;
 		var isPass="未清算";
+		var newRate = getNewRate(foltype,comSource,sub);
 		var paramDatas = {
 				employeeId:employeeId,
 				employeeName:employeeName,
@@ -392,12 +394,13 @@ function countPerformance(){
 				shouldPay:shouldPay,
 				actualPay:parseFloat(actualPay),
 				comSource:$("#comSourceName").val(),
-				sourceSubclass:subname,
+				sourceSubclass:sourceSubclass,
 				performance:parseFloat(performance),
 				createDate:createDate,
 				note:note,
 				isPass:isPass,
 				stuId:$("#edit_stuId").val(),
+				newRate:newRate
 				};
 		$.ajax({
 				 type: "post",
@@ -411,6 +414,22 @@ function countPerformance(){
 		}
 }
 
+function getNewRate(foltype,comSource,sub){
+	var newRate = 0;
+	 $.ajax({
+		 url : "<m:url value='/standard/getRate.do'/>?parentId="
+				+ comSource+"&subId="+sub+"&positionId="+foltype,
+		cache : false,
+		async : false,
+		 success:function(response){
+			 newRate = JSON.parse(response).newRate;
+		 },
+		 error:function(){
+			 showError("获取比例出错", 3000);
+		 }
+	 });
+	return newRate;
+}
 //增加订单信息
 function  addOrderInfo(){
 	var orderType=2;//类型2：学费补款

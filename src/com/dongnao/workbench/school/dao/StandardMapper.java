@@ -54,4 +54,9 @@ public interface StandardMapper  {
 	 * @param standard Standard 实体对象
 	 */	
 	public List<Standard> getAllFollowerId();
+
+	/**
+	 * @return
+	 */
+	public List<Standard> getAllSubResourceId();
 }

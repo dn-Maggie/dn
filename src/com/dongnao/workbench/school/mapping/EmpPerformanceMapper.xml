@@ -119,6 +119,38 @@
 			sum desc
 	</select>
 	
+		<select id="listBonusByEmployee" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
+		select
+			ep.employee_id,
+			e.nick_name as nickName,
+			e.name as employeeName,
+			sum(ep.performance) as sum
+		from 
+			emp_performance_new ep
+		LEFT JOIN employee e on e.id = ep.employee_id
+		where e.curr_state !=3
+		<if test="nickName != null and '' != nickName">  
+			and e.nick_name like CONCAT('%',#{nickName,jdbcType=VARCHAR},'%') 
+		</if>
+		<if test="employeeName != null and '' != employeeName">  
+			and e.name like CONCAT('%',#{employeeName,jdbcType=VARCHAR},'%') 
+		</if>
+		<if test="null != propsMap.startDate and propsMap.startDate != ''">
+			<![CDATA[
+			and DATE_FORMAT(ep.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			]]>
+		</if>
+		<if test="null != propsMap.endDate and propsMap.endDate != ''">
+			<![CDATA[
+				and DATE_FORMAT(ep.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			]]>
+		</if>
+		group by 
+			e.id
+		order by 
+			sum desc
+	</select>
+	
 	<select id="listByStuId" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
 		SELECT
 			ep.id,
@@ -276,7 +308,7 @@
 				LEFT JOIN vip_student AS v ON v.follower_id LIKE  CONCAT('%',ep.employee_id,'%')
  				AND v.id = ep.stu_id
 				LEFT JOIN employee AS e ON e.id = ep.employee_id
-				WHERE e.curr_state = '1'
+				WHERE e.curr_state != 3
 				<if test="nickName != null and '' != nickName">  
 					and e.nick_name like CONCAT('%',#{nickName,jdbcType=VARCHAR},'%') 
 				</if>
@@ -288,12 +320,12 @@
 				</if>
 				<if test="null != propsMap.startDate and propsMap.startDate != ''">
 					<![CDATA[
-					and DATE_FORMAT(v.join_time, '%y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP}, '%y-%m-%d')
+					and DATE_FORMAT(ep.create_date, '%y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP}, '%y-%m-%d')
 					]]>
 				</if>
 				<if test="null != propsMap.endDate and propsMap.endDate != ''">
 					<![CDATA[
-					and DATE_FORMAT(v.join_time, '%y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP}, '%y-%m-%d')
+					and DATE_FORMAT(ep.create_date, '%y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP}, '%y-%m-%d')
 					]]>
 				</if>
 				GROUP BY
@@ -332,6 +364,32 @@
 	
 	<insert id="add" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
 		insert into emp_performance (
+							id
+							,employee_id
+							,position
+							,should_pay
+							,actual_pay
+							,performance
+							,create_date
+							,note
+							,is_pass
+							,stu_id
+		)values (
+							 #{id,jdbcType=VARCHAR}
+							,#{employeeId,jdbcType=VARCHAR}
+							,#{position,jdbcType=VARCHAR}
+							,#{shouldPay,jdbcType=DOUBLE}
+							,#{actualPay,jdbcType=DOUBLE}
+							,#{performance,jdbcType=DOUBLE}
+							,#{createDate,jdbcType=TIMESTAMP}
+							,#{note,jdbcType=VARCHAR}
+							,#{isPass,jdbcType=VARCHAR}
+							,#{stuId,jdbcType=VARCHAR}
+			)
+	</insert>
+	
+	<insert id="addNewPerformance" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
+		insert into emp_performance_new (
 		<include refid="Base_Column_List" />
 		)values (
 														 #{id,jdbcType=VARCHAR}

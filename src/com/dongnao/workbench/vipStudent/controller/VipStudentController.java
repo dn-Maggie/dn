@@ -429,6 +429,9 @@ public class VipStudentController {
 		List<Standard> standard= standardService.getAllResourceId();
  		mv.addObject("standard", standard);
  		
+ 		List<Standard> subResource= standardService.getAllSubResourceId();
+ 		mv.addObject("subResource", subResource);
+ 		
  		List<Standard> followers= standardService.getAllFollowerId();
  		mv.addObject("followers", followers);
 		

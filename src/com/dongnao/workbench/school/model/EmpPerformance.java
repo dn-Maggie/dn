@@ -107,10 +107,18 @@ public class EmpPerformance extends Model{
 					private String stuShouldPay;
 					private String stuActualPay;
 					private String stuJoinTime;
-					
+					private String newRate;
 						   	
 						   	
-		  	/**
+					public String getNewRate() {
+						return newRate;
+					}
+
+					public void setNewRate(String newRate) {
+						this.newRate = newRate;
+					}
+
+			/**
 			 * 获取 主键
 			 * @return Integer this.id
 			 */

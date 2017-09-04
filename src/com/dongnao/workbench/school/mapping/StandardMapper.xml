@@ -3,15 +3,16 @@
 <mapper namespace="com.dongnao.workbench.school.dao.StandardMapper">
 	<resultMap id="BaseResultMap" type="com.dongnao.workbench.school.model.Standard">
 		<id column="id" property="id" jdbcType="VARCHAR" />
-													<result column="parent_id" property="parentId" jdbcType="VARCHAR" />
-													<result column="parent_name" property="parentName" jdbcType="VARCHAR" />
-													<result column="sub_id" property="subId" jdbcType="VARCHAR" />
-													<result column="sub_name" property="subName" jdbcType="VARCHAR" />
-													<result column="position_id" property="positionId" jdbcType="VARCHAR" />
-													<result column="position" property="position" jdbcType="VARCHAR" />
-													<result column="note" property="note" jdbcType="VARCHAR" />
-													<result column="rate" property="rate" jdbcType="VARCHAR" />
-									</resultMap>
+		<result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+		<result column="parent_name" property="parentName" jdbcType="VARCHAR" />
+		<result column="sub_id" property="subId" jdbcType="VARCHAR" />
+		<result column="sub_name" property="subName" jdbcType="VARCHAR" />
+		<result column="position_id" property="positionId" jdbcType="VARCHAR" />
+		<result column="position" property="position" jdbcType="VARCHAR" />
+		<result column="note" property="note" jdbcType="VARCHAR" />
+		<result column="rate" property="rate" jdbcType="VARCHAR" />
+		<result column="new_rate" property="newRate" jdbcType="VARCHAR" />
+	</resultMap>
 	<sql id="Base_Column_List">
 						 				id
 										,parent_id
@@ -22,6 +23,7 @@
 										,position
 										,note
 										,rate
+										,new_rate
 						</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -80,6 +82,13 @@
 		from emp_appraisal_standard
 	</select>
 	
+	<select id="getAllSubResourceId" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.Standard">	
+		select
+		distinct sub_id,sub_name
+		from emp_appraisal_standard
+
+	</select>
+	
 	<delete id="deleteByKey" parameterType="java.lang.String">
 		delete from emp_appraisal_standard
 		where id = #{id,jdbcType=VARCHAR}
@@ -98,6 +107,7 @@
 					,#{position,jdbcType=VARCHAR}
 					,#{note,jdbcType=VARCHAR}
 					,#{rate,jdbcType=VARCHAR}
+					,#{newRate,jdbcType=VARCHAR}
 				)
 	</insert>
 	

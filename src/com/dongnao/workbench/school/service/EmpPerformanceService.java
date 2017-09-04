@@ -51,6 +51,12 @@ public interface EmpPerformanceService  {
 	 */
 	public List<EmpPerformance> listByEmployee(EmpPerformance empPerformance);
 	
+	
+	/**
+	 * 员工奖金总额统计，按员工统计信息
+	 */
+	public List<EmpPerformance> listBonusByEmployee(EmpPerformance empPerformance);
+	
 	/**
 	 * 根据stuid删除员工绩效信息表方法
 	 * @param stuid:stuid的多个字符串
