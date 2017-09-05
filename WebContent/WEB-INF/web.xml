@@ -111,7 +111,7 @@
     <url-pattern>/upload/fileUpload</url-pattern>
   </servlet-mapping>
   
-     <servlet>
+  <servlet>
     <servlet-name>fileDownload</servlet-name>
     <servlet-class>com.dongnao.workbench.fileUpload.FileDownload</servlet-class>
     <load-on-startup>1</load-on-startup>
@@ -120,7 +120,14 @@
     <servlet-name>fileDownload</servlet-name>
     <url-pattern>/download/fileDownload</url-pattern>
   </servlet-mapping>
-  
+  <servlet>
+    <servlet-name>QuestionSurveyServlet</servlet-name>
+    <servlet-class>com.dongnao.workbench.fileUpload.QuestionSurveyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QuestionSurveyServlet</servlet-name>
+    <url-pattern>/QuestionSurvey</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>SpringMVC</servlet-name>
     <url-pattern>*.do</url-pattern>

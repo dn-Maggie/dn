@@ -272,7 +272,6 @@ $(function() {
 				countPerformance();
 				updateVipStudent();
 			}else{
-				debugger;
 				var tempDatea = $("#edit_joinTime").val().split("-");
 				var tempDateb = $("#edit_perDate").val().split("-");
 				if(""+tempDatea[0]+tempDatea[1]==""+tempDateb[0]+tempDateb[1]){
@@ -541,7 +540,6 @@ function getNewRate(foltype,comSource,sub){
 	return newRate;
 }
 function deletePerformance(){
-	debugger
 	var stuId = $("#edit_id").val();
 	var perDate = $("#edit_perDate").val();
 	var paramDatas = {stuId:stuId,createDate:perDate};

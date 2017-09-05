@@ -362,6 +362,17 @@
 		</if>
 	</delete>
 	
+	<delete id="deleteNewByStuId" parameterType="java.lang.String">
+		delete from emp_performance_new
+		where is_pass="未清算"
+		<if test="_parameter!=null and _parameter!=''"> 
+			AND DATE_FORMAT(create_date,'%Y-%c') = DATE_FORMAT(#{createDate,jdbcType=VARCHAR},'%Y-%c')
+		</if>
+		<if test="stuId != null and '' != stuId">  
+			and stu_id = #{stuId,jdbcType=VARCHAR}
+		</if>
+	</delete>
+	
 	<insert id="add" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
 		insert into emp_performance (
 							id

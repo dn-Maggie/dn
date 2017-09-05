@@ -76,4 +76,9 @@ public interface EmpPerformanceMapper  {
 	 * @param empPerformance
 	 */
 	public void addNewPerformance(EmpPerformance empPerformance);
+
+	/**
+	 * @param empPerformance
+	 */
+	void deleteNewByStuId(EmpPerformance empPerformance);
 }

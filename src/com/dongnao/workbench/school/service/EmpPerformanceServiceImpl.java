@@ -92,6 +92,7 @@ public class EmpPerformanceServiceImpl implements EmpPerformanceService{
 	
 	public void deleteByStuId(EmpPerformance empPerformance) {
 		empPerformanceMapper.deleteByStuId(empPerformance);
+		empPerformanceMapper.deleteNewByStuId(empPerformance);
 	}
 
 	/**
