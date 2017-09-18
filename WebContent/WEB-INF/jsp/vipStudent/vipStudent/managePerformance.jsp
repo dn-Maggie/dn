@@ -156,7 +156,7 @@
 			<tr>
 				<td class="inputLabelTd"><span class="required">*</span>流量来源：</td>
 				<td class="inputTd">
-					<select onchange="subChange(this.value);changeFollower()" class="input_select" name="comSource" id="edit_comSource" ><option value="">--请选择--</option>
+					<select onchange="subChange(this.value);" class="input_select" name="comSource" id="edit_comSource" ><option value="">--请选择--</option>
 						<c:forEach var="standard" items="${standard}">
 							<option value="${standard.parentId}" <c:if test="${vipStudent.comSource==standard.parentId}">selected</c:if>> <c:out value="${standard.parentName}"></c:out> </option>
 			             </c:forEach>
