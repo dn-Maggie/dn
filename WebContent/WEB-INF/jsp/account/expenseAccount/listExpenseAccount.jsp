@@ -289,6 +289,11 @@
     		return ;
     	}
     	else{
+    		var checkFlag = ICSS.utils.getSelectRowData("checkFlag");
+    		if(checkFlag!="审核已通过"){
+    			showMessage("该条报销申请还未通过审核!");
+    			return ;
+    		}
     		new biz.alert({type:"confirm",message:"确认发放以后将生成对应消费支出，确定继续？",title:I18N.promp,callback:function(result){
     			if(result){
     				$ .ajax({
