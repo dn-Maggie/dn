@@ -82,4 +82,12 @@ public class StandardServiceImpl implements StandardService{
 	public List<Standard> getAllFollowerId(){
 		return standardMapper.getAllFollowerId();
 	}
+
+	/* (non-Javadoc)
+	 * @see com.dongnao.workbench.school.service.StandardService#getAllSubResourceId()
+	 */
+	@Override
+	public List<Standard> getAllSubResourceId() {
+		return standardMapper.getAllSubResourceId();
+	}
 }

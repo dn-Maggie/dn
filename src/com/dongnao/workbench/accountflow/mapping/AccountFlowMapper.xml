@@ -37,6 +37,20 @@
 		<result column="j_nov" property="nov" jdbcType="VARCHAR" />
 		<result column="j_dec" property="dec" jdbcType="VARCHAR" />
 	</resultMap>
+	
+	<resultMap id="ThirtyDayResultMap" type="com.dongnao.workbench.school.model.RecentlyThirtyDayData">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="date" property="date" jdbcType="VARCHAR" />
+		<result column="money" property="money" jdbcType="DOUBLE" />
+	</resultMap>
+	
+	<resultMap id="ThreeMonthResultMap" type="com.dongnao.workbench.school.model.RecentlyThreeMonthData">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="yearMonth" property="yearMonth" jdbcType="VARCHAR" />
+		<result column="date" property="yearMonthDay" jdbcType="VARCHAR" />
+		<result column="money" property="money" jdbcType="DOUBLE" />
+	</resultMap>
+	
 	<sql id="Base_Column_List">
 			 	id
 				,account_id
@@ -119,12 +133,12 @@
 		</if>
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 			<![CDATA[
-			and DATE_FORMAT(af.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			and DATE_FORMAT(af.create_date,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="null != propsMap.endDate and propsMap.endDate != ''">
 			<![CDATA[
-				and DATE_FORMAT(af.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(af.create_date,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="money != null and '' != money">  
@@ -347,12 +361,12 @@ values
 		</if>
 		<if test="null != startDate and startDate != ''">
 			<![CDATA[
-			and DATE_FORMAT(af.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			and DATE_FORMAT(af.create_date,'%Y-%m-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="null != endDate and endDate != ''">
 			<![CDATA[
-				and DATE_FORMAT(af.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(af.create_date,'%Y-%m-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 	</select>
@@ -372,7 +386,7 @@ values
 		LEFT JOIN vip_student as v  ON	af.stu_id=v.id 
 		where 1=1
 		<if test="createTime!=null and createTime!=''"> 
-			AND DATE_FORMAT(create_date,'%Y%c') like CONCAT('%',#{createTime,jdbcType=VARCHAR},'%')
+			AND DATE_FORMAT(create_date,'%Y%m') like CONCAT('%',#{createTime,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="subjectName != null and '' != subjectName">  
 			and v.subject_id = #{subjectName,jdbcType=VARCHAR}
@@ -388,12 +402,12 @@ values
 		</if>
 		<if test="null != startDate and startDate != ''">
 			<![CDATA[
-			and DATE_FORMAT(af.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			and DATE_FORMAT(af.create_date,'%Y-%m-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="null != endDate and endDate != ''">
 			<![CDATA[
-				and DATE_FORMAT(af.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(af.create_date,'%Y-%m-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 	</select>
@@ -421,7 +435,7 @@ values
 				and v.subject_name = #{subjectName,jdbcType=VARCHAR}
 			</if>
 			<if test="null!=createTime and ''!=createTime"> 
-				AND DATE_FORMAT(af.create_date,'%Y%c') like CONCAT('%',#{createTime,jdbcType=VARCHAR},'%')
+				AND DATE_FORMAT(af.create_date,'%Y%m') like CONCAT('%',#{createTime,jdbcType=VARCHAR},'%')
 			</if>
 		) a
 	</select>
@@ -431,9 +445,51 @@ values
 		  FROM account_flow 
 		  where 1=1
 		 	<if test="_parameter!=null and _parameter!=''"> 
-				AND DATE_FORMAT(create_date,'%Y%c') like CONCAT('%',#{month,jdbcType=VARCHAR},'%')
+				AND DATE_FORMAT(create_date,'%Y%m') like CONCAT('%',#{month,jdbcType=VARCHAR},'%')
 			</if>
 		  group by account_name;
+	</select>
+	
+	<select id="getRecentlyThirtyDayData" resultMap="ThirtyDayResultMap" parameterType="java.lang.String">
+		SELECT lefttable.date,IFNULL(righttable.m,'0') as money
+FROM 
+		(SELECT date_sub(CURDATE(),interval @i:=@i+1 day) as date 
+				from ( select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all
+							 select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all  
+							 select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all 
+							 select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all 
+							 select 1 union all select 1) as tmp,(select @i:= -1) t) 
+		as lefttable
+LEFT JOIN 
+		(SELECT truncate(sum(af2.money),2) as m,DATE_FORMAT(af2.create_date,'%Y-%m-%d') as gptime 
+				from financial_flow af2,vip_student vs1 
+				where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE(af2.create_date)>=DATE_SUB(CURDATE(), INTERVAL 29 DAY) and af2.stu_id=vs1.id  <if test="_parameter!=null and _parameter!=''"> and vs1.subject_name=#{subjectName,jdbcType=VARCHAR}</if>GROUP BY gptime)
+		 as righttable
+ON 
+lefttable.date=righttable.gptime
+
+	</select>
+	
+	
+	<select id="getRecentlyThreeMonthData" resultMap="ThreeMonthResultMap" parameterType="com.dongnao.workbench.school.model.RecentlyThreeMonthData">
+SELECT DATE_FORMAT(lefttable.date,'%Y-%m') as yearMonth,lefttable.date,IFNULL(righttable.m,'0') as money
+FROM 
+		(SELECT ADDDATE(y.first, x.d - 1) as date
+FROM
+(SELECT 1 AS d UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL
+SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL SELECT 12 UNION ALL SELECT 13 UNION ALL SELECT 14 UNION ALL
+SELECT 15 UNION ALL SELECT 16 UNION ALL SELECT 17 UNION ALL SELECT 18 UNION ALL SELECT 19 UNION ALL SELECT 20 UNION ALL SELECT 21 UNION ALL
+SELECT 22 UNION ALL SELECT 23 UNION ALL SELECT 24 UNION ALL SELECT 25 UNION ALL SELECT 26 UNION ALL SELECT 27 UNION ALL SELECT 28 UNION ALL
+SELECT 29 UNION ALL SELECT 30 UNION ALL SELECT 31) x,
+(SELECT CONCAT(#{yearMonth,jdbcType=VARCHAR},'-01') as FIRST, DAY(LAST_DAY(str_to_date(#{yearMonth,jdbcType=VARCHAR},'%Y-%m'))) AS last) y
+WHERE <![CDATA[x.d <= y.last and ADDDATE(y.first, x.d - 1)<=CURDATE()]]>) as lefttable
+LEFT JOIN 
+		(SELECT truncate(sum(af2.money),2) as m,DATE_FORMAT(af2.create_date,'%Y-%m-%d') as gptime 
+				from financial_flow af2,vip_student vs1 
+				where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=#{yearMonth,jdbcType=VARCHAR} and af2.stu_id=vs1.id <if test="subjectName!=null and subjectName!=''"> and vs1.subject_name=#{subjectName,jdbcType=VARCHAR}</if> GROUP BY gptime)
+		 as righttable
+ON 
+DATE_FORMAT(lefttable.date,'%Y-%m-%d')=righttable.gptime
 	</select>
 	
 	<select id="listCostByCondition" resultMap="BaseResultMap"  parameterType="com.dongnao.workbench.accountflow.model.AccountFlow">
@@ -442,12 +498,12 @@ values
 		AND account_name not in ('学费退款','学费调减')
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 			<![CDATA[
-			and DATE_FORMAT(create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			and DATE_FORMAT(create_date,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="null != propsMap.endDate and propsMap.endDate != ''">
 			<![CDATA[
-			and DATE_FORMAT(create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			and DATE_FORMAT(create_date,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 	</select>

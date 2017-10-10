@@ -164,7 +164,10 @@
 				</td>
 			 	<td class="inputLabelTd">来源分类：</td>
 				<td class="inputTd">
-					<select class="input_select" name="sourceSubclass" id="edit_sourceSubclass" >
+					<select onchange="changeFollower()" class="input_select" name="sourceSubclass" id="edit_sourceSubclass" >
+			     		 <c:forEach var="subResource" items="${subResource}">
+							<option value="${subResource.subId}" <c:if test="${vipStudent.sourceSubclass==subResource.subId}">selected</c:if>> <c:out value="${subResource.subName}"></c:out> </option>
+			             </c:forEach>
 			        </select>
 				</td>
 			</tr>
@@ -189,6 +192,7 @@
 					</datalist>
 					配比率：
 					<input type="text" id="rate" class="text" name="rate" style="width:40px"/>
+					<input type="hidden" id="newRate"  name="newRate"/>
 					<i style="display: inline-block;cursor:pointer;position: relative;top:5px;" class="icon_bg icon_add" onclick="addFollowMess()"> </i>
 					<i style="display: inline-block;cursor:pointer;position: relative;top:5px;" class="icon_bg icon_del" onclick="delFollowMess(this)"> </i>
 				</td>
@@ -218,7 +222,7 @@
  var i = 0;
  var currStatus = "";
 $(function() {
-	//分离多个转化对象
+	//已经分好业绩的情况，分离多个转化对象
 	if($("#isCount").val()=='已分配业绩'){
 		var folPositions=$("#followerPosition").val().split(",");
 		var folTypes=$("#followerType").val().split(",");
@@ -234,10 +238,11 @@ $(function() {
 				$clone.find("#edit_followerId").val(folIds[i]);
 				$clone.find(".followerName").val(folNames[i]);
 				$clone.find("#rate").val(folRates[i]);
+				$clone.find("#newRate").val(getNewRate(folTypes[i], $("#edit_comSource").find("option:selected").val(), $("#edit_sourceSubclass").find("option:selected").val()!=undefined?$("#edit_sourceSubclass").find("option:selected").val():0));
 			}
 			$(".addEnable:first").remove();
 	}
- 	subChange($('#edit_comSource').val());
+ 	//subChange($('#edit_comSource').val());
 	$("#edit_perDate").val(new Date().format('yyyy-MM-dd'));
 		
 	//绑定提交按钮click事件
@@ -261,6 +266,7 @@ $(function() {
 		//总业务比例小于1，开始分配个人业绩
 		if(rates>1){
 			showMessage("业绩比例分配不可大于1！");
+			$("#submit").prop('disabled', false).css({'cursor':'pointer'});
 		}else{
 			if($("#isCount").val()=='未分配业绩'){
 				//计算分配业绩
@@ -317,7 +323,9 @@ function subChange(val){
 	case "1":
 	case "5":
 		$('#edit_sourceSubclass option').remove();
-		$('#edit_sourceSubclass').append('<option value="1">未体验公开课报名</option><option value="2">体验公开课后报名</option>');
+		$('#edit_sourceSubclass').append('<option value="1">未体验公开课报名</option>'+
+				
+				'<option value="2">体验公开课后报名</option>');
 		break;
 	default:
 		$('#edit_sourceSubclass option').remove();
@@ -383,7 +391,14 @@ function getRate(Object){
 					cache : false,
 					async : false,
 					success : function(data, textStatus, jqXHR) {
-						$(Object).parents('.addEnable').find("#rate").val(data);
+						if(data!=null){
+							data = JSON.parse(data);
+							$(Object).parents('.addEnable').find("#rate").val(data.rate);
+							$(Object).parents('.addEnable').find("#newRate").val(data.newRate);
+						}else{
+							$(Object).parents('.addEnable').find("#rate").val(0);
+							$(Object).parents('.addEnable').find("#newRate").val(0);
+						}
 					}
 				});
 	};
@@ -470,12 +485,19 @@ function countPerformance(){
 	var actualPay = $("#edit_perMoney").val();
 	var isPass="未清算";
 	$("tr[name='addEnable']").each(function(i){
+			//var newRate = $(this).find("#newRate").val();
 			var rate = $(this).find("#rate").val();
 			var followerType = $(this).find("select[name='followerType']").find("option:selected").val();
 			var followerPosition = $(this).find("select[name='followerType']").find("option:selected").text();
 			var employeeId = $(this).find("#edit_followerId").val();
 			var performance = parseFloat($("#edit_perMoney").val())*parseFloat(rate);
 			var note = $("#edit_courseName").val()+"-"+$("#edit_perMoney").val()+"*"+rate;
+			var comSource = $("#edit_comSource").val();
+			var sourceSubclass = $("#edit_sourceSubclass").val();
+			//改成获取隐藏的new rate,根据参与岗位人数进行比例分配
+			var newRate = getNewRateByPosition($(this),followerType,comSource,sourceSubclass);
+			
+			
 			var paramDatas = {
 					employeeId:employeeId,
 					shouldPay:shouldPay,
@@ -486,6 +508,7 @@ function countPerformance(){
 					position:followerPosition,
 					isPass:isPass,
 					stuId:stuId,
+					newRate:newRate
 					};
 			$.ajax({
 				   type: "post",
@@ -498,8 +521,58 @@ function countPerformance(){
 				   }
 				});
 		});
-		
-	}
+}
+function getNewRate(foltype,comSource,sub){
+	var newRate = 0;
+	 $.ajax({
+		 url : "<m:url value='/standard/getRate.do'/>?parentId="
+				+ comSource+"&subId="+sub+"&positionId="+foltype,
+		cache : false,
+		async : false,
+		success:function(response){
+			if(response!=null){
+				newRate = JSON.parse(response).newRate;
+			}else{
+				newRate = 0;
+			}
+			 
+		},
+		error:function(){
+			 showError("获取比例出错", 3000);
+		}
+	 });
+	return newRate;
+}
+//多个相同角色
+function getNewRateByPosition(obj,foltype,comSource,sub){
+	var newRate = 0;
+	var num = 0;
+	var followerType = $(obj).find("select[name='followerType']").find("option:selected").val();
+	debugger
+	$("select[name='followerType']").each(function(i){
+		debugger
+		if(followerType == $(this).find("option:selected").val()){num++};
+	})
+	 $.ajax({
+		 url : "<m:url value='/standard/getRate.do'/>?parentId="
+				+ comSource+"&subId="+sub+"&positionId="+foltype,
+		cache : false,
+		async : false,
+		success:function(response){
+			if(response!=null){
+				newRate = (JSON.parse(response).newRate)/num;
+			}else{
+				newRate = 0;
+			}
+		},
+		error:function(){
+			 showError("获取比例出错", 3000);
+		}
+	 });
+	return newRate;
+}
+
+
 function deletePerformance(){
 	var stuId = $("#edit_id").val();
 	var perDate = $("#edit_perDate").val();

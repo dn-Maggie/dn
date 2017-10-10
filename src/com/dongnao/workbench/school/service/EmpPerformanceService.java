@@ -3,6 +3,7 @@ package com.dongnao.workbench.school.service;
 import java.util.List;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.school.model.EmpPerformance;
+import com.dongnao.workbench.school.model.RecentTwoMonthEmpPerf;
 
 /**
  * 描述：员工绩效信息表模块service接口，提供controller操作所需方法
@@ -50,6 +51,12 @@ public interface EmpPerformanceService  {
 	 */
 	public List<EmpPerformance> listByEmployee(EmpPerformance empPerformance);
 	
+	
+	/**
+	 * 员工奖金总额统计，按员工统计信息
+	 */
+	public List<EmpPerformance> listBonusByEmployee(EmpPerformance empPerformance);
+	
 	/**
 	 * 根据stuid删除员工绩效信息表方法
 	 * @param stuid:stuid的多个字符串
@@ -67,4 +74,21 @@ public interface EmpPerformanceService  {
 	 * @param string 
 	 */
 	public EmpPerformance getMyPerformance(String userId, String startDate);
+	
+	/**
+	 * 查询最近两个月每个员工的不同岗位（转化、推广、讲师授课、客服等）的营收总额
+	 */
+	public List<RecentTwoMonthEmpPerf> recentTwoMonthEmpRevenue(EmpPerformance str);
+
+	/**
+	 * @param empPerformance
+	 */
+	public void deleteNewByStuId(EmpPerformance empPerformance);
+
+	/**
+	 * @param ep
+	 * @return
+	 */
+	public List<EmpPerformance> selectNewNote(EmpPerformance ep);
+	
 }

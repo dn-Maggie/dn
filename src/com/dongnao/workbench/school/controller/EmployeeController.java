@@ -269,7 +269,7 @@ public class EmployeeController{
  		area.put("child",list2);
  		mv.addObject("area",area);
  		
- 		List<Employee> tutor= employeeService.listByCondition(null);
+ 		List<Employee> tutor= employeeService.listByCondition(new Employee());
  		mv.addObject("tutor", tutor);
 		return mv;
 	}

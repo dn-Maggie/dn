@@ -16,6 +16,16 @@ $(function() {
 			showWarn("<m:message code='validation.object'/>",3000);
 			return;
 		}
+		var pattern1 =/[`~!@#$%^&*_+<>{}\/'[\]]/im;
+		if(pattern1.test($("#input_password").val())){
+			showWarn("密码不能含有除大小写字母，数字以外的字符！",5000);
+			return;
+		}
+		var pattern2 = new RegExp("(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[a-zA-Z0-9]{8,12}");
+		if(!pattern2.test($("#input_password").val())){
+			showWarn("密码必须含有大写字母、小写字母、数字(8-12位)",5000);
+			return;
+		}
 		var options = {
 			url : "<m:url value='/userInfo/changePassWord.do'/>",
 			type : "post",
@@ -32,6 +42,9 @@ $(function() {
 		};
 		// 将options传给ajaxForm
 		$('#userInfoFormEdit').ajaxSubmit(options);
+		
+		
+		
 	});
 	/*  if(navigator.userAgent.toLowerCase().indexOf("chrome") != -1){
 		var selectors = document.getElementsByTagName("input");
@@ -67,7 +80,9 @@ $(function() {
 			}
 		}
 	}); 
-	new biz.validate({id:"#confirm_password",equalTo:"#input_password"}) ;
+	new biz.validate({
+		id:"#confirm_password",equalTo:"#input_password"
+		}) ;
 });
 </script>
 <form id="userInfoFormEdit"  >

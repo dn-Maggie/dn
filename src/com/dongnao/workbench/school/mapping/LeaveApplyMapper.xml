@@ -104,10 +104,10 @@
 					and la.content = #{content,jdbcType=VARCHAR}
 				</if>
 				<if test="startDate != null and '' != startDate">  
-					and DATE_FORMAT(la.start_date,'%Y-%c-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+					and DATE_FORMAT(la.start_date,'%Y-%m-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				</if>
 				<if test="endDate != null and '' != endDate">  
-					and DATE_FORMAT(la.end_date,'%Y-%c-%d') >= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+					and DATE_FORMAT(la.end_date,'%Y-%m-%d') >= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				</if>
 				
 				<if test="createDate != null and '' != createDate">  
@@ -124,12 +124,12 @@
 				</if>
 				<if test="null != propsMap.startDate and propsMap.startDate != ''">
 					<![CDATA[
-					and DATE_FORMAT(la.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+					and DATE_FORMAT(la.create_date,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 					]]>
 				</if>
 				<if test="null != propsMap.endDate and propsMap.endDate != ''">
 					<![CDATA[
-						and DATE_FORMAT(la.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+						and DATE_FORMAT(la.create_date,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 					]]>
 				</if>
 		 	GROUP BY la.emp_id
@@ -151,21 +151,21 @@
 <!-- 		</if> -->
 		<if test="null != startDate and startDate != ''">
 			<![CDATA[
-				and DATE_FORMAT(create_date,'%Y-%c-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(create_date,'%Y-%m-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="null != endDate and endDate != ''">
 				<![CDATA[
-				and DATE_FORMAT(create_date,'%Y-%c-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(create_date,'%Y-%m-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 		]]>
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 					<![CDATA[
-					and DATE_FORMAT(create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+					and DATE_FORMAT(create_date,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 					]]>
 		</if>
 		<if test="null != propsMap.endDate and propsMap.endDate != ''">
 					<![CDATA[
-						and DATE_FORMAT(create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+						and DATE_FORMAT(create_date,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 					]]>
 		</if>
 		</if>		
@@ -245,12 +245,12 @@
 		</if>
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 			<![CDATA[
-			and DATE_FORMAT(la.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			and DATE_FORMAT(la.create_date,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="null != propsMap.endDate and propsMap.endDate != ''">
 			<![CDATA[
-			and DATE_FORMAT(la.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			and DATE_FORMAT(la.create_date,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="orderFields != null and '' != orderFields">  

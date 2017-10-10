@@ -1,13 +1,17 @@
 package com.dongnao.workbench.school.service;
-import javax.annotation.Resource;
 import java.util.List;
-import com.dongnao.workbench.school.dao.EmpPerformanceMapper;
-import com.dongnao.workbench.school.model.EmpPerformance;
-import com.dongnao.workbench.school.service.EmpPerformanceService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
+
+import com.alibaba.druid.util.StringUtils;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.util.AjaxUtils;
+import com.dongnao.workbench.common.util.StringUtil;
+import com.dongnao.workbench.school.dao.EmpPerformanceMapper;
+import com.dongnao.workbench.school.model.EmpPerformance;
+import com.dongnao.workbench.school.model.RecentTwoMonthEmpPerf;
  
 /**
  * 描述：员工绩效信息表模块service接口实现类，实现service接口方法
@@ -27,6 +31,12 @@ public class EmpPerformanceServiceImpl implements EmpPerformanceService{
 	 */	
 	public ResultMessage add(EmpPerformance empPerformance){
 		empPerformanceMapper.add(empPerformance);
+		empPerformance.setPerformance(Double.parseDouble(empPerformance.getActualPay())*
+				Double.parseDouble(
+						empPerformance==null||empPerformance.getNewRate()==null?"0":empPerformance.getNewRate())
+				);
+		empPerformance.setNote(empPerformance.getActualPay()+"*"+empPerformance==null||empPerformance.getNewRate()==null?"0":empPerformance.getNewRate().toString());
+		empPerformanceMapper.addNewPerformance(empPerformance);
 		return AjaxUtils.getSuccessMessage();
 	}
 	
@@ -45,6 +55,7 @@ public class EmpPerformanceServiceImpl implements EmpPerformanceService{
 	 */
 	public void deleteByKey(String key){
 		empPerformanceMapper.deleteByKey(key);
+		empPerformanceMapper.deleteNewByKey(key);
 	}
 	
 	/**
@@ -72,10 +83,22 @@ public class EmpPerformanceServiceImpl implements EmpPerformanceService{
 		return empPerformanceMapper.listByEmployee(empPerformance);
 	}
 
+	/**
+	 * 员工奖金总额统计，按员工统计信息
+	 */
+	public List<EmpPerformance> listBonusByEmployee(EmpPerformance empPerformance) {
+		return empPerformanceMapper.listBonusByEmployee(empPerformance);
+	}
+
 	
 	public void deleteByStuId(EmpPerformance empPerformance) {
 		empPerformanceMapper.deleteByStuId(empPerformance);
 	}
+	
+	public void deleteNewByStuId(EmpPerformance empPerformance) {
+		empPerformanceMapper.deleteNewByStuId(empPerformance);
+	}
+
 
 	/**
 	 * 清算员工绩效信息表方法
@@ -93,5 +116,22 @@ public class EmpPerformanceServiceImpl implements EmpPerformanceService{
 		empPerformance.setEmployeeId(userId);
 		empPerformance.setStartDate(startDate);
 		return empPerformanceMapper.getMyPerformance(empPerformance);
+	}
+
+	/**
+	 * 查询最近两个月每个员工的不同岗位（转化、推广、讲师授课、客服等）的营收总额
+	 */
+	@Override
+	public List<RecentTwoMonthEmpPerf> recentTwoMonthEmpRevenue(EmpPerformance str) {
+		return empPerformanceMapper.recentTwoMonthEmpRevenue(str);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.dongnao.workbench.school.service.EmpPerformanceService#selectNewNote(com.dongnao.workbench.school.model.EmpPerformance)
+	 */
+	@Override
+	public List<EmpPerformance> selectNewNote(EmpPerformance ep) {
+		// TODO Auto-generated method stub
+		return empPerformanceMapper.selectNewNote(ep);
 	}
 }

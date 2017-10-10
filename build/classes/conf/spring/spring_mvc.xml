@@ -79,6 +79,9 @@ spring3.1之后RequestMappingHandlerMapping RequestMappingHandlerAdapter -->
 	<bean class="com.dongnao.workbench.common.filter.RightFilter">
 		<property name="uriList">
 			<list>
+				<value>/common/addSurvey.do</value>
+				<value>/survey.jsp</value>
+				<value>/thanks.jsp</value>
 				<value>/error.jsp</value>
 				<value>/login.do</value>
 				<value>/logout.do</value>

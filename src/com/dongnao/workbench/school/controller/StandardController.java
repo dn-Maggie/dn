@@ -31,6 +31,8 @@ import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.continuePay.service.ContinuePayService;
 import com.dongnao.workbench.marketStudent.service.MarketStudentService;
+import com.dongnao.workbench.school.model.RecentlyThirtyDayData;
+import com.dongnao.workbench.school.model.RecentlyThreeMonthData;
 import com.dongnao.workbench.school.model.Standard;
 import com.dongnao.workbench.school.model.StudentBarData;
 import com.dongnao.workbench.school.service.StandardService;
@@ -248,7 +250,48 @@ public class StandardController{
 	}
 	
 	/**
-	 * 获取学生报名人数数据
+	 *  获取某个部门最近30天的业绩数据
+	 */
+	
+	@RequestMapping("/getRecentlyThirtyDayData")
+	public void getRecentlyThirtyDayData(String subjectName,HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException {
+		Map<Object,Object> model = new HashMap<Object,Object>();
+		List<RecentlyThirtyDayData> rtdd = accountFlowService.getRecentlyThirtyDayData(subjectName);
+		model.put("rd", rtdd);
+		AjaxUtils.sendAjaxForMap(response, model);
+	}
+	
+	/**
+	 *  获取最近三个月的每日业绩对比数据
+	 */
+	
+	@RequestMapping("/getRecentlyThreeMonthData")
+	public void getRecentlyThreeMonthData(String subjectName,HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException {
+		RecentlyThreeMonthData rt = new RecentlyThreeMonthData();
+		Map<Object,Object> model = new HashMap<Object,Object>();
+		if(subjectName!=null && subjectName!="")rt.setSubjectName(subjectName);
+		
+		Calendar now = Calendar.getInstance();
+		int year = now.get(Calendar.YEAR);
+		int month = (now.get(Calendar.MONTH) + 1);
+				
+		for(int i=0;i<3;i++){
+			int queryMonth = 1;
+			if((month - i)<=0){
+				queryMonth = month - i + 12;
+				year--;
+			}else{
+				queryMonth = month - i;
+			}
+			rt.setYearMonth(year + "-" + queryMonth);
+			List<RecentlyThreeMonthData> rtlist = accountFlowService.getRecentlyThreeMonthData(rt);
+			model.put("month" + i, rtlist);
+		}
+		AjaxUtils.sendAjaxForMap(response, model);
+	}
+	
+	/**
+	 *获取学生报名人数数据
 	 */
 	
 	@RequestMapping("/getStudentBarData")
@@ -385,8 +428,11 @@ public class StandardController{
  		standard.setPositionId(positionId);
  		List<Standard> standards=standardService.listByCondition(standard);
  		if(standards!=null&&standards.size()==1){
- 			AjaxUtils.sendAjaxForObject(response, standards.get(0).getRate());
+ 			AjaxUtils.sendAjaxForObjectStr(response, standards.get(0));
+ 		}else{
+ 			AjaxUtils.sendAjaxForObjectStr(response, standard);
  		}
  		
  	}
+ 	
 }

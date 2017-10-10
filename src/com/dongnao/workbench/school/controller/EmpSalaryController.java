@@ -160,39 +160,39 @@ public class EmpSalaryController{
      		c.add(Calendar.MONTH, -1);
             try{
             	empSalary.setCreateDate(c.getTime());
-            	empSalary.setEmpNo(StringUtil.valueOf(lo.get(1)));
-            	empSalary.setEmpName(StringUtil.valueOf(lo.get(2)));
-                empSalary.setEmpNickName(StringUtil.valueOf(lo.get(3)));  
-                Employee employee = employeeService.getEmpByEmpNo(StringUtil.valueOf(lo.get(1)));
+            	empSalary.setEmpNo(StringUtil.valueOf(lo.get(0)));
+            	empSalary.setEmpName(StringUtil.valueOf(lo.get(1)));
+                empSalary.setEmpNickName(StringUtil.valueOf(lo.get(2)));  
+                Employee employee = employeeService.getEmpByEmpNo(StringUtil.valueOf(lo.get(0)));
                 empSalary.setEmpId(employee.getId());
                 empSalary.setId(employee.getId());
                 empSalary.setCheckFlag("1");
                 empSalary.setSendFlag("1");
-                if(StringUtil.valueOf(lo.get(4)).indexOf("农行")>0){empSalary.setEmpBank("中国农业银行");}
+                /*if(StringUtil.valueOf(lo.get(4)).indexOf("农行")>0){empSalary.setEmpBank("中国农业银行");}
                 else if(StringUtil.valueOf(lo.get(4)).indexOf("建行")>0){empSalary.setEmpBank("中国建设银行");}
                 else{empSalary.setEmpBank("北京银行");}
                 empSalary.setEmpBankCard(StringUtil.valueOf(lo.get(4)));   
                 empSalary.setEmpMobile(StringUtil.valueOf(lo.get(5)));
-                empSalary.setLeaveDay(StringUtil.toDouble(lo.get(6)));
                 empSalary.setEmpEntryDate(StringUtil.valueOf(lo.get(9)));
-                empSalary.setEmpBeFullDate(StringUtil.valueOf(lo.get(10)));
-                empSalary.setBasicSalary(StringUtil.toDouble(lo.get(12)));
-                empSalary.setActualattendance(StringUtil.toDouble(lo.get(11)));
+                empSalary.setEmpBeFullDate(StringUtil.valueOf(lo.get(10)));*/
+                empSalary.setLeaveDay(StringUtil.toDouble(lo.get(3)));
+                empSalary.setBasicSalary(StringUtil.toDouble(lo.get(7)));
+                empSalary.setActualattendance(StringUtil.toDouble(lo.get(6)));
                 empSalary.setDutyLevelSalary(employee.getSalary());
-                empSalary.setShouldSalary(StringUtil.toDouble(lo.get(13)));
-                empSalary.setSocialSecurity(StringUtil.toDouble(lo.get(14)));
-            	empSalary.setLateEarlyTime(StringUtil.toInteger(lo.get(7)));
-            	empSalary.setAttendanceAnomalyTime(StringUtil.toInteger(lo.get(8)));
-                empSalary.setLeaveCost(StringUtil.toDouble(lo.get(15)));
-                empSalary.setLateEarlyCost(StringUtil.toDouble(lo.get(16)));
-                empSalary.setAttendanceAnomalyCost(StringUtil.toDouble(lo.get(17)));
-                empSalary.setTableMoney(StringUtil.toDouble(lo.get(18)));
-                empSalary.setHousingAllowance(StringUtil.toDouble(lo.get(19)));
-                empSalary.setTrafficsubsidies(StringUtil.toDouble(lo.get(20)));
-                empSalary.setMeritRaise(StringUtil.toDouble(lo.get(21)));
-                empSalary.setRests(StringUtil.toDouble(lo.get(22)));
-                empSalary.setNote(StringUtil.valueOf(lo.get(23)));
-                empSalary.setActualSalary(StringUtil.toDouble(lo.get(24)));
+                empSalary.setShouldSalary(StringUtil.toDouble(lo.get(8)));
+                empSalary.setSocialSecurity(StringUtil.toDouble(lo.get(9)));
+            	empSalary.setLateEarlyTime(StringUtil.toInteger(lo.get(4)));
+            	empSalary.setAttendanceAnomalyTime(StringUtil.toInteger(lo.get(5)));
+                empSalary.setLeaveCost(StringUtil.toDouble(lo.get(10)));
+                empSalary.setLateEarlyCost(StringUtil.toDouble(lo.get(11)));
+                empSalary.setAttendanceAnomalyCost(StringUtil.toDouble(lo.get(12)));
+                empSalary.setTableMoney(StringUtil.toDouble(lo.get(13)));
+                empSalary.setHousingAllowance(StringUtil.toDouble(lo.get(14)));
+                empSalary.setTrafficsubsidies(StringUtil.toDouble(lo.get(15)));
+                empSalary.setMeritRaise(StringUtil.toDouble(lo.get(16)));
+                empSalary.setRests(StringUtil.toDouble(lo.get(17)));
+                empSalary.setNote(StringUtil.valueOf(lo.get(18)));
+                empSalary.setActualSalary(StringUtil.toDouble(lo.get(19)));
                 emplist.add(empSalary);
             }catch(Exception e){
             	continue;
@@ -287,9 +287,9 @@ public class EmpSalaryController{
         		+ "注：1、请核对好工资、卡号，如有疑问，请及时到行政部核对，核对截止时间今日15:00；</br>"
         		+"    2、薪酬工资属于保密，核对无误后，请及时删除本邮件；</br>"
         		+ "3、该工资条属于"+DateUtil.parseDate(empSalary.getCreateDate(), "yyyy-MM")+"月份工资。</h3>"
-        		+ "<table  border='2' ><thead><tr><th>姓名</th><th>昵称</th><th>银行</th><th>卡号</th>"
+        		+ "<table  border='2' ><thead><tr><th>姓名</th><th>昵称</th>"
         		+ "<th>电话号码</th><th>请假天数</th><th>迟到早退（次）</th>"
-        		+ "<th>打卡异常（次）</th><th>入职时间</th><th>转正日期</th><th>基本工资</th>"
+        		+ "<th>打卡异常（次）</th><th>基本工资</th>"
         		/*+ "<th>薪级工资</th>"*/
         		+ "<th>应发工资</th><th>社保扣款</th><th>请假扣款</th>"
         		+ "<th>迟到早退扣款</th><th>打卡异常扣款</th><th>餐补</th><th>住房补贴</th><th>交通补贴</th>"
@@ -297,14 +297,14 @@ public class EmpSalaryController{
         		+ "<tbody><tr>"
         		+ "<td>"+StringUtil.valueOf(empSalary.getEmpName())+"</td>"
         		+ "<td>"+StringUtil.valueOf(empSalary.getEmpNickName())+"</td>"
-				+ "<td>"+StringUtil.valueOf(empSalary.getEmpBank())+"</td>"
-        		+ "<td>"+StringUtil.valueOf(empSalary.getEmpBankCard())+"</td>"
+				/*+ "<td>"+StringUtil.valueOf(empSalary.getEmpBank())+"</td>"
+        		+ "<td>"+StringUtil.valueOf(empSalary.getEmpBankCard())+"</td>"*/
         		+ "<td>"+StringUtil.valueOf(empSalary.getEmpMobile())+"</td>"
         		+ "<td>"+StringUtil.toDouble(empSalary.getLeaveDay())+"</td>"
         		+ "<td>"+StringUtil.toInteger(empSalary.getLateEarlyTime())+"</td>"
         		+ "<td>"+StringUtil.toInteger(empSalary.getAttendanceAnomalyTime())+"</td>"
-        		+ "<td>"+StringUtil.valueOf(empSalary.getEmpEntryDate())+"</td>"
-        		+ "<td>"+StringUtil.valueOf(empSalary.getEmpBeFullDate())+"</td>"
+        		/*+ "<td>"+StringUtil.valueOf(empSalary.getEmpEntryDate())+"</td>"
+        		+ "<td>"+StringUtil.valueOf(empSalary.getEmpBeFullDate())+"</td>"*/
         		+ "<td>"+StringUtil.toDouble(empSalary.getBasicSalary())+"</td>"
         		/*+ "<td>"+empSalary.getDutyLevelSalary()==null?"":+empSalary.getDutyLevelSalary()+"</td>"*/
         		+ "<td>"+StringUtil.toDouble(empSalary.getShouldSalary())+"</td>"

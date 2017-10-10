@@ -119,14 +119,14 @@
 			SUM(should_pay) shouldPay,
 			SUM(actual_pay) actualPay,
 			SUM(should_pay)-SUM(actual_pay) owePay,
-			(select sum(case WHEN ACCOUNT_NO ='XFSR' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1  <if test="jointime!=null and jointime!=''">  AND DATE_FORMAT(create_date,'%Y%c') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')</if>) xfsr,
-(select sum(case WHEN ACCOUNT_NO ='XFBK' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1 <if test="jointime!=null and jointime!=''"> AND DATE_FORMAT(create_date,'%Y%c') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')</if>) xfbk,
-(select sum(case WHEN ACCOUNT_NO ='XFTK' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1 <if test="jointime!=null and jointime!=''"> AND DATE_FORMAT(create_date,'%Y%c') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')</if>) xftk
+			(select sum(case WHEN ACCOUNT_NO ='XFSR' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1  <if test="jointime!=null and jointime!=''">  AND DATE_FORMAT(create_date,'%Y%m') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')</if>) xfsr,
+(select sum(case WHEN ACCOUNT_NO ='XFBK' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1 <if test="jointime!=null and jointime!=''"> AND DATE_FORMAT(create_date,'%Y%m') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')</if>) xfbk,
+(select sum(case WHEN ACCOUNT_NO ='XFTK' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1 <if test="jointime!=null and jointime!=''"> AND DATE_FORMAT(create_date,'%Y%m') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')</if>) xftk
 		FROM 
 		 	vip_student
 		WHERE 1=1 
 		<if test="jointime!=null and jointime!=''"> 
-			AND DATE_FORMAT(join_time,'%Y%c') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')
+			AND DATE_FORMAT(join_time,'%Y%m') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="subjectId!=null and subjectId!=''"> 
 			AND subject_id = #{subjectId,jdbcType=VARCHAR}
@@ -136,12 +136,12 @@
 		
 	<select id="getStatisticaltoday" resultType="com.dongnao.workbench.vipStudent.model.Statistical" parameterType="java.lang.String">
 		SELECT 
-(select sum(case WHEN ACCOUNT_NO ='XFSR' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1  AND DATE_FORMAT(create_date,'%Y%c%D') like CONCAT('%',#{today,jdbcType=VARCHAR},'%')) xfsr,
-(select sum(case WHEN ACCOUNT_NO ='XFBK' and money>0 THEN MONEY ELSE 0 END) AS xfbk from account_flow where 1=1 AND DATE_FORMAT(create_date,'%Y%c%D') like CONCAT('%',#{today,jdbcType=VARCHAR},'%')) xfbk,
-(select sum(case WHEN ACCOUNT_NO ='XFTK' and money>0 THEN MONEY ELSE 0 END) AS xftk from account_flow where 1=1 AND DATE_FORMAT(create_date,'%Y%c%D') like CONCAT('%',#{today,jdbcType=VARCHAR},'%')) xftk
+(select sum(case WHEN ACCOUNT_NO ='XFSR' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1  AND DATE_FORMAT(create_date,'%Y%m%D') like CONCAT('%',#{today,jdbcType=VARCHAR},'%')) xfsr,
+(select sum(case WHEN ACCOUNT_NO ='XFBK' and money>0 THEN MONEY ELSE 0 END) AS xfbk from account_flow where 1=1 AND DATE_FORMAT(create_date,'%Y%m%D') like CONCAT('%',#{today,jdbcType=VARCHAR},'%')) xfbk,
+(select sum(case WHEN ACCOUNT_NO ='XFTK' and money>0 THEN MONEY ELSE 0 END) AS xftk from account_flow where 1=1 AND DATE_FORMAT(create_date,'%Y%m%D') like CONCAT('%',#{today,jdbcType=VARCHAR},'%')) xftk
 		FROM 
 		 	vip_student
-		WHERE DATE_FORMAT(join_time,'%Y%c%D') like CONCAT('%',#{today,jdbcType=VARCHAR},'%') limit 0,1
+		WHERE DATE_FORMAT(join_time,'%Y%m%D') like CONCAT('%',#{today,jdbcType=VARCHAR},'%') limit 0,1
 	</select>
 	
 	<select id="getTotal" resultType="com.dongnao.workbench.vipStudent.model.Statistical" parameterType="com.dongnao.workbench.vipStudent.model.VipStudent">
@@ -174,12 +174,12 @@
 		</if> 
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 			<![CDATA[
-				and DATE_FORMAT(v.join_time,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(v.join_time,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="null != propsMap.endDate and propsMap.endDate != ''">
 			<![CDATA[
-				and DATE_FORMAT(v.join_time,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(v.join_time,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="currStatus != null and '' != currStatus">  
@@ -187,16 +187,16 @@
 		</if>
 		<if test="null != joinStartDate and joinStartDate != ''">
 				<![CDATA[
-				and DATE_FORMAT(v.join_time,'%Y-%c-%d') >= DATE_FORMAT(#{joinStartDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(v.join_time,'%Y-%m-%d') >= DATE_FORMAT(#{joinStartDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 		</if>
 		<if test="null != joinEndDate and joinEndDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(v.join_time,'%Y-%c-%d') <= DATE_FORMAT(#{joinEndDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+					and DATE_FORMAT(v.join_time,'%Y-%m-%d') <= DATE_FORMAT(#{joinEndDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 		</if>
 		<if test="jointime != null and '' != jointime">  
-			AND DATE_FORMAT(v.join_time,'%Y%c') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')
+			AND DATE_FORMAT(v.join_time,'%Y%m') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')
 		</if>
 		 <if test="orderFields != null and '' != orderFields">
 			order by ${orderFields} ${order}
@@ -333,7 +333,7 @@
 			and follower_id like CONCAT('%',#{followerId,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="followerName != null and '' != followerName">
-			and follower_name like CONCAT('%',#{followerName,jdbcType=VARCHAR},'%')
+			and v1.follower_name like CONCAT('%',#{followerName,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="shouldPay != null and '' != shouldPay">
 			and should_pay = #{shouldPay,jdbcType=DOUBLE}
@@ -361,12 +361,12 @@
 		</if>
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 			<![CDATA[
-			and DATE_FORMAT(join_time,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			and DATE_FORMAT(join_time,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="null != propsMap.endDate and propsMap.endDate != ''">
 			<![CDATA[
-				and DATE_FORMAT(join_time,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(join_time,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="null != minOwePay and minOwePay != ''">
@@ -378,7 +378,7 @@
 		<if test="sourceSubclass != null and '' != sourceSubclass">  
 			and source_subclass = #{sourceSubclass,jdbcType=VARCHAR}
 		</if>
-		  <if test="orderFields != null and '' != orderFields">
+		<if test="orderFields != null and '' != orderFields">
 			order by ${orderFields} ${order}
 		</if>
 	</select>

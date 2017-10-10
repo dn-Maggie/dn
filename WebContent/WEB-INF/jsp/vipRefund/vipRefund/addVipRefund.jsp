@@ -273,10 +273,11 @@ function countPerformance(){
 			var folid = followerIds[i];
 			var folposition = followerPositions[i];
 			var folrate = followerRates[i];
-			count(folrate);
+			count(foltype,folrate);
 	}
 	//冲减业绩表中的数据		
-	function count(data){
+	function count(foltype,data){
+		var comSource = $("#comSource").val();
 		var sub = $("#sourceSubclass").val();
 		var subname="";
 		switch (sub) {
@@ -286,11 +287,12 @@ function countPerformance(){
 			default:break;
 		}
 		var employeeId = folid;
+		var stuId = $("#edit_stuId").val();
 		var employeeName = folname;
 		var position = folposition;
 		var actualPay = parseFloat(0)-parseFloat($("#edit_refund").val());
 		var performance = parseFloat(actualPay)*parseFloat(data);
-		var sourceSubclass = $("#sourceSubclass").val();
+		var newRate = getNewRateFromEmp(employeeId,stuId,position);
 		if(($("#edit_time").val()).length>0){
 			createDate = $("#edit_time").val();
 		}else{
@@ -310,7 +312,8 @@ function countPerformance(){
 				createDate:createDate,
 				isPass:isPass,
 				note:note,
-				stuId:$('#edit_stuId').val(),
+				stuId:stuId,
+				newRate:newRate
 				};
 		$.ajax({
 				 type: "post",
@@ -321,7 +324,42 @@ function countPerformance(){
 				});
 		}
 }
-
+function getNewRateFromEmp(empId,stuId,position){
+	var newRate = 0;
+	 $.ajax({
+		 url : "<m:url value='/empPerformance/getRate.do'/>?empId="
+				+ empId+"&stuId="+stuId+"&position="+position,
+		cache : false,
+		async : false,
+		success:function(response){
+			 if(response!=null&&response!=undefined){
+				 newRate = JSON.parse(response).note
+			 }else{
+				 newRate = 0;
+			 }
+		 },
+		 error:function(){
+			 showError("获取比例出错", 3000);
+		 }
+	 });
+	return newRate;
+}
+function getNewRate(foltype,comSource,sub){
+	var newRate = 0;
+	 $.ajax({
+		 url : "<m:url value='/standard/getRate.do'/>?parentId="
+				+ comSource+"&subId="+sub+"&positionId="+foltype,
+		cache : false,
+		async : false,
+		 success:function(response){
+			 newRate = JSON.parse(response).newRate;
+		 },
+		 error:function(){
+			 showError("获取比例出错", 3000);
+		 }
+	 });
+	return newRate;
+}
 //增加订单信息
 function addOrderInfo(){
 	if(Number($("#edit_refund").val()) == Number(allPay)){

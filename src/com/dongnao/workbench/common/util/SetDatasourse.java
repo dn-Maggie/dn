@@ -16,6 +16,9 @@ public class SetDatasourse {
 	 * @param jp JoinPoint 切入点参数
 	 */
 	public void setDynamicDatasource(JoinPoint jp) {
+		
+		
+		
 		DynamicDataSource.setCurrentLookupKey("read");
 		String methodName = jp.getSignature().getName();
 

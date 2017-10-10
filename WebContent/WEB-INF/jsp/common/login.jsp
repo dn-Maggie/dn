@@ -113,7 +113,7 @@
     }   
 	//登陆动作
 	function loginAction(formId) {
-		if(!codeChecked){showWarn("请输入正确的验证码！");refreshCaptcha();return;}  
+		if(!codeChecked){showWarn("请输入正确的验证码！");codeChecked = false;refreshCaptcha();return;}  
 		showInfo("登陆中，请稍后...");
 		$("#popup_ok").css("visibility","hidden");
 		//表单验证
@@ -128,6 +128,7 @@
 			if (p.value == null || p.value == "") {
 				alert("请输入密码");
 				p.focus();
+				codeChecked = false;
 				return false;
 			}
 			return true;
@@ -140,9 +141,11 @@
 			cache : false,
 			dataType : 'json',
 			success : function(data, textStatus, jqXHR) {
-				if (data.status == 1) {
+				debugger
+				if (data.status == 1 && codeChecked == true) {
 					window.location.href = 'index.do';
 				} else {
+					codeChecked = false;
 					showMessage(data.message);
 					refreshCaptcha(); 
 				}

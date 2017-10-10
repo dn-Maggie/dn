@@ -325,6 +325,17 @@ jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";//声明页脚�
 			            </c:forEach>
 					</select><span>报名学科:</span>
 				</li><!-- 输入框-->
+				<li style="width:160px;">
+				<select class="search_choose" name="comSource" id="comSource" mainid="comSource" style="width:80px;">
+						<option value="">-请选择-</option>
+						<option value="1">口碑</option>
+						<option value="2">自然流量</option>
+			   			<option value="3">推广流量</option>
+						<option value="4">其他方式</option>
+						<option value="5">推广口碑</option>
+					</select><span>流量来源:</span>
+				</li><!-- 输入框-->
+				
 				<li style="width:180px;">
 						<select class="search_choose" name="currStatus" id="currStatus" mainid="currStatus" style="width:100px;">
 						<option value="">--请选择--</option>

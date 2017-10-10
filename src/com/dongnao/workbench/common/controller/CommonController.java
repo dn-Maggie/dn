@@ -1,14 +1,23 @@
 package com.dongnao.workbench.common.controller;
 
+import java.io.IOException;
+
+import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.dongnao.workbench.basic.service.SurveyService;
+import com.dongnao.workbench.common.bean.Survey;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.common.util.msg.SMSCodeUtils;
+
+import net.sf.json.JSONObject;
 
 
 /**
@@ -21,7 +30,7 @@ import com.dongnao.workbench.common.util.msg.SMSCodeUtils;
 @Controller
 @RequestMapping("/common/")
 public class CommonController {
-
+@Resource SurveyService surveyService;
 	/**
 	 * 进入首页页面
 	 * 
@@ -48,5 +57,21 @@ public class CommonController {
 		}else{
 			AjaxUtils.sendAjaxForObject(response, Boolean.FALSE);
 		}
+	}
+	
+	/**
+	 * 新增调查方法
+	 * @param response HttpServletResponse
+	 * @return: ajax输入json字符串
+	 * @throws IOException 
+	 * @throws ServletException 
+	 */
+	@RequestMapping("/addSurvey")
+	public void add(@RequestBody String str,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		Survey survey = new Survey();
+		survey.setIp(Utils.getRemortIP(request));
+		survey.setContent(JSONObject.fromObject(str).getString("content"));
+		
+		AjaxUtils.sendAjaxForObjectStr(response,surveyService.add(survey));		
 	}
 }

@@ -37,7 +37,7 @@
 		from market_student
 		WHERE 1=1 
 		<if test="_parameter!=null and _parameter!=''"> 
-			AND DATE_FORMAT(time,'%Y%c') like CONCAT('%',#{month,jdbcType=VARCHAR},'%')
+			AND DATE_FORMAT(time,'%Y%m') like CONCAT('%',#{month,jdbcType=VARCHAR},'%')
 		</if>
 	</select>
 	
@@ -79,12 +79,12 @@
 		</if>
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 			<![CDATA[
-			and DATE_FORMAT(m.time,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			and DATE_FORMAT(m.time,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="null != propsMap.endDate and propsMap.endDate != ''">
 			<![CDATA[
-				and DATE_FORMAT(m.time,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(m.time,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 				<if test="orderFields != null and '' != orderFields">  
