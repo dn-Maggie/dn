@@ -327,7 +327,37 @@
 			and e.curr_state = #{currState,jdbcType=VARCHAR}
 		</if>
 		<if test="currState == null or '' == currState">  
-			and e.curr_state in('1','2','4')
+			and e.curr_state in('1','2','3','4')
+		</if>
+		<if test="null != propsMap.startDate and propsMap.startDate != ''">
+			<![CDATA[
+			and DATE_FORMAT(e.entry_date,'%Y-%m-%c') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%c')
+			]]>
+		</if>
+		<if test="null != propsMap.endDate and propsMap.endDate != ''">
+			<![CDATA[
+			and DATE_FORMAT(e.entry_date,'%Y-%m-%c') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%c')
+			]]>
+		</if>
+		<if test="null != propsMap.beFullDateStart and propsMap.beFullDateStart != ''">
+			<![CDATA[
+			and DATE_FORMAT(e.be_full_date,'%Y-%m-%c') >= DATE_FORMAT(#{propsMap.beFullDateStart,jdbcType=TIMESTAMP},'%Y-%m-%c')
+			]]>
+		</if>
+		<if test="null != propsMap.beFullDateEnd and propsMap.beFullDateEnd != ''">
+			<![CDATA[
+			and DATE_FORMAT(e.be_full_date,'%Y-%m-%c') <= DATE_FORMAT(#{propsMap.beFullDateEnd,jdbcType=TIMESTAMP},'%Y-%m-%c')
+			]]>
+		</if>
+		<if test="null != propsMap.leaveDateStart and propsMap.leaveDateStart != ''">
+			<![CDATA[
+			and DATE_FORMAT(e.leave_date,'%Y-%m-%c') >= DATE_FORMAT(#{propsMap.leaveDateStart,jdbcType=TIMESTAMP},'%Y-%m-%c')
+			]]>
+		</if>
+		<if test="null != propsMap.leaveDateEnd and propsMap.leaveDateEnd != ''">
+			<![CDATA[
+			and DATE_FORMAT(e.leave_date,'%Y-%m-%c') <= DATE_FORMAT(#{propsMap.leaveDateEnd,jdbcType=TIMESTAMP},'%Y-%m-%c')
+			]]>
 		</if>
 		<if test="orderFields != null and '' != orderFields">  
           	order by ${orderFields} ${order}
@@ -363,7 +393,7 @@
 				check_flag = 2
 				<if test="null != propsMap.startDate and propsMap.startDate != ''">
 					<![CDATA[
-					and DATE_FORMAT(create_date,'%Y%c') = DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y%c')
+					and DATE_FORMAT(create_date,'%Y%m') = DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y%m')
 					]]>
 				</if>
 		)ela ON ela.emp_id = e.id
@@ -387,7 +417,7 @@
 		from employee
 		WHERE 1=1 
 		<if test="_parameter!=null and _parameter!=''"> 
-			AND DATE_FORMAT(entry_date,'%Y%c') =  #{month,jdbcType=VARCHAR}
+			AND DATE_FORMAT(entry_date,'%Y%m') =  #{month,jdbcType=VARCHAR}
 		</if>
 	</select>
 	

@@ -81,4 +81,15 @@ public interface EmpPerformanceMapper  {
 	 * @param empPerformance
 	 */
 	void deleteNewByStuId(EmpPerformance empPerformance);
+
+	/**
+	 * @param key
+	 */
+	void deleteNewByKey(String key);
+
+	/**
+	 * @param ep
+	 * @return
+	 */
+	public List<EmpPerformance> selectNewNote(EmpPerformance ep);
 }

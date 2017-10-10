@@ -228,7 +228,7 @@
 		</if>
 		<if test="null != createDate and createDate != ''">
 			<![CDATA[
-			and DATE_FORMAT(es.create_date,'%Y%c') = DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y%c')
+			and DATE_FORMAT(es.create_date,'%Y%m') = DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y%m')
 			]]>
 		</if>
 		<!-- group by es.emp_id -->
@@ -257,7 +257,7 @@
 		WHERE 1=1 
 		<if test="null != createDate and createDate != ''">
 			<![CDATA[
-			and DATE_FORMAT(es.create_date,'%Y%c') = DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y%c')
+			and DATE_FORMAT(es.create_date,'%Y%m') = DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y%m')
 			]]>
 		</if>
 		<if test="checkFlag != null and '' != checkFlag">  
@@ -432,12 +432,12 @@
 		LEFT JOIN emp_leave_apply AS ela 
 		ON 
 			ela.emp_id = e.id
-			and DATE_FORMAT(ela.start_date,'%Y%c') = DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y%c')
-			and DATE_FORMAT(ela.end_date,'%Y%c') = DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y%c')
+			and DATE_FORMAT(ela.start_date,'%Y%m') = DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y%m')
+			and DATE_FORMAT(ela.end_date,'%Y%m') = DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y%m')
 		LEFT JOIN emp_table_grant AS etg ON 
 			etg.emp_id = e.id
-			and DATE_FORMAT(etg.grant_date_start,'%Y%c') = DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y%c')
-			and DATE_FORMAT(etg.grant_date_end,'%Y%c') = DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y%c')
+			and DATE_FORMAT(etg.grant_date_start,'%Y%m') = DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y%m')
+			and DATE_FORMAT(etg.grant_date_end,'%Y%m') = DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y%m')
 		GROUP BY e.id
 	</insert>
 	
@@ -536,7 +536,7 @@
 			,check_date = #{checkDate,jdbcType=TIMESTAMP}
 			,check_flag = #{checkFlag,jdbcType=VARCHAR}
 		where emp_id = #{empId,jdbcType=VARCHAR}
-		and DATE_FORMAT(create_date,'%Y%c') = DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y%c')
+		and DATE_FORMAT(create_date,'%Y%m') = DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y%m')
 	</update>
 	
 	<update id="send" parameterType="com.dongnao.workbench.school.model.EmpSalary">

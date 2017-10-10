@@ -81,12 +81,12 @@
 		</if>
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 			<![CDATA[
-			and DATE_FORMAT(vr.time,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			and DATE_FORMAT(vr.time,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="null != propsMap.endDate and propsMap.endDate != ''">
 			<![CDATA[
-				and DATE_FORMAT(vr.time,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(vr.time,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="orderFields != null and '' != orderFields">  
@@ -106,22 +106,22 @@
 		</if>
 		<if test="null != startDate and startDate != ''">
 				<![CDATA[
-				and DATE_FORMAT(vr.time,'%Y-%c-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(vr.time,'%Y-%m-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 		</if>
 		<if test="null != endDate and endDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(vr.time,'%Y-%c-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+					and DATE_FORMAT(vr.time,'%Y-%m-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 		</if>
 		<if test="null != joinStartDate and joinStartDate != ''">
 				<![CDATA[
-				and DATE_FORMAT(v.join_time,'%Y-%c-%d') >= DATE_FORMAT(#{joinStartDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(v.join_time,'%Y-%m-%d') >= DATE_FORMAT(#{joinStartDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 		</if>
 		<if test="null != joinEndDate and joinEndDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(v.join_time,'%Y-%c-%d') <= DATE_FORMAT(#{joinEndDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+					and DATE_FORMAT(v.join_time,'%Y-%m-%d') <= DATE_FORMAT(#{joinEndDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 		</if>
 	</select>

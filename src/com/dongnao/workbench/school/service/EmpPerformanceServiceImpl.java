@@ -33,9 +33,9 @@ public class EmpPerformanceServiceImpl implements EmpPerformanceService{
 		empPerformanceMapper.add(empPerformance);
 		empPerformance.setPerformance(Double.parseDouble(empPerformance.getActualPay())*
 				Double.parseDouble(
-						empPerformance.getNewRate()==null?"0":empPerformance.getNewRate())
+						empPerformance==null||empPerformance.getNewRate()==null?"0":empPerformance.getNewRate())
 				);
-		empPerformance.setNote(empPerformance.getActualPay()+"*"+empPerformance.getNewRate()==null?"0":empPerformance.getNewRate().toString());
+		empPerformance.setNote(empPerformance.getActualPay()+"*"+empPerformance==null||empPerformance.getNewRate()==null?"0":empPerformance.getNewRate().toString());
 		empPerformanceMapper.addNewPerformance(empPerformance);
 		return AjaxUtils.getSuccessMessage();
 	}
@@ -55,6 +55,7 @@ public class EmpPerformanceServiceImpl implements EmpPerformanceService{
 	 */
 	public void deleteByKey(String key){
 		empPerformanceMapper.deleteByKey(key);
+		empPerformanceMapper.deleteNewByKey(key);
 	}
 	
 	/**
@@ -92,8 +93,12 @@ public class EmpPerformanceServiceImpl implements EmpPerformanceService{
 	
 	public void deleteByStuId(EmpPerformance empPerformance) {
 		empPerformanceMapper.deleteByStuId(empPerformance);
+	}
+	
+	public void deleteNewByStuId(EmpPerformance empPerformance) {
 		empPerformanceMapper.deleteNewByStuId(empPerformance);
 	}
+
 
 	/**
 	 * 清算员工绩效信息表方法
@@ -119,5 +124,14 @@ public class EmpPerformanceServiceImpl implements EmpPerformanceService{
 	@Override
 	public List<RecentTwoMonthEmpPerf> recentTwoMonthEmpRevenue(EmpPerformance str) {
 		return empPerformanceMapper.recentTwoMonthEmpRevenue(str);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.dongnao.workbench.school.service.EmpPerformanceService#selectNewNote(com.dongnao.workbench.school.model.EmpPerformance)
+	 */
+	@Override
+	public List<EmpPerformance> selectNewNote(EmpPerformance ep) {
+		// TODO Auto-generated method stub
+		return empPerformanceMapper.selectNewNote(ep);
 	}
 }

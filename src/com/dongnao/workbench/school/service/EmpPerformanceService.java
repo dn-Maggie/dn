@@ -79,5 +79,16 @@ public interface EmpPerformanceService  {
 	 * 查询最近两个月每个员工的不同岗位（转化、推广、讲师授课、客服等）的营收总额
 	 */
 	public List<RecentTwoMonthEmpPerf> recentTwoMonthEmpRevenue(EmpPerformance str);
+
+	/**
+	 * @param empPerformance
+	 */
+	public void deleteNewByStuId(EmpPerformance empPerformance);
+
+	/**
+	 * @param ep
+	 * @return
+	 */
+	public List<EmpPerformance> selectNewNote(EmpPerformance ep);
 	
 }

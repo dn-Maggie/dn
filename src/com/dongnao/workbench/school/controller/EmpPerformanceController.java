@@ -1,5 +1,6 @@
 package com.dongnao.workbench.school.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -153,6 +154,7 @@ public class EmpPerformanceController{
 	@RequestMapping("/deleteEmpPerformanceByStuId")
 	public void deleteByStuId(EmpPerformance empPerformance,HttpServletResponse response){
 		empPerformanceService.deleteByStuId(empPerformance);
+		empPerformanceService.deleteNewByStuId(empPerformance);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("msg", "成功");
 		AjaxUtils.sendAjaxForMap(response, map);
@@ -340,6 +342,30 @@ public class EmpPerformanceController{
 		List<EmpPerformance> list = empPerformanceService.listByCondition(empPerformance);
 		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),"业绩分配信息列表", "业绩分配信息列表");
 	}
+	
+	
+	@RequestMapping("/getRate")
+	public void getRate(String empId,String stuId,String position,HttpServletResponse response){
+		
+		
+ 		EmpPerformance ep = new EmpPerformance();
+ 		ep.setEmployeeId(empId);
+ 		ep.setStuId(stuId);
+ 		try {
+			ep.setPosition(new String(position.getBytes("ISO-8859-1"),"utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+ 		
+ 		List<EmpPerformance> eps=empPerformanceService.selectNewNote(ep);
+ 		if(eps!=null&&eps.size()>=1){
+ 			AjaxUtils.sendAjaxForObjectStr(response, eps.get(0));
+ 		}else{
+ 			AjaxUtils.sendAjaxForObjectStr(response, ep);
+ 		}
+ 		
+ 	}
 	
 	/**
 	 * 查询最近两个月每个员工的不同岗位（转化、推广、讲师授课、客服等）的营收总额

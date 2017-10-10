@@ -53,6 +53,28 @@ var gridObj = {};
   			minDate:'#F{$dp.$D(\'startDate\',{d:0});}',
   			dateFmt:'yyyy-MM-dd'
   		});
+  	  new biz.datepicker({
+			id : "#beFullDateStart",
+			maxDate:'#F{$dp.$D(\'beFullDateEnd\',{d:0});}',
+			dateFmt:'yyyy-MM-dd'
+		});
+	    
+	    new biz.datepicker({
+			id : "#beFullDateEnd",
+			minDate:'#F{$dp.$D(\'beFullDateStart\',{d:0});}',
+			dateFmt:'yyyy-MM-dd'
+		});
+	    new biz.datepicker({
+  			id : "#leaveDateStart",
+  			maxDate:'#F{$dp.$D(\'leaveDateEnd\',{d:0});}',
+  			dateFmt:'yyyy-MM-dd'
+  		});
+  	    
+  	    new biz.datepicker({
+  			id : "#leaveDateEnd",
+  			minDate:'#F{$dp.$D(\'leaveDateStart\',{d:0});}',
+  			dateFmt:'yyyy-MM-dd'
+  		});
     });
 
  
@@ -209,7 +231,32 @@ var gridObj = {};
 					<div class="time_bg">
 						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" mainid="endDate">
 						<i class="search_time_ico2"></i>
-					</div></li>	
+					</div>
+				</li>
+				<li class="date_area">
+					<span>转正时间:</span>
+					<div class="time_bg">
+						<input id="beFullDateStart" type="text" class="search_time150" name="propsMap['beFullDateStart']" mainid="beFullDateStart">
+						<i class="search_time_ico2"></i>
+					</div>
+					<i>至</i>
+					<div class="time_bg">
+						<input id="beFullDateEnd" type="text" class="search_time150" name="propsMap['beFullDateEnd']" mainid="beFullDateEnd">
+						<i class="search_time_ico2"></i>
+					</div>
+				</li>	
+				<li class="date_area">
+					<span>离职时间:</span>
+					<div class="time_bg">
+						<input id="leaveDateStart" type="text" class="search_time150" name="propsMap['leaveDateStart']" mainid="leaveDateStart">
+						<i class="search_time_ico2"></i>
+					</div>
+					<i>至</i>
+					<div class="time_bg">
+						<input id="leaveDateEnd" type="text" class="search_time150" name="propsMap['leaveDateEnd']" mainid="leaveDateEnd">
+						<i class="search_time_ico2"></i>
+					</div>
+				</li>
 				<li style="width:180px;">
 					<select class="search_choose" name="currState" id="currState" style="width:100px;">
 						<option value="">所有</option>

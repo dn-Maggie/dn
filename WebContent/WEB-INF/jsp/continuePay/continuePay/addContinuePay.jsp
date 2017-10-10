@@ -373,6 +373,7 @@ function countPerformance(){
 			default:break;
 		}
 		var employeeId = folid;
+		var stuId = $("#edit_stuId").val();
 		var employeeName = folname;
 		var position = folposition;
 		var actualPay = $("#edit_money").val();
@@ -386,7 +387,7 @@ function countPerformance(){
 		}	
 		var note = "学费补款-"+$("#subname").val()+actualPay+"*"+folrate;
 		var isPass="未清算";
-		var newRate = getNewRate(foltype,comSource,sub);
+		var newRate = getNewRateFromEmp(employeeId,stuId,position);
 		var paramDatas = {
 				employeeId:employeeId,
 				employeeName:employeeName,
@@ -399,7 +400,7 @@ function countPerformance(){
 				createDate:createDate,
 				note:note,
 				isPass:isPass,
-				stuId:$("#edit_stuId").val(),
+				stuId:stuId,
 				newRate:newRate
 				};
 		$.ajax({
@@ -413,7 +414,26 @@ function countPerformance(){
 				});
 		}
 }
-
+function getNewRateFromEmp(empId,stuId,position){
+	var newRate = 0;
+	 $.ajax({
+		 url : "<m:url value='/empPerformance/getRate.do'/>?empId="
+				+ empId+"&stuId="+stuId+"&position="+position,
+		cache : false,
+		async : false,
+		success:function(response){
+			 if(response!=null&&response!=undefined){
+				 newRate = JSON.parse(response).note
+			 }else{
+				 newRate = 0;
+			 }
+		 },
+		 error:function(){
+			 showError("获取比例出错", 3000);
+		 }
+	 });
+	return newRate;
+}
 function getNewRate(foltype,comSource,sub){
 	var newRate = 0;
 	 $.ajax({

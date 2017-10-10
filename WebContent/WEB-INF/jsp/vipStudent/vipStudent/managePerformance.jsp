@@ -222,7 +222,7 @@
  var i = 0;
  var currStatus = "";
 $(function() {
-	//分离多个转化对象
+	//已经分好业绩的情况，分离多个转化对象
 	if($("#isCount").val()=='已分配业绩'){
 		var folPositions=$("#followerPosition").val().split(",");
 		var folTypes=$("#followerType").val().split(",");
@@ -266,6 +266,7 @@ $(function() {
 		//总业务比例小于1，开始分配个人业绩
 		if(rates>1){
 			showMessage("业绩比例分配不可大于1！");
+			$("#submit").prop('disabled', false).css({'cursor':'pointer'});
 		}else{
 			if($("#isCount").val()=='未分配业绩'){
 				//计算分配业绩
@@ -484,7 +485,7 @@ function countPerformance(){
 	var actualPay = $("#edit_perMoney").val();
 	var isPass="未清算";
 	$("tr[name='addEnable']").each(function(i){
-			var newRate = $(this).find("#newRate").val();
+			//var newRate = $(this).find("#newRate").val();
 			var rate = $(this).find("#rate").val();
 			var followerType = $(this).find("select[name='followerType']").find("option:selected").val();
 			var followerPosition = $(this).find("select[name='followerType']").find("option:selected").text();
@@ -493,7 +494,10 @@ function countPerformance(){
 			var note = $("#edit_courseName").val()+"-"+$("#edit_perMoney").val()+"*"+rate;
 			var comSource = $("#edit_comSource").val();
 			var sourceSubclass = $("#edit_sourceSubclass").val();
-			var newRate = getNewRate(followerType,comSource,sourceSubclass);
+			//改成获取隐藏的new rate,根据参与岗位人数进行比例分配
+			var newRate = getNewRateByPosition($(this),followerType,comSource,sourceSubclass);
+			
+			
 			var paramDatas = {
 					employeeId:employeeId,
 					shouldPay:shouldPay,
@@ -539,6 +543,36 @@ function getNewRate(foltype,comSource,sub){
 	 });
 	return newRate;
 }
+//多个相同角色
+function getNewRateByPosition(obj,foltype,comSource,sub){
+	var newRate = 0;
+	var num = 0;
+	var followerType = $(obj).find("select[name='followerType']").find("option:selected").val();
+	debugger
+	$("select[name='followerType']").each(function(i){
+		debugger
+		if(followerType == $(this).find("option:selected").val()){num++};
+	})
+	 $.ajax({
+		 url : "<m:url value='/standard/getRate.do'/>?parentId="
+				+ comSource+"&subId="+sub+"&positionId="+foltype,
+		cache : false,
+		async : false,
+		success:function(response){
+			if(response!=null){
+				newRate = (JSON.parse(response).newRate)/num;
+			}else{
+				newRate = 0;
+			}
+		},
+		error:function(){
+			 showError("获取比例出错", 3000);
+		}
+	 });
+	return newRate;
+}
+
+
 function deletePerformance(){
 	var stuId = $("#edit_id").val();
 	var perDate = $("#edit_perDate").val();

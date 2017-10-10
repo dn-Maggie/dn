@@ -44,22 +44,22 @@
 		</if>
 		<if test="null != startDate and startDate != ''">
 				<![CDATA[
-				and DATE_FORMAT(c.time,'%Y-%c-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(c.time,'%Y-%m-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 		</if>
 		<if test="null != endDate and endDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(c.time,'%Y-%c-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+					and DATE_FORMAT(c.time,'%Y-%m-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 		</if>
 		<if test="null != joinStartDate and joinStartDate != ''">
 				<![CDATA[
-				and DATE_FORMAT(v.join_time,'%Y-%c-%d') >= DATE_FORMAT(#{joinStartDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(v.join_time,'%Y-%m-%d') >= DATE_FORMAT(#{joinStartDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 		</if>
 		<if test="null != joinEndDate and joinEndDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(v.join_time,'%Y-%c-%d') <= DATE_FORMAT(#{joinEndDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+					and DATE_FORMAT(v.join_time,'%Y-%m-%d') <= DATE_FORMAT(#{joinEndDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 		</if>
 	</select>
@@ -106,26 +106,26 @@
 			and c.operator = #{operator,jdbcType=VARCHAR}
 		</if>
 		<if test="time!=null and time!=''"> 
-			AND DATE_FORMAT(c.time,'%Y-%c') = DATE_FORMAT(#{time,jdbcType=VARCHAR},'%Y-%c')
+			AND DATE_FORMAT(c.time,'%Y-%m') = DATE_FORMAT(#{time,jdbcType=VARCHAR},'%Y-%m')
 		</if>
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 				<![CDATA[
-				and DATE_FORMAT(c.time,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(c.time,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 		</if>
 		<if test="null != propsMap.endDate and propsMap.endDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(c.time,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+					and DATE_FORMAT(c.time,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 		</if>
 		<if test="null != propsMap.joinStartDate and propsMap.joinStartDate != ''">
 				<![CDATA[
-				and DATE_FORMAT(v.join_time,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.joinStartDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(v.join_time,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.joinStartDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 		</if>
 		<if test="null != propsMap.joinEndDate and propsMap.joinEndDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(v.join_time,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.joinEndDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+					and DATE_FORMAT(v.join_time,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.joinEndDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 		</if>
 		<if test="notes != null and '' != notes">  

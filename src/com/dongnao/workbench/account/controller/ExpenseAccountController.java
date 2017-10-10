@@ -63,10 +63,10 @@ public class ExpenseAccountController{
  		Employee entity = employeeService.getByPrimaryKey(user.getId());
  		mv.addObject("employee",entity);
  		
-		List<Employee> tutor= employeeService.listByCondition(null);
+		List<Employee> tutor= employeeService.listByCondition(new Employee());
  		mv.addObject("tutor", tutor);
  		
- 		List<Org> org= orgService.listByCondition(null);
+ 		List<Org> org= orgService.listByCondition(new Org());
  		org.remove(0);
  		mv.addObject("org", org);
  		return mv;

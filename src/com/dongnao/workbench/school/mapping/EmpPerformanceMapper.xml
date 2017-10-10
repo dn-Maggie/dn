@@ -82,7 +82,7 @@
 		</if>
 		<if test="_parameter!=null and _parameter!=''"> 
 			<![CDATA[
-				and DATE_FORMAT(create_date,'%Y-%c') like DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%c')
+				and DATE_FORMAT(create_date,'%Y-%m') like DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%m')
 			]]>
 		</if>
 	</select>
@@ -105,12 +105,12 @@
 		</if>
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 			<![CDATA[
-			and DATE_FORMAT(ep.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			and DATE_FORMAT(ep.create_date,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="null != propsMap.endDate and propsMap.endDate != ''">
 			<![CDATA[
-				and DATE_FORMAT(ep.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(ep.create_date,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		group by 
@@ -119,7 +119,7 @@
 			sum desc
 	</select>
 	
-		<select id="listBonusByEmployee" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
+	<select id="listBonusByEmployee" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
 		select
 			ep.employee_id,
 			e.nick_name as nickName,
@@ -137,12 +137,12 @@
 		</if>
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 			<![CDATA[
-			and DATE_FORMAT(ep.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			and DATE_FORMAT(ep.create_date,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="null != propsMap.endDate and propsMap.endDate != ''">
 			<![CDATA[
-				and DATE_FORMAT(ep.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(ep.create_date,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		group by 
@@ -273,22 +273,43 @@
 		</if>
 		<if test="propsMap.createDate and propsMap.createDate != ''">  
 		<![CDATA[
-			and DATE_FORMAT(ep.create_date,'%Y-%c-%d') = DATE_FORMAT(#{propsMap.createDate,jdbcType=DATE},'%Y-%c-%d')
+			and DATE_FORMAT(ep.create_date,'%Y-%m-%d') = DATE_FORMAT(#{propsMap.createDate,jdbcType=DATE},'%Y-%m-%d')
 		]]>
 		</if>
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 			<![CDATA[
-			and DATE_FORMAT(ep.create_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			and DATE_FORMAT(ep.create_date,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="null != propsMap.endDate and propsMap.endDate != ''">
 			<![CDATA[
-				and DATE_FORMAT(ep.create_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(ep.create_date,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
        	</if>
+	</select>
+	
+	
+	<select id="selectNewNote" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
+		SELECT
+			note
+		FROM
+			emp_performance_new
+	
+		WHERE
+			1 = 1
+		<if test="employeeId != null and '' != employeeId">  
+			and employee_id = #{employeeId,jdbcType=VARCHAR}
+		</if>
+		<if test="position != null and '' != position">  
+			and position like CONCAT('%',#{position,jdbcType=VARCHAR},'%') 
+		</if>
+		<if test="stuId != null and '' != stuId">  
+			and stu_id = #{stuId,jdbcType=VARCHAR}
+		</if>
+		ORDER BY create_date ASC
 	</select>
 	
 	<select id="recentTwoMonthEmpRevenue" parameterType="com.dongnao.workbench.school.model.EmpPerformance" resultMap="RtmepfResultMap">
@@ -351,11 +372,16 @@
 		where id = #{id,jdbcType=VARCHAR}
 	</delete>
 	
+	<delete id="deleteNewByKey" parameterType="java.lang.String">
+		delete from emp_performance_new
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
 	<delete id="deleteByStuId" parameterType="java.lang.String">
 		delete from emp_performance
 		where is_pass="未清算"
 		<if test="_parameter!=null and _parameter!=''"> 
-			AND DATE_FORMAT(create_date,'%Y-%c') = DATE_FORMAT(#{createDate,jdbcType=VARCHAR},'%Y-%c')
+			AND DATE_FORMAT(create_date,'%Y-%m') = DATE_FORMAT(#{createDate,jdbcType=VARCHAR},'%Y-%m')
 		</if>
 		<if test="stuId != null and '' != stuId">  
 			and stu_id = #{stuId,jdbcType=VARCHAR}
@@ -366,7 +392,7 @@
 		delete from emp_performance_new
 		where is_pass="未清算"
 		<if test="_parameter!=null and _parameter!=''"> 
-			AND DATE_FORMAT(create_date,'%Y-%c') = DATE_FORMAT(#{createDate,jdbcType=VARCHAR},'%Y-%c')
+			AND DATE_FORMAT(create_date,'%Y-%m') = DATE_FORMAT(#{createDate,jdbcType=VARCHAR},'%Y-%m')
 		</if>
 		<if test="stuId != null and '' != stuId">  
 			and stu_id = #{stuId,jdbcType=VARCHAR}

@@ -39,12 +39,12 @@
 		</if>
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 				<![CDATA[
-				and DATE_FORMAT(creatDate,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(creatDate,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 		</if>
 		<if test="null != propsMap.endDate and propsMap.endDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(creatDate,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+					and DATE_FORMAT(creatDate,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 		</if>
 				<if test="orderFields != null and '' != orderFields">  

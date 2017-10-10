@@ -58,7 +58,7 @@
 		WHERE 1=1 
 		<if test="_parameter!=null and _parameter!=''"> 
 			<![CDATA[
-				and DATE_FORMAT(enter_date,'%Y-%c') like DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%c')
+				and DATE_FORMAT(enter_date,'%Y-%m') like DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%m')
 			]]>
 		</if>
 		<if test="_parameter!=null and _parameter!=''"> 
@@ -142,12 +142,12 @@
 		</if>
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 			<![CDATA[
-			and DATE_FORMAT(ea.enter_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			and DATE_FORMAT(ea.enter_date,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="null != propsMap.endDate and propsMap.endDate != ''">
 			<![CDATA[
-				and DATE_FORMAT(ea.enter_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(ea.enter_date,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="orderFields != null and '' != orderFields">  
@@ -164,12 +164,12 @@
 			</if>
 			<if test="null != startDate and startDate != ''">
 				<![CDATA[
-				and DATE_FORMAT(ea.enter_date,'%Y-%c-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(ea.enter_date,'%Y-%m-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 			</if>
 			<if test="null != endDate and endDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(ea.enter_date,'%Y-%c-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+					and DATE_FORMAT(ea.enter_date,'%Y-%m-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 			</if>
 		UNION all
@@ -181,12 +181,12 @@
 			</if>
 			<if test="null != startDate and startDate != ''">
 				<![CDATA[
-				and DATE_FORMAT(ea.enter_date,'%Y-%c-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(ea.enter_date,'%Y-%m-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 			</if>
 			<if test="null != endDate and endDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(ea.enter_date,'%Y-%c-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+					and DATE_FORMAT(ea.enter_date,'%Y-%m-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 			</if>
 		UNION all
@@ -198,12 +198,12 @@
 			</if>
 			<if test="null != startDate and startDate != ''">
 				<![CDATA[
-				and DATE_FORMAT(ea.enter_date,'%Y-%c-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(ea.enter_date,'%Y-%m-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 			</if>
 			<if test="null != endDate and endDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(ea.enter_date,'%Y-%c-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+					and DATE_FORMAT(ea.enter_date,'%Y-%m-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 			</if>
 		UNION all
@@ -215,12 +215,12 @@
 			</if>
 			<if test="null != startDate and startDate != ''">
 				<![CDATA[
-				and DATE_FORMAT(ea.enter_date,'%Y-%c-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(ea.enter_date,'%Y-%m-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 			</if>
 			<if test="null != endDate and endDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(ea.enter_date,'%Y-%c-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+					and DATE_FORMAT(ea.enter_date,'%Y-%m-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 			</if>
 		UNION all
@@ -232,12 +232,12 @@
 			</if>
 			<if test="null != startDate and startDate != ''">
 				<![CDATA[
-				and DATE_FORMAT(ea.enter_date,'%Y-%c-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(ea.enter_date,'%Y-%m-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 			</if>
 			<if test="null != endDate and endDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(ea.enter_date,'%Y-%c-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+					and DATE_FORMAT(ea.enter_date,'%Y-%m-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 			</if>
 		<if test="orderFields != null and '' != orderFields">  
@@ -313,12 +313,12 @@
 			</if>
 			<if test="null != propsMap.startDate and propsMap.startDate != ''">
 				<![CDATA[
-				and DATE_FORMAT(ea.enter_date,'%Y-%c-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(ea.enter_date,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 			</if>
 			<if test="null != propsMap.endDate and propsMap.endDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(ea.enter_date,'%Y-%c-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+					and DATE_FORMAT(ea.enter_date,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 			</if>
 	 	GROUP BY ea.enter_pid
@@ -340,12 +340,12 @@
 		</if>
 		<if test="null != startDate and startDate != ''">
 			<![CDATA[
-				and DATE_FORMAT(enter_date,'%Y-%c-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(enter_date,'%Y-%m-%d') >= DATE_FORMAT(#{startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="null != endDate and endDate != ''">
 				<![CDATA[
-				and DATE_FORMAT(enter_date,'%Y-%c-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+				and DATE_FORMAT(enter_date,'%Y-%m-%d') <= DATE_FORMAT(#{endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 		]]>
 		</if>		
 	</select>
