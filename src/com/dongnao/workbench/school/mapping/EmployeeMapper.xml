@@ -329,32 +329,32 @@
 		<if test="currState == null or '' == currState">  
 			and e.curr_state in('1','2','3','4')
 		</if>
-		<if test="null != propsMap.startDate and propsMap.startDate != ''">
+		<if test="propsMap.startDate != null  and propsMap.startDate != ''">
 			<![CDATA[
 			and DATE_FORMAT(e.entry_date,'%Y-%m-%c') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%c')
 			]]>
 		</if>
-		<if test="null != propsMap.endDate and propsMap.endDate != ''">
+		<if test="propsMap.endDate != null and propsMap.endDate != ''">
 			<![CDATA[
 			and DATE_FORMAT(e.entry_date,'%Y-%m-%c') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%c')
 			]]>
 		</if>
-		<if test="null != propsMap.beFullDateStart and propsMap.beFullDateStart != ''">
+		<if test="propsMap.beFullDateStart  != null and propsMap.beFullDateStart != ''">
 			<![CDATA[
 			and DATE_FORMAT(e.be_full_date,'%Y-%m-%c') >= DATE_FORMAT(#{propsMap.beFullDateStart,jdbcType=TIMESTAMP},'%Y-%m-%c')
 			]]>
 		</if>
-		<if test="null != propsMap.beFullDateEnd and propsMap.beFullDateEnd != ''">
+		<if test="propsMap.beFullDateEnd  != null and propsMap.beFullDateEnd != ''">
 			<![CDATA[
 			and DATE_FORMAT(e.be_full_date,'%Y-%m-%c') <= DATE_FORMAT(#{propsMap.beFullDateEnd,jdbcType=TIMESTAMP},'%Y-%m-%c')
 			]]>
 		</if>
-		<if test="null != propsMap.leaveDateStart and propsMap.leaveDateStart != ''">
+		<if test="propsMap.leaveDateStart  != null and propsMap.leaveDateStart != ''">
 			<![CDATA[
 			and DATE_FORMAT(e.leave_date,'%Y-%m-%c') >= DATE_FORMAT(#{propsMap.leaveDateStart,jdbcType=TIMESTAMP},'%Y-%m-%c')
 			]]>
 		</if>
-		<if test="null != propsMap.leaveDateEnd and propsMap.leaveDateEnd != ''">
+		<if test="propsMap.leaveDateEnd  != null and propsMap.leaveDateEnd != ''">
 			<![CDATA[
 			and DATE_FORMAT(e.leave_date,'%Y-%m-%c') <= DATE_FORMAT(#{propsMap.leaveDateEnd,jdbcType=TIMESTAMP},'%Y-%m-%c')
 			]]>

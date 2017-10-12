@@ -196,7 +196,7 @@
 				]]>
 		</if>
 		<if test="jointime != null and '' != jointime">  
-			AND DATE_FORMAT(v.join_time,'%Y%m') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')
+			AND DATE_FORMAT(v.join_time,'%Y%c') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')
 		</if>
 		 <if test="orderFields != null and '' != orderFields">
 			order by ${orderFields} ${order}

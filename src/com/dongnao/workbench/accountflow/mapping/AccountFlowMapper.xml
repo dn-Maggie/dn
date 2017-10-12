@@ -435,7 +435,7 @@ values
 				and v.subject_name = #{subjectName,jdbcType=VARCHAR}
 			</if>
 			<if test="null!=createTime and ''!=createTime"> 
-				AND DATE_FORMAT(af.create_date,'%Y%m') like CONCAT('%',#{createTime,jdbcType=VARCHAR},'%')
+				AND DATE_FORMAT(af.create_date,'%Y%c') like CONCAT('%',#{createTime,jdbcType=VARCHAR},'%')
 			</if>
 		) a
 	</select>
@@ -486,7 +486,7 @@ WHERE <![CDATA[x.d <= y.last and ADDDATE(y.first, x.d - 1)<=CURDATE()]]>) as lef
 LEFT JOIN 
 		(SELECT truncate(sum(af2.money),2) as m,DATE_FORMAT(af2.create_date,'%Y-%m-%d') as gptime 
 				from financial_flow af2,vip_student vs1 
-				where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=#{yearMonth,jdbcType=VARCHAR} and af2.stu_id=vs1.id <if test="subjectName!=null and subjectName!=''"> and vs1.subject_name=#{subjectName,jdbcType=VARCHAR}</if> GROUP BY gptime)
+				where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%c')=#{yearMonth,jdbcType=VARCHAR} and af2.stu_id=vs1.id <if test="subjectName!=null and subjectName!=''"> and vs1.subject_name=#{subjectName,jdbcType=VARCHAR}</if> GROUP BY gptime)
 		 as righttable
 ON 
 DATE_FORMAT(lefttable.date,'%Y-%m-%d')=righttable.gptime

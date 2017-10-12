@@ -248,13 +248,13 @@ var gridObj = {};
 			<div class="search border-bottom">
 				<ul>
 				<li><input type="text" name="actorName" id="actorName" class="search_choose"> <span>操作人:</span></li><!-- 输入框-->
-				<li><span>开始日期:</span>
+<!-- 				<li><span>开始日期:</span>
 						<div class="time_bg">
-						<input type="text" class="search_time150" name="actTime" id="actTime" mainid="actTime"><!-- 时间选择控件-->
+						<input type="text" class="search_time150" name="actTime" id="actTime" mainid="actTime">时间选择控件
 						<i class="search_time_ico2"></i>
-						</div></li>
+						</div></li> -->
 				<li class="date_area">
-					<span>日期:</span>
+					<span>使用日期:</span>
 					<div class="time_bg">
 						<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate">
 						<i class="search_time_ico2"></i>

@@ -268,8 +268,12 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
 			<div class="search border-bottom">
 				<ul>
 				<li>
-					<!-- <input type="hidden" name="sendFlag" id="sendFlag"  value="1"> -->
-					<select class="search_choose"></select><span>所在部门:</span>
+					<select style="float:none" class="search_choose" name="empDept" id="edit_dept" mainid="empDept" >
+							<option value="">---请选择---</option>
+						<c:forEach var="org" items="${org}">
+							<option value="${org.orgName}" ><c:out value="${org.orgName}"></c:out></option>
+			             </c:forEach>
+			        </select><span>所在部门:</span>
 				</li>
 				<li><input type="text" name="employeeName" id="employeeName" class="search_choose"> <span>员工姓名:</span></li><!-- 输入框-->
 				<li>

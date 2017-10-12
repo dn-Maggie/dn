@@ -54,7 +54,7 @@ public class EmpAbsenceController{
 	public ModelAndView toAdd(HttpServletRequest request){
  		ModelAndView mv =  new ModelAndView("WEB-INF/jsp/school/empAbsence/addEmpAbsence");
 		mv.addObject("user", employeeService.getByPrimaryKey(Utils.getLoginUserInfoId(request)));
-		mv.addObject("emp", employeeService.listByCondition(null));
+		mv.addObject("emp", employeeService.listByCondition(new Employee()));
 		return mv;
 	}
 	
@@ -164,7 +164,7 @@ public class EmpAbsenceController{
 		ModelAndView mv =new ModelAndView("WEB-INF/jsp/school/empAbsence/editEmpAbsence");
 		mv.addObject("empAbsence", FormatEntity.getObjectValue(empAbsenceService.getByPrimaryKey(key)));
 		mv.addObject("user", employeeService.getByPrimaryKey(Utils.getLoginUserInfoId(request)));
-		mv.addObject("emp", employeeService.listByCondition(null));
+		mv.addObject("emp", employeeService.listByCondition(new Employee()));
 		return mv ;
 	}
 	

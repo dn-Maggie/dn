@@ -159,9 +159,6 @@
 		<if test="assetItemId != null and '' != assetItemId">
 			and fa.asset_item_id = #{assetItemId,jdbcType=VARCHAR}
 		</if>
-		<if test="beginDate != null and '' != beginDate">
-			and fa.begin_date = #{beginDate,jdbcType=TIMESTAMP}
-		</if>
 		<if test="useOrg != null and '' != useOrg">
 			and e.dept = #{useOrg,jdbcType=VARCHAR}
 		</if>
@@ -212,6 +209,16 @@
 		</if>
 		<if test="propertyState != null and '' != propertyState">
 			and fa.property_state = #{propertyState,jdbcType=INTEGER}
+		</if>
+		<if test="propsMap.startDate != null  and propsMap.startDate != ''">
+			<![CDATA[
+			and DATE_FORMAT(fa.begin_date,'%Y-%m-%c') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%c')
+			]]>
+		</if>
+		<if test="propsMap.endDate != null and propsMap.endDate != ''">
+			<![CDATA[
+			and DATE_FORMAT(fa.begin_date,'%Y-%m-%c') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%c')
+			]]>
 		</if>
 		<if test="orderFields != null and '' != orderFields">
 			order by ${orderFields} ${order}

@@ -81,7 +81,7 @@ public class VipStudentController {
 		List<Employee> teacher= employeeService.listByCondition(emp);
  		mv.addObject("teacher", teacher);
  		
- 		List<Employee> tutor= employeeService.listByCondition(null);
+ 		List<Employee> tutor= employeeService.listByCondition(new Employee());
  		mv.addObject("tutor", tutor);
  		
  		List<Standard> standard= standardService.getAllResourceId();
@@ -301,7 +301,7 @@ public class VipStudentController {
 		List<Employee> teacher= employeeService.listByCondition(emp);
  		mv.addObject("teacher", teacher);
  		
- 		List<Employee> tutor= employeeService.listByCondition(null);
+ 		List<Employee> tutor= employeeService.listByCondition(new Employee());
  		mv.addObject("tutor", tutor);
  		
 
@@ -435,7 +435,7 @@ public class VipStudentController {
  		List<Standard> followers= standardService.getAllFollowerId();
  		mv.addObject("followers", followers);
 		
- 		List<Employee> tutor= employeeService.listByCondition(null);
+ 		List<Employee> tutor= employeeService.listByCondition(new Employee());
  		mv.addObject("tutor", tutor);
  		
 		return mv;
