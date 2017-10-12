@@ -59,7 +59,7 @@ public class LeaveApplyController{
  		 ModelAndView mv =  new ModelAndView("WEB-INF/jsp/school/empLeaveApply/addLeaveApply");
  		 String userid = Utils.getLoginUserInfoId(request);
  		 mv.addObject("user", employeeService.getByPrimaryKey(userid));
- 		 mv.addObject("emp", employeeService.listByCondition(null));
+ 		 mv.addObject("emp", employeeService.listByCondition(new Employee()));
 		 return mv;
 	}
 	
@@ -193,7 +193,7 @@ public class LeaveApplyController{
 		ModelAndView mv =new ModelAndView("WEB-INF/jsp/school/empLeaveApply/editLeaveApply");
 		mv.addObject("leaveApply", FormatEntity.getObjectValue(leaveApplyService.getByPrimaryKey(key)));
 		mv.addObject("user", employeeService.getByPrimaryKey(Utils.getLoginUserInfoId(request)));
-		mv.addObject("emp", employeeService.listByCondition(null));
+		mv.addObject("emp", employeeService.listByCondition(new Employee()));
 		return mv ;
 	}
 	

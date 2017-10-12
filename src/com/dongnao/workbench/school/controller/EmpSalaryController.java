@@ -43,7 +43,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dongnao.workbench.accountflow.model.AccountFlow;
 import com.dongnao.workbench.accountflow.service.AccountFlowService;
+import com.dongnao.workbench.basic.model.Org;
 import com.dongnao.workbench.basic.model.UserInfo;
+import com.dongnao.workbench.basic.service.OrgService;
 import com.dongnao.workbench.common.excel.ExcelUtils;
 import com.dongnao.workbench.common.excel.ExpParamBean;
 import com.dongnao.workbench.common.excel.ImportExcelUtil;
@@ -97,7 +99,8 @@ public class EmpSalaryController{
 	private AccountFlowService accountFlowService;
     @Resource
 	private EmpSalaryService empSalaryService;
-	 
+    @Resource
+    private OrgService orgService;
  	/**
  	* 进入新增页面
  	* @return ModelAndView 返回到新增页面
@@ -460,7 +463,11 @@ public class EmpSalaryController{
 	 */
 	@RequestMapping("/toListEmpSalary")
 	public ModelAndView toList(){
-		return new ModelAndView("WEB-INF/jsp/school/empSalary/listEmpSalary");
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/empSalary/listEmpSalary");
+		Org org = new Org();
+		org.setParentOrgId("1");
+ 		mv.addObject("org",orgService.listByCondition(org));
+		return mv;
 	}
 	
 	/**
@@ -469,7 +476,11 @@ public class EmpSalaryController{
 	 */
 	@RequestMapping("/toListEmpSalaryBySender")
 	public ModelAndView toListBySender(){
-		return new ModelAndView("WEB-INF/jsp/school/empSalary/listEmpSalaryBySender");
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/empSalary/listEmpSalaryBySender");
+		Org org = new Org();
+		org.setParentOrgId("1");
+ 		mv.addObject("org",orgService.listByCondition(org));
+		return mv;
 	}
 	
 	/**

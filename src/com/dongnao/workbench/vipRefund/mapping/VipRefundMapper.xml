@@ -89,6 +89,16 @@
 				and DATE_FORMAT(vr.time,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
+		<if test="null != propsMap.joinStartDate and propsMap.joinStartDate != ''">
+			<![CDATA[
+			and DATE_FORMAT(v.join_time,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.joinStartDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
+			]]>
+		</if>
+		<if test="null != propsMap.joinEndDate and propsMap.joinEndDate != ''">
+			<![CDATA[
+				and DATE_FORMAT(v.join_time,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.joinEndDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
+			]]>
+		</if>
 		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
         </if>

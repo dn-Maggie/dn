@@ -68,7 +68,7 @@ public class FixedAssetController{
  		entity.setParentId(6);
  		List<AccountSubject> zjSubjectList = accountSubjectService.listByCondition(entity);
  		mv.addObject("zjSubjectList", zjSubjectList);
- 		mv.addObject("emp", employeeService.listByCondition(null));
+ 		mv.addObject("emp", employeeService.listByCondition(new Employee()));
  		return mv;
 	}
 	
@@ -180,7 +180,7 @@ public class FixedAssetController{
  		entitysub.setParentId(6);
  		mv.addObject("zjSubjectList", accountSubjectService.listByCondition(entitysub));
 		mv.addObject("fixedAsset",fixedAsset);
-		mv.addObject("emp", employeeService.listByCondition(null));
+		mv.addObject("emp", employeeService.listByCondition(new Employee()));
 		return mv;
 	}
 	

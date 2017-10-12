@@ -313,7 +313,13 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
 					<input type="text" name="empNo" id="empNo" class="search_choose100" placeholder="员工编号">
 				</li><!-- 输入框-->
 				<li>
-					<select class="search_choose"></select><span>所在部门:</span>
+					<select style="float:none" class="search_choose" name="empDept" id="edit_dept" mainid="empDept" >
+							<option value="">---请选择---</option>
+						<c:forEach var="org" items="${org}">
+							<option value="${org.orgName}" ><c:out value="${org.orgName}"></c:out></option>
+			             </c:forEach>
+			        </select>
+					<span>所在部门:</span>
 				</li>
 				<li >
 					<select class="search_choose" name="checkFlag">

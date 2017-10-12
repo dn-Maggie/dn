@@ -157,11 +157,22 @@ jsion_sumColumns["sumColumns"] = "rn,refund";
   			dateFmt:'yyyy-MM-dd'
   		});
   	    
-  	    new biz.datepicker({
+  	new biz.datepicker({
   			id : "#endDate",
   			minDate:'#F{$dp.$D(\'startDate\',{d:0});}',
   			dateFmt:'yyyy-MM-dd'
   		});
+  	new biz.datepicker({
+			id : "#joinStartDate",
+			maxDate:'#F{$dp.$D(\'joinEndDate\',{d:0});}',
+			dateFmt:'yyyy-MM-dd'
+		});
+	    
+	new biz.datepicker({
+			id : "#joinEndDate",
+			minDate:'#F{$dp.$D(\'joinStartDate\',{d:0});}',
+			dateFmt:'yyyy-MM-dd'
+		});
     });
 
  
