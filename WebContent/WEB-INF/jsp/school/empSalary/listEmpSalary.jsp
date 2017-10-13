@@ -80,7 +80,9 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
 				{name : "trafficsubsidies",label:"交通补贴",width:"3",index : "trafficsubsidies", editable:true,number:true,
 					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},
 				{name : "meritRaise",label:"绩效奖金",width:"4",index : "merit_raise", editable:true,number:true,
-					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},					
+					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},	
+				{name : "pushMoney",label:"提成",width:"4",index : "push_money", editable:true,number:true,
+						formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},		
 				{name : "rests",label:"其他",width:"4",index : "rests", editable:true,number:true,
 					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},	
 				{name : "note",label:"个人所得税",width:"4.5",index : "note", editable:true},
@@ -121,6 +123,7 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
             	   		"tableMoney":$(this).getCol("tableMoney",false,"sum"),
             	   		"housingAllowance":$(this).getCol("housingAllowance",false,"sum"),
             	   		"meritRaise":$(this).getCol("meritRaise",false,"sum"),
+            	   		"pushMoney":$(this).getCol("pushMoney",false,"sum"),
             	   		"rests":$(this).getCol("rests",false,"sum"),
             	   		});
 	 		},
@@ -139,7 +142,7 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
  	function importData(){
  		 if($('input[type="file"]').val()!=""){
  			var extend=$('input[type="file"]').val().substr($('input[type="file"]').val().lastIndexOf(".")+1);
- 			if("xls|xlsx".indexOf(extend+"|")==-1){
+ 			if("xls|xlsx|".indexOf(extend+"|")==-1){
  				 showInfo("选择的文件必须是EXCEL文件,请确认！",3000);
  	         }else{ 
  	        	showInfo("数据正在导入...");

@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;  
 import java.text.DecimalFormat;  
 import java.text.SimpleDateFormat;  
-import java.util.ArrayList;  
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;  
 import org.apache.poi.ss.usermodel.Cell;  
 import org.apache.poi.ss.usermodel.Row;  
@@ -47,16 +50,45 @@ public class ImportExcelUtil {
             for (int j = sheet.getFirstRowNum(); j <=sheet.getLastRowNum(); j++) {  
                 row = sheet.getRow(j);  
                 if(row==null||row.getFirstCellNum()==j||row.getCell(0).toString().equals("")){continue;}//虽然cell为空，但是不是String，要toString之后才能用equals
-               //System.out.println(row.getCell(0).toString());
+                //System.out.println(row.getCell(0).toString());
                 //遍历所有的列  
                 List<Object> li = new ArrayList<Object>();  
                 for (int y = row.getFirstCellNum(); y < row.getLastCellNum(); y++) {  
-                    cell = row.getCell(y); 
-                    if(cell==null){
-                    	li.add("");  //20170516更新
-                    }else{
-                    	li.add(this.getCellValue(cell));  
-                    }
+                	cell = row.getCell(y); 
+                	switch (cell.getCellType()) {
+                	case HSSFCell.CELL_TYPE_NUMERIC: // 数字
+                		/*li.add(cell.getNumericCellValue() + "");*/
+                        if (HSSFDateUtil.isCellDateFormatted(cell)) {
+                            Date date = cell.getDateCellValue();
+                            if (date != null) {
+                            	li.add(new SimpleDateFormat("yyyy-MM-dd").format(date));
+                            }else {
+                            	li.add("");
+                            }
+                         }else {
+                        	 li.add(new DecimalFormat("0").format(cell.getNumericCellValue()));
+                         }
+                        break;
+                    case HSSFCell.CELL_TYPE_STRING: // 字符串
+                    	li.add(cell.getStringCellValue());
+                        break;
+                    case HSSFCell.CELL_TYPE_BOOLEAN: // Boolean
+                    	li.add(cell.getBooleanCellValue() + "");
+                        break;
+                    case HSSFCell.CELL_TYPE_FORMULA: // 公式
+                    	li.add(cell.getCellFormula() + "");
+                        break;
+                    case HSSFCell.CELL_TYPE_BLANK: // 空值
+                    	li.add("");
+                        break;
+                    case HSSFCell.CELL_TYPE_ERROR: // 故障
+                    	li.add("");
+                        break;
+                    default:
+                    	li.add("");
+                        break;
+					}
+                   /* li.add(this.getCellValue(cell));*/
                 }  
                 list.add(li); 
             }  
@@ -75,8 +107,8 @@ public class ImportExcelUtil {
         Workbook wb = null;  
         String fileType = fileName.substring(fileName.lastIndexOf("."));  
         if(excel2003L.equals(fileType)){  
-            //wb = new HSSFWorkbook(inStr);  //2003-  
-        	wb = new XSSFWorkbook(inStr);
+            wb = new HSSFWorkbook(inStr);  //2003-  
+        	//wb = new XSSFWorkbook(inStr);
         }else if(excel2007U.equals(fileType)){  
             wb = new XSSFWorkbook(inStr);  //2007+  
         }else{  
