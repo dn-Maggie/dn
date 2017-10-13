@@ -5,6 +5,7 @@ import java.util.List;
 import com.dongnao.workbench.account.model.ExpenseAccount;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.school.model.EmpSalary;
+import com.dongnao.workbench.school.model.EmpSocialSecurity;
 
 /**
  * 描述：员工工资表模块service接口，提供controller操作所需方法
@@ -78,6 +79,13 @@ public interface EmpSalaryService  {
 	 * @param empSalary EmpSalary 实体对象
 	 */	
 	public ResultMessage assign(EmpSalary empSalary);
+
+
+	/**
+	 * @param empSocialSecurity
+	 * @return
+	 */
+	public List<EmpSocialSecurity> listEmpSocialSecurity(EmpSocialSecurity empSocialSecurity);
 
 	
 }

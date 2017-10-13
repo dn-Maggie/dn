@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.dongnao.workbench.account.model.ExpenseAccount;
 import com.dongnao.workbench.school.model.EmpSalary;
+import com.dongnao.workbench.school.model.EmpSocialSecurity;
 /**
  * 描述：员工工资表模块dao接口，提供数据库操作方法
  *
@@ -43,6 +44,13 @@ public interface EmpSalaryMapper  {
 	public List<EmpSalary>  listByCondition(EmpSalary empSalary);
 	
 	/**
+	 * 根据条件查找员工社保表列表方法
+	 * @param empSocialSecurity
+	 * @return
+	 */
+	public List<EmpSocialSecurity> listEmpSocialSecurity(EmpSocialSecurity empSocialSecurity);
+	
+	/**
 	 * 修改员工工资表方法
 	 * @param empSalary EmpSalary：实体对象
 	 */	
@@ -68,6 +76,7 @@ public interface EmpSalaryMapper  {
 	public void send(EmpSalary empSalary);
 	
 	public void assign(EmpSalary empSalary);
+	
 	
 	
 }

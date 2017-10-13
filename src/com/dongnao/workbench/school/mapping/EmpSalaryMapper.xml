@@ -31,6 +31,14 @@
 		<result column="note" property="note" jdbcType="VARCHAR" />
 		<result column="actualattendance" property="actualattendance" jdbcType="DECIMAL" />
 	</resultMap>
+	
+	<resultMap id="EmpSocialSecurityMap" type="com.dongnao.workbench.school.model.EmpSocialSecurity">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="emp_id" property="empId" jdbcType="VARCHAR" />
+		<result column="social_security" property="socialSecurity" jdbcType="DECIMAL" />
+	</resultMap>
+	
 	<sql id="Base_Column_List">
 	 	id
 	 	,create_date
@@ -236,6 +244,57 @@
            	order by ${orderFields} ${order}
        	</if>
 	</select>
+	
+	<!-- 社保扣款 -->
+	<select id="listEmpSocialSecurity" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpSocialSecurity">
+		SELECT
+			 es.id
+			,es.create_date
+			,e.emp_no as empNo
+			,e.name as empName
+			,e.nick_name as empNickName
+			,e.curr_state as empStatus
+			,bo.org_name as empDept
+			,e.entry_date as empEntryDate
+			,e.be_full_date as empBeFullDate
+			,es.social_security
+		FROM emp_socialsecurity AS es 
+		LEFT JOIN  employee AS e ON es.emp_id = e.id
+		<if test="empStatus != null and '' != empStatus">  
+			and e.curr_state = #{empStatus,jdbcType=VARCHAR}
+		</if>
+		LEFT join basic_org bo on e.dept_no = bo.org_no
+		where 1=1
+		<if test="id != null and '' != id">  
+			and es.id = #{id,jdbcType=VARCHAR}
+		</if>
+		<if test="empId != null and '' != empId">  
+			and es.emp_id = #{empId,jdbcType=VARCHAR}
+		</if>
+		<if test="empNickName != null and '' != empNickName">  
+			and e.nick_name = #{empNickName,jdbcType=TIMESTAMP}
+		</if>
+		<if test="empDept != null and '' != empDept">  
+			and bo.org_name = #{empDept,jdbcType=TIMESTAMP}
+		</if>
+		<if test="empStatus != null and '' != empStatus">  
+			and e.curr_state = #{empStatus,jdbcType=VARCHAR}
+		</if>
+		<if test="socialSecurity != null and '' != socialSecurity">  
+			and es.social_security = #{socialSecurity,jdbcType=DECIMAL}
+		</if>
+		<if test="null != createDate and createDate != ''">
+			<![CDATA[
+			and DATE_FORMAT(es.create_date,'%Y%m') = DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y%m')
+			]]>
+		</if>
+		<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+       	</if>
+	</select>
+	
+	
+	
 	
 	<select id="getEmpSalaryStatistic" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpSalary">
 		SELECT 

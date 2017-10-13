@@ -57,6 +57,7 @@ import com.dongnao.workbench.common.util.StringUtil;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.school.model.EmpNotice;
 import com.dongnao.workbench.school.model.EmpSalary;
+import com.dongnao.workbench.school.model.EmpSocialSecurity;
 import com.dongnao.workbench.school.model.Employee;
 import com.dongnao.workbench.school.model.LeaveApply;
 import com.dongnao.workbench.school.service.EmpSalaryService;
@@ -471,6 +472,19 @@ public class EmpSalaryController{
 	}
 	
 	/**
+	 * 进入列表页面
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/toListEmpSocialSecurity")
+	public ModelAndView toListEmpSocialSecurity(){
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/empSalary/listEmpSocialSecurity");
+		Org org = new Org();
+		org.setParentOrgId("1");
+ 		mv.addObject("org",orgService.listByCondition(org));
+		return mv;
+	}
+	
+	/**
 	 * 进入发放列表页面
 	 * @return ModelAndView
 	 */
@@ -496,6 +510,15 @@ public class EmpSalaryController{
 			HttpServletResponse response, Page page){
 		empSalary.setPage(page);	
 		List<EmpSalary> list = empSalaryService.listByCondition(empSalary);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
+	
+	//社保扣款
+	@RequestMapping("/listEmpSocialSecurity")
+	public void listEmpSocialSecurity(EmpSocialSecurity empSocialSecurity,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		empSocialSecurity.setPage(page);	
+		List<EmpSocialSecurity> list = empSalaryService.listEmpSocialSecurity(empSocialSecurity);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	

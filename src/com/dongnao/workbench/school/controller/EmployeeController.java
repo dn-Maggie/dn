@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.dongnao.workbench.account.model.AccountFinance;
 import com.dongnao.workbench.area.model.ChinaArea;
 import com.dongnao.workbench.area.service.ChinaAreaService;
+import com.dongnao.workbench.basic.model.Duty;
+import com.dongnao.workbench.basic.model.DutyLevel;
 import com.dongnao.workbench.basic.model.Org;
 import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.basic.service.DutyLevelService;
@@ -104,7 +106,7 @@ public class EmployeeController{
 		List<SalStandard> salStandardList = salStandardService.listByCondition(new SalStandard());
 		mv.addObject("salStandardList", salStandardList);
 		
-		List<Employee> tutor= employeeService.listByCondition(null);
+		List<Employee> tutor= employeeService.listByCondition(new Employee());
  		mv.addObject("tutor", tutor);
 		return mv;
 	}
@@ -183,7 +185,7 @@ public class EmployeeController{
 				mv.addObject("isHR",true);
 			}
 		}
-		mv.addObject("duty", dutyService.listByCondition(null));
+		mv.addObject("duty", dutyService.listByCondition(new Duty()));
 		Org org = new Org();
 		org.setParentOrgId("1");
  		mv.addObject("org",orgService.listByCondition(org));
@@ -257,7 +259,7 @@ public class EmployeeController{
  		mv.addObject("nation", nation);
  		
  		mv.addObject("org",orgService.listByCondition(new Org()));
- 		mv.addObject("dutyLevel", dutyLevelService.listByCondition(null));
+ 		mv.addObject("dutyLevel", dutyLevelService.listByCondition(new DutyLevel()));
  		
  		Map<String,List> area = new HashMap<String, List>();
  		List<ChinaArea> list = chinaAreaService.loadAreaByParent(0);

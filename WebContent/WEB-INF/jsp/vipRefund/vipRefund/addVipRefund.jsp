@@ -273,10 +273,10 @@ function countPerformance(){
 			var folid = followerIds[i];
 			var folposition = followerPositions[i];
 			var folrate = followerRates[i];
-			count(foltype,folrate);
+			count(folid,foltype,folrate);
 	}
 	//冲减业绩表中的数据		
-	function count(foltype,data){
+	function count(folid,foltype,data){
 		var comSource = $("#comSource").val();
 		var sub = $("#sourceSubclass").val();
 		var subname="";
