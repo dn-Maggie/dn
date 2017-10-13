@@ -34,6 +34,7 @@
 		<result column="all_social_security" property="allSocialSecurity" jdbcType="DECIMAL" />
 	</resultMap>
 	
+
 	
 	<sql id="Base_Column_List">
 	 	id

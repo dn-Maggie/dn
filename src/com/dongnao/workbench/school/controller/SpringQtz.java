@@ -34,7 +34,7 @@ public class SpringQtz {
 		Date date = new Date();
 		String nowyear = sdf.format(date);
 		rqc.setYear(nowyear);
-		int a =accountFlowMapper.timedupdatecostprofitdelete(rqc);
+		//int a =accountFlowMapper.timedupdatecostprofitdelete(rqc);
 /*		List<ReportQuerycondition> rqclistr = new ArrayList<ReportQuerycondition>();
 		List<ReportQuerycondition> rqclistc = new ArrayList<ReportQuerycondition>();*/
 		List<Subject> Deptlist = subjectService.listByCondition(new Subject());
