@@ -354,7 +354,7 @@ function countPerformance(){
 				var folid = followerIds[i];
 				var folposition = followerPositions[i];
 				var folrate = followerRates[i];
-			    count(foltype,folrate);
+			    count(folid,foltype,folrate);
 		}
 	}
 // 	//1.未分配业绩订单（及以前遗留订单）
@@ -362,7 +362,7 @@ function countPerformance(){
 // 		count(1,1);
 // 	}
 	//计算业绩并插入一条新数据		
-	function count(foltype,folrate){
+	function count(folid,foltype,folrate){
 		var comSource = $("#comSource").val();
 		var sub = $("#sourceSubclass").val();
 		var subname="";
@@ -387,6 +387,7 @@ function countPerformance(){
 		}	
 		var note = "学费补款-"+$("#subname").val()+actualPay+"*"+folrate;
 		var isPass="未清算";
+		debugger;
 		var newRate = getNewRateFromEmp(employeeId,stuId,position);
 		var paramDatas = {
 				employeeId:employeeId,
@@ -415,6 +416,7 @@ function countPerformance(){
 		}
 }
 function getNewRateFromEmp(empId,stuId,position){
+	debugger;
 	var newRate = 0;
 	 $.ajax({
 		 url : "<m:url value='/empPerformance/getRate.do'/>?empId="

@@ -57,6 +57,7 @@ import com.dongnao.workbench.common.util.StringUtil;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.school.model.EmpNotice;
 import com.dongnao.workbench.school.model.EmpSalary;
+import com.dongnao.workbench.school.model.EmpSocialSecurity;
 import com.dongnao.workbench.school.model.Employee;
 import com.dongnao.workbench.school.model.LeaveApply;
 import com.dongnao.workbench.school.service.EmpSalaryService;
@@ -68,7 +69,6 @@ import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import sun.org.mozilla.javascript.internal.regexp.SubString;
 
 import java.util.Properties;
 
@@ -82,6 +82,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.Store;
+
 
 /**
  * 描述：员工工资表模块controller类，负责页面分发与跳转
@@ -156,7 +157,7 @@ public class EmpSalaryController{
         in = file.getInputStream();  
         listob = new ImportExcelUtil().getBankListByExcel(in,file.getOriginalFilename());
         //该处可调用service相应方法进行数据保存到数据库中，现只对数据输出  
-        for (int i = 1; i < listob.size(); i++) {  
+        for (int i = 0; i < listob.size(); i++) {  
             List<Object> lo = listob.get(i);  
             EmpSalary empSalary = new EmpSalary();  
             Calendar c = Calendar.getInstance();
@@ -178,24 +179,46 @@ public class EmpSalaryController{
                 empSalary.setEmpMobile(StringUtil.valueOf(lo.get(5)));
                 empSalary.setEmpEntryDate(StringUtil.valueOf(lo.get(9)));
                 empSalary.setEmpBeFullDate(StringUtil.valueOf(lo.get(10)));*/
+                //请假天数
                 empSalary.setLeaveDay(StringUtil.toDouble(lo.get(3)));
+                //基本工资
                 empSalary.setBasicSalary(StringUtil.toDouble(lo.get(7)));
+                //实际出勤天数
                 empSalary.setActualattendance(StringUtil.toDouble(lo.get(6)));
+                
                 empSalary.setDutyLevelSalary(employee.getSalary());
+                //应发工资
                 empSalary.setShouldSalary(StringUtil.toDouble(lo.get(8)));
+                //社保扣款
                 empSalary.setSocialSecurity(StringUtil.toDouble(lo.get(9)));
+                //迟到早退（次）
             	empSalary.setLateEarlyTime(StringUtil.toInteger(lo.get(4)));
+            	//打卡异常（次）
             	empSalary.setAttendanceAnomalyTime(StringUtil.toInteger(lo.get(5)));
+            	//请假扣款
                 empSalary.setLeaveCost(StringUtil.toDouble(lo.get(10)));
+                //迟到早退扣费
                 empSalary.setLateEarlyCost(StringUtil.toDouble(lo.get(11)));
+                //打卡异常扣款
                 empSalary.setAttendanceAnomalyCost(StringUtil.toDouble(lo.get(12)));
+                //餐费补贴
                 empSalary.setTableMoney(StringUtil.toDouble(lo.get(13)));
+                //住房补贴
                 empSalary.setHousingAllowance(StringUtil.toDouble(lo.get(14)));
+                //交通补助
                 empSalary.setTrafficsubsidies(StringUtil.toDouble(lo.get(15)));
+                //绩效
                 empSalary.setMeritRaise(StringUtil.toDouble(lo.get(16)));
-                empSalary.setRests(StringUtil.toDouble(lo.get(17)));
-                empSalary.setNote(StringUtil.valueOf(lo.get(18)));
-                empSalary.setActualSalary(StringUtil.toDouble(lo.get(19)));
+                //提成
+                empSalary.setPushMoney(StringUtil.toDouble(lo.get(17)));
+                //其他
+                empSalary.setRests(StringUtil.toDouble(lo.get(18)));
+                //个人所得税
+                empSalary.setNote(StringUtil.valueOf(lo.get(19)));
+                //实发工资
+                empSalary.setActualSalary(StringUtil.toDouble(lo.get(20)));
+                //社保总额
+                empSalary.setAllSocialSecurity(StringUtil.toDouble(lo.get(21)));
                 emplist.add(empSalary);
             }catch(Exception e){
             	continue;
@@ -296,7 +319,7 @@ public class EmpSalaryController{
         		/*+ "<th>薪级工资</th>"*/
         		+ "<th>应发工资</th><th>社保扣款</th><th>请假扣款</th>"
         		+ "<th>迟到早退扣款</th><th>打卡异常扣款</th><th>餐补</th><th>住房补贴</th><th>交通补贴</th>"
-        		+ "<th>绩效奖金</th><th>其他</th><th>个人所得税</th><th>实发工资</th></tr></thead>"
+        		+ "<th>绩效奖金</th><th>提成</th><th>其他</th><th>个人所得税</th><th>实发工资</th></tr></thead>"
         		+ "<tbody><tr>"
         		+ "<td>"+StringUtil.valueOf(empSalary.getEmpName())+"</td>"
         		+ "<td>"+StringUtil.valueOf(empSalary.getEmpNickName())+"</td>"
@@ -319,6 +342,7 @@ public class EmpSalaryController{
         		+ "<td>"+StringUtil.toDouble(empSalary.getHousingAllowance())+"</td>"
         		+ "<td>"+StringUtil.toDouble(empSalary.getTrafficsubsidies())+"</td>"
         		+ "<td>"+StringUtil.toDouble(empSalary.getMeritRaise())+"</td>"
+        		+ "<td>"+StringUtil.toDouble(empSalary.getPushMoney())+"</td>"
         		+ "<td>"+StringUtil.toDouble(empSalary.getRests())+"</td>"
         		+ "<td>"+StringUtil.toDouble(empSalary.getNote())+"</td>"
         		+ "<td>"+StringUtil.toDouble(empSalary.getActualSalary())+"</td>"
@@ -471,6 +495,19 @@ public class EmpSalaryController{
 	}
 	
 	/**
+	 * 进入列表页面
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/toListEmpSocialSecurity")
+	public ModelAndView toListEmpSocialSecurity(){
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/empSalary/listEmpSocialSecurity");
+		Org org = new Org();
+		org.setParentOrgId("1");
+ 		mv.addObject("org",orgService.listByCondition(org));
+		return mv;
+	}
+	
+	/**
 	 * 进入发放列表页面
 	 * @return ModelAndView
 	 */
@@ -496,6 +533,15 @@ public class EmpSalaryController{
 			HttpServletResponse response, Page page){
 		empSalary.setPage(page);	
 		List<EmpSalary> list = empSalaryService.listByCondition(empSalary);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
+	
+	//社保扣款
+	@RequestMapping("/listEmpSocialSecurity")
+	public void listEmpSocialSecurity(EmpSocialSecurity empSocialSecurity,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		empSocialSecurity.setPage(page);	
+		List<EmpSocialSecurity> list = empSalaryService.listEmpSocialSecurity(empSocialSecurity);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	
@@ -553,6 +599,19 @@ public class EmpSalaryController{
 					accountFlow.setNote("员工工资");
 					accountFlow.setEmpId(entity.getEmpId());
 					accountFlowService.add(accountFlow);
+					//添加社保记录到财务流水信息
+					AccountFlow accountFlow2 = new AccountFlow();
+					accountFlow2.setId(Utils.generateUniqueID());
+					accountFlow2.setIsAccount(1);//是否结转
+					accountFlow2.setCreateDate(calendar.getTime());
+					accountFlow2.setMoney((df.format(entity.getAllSocialSecurity())).toString());//actual——salary
+					accountFlow2.setAccountId("d32f0b4b-f1fd-4ca2-a047-e7ea2a6d1861");
+					accountFlow2.setAccountNo("SBKK");
+					accountFlow2.setAccountName("社保扣款");
+					accountFlow2.setAccountType(2);
+					accountFlow2.setNote(DateUtil.nowSqlData()+"社保扣款");
+					accountFlow2.setEmpId(entity.getEmpId());
+					accountFlowService.add(accountFlow2);
 					entity.setAssignFlag("2");
 					empSalaryService.assign(entity);/*删除此条工资记录*/
 				map.put("msg", "成功");

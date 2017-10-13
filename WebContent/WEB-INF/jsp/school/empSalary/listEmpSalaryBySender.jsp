@@ -82,7 +82,9 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
 				{name : "trafficsubsidies",label:"交通补贴",index : "trafficsubsidies", editable:true,
 					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},
 				{name : "meritRaise",label:"绩效奖金",index : "merit_raise",editable:true,
-					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},				
+					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},	
+				{name : "pushMoney",label:"提成",index : "push_money",editable:true,
+					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},	
 				{name : "rests",label:"其他",index : "rests",editable:true,formatter:'currency', 
 					formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},				
 				{name : "actualSalary",label:"实发工资",index : "actual_salary",editable:true,
@@ -133,6 +135,7 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
              	   		"tableMoney":$(this).getCol("tableMoney",false,"sum"),
              	   		"housingAllowance":$(this).getCol("housingAllowance",false,"sum"),
              	   		"meritRaise":$(this).getCol("meritRaise",false,"sum"),
+             	   		"pushMoney":$(this).getCol("pushMoney",false,"sum"),
              	   		"rests":$(this).getCol("rests",false,"sum"),
              	   		});
 	 		}
@@ -203,7 +206,7 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
       }    
      		jqGridObj.jqGrid('footerData','set',addFootData,false);
    	}
-  //根据条件从数据库获取结果集
+    //根据条件从数据库获取结果集
 	function ajaxGetStatistic(){
 		var resObj = {};
        	$.ajax({

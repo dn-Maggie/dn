@@ -54,6 +54,11 @@ public class EmpSalary extends Model implements java.io.Serializable{
 	                 **/
 		   			private Double socialSecurity;
 		   		
+		   			/**
+	                 * 社保总额
+	                 **/
+		   			private Double allSocialSecurity;
+		   		
 		            /**
 	                 * 请假扣款
 	                 **/
@@ -86,7 +91,10 @@ public class EmpSalary extends Model implements java.io.Serializable{
 	                 * 绩效奖金
 	                 **/
 		   			private Double meritRaise;
-		   		
+		   			/**
+	                 * 提成
+	                 **/
+		   			private Double pushMoney;
 		            /**
 	                 * 其他
 	                 **/
@@ -411,7 +419,15 @@ public class EmpSalary extends Model implements java.io.Serializable{
 		
 			
 						
-		  			/**
+		  			public Double getPushMoney() {
+				return pushMoney;
+			}
+
+			public void setPushMoney(Double pushMoney) {
+				this.pushMoney = pushMoney;
+			}
+
+					/**
 			 * 获取 其他
 			 * @return String this.rests
 			 */
@@ -582,6 +598,14 @@ public class EmpSalary extends Model implements java.io.Serializable{
 
 			public void setTrafficsubsidies(Double trafficsubsidies) {
 				this.trafficsubsidies = trafficsubsidies;
+			}
+
+			public Double getAllSocialSecurity() {
+				return allSocialSecurity;
+			}
+
+			public void setAllSocialSecurity(Double allSocialSecurity) {
+				this.allSocialSecurity = allSocialSecurity;
 			}
 
 

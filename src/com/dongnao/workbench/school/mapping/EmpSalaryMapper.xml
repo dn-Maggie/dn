@@ -20,6 +20,7 @@
 		<result column="table_money" property="tableMoney" jdbcType="DECIMAL" />
 		<result column="housing_allowance" property="housingAllowance" jdbcType="DECIMAL" />
 		<result column="merit_raise" property="meritRaise" jdbcType="DECIMAL" />
+		<result column="push_money" property="pushMoney" jdbcType="DECIMAL" />
 		<result column="rests" property="rests" jdbcType="DECIMAL" />
 		<result column="actual_salary" property="actualSalary" jdbcType="DECIMAL" />
 		<result column="send_flag" property="sendFlag" jdbcType="INTEGER" />
@@ -30,7 +31,10 @@
 		<result column="assign_flag" property="assignFlag" jdbcType="INTEGER" />
 		<result column="note" property="note" jdbcType="VARCHAR" />
 		<result column="actualattendance" property="actualattendance" jdbcType="DECIMAL" />
+		<result column="all_social_security" property="allSocialSecurity" jdbcType="DECIMAL" />
 	</resultMap>
+	
+	
 	<sql id="Base_Column_List">
 	 	id
 	 	,create_date
@@ -46,6 +50,7 @@
 		,table_money
 		,housing_allowance
 		,merit_raise
+		,push_money
 		,rests
 		,actual_salary
 		,send_flag
@@ -88,6 +93,7 @@
 			,es.table_money
 			,es.housing_allowance
 			,es.merit_raise
+			,es.push_money
 			,es.rests
 			,es.actual_salary
 			,es.send_flag
@@ -99,6 +105,7 @@
 			,es.note
 			,es.actualattendance
 			,es.trafficsubsidies
+			,es.all_social_security
 		from emp_salary as es
 		LEFT JOIN employee as e on es.emp_id = e.id
 		LEFT JOIN employee as e1 on es.check_id = e1.id
@@ -138,6 +145,7 @@
 			,es.table_money
 			,es.housing_allowance 
 			,es.merit_raise 
+			,es.push_money 
 			,es.rests
 			,es.actual_salary
 			<!-- ,(case when es.actual_salary>0 then es.actual_salary else 
@@ -237,6 +245,52 @@
        	</if>
 	</select>
 	
+	<!-- 社保扣款 -->
+	<select id="listEmpSocialSecurity" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpSocialSecurity">
+		SELECT
+			 es.id
+			,es.create_date
+			,e.emp_no as empNo
+			,e.name as empName
+			,e.nick_name as empNickName
+			,e.curr_state as empStatus
+			,bo.org_name as empDept
+			,e.entry_date as empEntryDate
+			,e.be_full_date as empBeFullDate
+			,es.all_social_security
+		FROM emp_salary AS es 
+		LEFT JOIN  employee AS e ON es.emp_id = e.id
+		<if test="empStatus != null and '' != empStatus">  
+			and e.curr_state = #{empStatus,jdbcType=VARCHAR}
+		</if>
+		LEFT join basic_org bo on e.dept_no = bo.org_no
+		where 1=1
+		<if test="id != null and '' != id">  
+			and es.id = #{id,jdbcType=VARCHAR}
+		</if>
+		<if test="empId != null and '' != empId">  
+			and es.emp_id = #{empId,jdbcType=VARCHAR}
+		</if>
+		<if test="empNickName != null and '' != empNickName">  
+			and e.nick_name = #{empNickName,jdbcType=TIMESTAMP}
+		</if>
+		<if test="empDept != null and '' != empDept">  
+			and bo.org_name = #{empDept,jdbcType=TIMESTAMP}
+		</if>
+		<if test="empStatus != null and '' != empStatus">  
+			and e.curr_state = #{empStatus,jdbcType=VARCHAR}
+		</if>
+		<if test="null != createDate and createDate != ''">
+			<![CDATA[
+			and DATE_FORMAT(es.create_date,'%Y%m') = DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y%m')
+			]]>
+		</if>
+		<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+       	</if>
+	</select>
+	
+	
 	<select id="getEmpSalaryStatistic" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpSalary">
 		SELECT 
 			COUNT(*) as empNo,
@@ -246,6 +300,7 @@
 			  +(case when es.table_money>0 then es.table_money else 0 end)
 			  +(case when es.housing_allowance>0 then es.housing_allowance else 0 end)
 			  +(case when es.merit_raise>0 then es.merit_raise else 0 end)
+			  +(case when es.push_money>0 then es.push_money else 0 end)
 			  +(case when es.rests>0 then es.rests else 0 end)
 			  -(case when es.social_security>0 then es.social_security else 0 end)
 			  -(case when es.leave_day>0 then es.leave_day*(es.basic_salary/30) else 0 end)	
@@ -290,6 +345,7 @@
 				,table_money
 				,housing_allowance
 				,merit_raise
+				,push_money
 				,rests
 				,actual_salary
 				,send_flag
@@ -301,6 +357,7 @@
 				,note
 				,actualattendance
 				,trafficsubsidies
+				,all_social_security
 		)values (
 			#{id,jdbcType=VARCHAR}
 			,#{createDate,jdbcType=TIMESTAMP}
@@ -320,6 +377,7 @@
 			,#{tableMoney,jdbcType=DECIMAL}
 			,#{housingAllowance,jdbcType=DECIMAL}
 			,#{meritRaise,jdbcType=DECIMAL}
+			,#{pushMoney,jdbcType=DECIMAL}
 			,#{rests,jdbcType=DECIMAL}
 			,#{actualSalary,jdbcType=DECIMAL}
 			,#{sendFlag,jdbcType=INTEGER}
@@ -331,6 +389,7 @@
 			,#{note,jdbcType=VARCHAR}
 			,#{actualattendance,jdbcType=DECIMAL}
 			,#{trafficsubsidies,jdbcType=DECIMAL}
+			,#{allSocialSecurity,jdbcType=DECIMAL}
 		)
 	</insert>
 	
@@ -354,6 +413,7 @@
 				,table_money
 				,housing_allowance
 				,merit_raise
+				,push_money
 				,rests
 				,actual_salary
 				,send_flag
@@ -365,6 +425,7 @@
 				,note
 				,actualattendance
 				,trafficsubsidies
+				,all_social_security
 		)values 
 		<foreach collection ="list" item="item" index= "index" separator =",">
 		(
@@ -386,6 +447,7 @@
 			,#{item.tableMoney,jdbcType=DECIMAL}
 			,#{item.housingAllowance,jdbcType=DECIMAL}
 			,#{item.meritRaise,jdbcType=DECIMAL}
+			,#{item.pushMoney,jdbcType=DECIMAL}
 			,#{item.rests,jdbcType=DECIMAL}
 			,#{item.actualSalary,jdbcType=DECIMAL}
 			,#{item.sendFlag,jdbcType=INTEGER}
@@ -397,6 +459,7 @@
 			,#{item.note,jdbcType=VARCHAR}
 			,#{item.actualattendance,jdbcType=DECIMAL}
 			,#{item.trafficsubsidies,jdbcType=DECIMAL}
+			,#{item.allSocialSecurity,jdbcType=DECIMAL}
 		)
 		 </foreach >
 	</insert>
@@ -492,6 +555,9 @@
 				<if test="meritRaise != null and '' != meritRaise">  
 					merit_raise = #{meritRaise,jdbcType=DOUBLE},
 				</if>
+				<if test="pushMoney != null and '' != pushMoney">  
+					push_money = #{pushMoney,jdbcType=DOUBLE},
+				</if>
 				<if test="rests != null and '' != rests">  
 					rests = #{rests,jdbcType=DOUBLE},
 				</if>
@@ -506,6 +572,9 @@
 				</if>
 				<if test="actualattendance != null and '' != actualattendance">  
 					actualattendance = #{actualattendance,jdbcType=DECIMAL},
+				</if>
+				<if test="allSocialSecurity != null and '' != allSocialSecurity">  
+					all_social_security = #{allSocialSecurity,jdbcType=DOUBLE},
 				</if>
 			</trim>
 		where id = #{id,jdbcType=VARCHAR} 

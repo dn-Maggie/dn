@@ -3,6 +3,7 @@ import javax.annotation.Resource;
 import java.util.List;
 import com.dongnao.workbench.school.dao.EmpSalaryMapper;
 import com.dongnao.workbench.school.model.EmpSalary;
+import com.dongnao.workbench.school.model.EmpSocialSecurity;
 import com.dongnao.workbench.school.service.EmpSalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,10 @@ public class EmpSalaryServiceImpl implements EmpSalaryService{
 	 */
 	public List<EmpSalary> listByCondition(EmpSalary empSalary){
 		return empSalaryMapper.listByCondition(empSalary);
+	}
+	
+	public List<EmpSocialSecurity> listEmpSocialSecurity(EmpSocialSecurity empSocialSecurity){
+		return empSalaryMapper.listEmpSocialSecurity(empSocialSecurity);
 	}
 	
 	/**
