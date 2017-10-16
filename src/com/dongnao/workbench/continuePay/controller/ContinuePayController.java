@@ -150,7 +150,7 @@ public class ContinuePayController{
  		model.put("er", er);
 		
 		/*model.put("allCP",continuePayService.getStatistical(calendar.get(Calendar.YEAR)+""));*/
-		model.put("currCP", continuePayService.getStatistical(null));
+		model.put("currCP", continuePayService.getStatistical(new ContinuePay()));
 		/*model.put("beforeCP", continuePayService.getStatistical(calendar.get(Calendar.YEAR)+""+(calendar.get(Calendar.MONTH))));*/		
 		
 		return new ModelAndView("WEB-INF/jsp/continuePay/continuePay/listContinuePay",model);

@@ -109,7 +109,7 @@ public class EmpSalaryController{
  	@RequestMapping("/toAddEmpSalary")
 	public ModelAndView toAdd(){
  		ModelAndView mv =  new ModelAndView("WEB-INF/jsp/school/empSalary/addEmpSalary");
- 		mv.addObject("empList",employeeService.listByCondition(null));
+ 		mv.addObject("empList",employeeService.listByCondition(new Employee()));
  		return mv;
  	}
  	/**
@@ -538,10 +538,10 @@ public class EmpSalaryController{
 	
 	//社保扣款
 	@RequestMapping("/listEmpSocialSecurity")
-	public void listEmpSocialSecurity(EmpSocialSecurity empSocialSecurity,HttpServletRequest request,
+	public void listEmpSocialSecurity(EmpSalary empSalary,HttpServletRequest request,
 			HttpServletResponse response, Page page){
-		empSocialSecurity.setPage(page);	
-		List<EmpSocialSecurity> list = empSalaryService.listEmpSocialSecurity(empSocialSecurity);
+		empSalary.setPage(page);	
+		List<EmpSalary> list = empSalaryService.listEmpSocialSecurity(empSalary);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	
@@ -584,8 +584,9 @@ public class EmpSalaryController{
 		String[] str = key.split(",");
 		for(int i=0;i<str.length;i++){
 			EmpSalary entity = empSalaryService.getByPrimaryKey(str[i]);
-			String flag = entity.getCheckFlag();
-			if(flag!=null && flag.equals("2")){
+			String checkflag = entity.getCheckFlag();
+			String assignflag = entity.getAssignFlag();
+			if(checkflag!=null  && checkflag.equals("2") && !"2".equals(assignflag)){
 					//添加工资记录到财务流水信息
 					AccountFlow accountFlow = new AccountFlow();
 					accountFlow.setId(Utils.generateUniqueID());

@@ -48,7 +48,7 @@ public interface EmpSalaryMapper  {
 	 * @param empSocialSecurity
 	 * @return
 	 */
-	public List<EmpSocialSecurity> listEmpSocialSecurity(EmpSocialSecurity empSocialSecurity);
+	public List<EmpSalary> listEmpSocialSecurity(EmpSalary empSalary);
 	
 	/**
 	 * 修改员工工资表方法

@@ -51,21 +51,21 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
 				/* {name : "empBank",label:"银行",index : "empBank", editable:true ,width:"8"},
 				{name : "empBankCard",label:"银行卡号",index : "empBankCard", editable:true ,width:"6"}, */
 				{name : "empMobile",label:"电话号码",index : "empMobile",width:"8",hidden : true},
-				{name : "leaveDay",label:"请假天数",index : "leave_day", width:"3",editable:true,number:true},
-				{name : "lateEarlyTime",label:"迟到早退(次)",width:"3",index : "late_early_time", editable:true,number:true,editoptions : {size: 2}},
-				{name : "attendanceAnomalyTime",label:"打卡异常(次)",width:"3",index : "attendance_anomaly_time", editable:true,number:true,editoptions : {size: 2}},
+				{name : "leaveDay",label:"请假天数",index : "leave_day", width:"3",/*editable:true,*/number:true},
+				{name : "lateEarlyTime",label:"迟到早退(次)",width:"3",index : "late_early_time", /*editable:true,*/number:true,editoptions : {size: 2}},
+				{name : "attendanceAnomalyTime",label:"打卡异常(次)",width:"3",index : "attendance_anomaly_time", /*editable:true,*/number:true,editoptions : {size: 2}},
 				/* {name : "empEntryDate",label:"入职时间",width:"6",index : "empEntryDate"},
 				{name : "empBeFullDate",label:"转正日期",width:"3",index : "empBeFullDate"},  */
 				{name : "actualattendance",label:"出勤天数",width:"3",index : "actualattendance"}, 
-				{name : "basicSalary",label:"基本工资",width:"5",index : "basic_salary",editable:true,
+				{name : "basicSalary",label:"基本工资",width:"5",index : "basic_salary",/*editable:true,*/
 					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},	
-				{name : "dutyLevelSalary",label:"薪级工资",width:"5",hidden : true,index : "duty_level_salary",editable:true,
+				{name : "dutyLevelSalary",label:"薪级工资",width:"5",hidden : true,index : "duty_level_salary",/*editable:true,*/
 					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},
-				{name : "shouldSalary",label:"应发工资",width:"5",index : "should_salary", editable:true,
+				{name : "shouldSalary",label:"应发工资",width:"5",index : "should_salary", /*editable:true,*/
 					formatter:'integer', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},				
-				{name : "socialSecurity",label:"社保扣款",width:"4",index : "social_security", editable:true,number:true,
+				{name : "socialSecurity",label:"社保扣款",width:"4",index : "social_security", /*editable:true,*/number:true,
 					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},					
-				{name : "leaveCost",label:"请假扣款",width:"4",index : "leave_cost",editable:true,
+				{name : "leaveCost",label:"请假扣款",width:"4",index : "leave_cost",/*editable:true,*/
 						formatter:function(cellvalue, options, rowObject){
 		 				 	return Math.round(cellvalue);
  				}},
@@ -73,19 +73,19 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
 					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},			
 				{name : "attendanceAnomalyCost",label:"打卡异常扣款",width:"4",index : "attendance_anomaly_cost",
 					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},			
-				{name : "tableMoney",label:"餐补",width:"4",index : "table_money", editable:true,number:true,
+				{name : "tableMoney",label:"餐补",width:"4",index : "table_money", /*editable:true,*/number:true,
 					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},					
-				{name : "housingAllowance",label:"住房补贴",width:"4",index : "housing_allowance", editable:true,number:true,
+				{name : "housingAllowance",label:"住房补贴",width:"4",index : "housing_allowance", /*editable:true,*/number:true,
 					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},	
-				{name : "trafficsubsidies",label:"交通补贴",width:"3",index : "trafficsubsidies", editable:true,number:true,
+				{name : "trafficsubsidies",label:"交通补贴",width:"3",index : "trafficsubsidies", /*editable:true,*/number:true,
 					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},
-				{name : "meritRaise",label:"绩效奖金",width:"4",index : "merit_raise", editable:true,number:true,
+				{name : "meritRaise",label:"绩效奖金",width:"4",index : "merit_raise", /*editable:true,*/number:true,
 					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},	
-				{name : "pushMoney",label:"提成",width:"4",index : "push_money", editable:true,number:true,
+				{name : "pushMoney",label:"提成",width:"4",index : "push_money", /*editable:true,*/number:true,
 						formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},		
-				{name : "rests",label:"其他",width:"4",index : "rests", editable:true,number:true,
+				{name : "rests",label:"其他",width:"4",index : "rests", /*editable:true,*/number:true,
 					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}},	
-				{name : "note",label:"个人所得税",width:"4.5",index : "note", editable:true},
+				{name : "note",label:"个人所得税",width:"4.5",index : "note", /*editable:true*/},
 				{name : "actualSalary",label:"实发工资",width:"6",index : "actual_salary",
 						formatter:function(cellvalue, options, rowObject){
 			 				 	return Math.round(cellvalue);
@@ -127,7 +127,7 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
             	   		"rests":$(this).getCol("rests",false,"sum"),
             	   		});
 	 		},
-    		editurl : "<m:url value='/empSalary/operEmpSalary.do'/>",
+    		/* editurl : "<m:url value='/empSalary/operEmpSalary.do'/>", */
      	});
     	
 		new biz.datepicker({

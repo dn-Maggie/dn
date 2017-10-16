@@ -59,8 +59,8 @@ public class EmpSalaryServiceImpl implements EmpSalaryService{
 		return empSalaryMapper.listByCondition(empSalary);
 	}
 	
-	public List<EmpSocialSecurity> listEmpSocialSecurity(EmpSocialSecurity empSocialSecurity){
-		return empSalaryMapper.listEmpSocialSecurity(empSocialSecurity);
+	public List<EmpSalary> listEmpSocialSecurity(EmpSalary empSalary){
+		return empSalaryMapper.listEmpSocialSecurity(empSalary);
 	}
 	
 	/**

@@ -219,10 +219,10 @@ public class ExpenseAccountController{
 		Map<String,String> expenseAccount = FormatEntity.getObjectValue(entity);
 		mv.addObject("expenseAccount", expenseAccount);
 		
-		List<Employee> tutor= employeeService.listByCondition(null);
+		List<Employee> tutor= employeeService.listByCondition(new Employee());
  		mv.addObject("tutor", tutor);
  		
- 		List<Org> org= orgService.listByCondition(null);
+ 		List<Org> org= orgService.listByCondition(new Org());
  		org.remove(0);
  		mv.addObject("org", org);
  		

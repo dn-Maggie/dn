@@ -11,6 +11,7 @@ import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.common.util.FormatEntity;
+import com.dongnao.workbench.basic.model.Duty;
 import com.dongnao.workbench.basic.model.DutyLevel;
 import com.dongnao.workbench.basic.service.DutyLevelService;
 import com.dongnao.workbench.basic.service.DutyService;
@@ -45,7 +46,7 @@ public class DutyLevelController{
  		ModelAndView mv=new ModelAndView("WEB-INF/jsp/basic/dutyLevel/addDutyLevel");
  		String dutyid = StringUtils.defaultIfEmpty(request.getParameter("dutyId"), StringUtils.EMPTY);
  		mv.addObject("duty",dutyService.getByPrimaryKey(dutyid));
- 		mv.addObject("dutys",dutyService.listByCondition(null));
+ 		mv.addObject("dutys",dutyService.listByCondition(new Duty()));
 		return mv;
 	}
 	

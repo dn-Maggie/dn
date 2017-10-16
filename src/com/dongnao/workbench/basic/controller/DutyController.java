@@ -65,7 +65,7 @@ public class DutyController{
  		ModelAndView mv=new ModelAndView("WEB-INF/jsp/basic/duty/addDuty");
  		mv.addObject("pid", pid);
  		/*mv.addObject("dutyid",Utils.generateUniqueID());*/
- 		List<Org> orgList = orgService.listByCondition(null);
+ 		List<Org> orgList = orgService.listByCondition(new Org());
  		mv.addObject("orgList", orgList);
  		
 		return mv;
@@ -190,7 +190,7 @@ public class DutyController{
 		Map<String,String> duty = FormatEntity.getObjectValue(entity);
 		mv.addObject("duty", duty);
 		
-		List<Org> orgList = orgService.listByCondition(null);
+		List<Org> orgList = orgService.listByCondition(new Org());
  		mv.addObject("orgList", orgList);
 		
  		DutyLevel dutyLevel = new DutyLevel();
