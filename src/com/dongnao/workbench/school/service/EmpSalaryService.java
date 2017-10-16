@@ -85,7 +85,7 @@ public interface EmpSalaryService  {
 	 * @param empSocialSecurity
 	 * @return
 	 */
-	public List<EmpSocialSecurity> listEmpSocialSecurity(EmpSocialSecurity empSocialSecurity);
+	public List<EmpSalary> listEmpSocialSecurity(EmpSalary empSalary);
 
 	
 }

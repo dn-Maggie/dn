@@ -49,7 +49,7 @@ public class SalStandardController{
 	public ModelAndView toAdd(){
  		ModelAndView mv =  new ModelAndView("WEB-INF/jsp/salary/salStandard/addSalStandard");
  		
- 		List<Duty> dutyList = dutyService.listByCondition(null);
+ 		List<Duty> dutyList = dutyService.listByCondition(new Duty());
  		mv.addObject("dutyList",dutyList);
  		
  		DictInfo dictInfo1 = new DictInfo();
@@ -115,7 +115,7 @@ public class SalStandardController{
 	@RequestMapping("/toListSalStandard")
 	public ModelAndView toList(){
  		ModelAndView mv = new ModelAndView("WEB-INF/jsp/salary/salStandard/listSalStandard");
- 		List<Duty> dutyList = dutyService.listByCondition(null);
+ 		List<Duty> dutyList = dutyService.listByCondition(new Duty());
  		mv.addObject("dutyList",dutyList); 
  		return mv;
 	}
@@ -148,7 +148,7 @@ public class SalStandardController{
 		SalStandard entity = salStandardService.getByPrimaryKey(key);
 		Map<String,String> salStandard = FormatEntity.getObjectValue(entity);
 		
-		List<Duty> dutyList = dutyService.listByCondition(null);
+		List<Duty> dutyList = dutyService.listByCondition(new Duty());
  		mv.addObject("dutyList",dutyList);
  		
  		DictInfo dictInfo1 = new DictInfo();

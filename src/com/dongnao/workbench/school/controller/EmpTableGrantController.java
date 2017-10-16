@@ -18,6 +18,7 @@ import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.school.model.EmpAbsence;
 import com.dongnao.workbench.school.model.EmpTableGrant;
+import com.dongnao.workbench.school.model.Employee;
 import com.dongnao.workbench.school.service.EmpTableGrantService;
 import com.dongnao.workbench.school.service.EmployeeService;
 
@@ -49,7 +50,7 @@ public class EmpTableGrantController{
 	public ModelAndView toAdd(HttpServletRequest request){
  		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/empTableGrant/addEmpTableGrant");
 		mv.addObject("user", employeeService.getByPrimaryKey(Utils.getLoginUserInfoId(request)));
-		mv.addObject("emp", employeeService.listByCondition(null));
+		mv.addObject("emp", employeeService.listByCondition(new Employee()));
 		return mv;
  	}
 	
@@ -149,7 +150,7 @@ public class EmpTableGrantController{
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/empTableGrant/editEmpTableGrant");
 		mv.addObject("empTableGrant", FormatEntity.getObjectValue(empTableGrantService.getByPrimaryKey(key)));
 		mv.addObject("user", employeeService.getByPrimaryKey(Utils.getLoginUserInfoId(request)));
-		mv.addObject("emp", employeeService.listByCondition(null));
+		mv.addObject("emp", employeeService.listByCondition(new Employee()));
 		return mv ;
 	}
 	

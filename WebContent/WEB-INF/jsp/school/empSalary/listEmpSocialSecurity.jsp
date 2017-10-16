@@ -92,18 +92,6 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
  	    }
  	}
   	
- 	function ajaxFileUpload(){
- 		var options = {
-				url : "<m:url value='/empSalary/uploadExcelData.do'/>",
-				type : "post",
-					dataType:"text",
-					success : function(d) {gridObj.trigger('reloadGrid');},
-					error : function(d) {gridObj.trigger('reloadGrid');},
-			};
-			// 将options传给ajaxForm
-			$('#form').ajaxSubmit(options);
- 	}
- 	
     /**
     * 获取查询条件值
     */
@@ -220,20 +208,6 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
 				<!--功能按钮begin-->
 				<div class="list_btn_bg fl"><!--功能按钮 div-->
 					<ul>
-						<li>
-							<a title="添加记录" href="javascript:;" onclick="add()"> 
-								<i class="back_icon down_icon"> </i> <span>新增一条社保记录</span>
-							</a>
-						</li>
-						<li>
-							<a title="外部导入" href="javascript:;" onclick="$('#file').click()"> 
-								<i class="back_icon import_icon"> </i> 
-								<span>外部导入</span>
-							</a>
-							<form name="form" id="form" method="post" action="/empSalary/uploadExcelData.do" enctype="multipart/form-data">
-								<input type="file" id="file" name="file" style="display: none" onchange="importData();"/>
-							</form>
-						</li>
 						<c:if test="${edit}">
 							<li><a title="<m:message code="button.edit"/>" href="javascript:;"
 								onclick="edit();"><i class="icon_bg icon_edit"></i> <span><m:message

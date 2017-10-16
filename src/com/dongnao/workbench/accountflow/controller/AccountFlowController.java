@@ -279,10 +279,10 @@ public class AccountFlowController{
  		UserInfo user=Utils.getLoginUserInfo(request);
  		mv.addObject("user", user);
  		
- 		List<AccountSubject> accountList = accountSubjectService.listByCondition(null);
+ 		List<AccountSubject> accountList = accountSubjectService.listByCondition(new AccountSubject());
  		mv.addObject("accountList", accountList);
  		
- 		List<AccountFinance> digestList = accountFinanceService.listByCondition(null);
+ 		List<AccountFinance> digestList = accountFinanceService.listByCondition(new AccountFinance());
  		mv.addObject("digestList", digestList);
  		
 		return mv;

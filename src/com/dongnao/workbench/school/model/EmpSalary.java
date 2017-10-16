@@ -24,6 +24,7 @@ public class EmpSalary extends Model implements java.io.Serializable{
 		            /**
 	                 * 申请人ID
 	                 **/
+		   			
 		   			private String empId;
 		   			private String empNo;
 		   			private String empName;
@@ -607,6 +608,7 @@ public class EmpSalary extends Model implements java.io.Serializable{
 			public void setAllSocialSecurity(Double allSocialSecurity) {
 				this.allSocialSecurity = allSocialSecurity;
 			}
+
 
 
 			

@@ -170,7 +170,7 @@ public class MarketStudentController{
 		List<Standard> standard= standardService.getAllResourceId();
 		map.put("standard", standard);
 		
-		List<Employee> tutor= employeeService.listByCondition(null);
+		List<Employee> tutor= employeeService.listByCondition(new Employee());
 		map.put("tutor", tutor);
  		
 		AccountFinance accountFlow = accountFinanceService.getByPrimaryKey("67250e52-e356-44a7-bb0e-f073360fb732");

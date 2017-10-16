@@ -66,10 +66,10 @@ public class AccountingController{
  		UserInfo user=Utils.getLoginUserInfo(request);
  		mv.addObject("user", user);
  		
- 		List<AccountSubject> accountList = accountSubjectService.listByCondition(null);
+ 		List<AccountSubject> accountList = accountSubjectService.listByCondition(new AccountSubject());
  		mv.addObject("accountList", accountList);
  		
- 		List<AccountFinance> digestList = accountFinanceService.listByCondition(null);
+ 		List<AccountFinance> digestList = accountFinanceService.listByCondition(new AccountFinance());
  		mv.addObject("digestList", digestList);
  		
 		return mv;
@@ -156,16 +156,16 @@ public class AccountingController{
 		Map<String,String> accounting = FormatEntity.getObjectValue(entity);
 		mv.addObject("accounting", accounting);
 		
-		List<UserInfo> user = userInfoService.listByCondition(null);
+		List<UserInfo> user = userInfoService.listByCondition(new UserInfo());
 		mv.addObject("user", user);
 		
 		UserInfo userInfo=Utils.getLoginUserInfo(request);
  		mv.addObject("userInfo", userInfo);
 		
-		List<AccountSubject> accountList = accountSubjectService.listByCondition(null);
+		List<AccountSubject> accountList = accountSubjectService.listByCondition(new AccountSubject());
  		mv.addObject("accountList", accountList);
 		
- 		List<AccountFinance> digestList = accountFinanceService.listByCondition(null);
+ 		List<AccountFinance> digestList = accountFinanceService.listByCondition(new AccountFinance());
  		mv.addObject("digestList", digestList);
 		return mv;
 	}
@@ -195,7 +195,7 @@ public class AccountingController{
 		Map<String,String> accounting = FormatEntity.getObjectValue(entity);
 		mv.addObject("accounting", accounting);
  		
- 		List<UserInfo> userInfo = userInfoService.listByCondition(null);
+ 		List<UserInfo> userInfo = userInfoService.listByCondition(new UserInfo());
 		mv.addObject("userInfo", userInfo);
  		
  		UserInfo user=Utils.getLoginUserInfo(request);

@@ -70,7 +70,7 @@ public class EmpPerformanceController{
  		List<Standard> followers= standardService.getAllFollowerId();
  		mv.addObject("followers", followers);
 
- 		List<Employee> tutor= employeeService.listByCondition(null);
+ 		List<Employee> tutor= employeeService.listByCondition(new Employee());
  		mv.addObject("tutor", tutor);
 		return mv;
 	}
@@ -90,7 +90,7 @@ public class EmpPerformanceController{
  		List<Standard> followers= standardService.getAllFollowerId();
  		mv.addObject("followers", followers);
 
- 		List<Employee> tutor= employeeService.listByCondition(null);
+ 		List<Employee> tutor= employeeService.listByCondition(new Employee());
  		mv.addObject("tutor", tutor);
 		return mv;
 	}
@@ -246,7 +246,7 @@ public class EmpPerformanceController{
 		
 		mv.addObject("empPerformance", empPerformance);
 		
-		List<Employee> tutor= employeeService.listByCondition(null);
+		List<Employee> tutor= employeeService.listByCondition(new Employee());
  		mv.addObject("tutor", tutor);
 		
  		List<Standard> followers= standardService.getAllFollowerId();
@@ -304,7 +304,7 @@ public class EmpPerformanceController{
 		Map<String,String> empPerformance = FormatEntity.getObjectValue(entity);
 		mv.addObject("empPerformance", empPerformance);
 		
-		List<Employee> tutor= employeeService.listByCondition(null);
+		List<Employee> tutor= employeeService.listByCondition(new Employee());
  		mv.addObject("tutor", tutor);
 		
  		List<Standard> followers= standardService.getAllFollowerId();

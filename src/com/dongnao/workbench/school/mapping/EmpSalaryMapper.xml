@@ -247,7 +247,7 @@
 	</select>
 	
 	<!-- 社保扣款 -->
-	<select id="listEmpSocialSecurity" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpSocialSecurity">
+	<select id="listEmpSocialSecurity" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpSalary">
 		SELECT
 			 es.id
 			,es.create_date
@@ -258,14 +258,14 @@
 			,bo.org_name as empDept
 			,e.entry_date as empEntryDate
 			,e.be_full_date as empBeFullDate
-			,es.all_social_security
-		FROM emp_salary AS es 
+			,es.money as social_security
+		FROM account_flow AS es 
 		LEFT JOIN  employee AS e ON es.emp_id = e.id
 		<if test="empStatus != null and '' != empStatus">  
 			and e.curr_state = #{empStatus,jdbcType=VARCHAR}
 		</if>
 		LEFT join basic_org bo on e.dept_no = bo.org_no
-		where 1=1
+		where es.account_no = 'SBKK'
 		<if test="id != null and '' != id">  
 			and es.id = #{id,jdbcType=VARCHAR}
 		</if>
@@ -617,7 +617,15 @@
 		and emp_id = #{empId,jdbcType=VARCHAR}
 	</update>
 	
+	
+	<!-- <update id="assign" parameterType="com.dongnao.workbench.school.model.EmpSalary">
+		update emp_salary set
+			assign_flag = #{assignFlag,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+		and emp_id = #{empId,jdbcType=VARCHAR}
+	</update> -->
+	
 	<delete id="assign" parameterType="com.dongnao.workbench.school.model.EmpSalary">
 		delete from emp_salary 	where id = #{id,jdbcType=VARCHAR}
-	</delete>
+	</delete> 
 </mapper>
