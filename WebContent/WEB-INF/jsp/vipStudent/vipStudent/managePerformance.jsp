@@ -548,9 +548,7 @@ function getNewRateByPosition(obj,foltype,comSource,sub){
 	var newRate = 0;
 	var num = 0;
 	var followerType = $(obj).find("select[name='followerType']").find("option:selected").val();
-	debugger
 	$("select[name='followerType']").each(function(i){
-		debugger
 		if(followerType == $(this).find("option:selected").val()){num++};
 	})
 	 $.ajax({

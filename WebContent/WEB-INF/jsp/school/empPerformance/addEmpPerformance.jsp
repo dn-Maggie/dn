@@ -56,7 +56,12 @@ $(function() {
 		});
 		
 		//总业务比例小于1，开始分配个人业绩
-		rates>1?showMessage("业绩比例分配不可大于1！"):countPerformance();
+		if(rates>1){
+			showMessage("业绩比例分配不可大于1！");
+			$("#submit").prop('disabled', false).css({'cursor':'pointer'});
+		}else{
+			countPerformance();
+		}
 	});
 	
 	new biz.datepicker({
@@ -150,11 +155,19 @@ function getRate(Object){
 					cache : false,
 					async : false,
 					success : function(data, textStatus, jqXHR) {
-						$(Object).parents('.addEnable').find("#rate").val(data);
+						if(data!=null){
+							data = JSON.parse(data);
+							$(Object).parents('.addEnable').find("#rate").val(data.rate);
+							$(Object).parents('.addEnable').find("#newRate").val(data.newRate);
+						}else{
+							$(Object).parents('.addEnable').find("#rate").val(0);
+							$(Object).parents('.addEnable').find("#newRate").val(0);
+						}
 					}
 				});
 	};
 }
+
 //打开Vip学员信息界面
 function selectStudent() {
 	var url = baseUrl + '/empPerformance/toSelectStudent.do';
@@ -217,6 +230,11 @@ function countPerformance(){
 			var note = u+$("#edit_courseName").val()+"-"+actualPay+"*"+rate;
 			var isPass="未清算";
 			var stuId = $("#edit_stuId").val();
+			var comSource = $("#edit_comSource").val();
+			var sourceSubclass = $("#edit_sourceSubclass").val();
+			//改成获取隐藏的new rate,根据参与岗位人数进行比例分配
+			var newRate = getNewRateByPosition($(this),followerType,comSource,sourceSubclass);
+			
 			var paramDatas = {
 					employeeId:employeeId,
 					employeeName:employeeName,
@@ -228,6 +246,7 @@ function countPerformance(){
 					position:followerPosition,
 					isPass:isPass,
 					stuId:stuId,
+					newRate:newRate
 					};
 			$.ajax({
 				   type: "post",
@@ -283,7 +302,7 @@ function updateIsCount(){
 			});
 	}
 	else if(u=="学费退款"){
-		id=$("#edit_id").val();		
+		id=$("#edit_id").val();
 		var paramDatas = {id:id,isCount:"已分配业绩"};
 		$.ajax({
 			   type: "post",
@@ -297,6 +316,54 @@ function updateIsCount(){
 	}
 	
 }
+function getNewRate(foltype,comSource,sub){
+	var newRate = 0;
+	 $.ajax({
+		 url : "<m:url value='/standard/getRate.do'/>?parentId="
+				+ comSource+"&subId="+sub+"&positionId="+foltype,
+		cache : false,
+		async : false,
+		success:function(response){
+			if(response!=null){
+				newRate = JSON.parse(response).newRate;
+			}else{
+				newRate = 0;
+			}
+			 
+		},
+		error:function(){
+			 showError("获取比例出错", 3000);
+		}
+	 });
+	return newRate;
+}
+//多个相同角色
+function getNewRateByPosition(obj,foltype,comSource,sub){
+	var newRate = 0;
+	var num = 0;
+	var followerType = $(obj).find("select[name='followerType']").find("option:selected").val();
+	$("select[name='followerType']").each(function(i){
+		if(followerType == $(this).find("option:selected").val()){num++};
+	})
+	 $.ajax({
+		 url : "<m:url value='/standard/getRate.do'/>?parentId="
+				+ comSource+"&subId="+sub+"&positionId="+foltype,
+		cache : false,
+		async : false,
+		success:function(response){
+			if(response!=null){
+				newRate = (JSON.parse(response).newRate)/num;
+			}else{
+				newRate = 0;
+			}
+		},
+		error:function(){
+			 showError("获取比例出错", 3000);
+		}
+	 });
+	return newRate;
+}
+
 </script>
 </head>
   
