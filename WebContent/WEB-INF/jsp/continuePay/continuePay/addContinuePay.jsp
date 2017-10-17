@@ -162,6 +162,7 @@ function closeOwnVip() {
 
 //填充数据
 function drawForm(rowData) {
+	debugger
 	$('#edit_stuId').val(rowData.id);
 	$('#edit_stuName').val(rowData.name);
 	$('#edit_owePay').val(rowData.owePay);
@@ -345,6 +346,7 @@ function countPerformance(){
 	followerIds =$("#followerId").val().split(",");
 	followerNames =$("#followerName").val().split(",");
 	followerRates =$("#followerRate").val().split(",");
+	debugger;
 	//分两种情况增加分配比率：1.未分配业绩订单（及以前遗留订单）  2.已分配业绩订单	
 	//2.已分配业绩订单
 	if(followerNames.length>=1){
@@ -353,6 +355,7 @@ function countPerformance(){
 				var foltype = followerTypes[i];
 				var folid = followerIds[i];
 				var folposition = followerPositions[i];
+				debugger
 				var folrate = followerRates[i];
 			    count(folid,foltype,folrate);
 		}

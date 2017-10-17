@@ -32,7 +32,7 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
     		navtype:"top" /*导航栏类型*/,
     		navopt:{edit : false,add : false,del : false,reloadAfterSubmit:true},
             colModel:[
-                {name: '操作', width:50, fixed:true, sortable:false, resize:false, formatter:'actions',formatoptions:{keys:true}},
+                /* {name: '操作', width:50, fixed:true, sortable:false, resize:false, formatter:'actions',formatoptions:{keys:true}}, */
 				{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
 				{name : "createDate",index : "create_date",hidden : true},
 				{name : "empNo",index : "empNo",hidden : true},
