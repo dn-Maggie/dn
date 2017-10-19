@@ -329,6 +329,7 @@
 		<if test="currState == null or '' == currState">  
 			and e.curr_state in('1','2','3','4')
 		</if>
+		
 		<if test="propsMap.startDate != null  and propsMap.startDate != ''">
 			<![CDATA[
 			and DATE_FORMAT(e.entry_date,'%Y-%m-%c') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%c')
