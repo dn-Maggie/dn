@@ -2,6 +2,7 @@ package com.dongnao.workbench.school.dao;
 
 import java.util.List;
 import com.dongnao.workbench.school.model.EmpPerformance;
+import com.dongnao.workbench.school.model.PerformanceStiData;
 import com.dongnao.workbench.school.model.RecentTwoMonthEmpPerf;
 /**
  * 描述：员工绩效信息表模块dao接口，提供数据库操作方法
@@ -92,4 +93,13 @@ public interface EmpPerformanceMapper  {
 	 * @return
 	 */
 	public List<EmpPerformance> selectNewNote(EmpPerformance ep);
+	
+	/*每个月月初更新上一个月的业绩到业绩统计表*/
+	public void updatePerformance(List<PerformanceStiData> performanceStiData);
+	
+	/*按条件查询业绩统计数据*/
+	public List<PerformanceStiData>  perSticlistByCondition(PerformanceStiData performanceStiData);
+	
+	/*更新实际获得的奖金金额（贡献绩效小于成本时实际获得奖金金额为原来的三分之一）*/
+	public void updateActualBonus(PerformanceStiData performanceStiData);
 }
