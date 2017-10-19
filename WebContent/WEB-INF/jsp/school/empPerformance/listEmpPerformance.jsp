@@ -10,24 +10,23 @@
 		<form id="queryForm"><!-- 查询区 表单 -->
 			<div class="search border-bottom">
 				<ul>
-				<li style="width:450px;float:left;"><span>关键字:</span>
-							<input type="text" name="employeeName" id="employeeName"  class="search_choose100" placeholder="员工姓名" autocomplete="off">
-							<input type="text" name="nickName" id="nickName"  class="search_choose100" placeholder="员工昵称" autocomplete="off">
-							<input type="text" name="stuName" id="stuName" class="search_choose100" placeholder="学生姓名">
-				</li>
-				<!-- <li><select class="search_choose" name="isPass" id="isPass">
-							<option value="未清算">未清算</option>
-							<option value="已清算">已清算</option>
-							<option value="">全部</option>
-					</select><span>状态:</span>
-				</li>输入框 -->
-				<li>
-				<select class="search_choose" name="empDept" id="empDept">
-				<option value="">--请选择--</option>
-					<c:forEach var="org" items="${org}">
-						<option value="${org.orgNo}"> <c:out value="${org.orgName}"></c:out> </option>
-		             </c:forEach>
-				</select><span>所在部门:</span>
+				<li style="width:auto;float:left;"><span>关键字:</span>
+				<c:if test="${!isAdmin}">
+					<input type="hidden" name="employeeId" id="employeeId" value="${user.id}">
+				</c:if>
+				<c:if test="${isAdmin}">
+					<select class="search_choose" name="empDept" id="empDept">
+					<c:if test="${!leader}">
+						<option value="">所有部门</option>
+					</c:if>
+						<c:forEach var="org" items="${org}">
+							<option value="${org.orgNo}"> <c:out value="${org.orgName}"></c:out> </option>
+			             </c:forEach>
+					</select>
+					<input type="text" name="employeeName" id="employeeName"  class="search_choose100" placeholder="员工姓名" autocomplete="off">
+					<input type="text" name="nickName" id="nickName"  class="search_choose100" placeholder="员工昵称" autocomplete="off">
+				</c:if>
+					<input type="text" name="stuName" id="stuName" class="search_choose100" placeholder="学生姓名">
 				</li>
 				<li>
 				<select class="search_choose" name="position" id="position" >
@@ -157,7 +156,7 @@
 				{name : "actualPay",label:"已付",index : "actual_pay",width:30},				
 				{name : "comSource",label:"流量来源",index : "comSource",width:20},				
 				{name : "sourceSubclass",label:"来源分类",index : "sourceSubclass",width:20},				
-				{name : "performance",label:"贡献绩效",index : "performance",width:20},				
+				{name : "performance",label:"贡献绩效",index : "performance",width:20},
 				{name : "createDate",label:"发生时间",index : "create_date",width:30},				
 				{name : "note",label:"备注",index : "note",width:90}				
            	],
@@ -219,7 +218,7 @@
  			colModel:[
 				{name : "employeeName",label:"员工姓名",index : "employee_name",width:20, frozen : true},	 
 				{name : "nickName",label:"员工昵称",index : "nickName",width:20, frozen : true},
-				{name : "sum",label:"奖金总额",index : "sum",width:25},	
+				{name : "sum",label:"奖金总额",index : "sum",width:25,formatter:formCell,cellattr: addCellAttr},	
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
@@ -424,6 +423,19 @@
     function expExcelWinShow(){
     	ExpExcel.showWin(gridObj,baseUrl+"/empPerformance/exportExcel.do",'grid','queryForm');
     }
-    </script>
+    
+    function addCellAttr(rowId, val, rawObject, cm, rdata) {
+        if("阳智薇薇嘉文".indexOf(rawObject.nickName)!=-1){
+        	return "style='font-weight:bold'";
+        }
+    }
+    function formCell(cellValue,options,rowObject) {
+        if("阳智薇薇嘉文".indexOf(rowObject.nickName)!=-1){
+        	return "p";
+        }else{
+        	return cellValue;
+        }
+    }
+    </script>                                           
 </body>
 </html>

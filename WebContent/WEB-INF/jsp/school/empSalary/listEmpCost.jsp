@@ -11,18 +11,30 @@ td>.editable {
 <script type="text/javascript">
 var gridObj = {};
 	$(function(){
-		/* var lastsel; */
   		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
-            url: "<m:url value='/empSalary/listEmpSocialSecurity.do'/>",/*grid初始化请求数据的远程地址*/
+            url: "<m:url value='/empSalary/listEmpCost.do'/>",/*grid初始化请求数据的远程地址*/
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
            	sortname:"empNo",
            	sortorder:"asc", 
-           	/*forceFit:true,固定宽度*/
-           	rownumbers:false,/*不显示数据数，左侧行号*/
+           	rownumbers:true,/*不显示数据数，左侧行号*/
            	multiselect:true,//多选checkbox
            	multiboxonly:true,
            	footerrow:true,//页脚汇总行
+           	cellEdit:true,
+           	afterSaveCell : function(rowid,name,val,iRow,iCol) {
+           			debugger
+           			var paramDatas = {};
+	           		paramDatas[name] = val;
+	           		paramDatas.id = rowid;
+	           		$ .ajax({
+	           			type: "post",
+	    				url: "<m:url value='/empSalary/editEmpCost.do'/>",
+	    				data: paramDatas,
+						cache:false,
+	    				dataType:"json"
+	    			});
+          	},
            	emptyrecords: "无记录可显示",
            	pager: '#remote_prowed' /*分页栏id*/,
      		rowList:[10,15,50,100],//每页显示记录数
@@ -30,26 +42,22 @@ var gridObj = {};
     		navtype:"top" /*导航栏类型*/,
     		navopt:{edit : false,add : false,del : false,reloadAfterSubmit:true},
             colModel:[
-                /* {name: '操作', width:50, fixed:true, sortable:false, resize:false, formatter:'actions',formatoptions:{keys:true}}, */
 				{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
-				{name : "createDate",index : "create_date",hidden : true},
-				{name : "empNo",index : "empNo",hidden : true},
+				{name : "empNo",index : "工号",width:"3"},
 		 		{name : "empDept",label:"所属部门",index : "empDept",hidden : true},
 				{name : "empStatus",label:"在职状态",index : "empStatus",width:"3",
 					formatter:function(cellvalue, options, rowObject){
 	 				if (cellvalue==1) {return '在职';}else if (cellvalue==2){return '试用';}else if (cellvalue==3){return '离职';}else if (cellvalue==4){return '兼职';}
 	 			}},	
-	 			{name : "empName",label:"员工姓名",index : "empName",frozen : true,width:"6",
+	 			{name : "empName",label:"员工姓名",index : "empName",frozen : true,width:"4",
 			        formatter : function(value, options, rData){
 			          return value + "-"+rData['empNickName'];
 		       		}},
 				{name : "empNickName",label:"昵称",hidden : true,index : "empNickName",cellattr: function(rowId, value, rowObject, colModel, arrData) {
 	 		          return " style=display:none; ";
  		        }},
-				{name : "empEntryDate",label:"入职时间",width:"6",index : "empEntryDate"},
-				{name : "empBeFullDate",label:"转正日期",width:"3",index : "empBeFullDate"}, 
-				{name : "socialSecurity",label:"社保扣款",width:"4",index : "social_security", editable:true,number:true,
-					formatter:'currency', formatoptions:{thousandsSeparator: ',',decimalPlaces:'2'}}			
+ 		       {name : "empEntryDate",label:"录入月份",width:"6",index : "empEntryDate"},
+				{name : "actualSalary",label:"员工成本",width:"4",index : "actual_salary", editable:true,number:true}			
            	],
            	serializeGridData:function(postData){//添加查询条件值，把数据进行序列化
 				var obj = getQueryCondition();
@@ -59,13 +67,11 @@ var gridObj = {};
     		gridComplete:function(){
     			$(".ui-jqgrid-sdiv").show();
            		//如果需要统计则需要定义
-               /* 	getFooterJsonData($(this)); */
                $(this).footerData("set",
-            		   {"操作":"合计",
-            	   		"socialSecurity":$(this).getCol("socialSecurity",false,"sum"),
+            		   {"在职状态":"合计",
+            	   		"actualSalary":$(this).getCol("actualSalary",false,"sum"),
             	   		});
 	 		},
-    		//editurl : "<m:url value='/empSalary/operEmpSalary.do'/>",
      	});
     	
 		new biz.datepicker({
@@ -75,20 +81,6 @@ var gridObj = {};
   	    
     });
 
- 	function importData(){
- 		 if($('input[type="file"]').val()!=""){
- 			var extend=$('input[type="file"]').val().substr($('input[type="file"]').val().lastIndexOf(".")+1);
- 			if("xls|xlsx".indexOf(extend+"|")==-1){
- 				 showInfo("选择的文件必须是EXCEL文件,请确认！",3000);
- 	         }else{ 
- 	        	showInfo("数据正在导入...");
- 	        	ajaxFileUpload();
- 	        	gridObj.trigger('reloadGrid');
- 	         }
- 		 }else{
- 			showInfo("请选EXCEL文件！",3000);
- 	    }
- 	}
   	
     /**
     * 获取查询条件值
@@ -144,7 +136,7 @@ var gridObj = {};
 	var add_iframe_dialog;
 	function add(){
 	  	//xin zeng iframe 弹出框
-			var url="<m:url value='/empSalary/toAddEmpSocialSecurity.do'/>";
+			var url="<m:url value='/empSalary/toAddEmpCost.do'/>";
 			add_iframe_dialog = new biz.dialog({
 				id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 				modal: true,
@@ -161,7 +153,6 @@ var gridObj = {};
     </script>
 </head>
 <body style="height:100%;">
-
 	<div class="main  choice_box">
 		<form id="queryForm"><!-- 查询区 表单 -->
 			<div class="search border-bottom">

@@ -291,6 +291,48 @@
        	</if>
 	</select>
 	
+	<!-- 员工成本 -->
+	<select id="listEmpCost" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpSalary">
+		SELECT
+			 ps.id
+			,DATE_FORMAT(ps.month,'%Y-%c-%d')  as empEntryDate
+			,e.emp_no as empNo
+			,e.name as empName
+			,e.nick_name as empNickName
+			,e.curr_state as empStatus
+			,bo.org_name as empDept
+			,ps.cost as actual_salary
+		FROM performance_statistics AS ps 
+		RIGHT JOIN  employee AS e ON ps.emp_id = e.id
+		<if test="empStatus != null and '' != empStatus">  
+			and e.curr_state = #{empStatus,jdbcType=VARCHAR}
+		</if>
+		LEFT join basic_org bo on e.dept_no = bo.org_no
+		where e.duty_id = 'ddfd8fbf-e7fc-4768-a052-1b252e168344'
+		<if test="id != null and '' != id">  
+			and ps.id = #{id,jdbcType=VARCHAR}
+		</if>
+		<if test="empId != null and '' != empId">  
+			and ps.emp_id = #{empId,jdbcType=VARCHAR}
+		</if>
+		<if test="empNickName != null and '' != empNickName">  
+			and e.nick_name = #{empNickName,jdbcType=TIMESTAMP}
+		</if>
+		<if test="empDept != null and '' != empDept">  
+			and bo.org_name = #{empDept,jdbcType=TIMESTAMP}
+		</if>
+		<if test="empStatus != null and '' != empStatus">  
+			and e.curr_state = #{empStatus,jdbcType=VARCHAR}
+		</if>
+		<if test="null != createDate and createDate != ''">
+			<![CDATA[
+			and DATE_FORMAT(ps.month,'%Y%m') = DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y%m')
+			]]>
+		</if>
+		<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+       	</if>
+	</select>
 	
 	<select id="getEmpSalaryStatistic" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpSalary">
 		SELECT 
@@ -389,6 +431,27 @@
 			,#{assignFlag,jdbcType=INTEGER}
 			,#{note,jdbcType=VARCHAR}
 			,#{actualattendance,jdbcType=DECIMAL}
+			,#{trafficsubsidies,jdbcType=DECIMAL}
+			,#{allSocialSecurity,jdbcType=DECIMAL}
+		)
+	</insert>
+	
+	
+	<insert id="addEmpCost" parameterType="com.dongnao.workbench.school.model.EmpSalary">
+		insert into performance_statistics (
+				id
+				,emp_id
+				,month
+				,emp_performance
+				,cost
+				,bonus
+				,actual_bonus
+		)values (
+			#{id,jdbcType=VARCHAR}
+			,#{empId,jdbcType=VARCHAR}
+			,DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
+			,#{trafficsubsidies,jdbcType=DECIMAL}
+			,#{allSocialSecurity,jdbcType=DECIMAL}
 			,#{trafficsubsidies,jdbcType=DECIMAL}
 			,#{allSocialSecurity,jdbcType=DECIMAL}
 		)
@@ -576,6 +639,25 @@
 				</if>
 				<if test="allSocialSecurity != null and '' != allSocialSecurity">  
 					all_social_security = #{allSocialSecurity,jdbcType=DOUBLE},
+				</if>
+			</trim>
+		where id = #{id,jdbcType=VARCHAR} 
+	</update>
+	
+	
+	<update id="updateEmpCost" parameterType="com.dongnao.workbench.school.model.EmpSalary">
+		update performance_statistics 
+			 <trim prefix="set" suffixOverrides=",">
+				<if test="actualSalary != null and '' != actualSalary">  
+					cost = #{actualSalary,jdbcType=DECIMAL},
+					actual_bonus = (
+					CASE
+					WHEN emp_performance - cost > 0 THEN
+						bonus
+					ELSE
+						bonus/3
+					END
+				)
 				</if>
 			</trim>
 		where id = #{id,jdbcType=VARCHAR} 

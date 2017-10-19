@@ -10,10 +10,7 @@ td>.editable {
 </style>
 <script type="text/javascript">
 var gridObj = {};
-/* var jsion_sumColumns = {};	
-jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
 	$(function(){
-		/* var lastsel; */
   		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
             url: "<m:url value='/empSalary/listEmpSalary.do'/>",/*grid初始化请求数据的远程地址*/
@@ -107,7 +104,6 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
     		gridComplete:function(){
     			$(".ui-jqgrid-sdiv").show();
            		//如果需要统计则需要定义
-               /* 	getFooterJsonData($(this)); */
                $(this).footerData("set",
             		   {"操作":"合计",
             	  		"leaveDay":$(this).getCol("leaveDay",false,"sum"),
@@ -177,37 +173,6 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   */ //总计
 			}
 		});
 	}
-	//调用总计
-    //@param jqGridObj
-    /* function getFooterJsonData(jqGridObj){
-       var addFootData = {} ;
-  	   var resObj = ajaxGetStatistic();
-       try{
-         //总计
-     		var _strColumns = jsion_sumColumns.sumColumns.split(",");
-             for(var k = 0;k<_strColumns.length; k++){
-          	   k == 0?addFootData[_strColumns[k]] = "总计：":addFootData[_strColumns[k]] = Math.round(resObj[_strColumns[k]]) ||0;
-             }
-       }
-     	catch(e){
-      }    
-     		jqGridObj.jqGrid('footerData','set',addFootData,false);
-   	} */
-	//根据条件从数据库获取结果集
-	/* function ajaxGetStatistic(){
-		var resObj = {};
-       	$.ajax({
-   			url : "<m:url value='/empSalary/getEmpSalaryStatistic.do'/>",
-   			cache : false,
-   			data: getQueryCondition(),
-   			async : false,
-   			dataType:"json",
-   			success : function(data) {
-   				resObj.actualSalary = parseFloat(data.curr.actualSalary);
-   			}
-   		});
-       	return resObj;
-	}; */
     
     /**
     * 获取查询条件值

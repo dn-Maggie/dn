@@ -495,12 +495,25 @@ public class EmpSalaryController{
 	}
 	
 	/**
-	 * 进入列表页面
+	 * 进入社保列表页面
 	 * @return ModelAndView
 	 */
 	@RequestMapping("/toListEmpSocialSecurity")
 	public ModelAndView toListEmpSocialSecurity(){
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/empSalary/listEmpSocialSecurity");
+		Org org = new Org();
+		org.setParentOrgId("1");
+ 		mv.addObject("org",orgService.listByCondition(org));
+		return mv;
+	}
+	
+	/**
+	 * 进入成本列表页面
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/toListEmpCost")
+	public ModelAndView toListEmpCost(){
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/empSalary/listEmpCost");
 		Org org = new Org();
 		org.setParentOrgId("1");
  		mv.addObject("org",orgService.listByCondition(org));
@@ -543,6 +556,23 @@ public class EmpSalaryController{
 		empSalary.setPage(page);	
 		List<EmpSalary> list = empSalaryService.listEmpSocialSecurity(empSalary);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
+	
+	//员工成本
+	@RequestMapping("/listEmpCost")
+	public void listEmpCost(EmpSalary empSalary,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		empSalary.setPage(page);	
+		empSalary.setEmpEntryDate(StringUtil.formatDateyyyyMMdd(DateUtil.now()));
+		List<EmpSalary> list = empSalaryService.listEmpCost(empSalary);
+		if(list.size()>0){
+			AjaxUtils.sendAjaxForPage(request, response, page, list);
+		}else{
+			empSalaryService.addEmpCost(empSalary);
+			list = empSalaryService.listEmpCost(empSalary);
+			AjaxUtils.sendAjaxForPage(request, response, page, list);
+		}
+		
 	}
 	
 	/**
@@ -679,6 +709,17 @@ public class EmpSalaryController{
 		default:
 			return;
 		}
+	}
+	
+	/**
+	 * 修改成本
+	 * @param empSalary EmpSalary：实体对象
+	 * @param response HttpServletResponse
+	 * @return: ajax输入json字符串
+	 */	
+	@RequestMapping("/editEmpCost")
+	public void editEmpCost(EmpSalary empSalary,HttpServletRequest request,HttpServletResponse response){
+		AjaxUtils.sendAjaxForObjectStr(response,empSalaryService.updateEmpCost(empSalary));
 	}
 	/**
 	 * 获取统计数据

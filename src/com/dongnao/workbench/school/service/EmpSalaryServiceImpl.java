@@ -119,7 +119,24 @@ public class EmpSalaryServiceImpl implements EmpSalaryService{
 	@Override
 	public ResultMessage addBatch(List<EmpSalary> emp) {
 		empSalaryMapper.addBatch(emp);
-		return null;
+		return AjaxUtils.getSuccessMessage();
+	}
+
+	@Override
+	public List<EmpSalary> listEmpCost(EmpSalary empSalary) {
+		return empSalaryMapper.listEmpCost(empSalary);
+	}
+
+	@Override
+	public ResultMessage updateEmpCost(EmpSalary empSalary) {
+		empSalaryMapper.updateEmpCost(empSalary);
+		return AjaxUtils.getSuccessMessage();
+	}
+
+	@Override
+	public ResultMessage addEmpCost(EmpSalary empSalary) {
+		empSalaryMapper.addEmpCost(empSalary);
+		return AjaxUtils.getSuccessMessage();
 	}
 	
 

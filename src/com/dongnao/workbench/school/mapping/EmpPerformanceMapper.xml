@@ -100,6 +100,15 @@
 		<if test="nickName != null and '' != nickName">  
 			and e.nick_name like CONCAT('%',#{nickName,jdbcType=VARCHAR},'%') 
 		</if>
+		<if test="position != null and '' != position">  
+			and ep.position like  CONCAT('%',#{position,jdbcType=VARCHAR},'%') 
+		</if>
+		<if test="empDept != null and '' != empDept">  
+			and e.dept_no = #{empDept,jdbcType=VARCHAR}
+		</if>
+		<if test="employeeId != null and '' != employeeId">  
+			and ep.employee_id = #{employeeId,jdbcType=VARCHAR}
+		</if>
 		<if test="employeeName != null and '' != employeeName">  
 			and e.name like CONCAT('%',#{employeeName,jdbcType=VARCHAR},'%') 
 		</if>
@@ -134,6 +143,15 @@
 		</if>
 		<if test="employeeName != null and '' != employeeName">  
 			and e.name like CONCAT('%',#{employeeName,jdbcType=VARCHAR},'%') 
+		</if>
+		<if test="empDept != null and '' != empDept">  
+			and e.dept_no = #{empDept,jdbcType=VARCHAR}
+		</if>
+		<if test="position != null and '' != position">  
+			and ep.position like  CONCAT('%',#{position,jdbcType=VARCHAR},'%') 
+		</if>
+		<if test="employeeId != null and '' != employeeId">  
+			and ep.employee_id = #{employeeId,jdbcType=VARCHAR}
 		</if>
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 			<![CDATA[
@@ -239,7 +257,7 @@
 			and e.name like CONCAT('%',#{employeeName,jdbcType=VARCHAR},'%') 
 		</if>
 		<if test="position != null and '' != position">  
-			and ep.position = #{position,jdbcType=VARCHAR}
+			and ep.position like  CONCAT('%',#{position,jdbcType=VARCHAR},'%') 
 		</if>
 		<if test="empDept != null and '' != empDept">  
 			and e.dept_no = #{empDept,jdbcType=VARCHAR}

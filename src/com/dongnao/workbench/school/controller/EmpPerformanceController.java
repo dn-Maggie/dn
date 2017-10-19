@@ -6,11 +6,15 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.dongnao.workbench.basic.model.Org;
+import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.basic.service.OrgService;
 import com.dongnao.workbench.common.excel.ExcelExpUtils;
 import com.dongnao.workbench.common.excel.ExpParamBean;
@@ -165,15 +169,34 @@ public class EmpPerformanceController{
 	 * @return ModelAndView
 	 */
 	@RequestMapping("/toListEmpPerformance")
-	public ModelAndView toList(){
-		Map<String,Object> model = new HashMap<String,Object>();
+	public ModelAndView toList(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/empPerformance/listEmpPerformance");
+		
+		UserInfo user = Utils.getLoginUserInfo(request);
+		mv.addObject("user",user);
+		String userName = user.getUserAccount();
+		String roleId = user.getRoleId();
+		if("cce57309-c36a-4b2b-8596-4bc3ea008e88".equals(roleId)||//总经理
+				"06b4f5f2-ff20-446b-9c9a-05623c0bb76a".equals(roleId)||//部门负责人
+				"ad07dcf7-336b-4874-b574-d1eec4c21dba".equals(roleId)||//部门营销负责人
+				"dingling".equals(userName)||
+				Utils.isSuperAdmin(request)){
+			mv.addObject("isAdmin",true);
+		}
 		
 		Org org = new Org();
 		org.setParentOrgId("1");
-		model.put("org",orgService.listByCondition(org));
-		model.put("followers", standardService.getAllFollowerId());
+		if("06b4f5f2-ff20-446b-9c9a-05623c0bb76a".equals(roleId)||//部门负责人
+				"ad07dcf7-336b-4874-b574-d1eec4c21dba".equals(roleId)//部门营销负责人
+			){
+			mv.addObject("leader",true);
+			org.setOrgNo(employeeService.getByPrimaryKey(Utils.getLoginUserInfoId(request)).getDeptNo());
+			}
+		mv.addObject("org",orgService.listByCondition(org));
+		mv.addObject("followers", standardService.getAllFollowerId());
+		return mv;
 		
-		return new ModelAndView("WEB-INF/jsp/school/empPerformance/listEmpPerformance",model);
+		
 	}
 	
 	/**

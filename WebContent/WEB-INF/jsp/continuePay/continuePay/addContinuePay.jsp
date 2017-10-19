@@ -355,7 +355,6 @@ function countPerformance(){
 				var foltype = followerTypes[i];
 				var folid = followerIds[i];
 				var folposition = followerPositions[i];
-				debugger
 				var folrate = followerRates[i];
 			    count(folid,foltype,folrate);
 		}
@@ -396,7 +395,7 @@ function countPerformance(){
 				employeeId:employeeId,
 				employeeName:employeeName,
 				position:position,
-				shouldPay:shouldPay,
+				shouldPay:parseFloat(shouldPay),
 				actualPay:parseFloat(actualPay),
 				comSource:$("#comSourceName").val(),
 				sourceSubclass:sourceSubclass,

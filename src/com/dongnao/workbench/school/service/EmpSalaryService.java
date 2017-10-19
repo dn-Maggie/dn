@@ -87,5 +87,14 @@ public interface EmpSalaryService  {
 	 */
 	public List<EmpSalary> listEmpSocialSecurity(EmpSalary empSalary);
 
+
+	public List<EmpSalary> listEmpCost(EmpSalary empSalary);
+
+
+	public ResultMessage updateEmpCost(EmpSalary empSalary);
+
+
+	public ResultMessage addEmpCost(EmpSalary empSalary);
+
 	
 }
