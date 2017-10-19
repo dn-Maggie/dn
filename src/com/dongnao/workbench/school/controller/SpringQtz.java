@@ -6,11 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.dongnao.workbench.accountflow.dao.AccountFlowMapper;
 import com.dongnao.workbench.accountflow.service.AccountFlowService;
 import com.dongnao.workbench.common.bean.ReportQuerycondition;
+import com.dongnao.workbench.common.util.Utils;
+import com.dongnao.workbench.school.dao.EmpPerformanceMapper;
+import com.dongnao.workbench.school.dao.EmployeeMapper;
+import com.dongnao.workbench.school.model.Employee;
+import com.dongnao.workbench.school.model.PerformanceStiData;
 import com.dongnao.workbench.subject.model.Subject;
 import com.dongnao.workbench.subject.service.SubjectService;
+import com.mysql.jdbc.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -23,6 +30,10 @@ public class SpringQtz {
 	AccountFlowService accountFlowService;
 	@Autowired
 	AccountFlowMapper accountFlowMapper;
+	@Autowired
+	EmployeeMapper employeeMapper;
+	@Autowired
+	EmpPerformanceMapper empPerformanceMapper;
 
 	/**
 	 * 定时更新成本业绩临时表
@@ -54,5 +65,41 @@ public class SpringQtz {
 		}
 /*		accountFlowMapper.timedupdatecostprofitr(rqclistr);//批量插入
 		accountFlowMapper.timedupdatecostprofitc(rqclistc);*/
+	}
+	
+	/*每个月月初更新上一个月的业绩到业绩统计表*/
+	protected void updatePerformance(){
+		Calendar calendar = Calendar.getInstance();
+		int month = calendar.get(Calendar.MONTH);  
+		if(month==0)month=12;
+		
+		Employee employee = new Employee();
+		employee.setDutyId("ddfd8fbf-e7fc-4768-a052-1b252e168344");//只统计讲师的成本
+		List<Employee> EmployeeList = employeeMapper.listByCondition(employee);
+		List<PerformanceStiData> performanceStiData = new ArrayList<PerformanceStiData>();
+		for(int i = 0 ; i < EmployeeList.size() ; i++) {
+			if(EmployeeList.get(i).getCurrState().equals("3"))continue;
+			PerformanceStiData pfsd = new PerformanceStiData();
+			pfsd.setId(Utils.generateUniqueID());
+			pfsd.setEmpId(EmployeeList.get(i).getId());
+			performanceStiData.add(pfsd);
+		}
+		try {
+			empPerformanceMapper.updatePerformance(performanceStiData);
+			performanceStiData.clear();
+			PerformanceStiData pf = new PerformanceStiData();
+			pf.setMonth(calendar.get(Calendar.YEAR) + "-" + month);
+			performanceStiData = empPerformanceMapper.perSticlistByCondition(pf);
+			List<PerformanceStiData> perfSticUpdateDataList = new ArrayList<PerformanceStiData>();
+			for(int i = 0 ; i < performanceStiData.size() ; i++){
+				PerformanceStiData pfsd = performanceStiData.get(i);
+				if(pfsd.getMoney()>=pfsd.getCost())continue;
+				pfsd.setActualBonus(pfsd.getBonus()/3);
+				perfSticUpdateDataList.add(pfsd);
+				empPerformanceMapper.updateActualBonus(pfsd);
+			}		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
 	}
 }

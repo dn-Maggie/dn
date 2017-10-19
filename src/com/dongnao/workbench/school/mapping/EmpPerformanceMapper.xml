@@ -16,9 +16,19 @@
 	
 	<resultMap id="RtmepfResultMap" type="com.dongnao.workbench.school.model.RecentTwoMonthEmpPerf">
 		<id column="id" property="id" jdbcType="VARCHAR" />
-			<result column="name" property="empName" jdbcType="VARCHAR" />
-			<result column="position" property="position" jdbcType="VARCHAR" />
-			<result column="money" property="money" jdbcType="DOUBLE" />
+		<result column="name" property="empName" jdbcType="VARCHAR" />
+		<result column="position" property="position" jdbcType="VARCHAR" />
+		<result column="money" property="money" jdbcType="DOUBLE" />
+	</resultMap>
+	
+	<resultMap id="PerSticResultMap" type="com.dongnao.workbench.school.model.PerformanceStiData">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="emp_id" property="EmpId" jdbcType="VARCHAR" />
+		<result column="month" property="month" jdbcType="VARCHAR" />
+		<result column="emp_performance" property="money" jdbcType="DOUBLE" />
+		<result column="cost" property="cost" jdbcType="DOUBLE" />
+		<result column="bonus" property="bonus" jdbcType="DOUBLE" />
+		<result column="actual_bonus" property="actualBonus" jdbcType="DOUBLE" />
 	</resultMap>
 	<sql id="Base_Column_List">
 						 	id
@@ -291,6 +301,24 @@
        	</if>
 	</select>
 	
+	<select id="perSticlistByCondition" resultMap="PerSticResultMap" parameterType="com.dongnao.workbench.school.model.PerformanceStiData">
+		select ep.id,ep.emp_id,ep.month,ep.emp_performance,ep.cost,ep.bonus,ep.actual_bonus 
+		from performance_statistics as ep 		
+		WHERE
+			1 = 1
+		<if test="id != null and '' != id">  
+			and ep.id = #{id,jdbcType=VARCHAR}
+		</if>
+		<if test="EmpId != null and '' != EmpId">  
+			and ep.emp_id = #{EmpId,jdbcType=VARCHAR}
+		</if>
+		<if test="month != null and '' != month">  
+			and ep.month = #{month,jdbcType=VARCHAR}
+		</if>
+		<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+       	</if>
+	</select>
 	
 	<select id="selectNewNote" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
 		SELECT
@@ -441,6 +469,24 @@
 														,#{stuId,jdbcType=VARCHAR}
 									)
 	</insert>
+	
+	<insert id="updatePerformance" parameterType="java.util.List">
+		INSERT into performance_statistics (id,emp_id,month,emp_performance,cost,bonus,actual_bonus)values 
+		<foreach collection ="list" item="item" index= "index" separator =",">
+		(#{item.id,jdbcType=VARCHAR},#{item.EmpId,jdbcType=VARCHAR},(select DATE_FORMAT(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%c')),
+		IFNULL((select sum(performance) from emp_performance where employee_id=#{item.EmpId,jdbcType=VARCHAR} and DATE_FORMAT(create_date,'%Y-%c')=(select DATE_FORMAT(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%c'))),0),
+		IFNULL((select a.cost from (select cost from performance_statistics where emp_id=#{item.EmpId,jdbcType=VARCHAR} and month=(select DATE_FORMAT(DATE_SUB(curdate(), INTERVAL 2 MONTH),'%Y-%c')))as a),0),
+		IFNULL((select sum(performance) from emp_performance_new where employee_id=#{item.EmpId,jdbcType=VARCHAR} and DATE_FORMAT(create_date,'%Y-%c')=(select DATE_FORMAT(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%c'))),0),
+		IFNULL((select sum(performance) from emp_performance_new where employee_id=#{item.EmpId,jdbcType=VARCHAR} and DATE_FORMAT(create_date,'%Y-%c')=(select DATE_FORMAT(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%c'))),0)
+		)
+		</foreach >		
+	</insert>
+	
+	<update id="updateActualBonus" parameterType="java.util.List">
+		update performance_statistics set actual_bonus =#{actualBonus,jdbcType=DOUBLE}
+		where id=#{id,jdbcType=VARCHAR}    
+	</update>
+	
 	
 	<update id="update" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
 		update emp_performance  set
