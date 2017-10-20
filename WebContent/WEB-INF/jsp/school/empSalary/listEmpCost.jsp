@@ -11,6 +11,8 @@ td>.editable {
 <script type="text/javascript">
 var gridObj = {};
 	$(function(){
+		getCreateDate(new Date());
+		
   		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
             url: "<m:url value='/empSalary/listEmpCost.do'/>",/*grid初始化请求数据的远程地址*/
@@ -43,7 +45,7 @@ var gridObj = {};
     		navopt:{edit : false,add : false,del : false,reloadAfterSubmit:true},
             colModel:[
 				{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
-				{name : "empNo",index : "工号",width:"3"},
+				{name : "empNo",label : "工号",width:"3"},
 		 		{name : "empDept",label:"所属部门",index : "empDept",hidden : true},
 				{name : "empStatus",label:"在职状态",index : "empStatus",width:"3",
 					formatter:function(cellvalue, options, rowObject){
@@ -56,8 +58,20 @@ var gridObj = {};
 				{name : "empNickName",label:"昵称",hidden : true,index : "empNickName",cellattr: function(rowId, value, rowObject, colModel, arrData) {
 	 		          return " style=display:none; ";
  		        }},
- 		       {name : "empEntryDate",label:"录入月份",width:"6",index : "empEntryDate"},
-				{name : "actualSalary",label:"员工成本",width:"4",index : "actual_salary", editable:true,number:true}			
+ 		      /*  {name : "empEntryDate",label:"录入月份",width:"6",index : "empEntryDate",
+ 		    	  formatter:'date',formatoptions: {newformat:'Y-m'}, 	
+ 		       	}, */
+ 		      /*  {name : "meritRaise",label:"贡献绩效总额",width:"4",index : "meritRaise",number:true}, */
+				{name : "actualSalary",label:"员工成本",width:"4",index : "actualSalary", editable:true,number:true},
+				/* {name : "rests",label:"奖金总额",width:"4",index : "rests",number:true}, */
+				/* {name : "pushMoney",label:"实际奖金总额",width:"4",index : "pushMoney",number:true,
+					cellattr : function(rowId, val, rawObject, cm, rdata){
+						if(rawObject['actualSalary']-rawObject['meritRaise']>0){
+				        	return "style='color:red'";
+				        }else{
+				        	return "style='color:green'";
+				        }
+			       	}} */
            	],
            	serializeGridData:function(postData){//添加查询条件值，把数据进行序列化
 				var obj = getQueryCondition();
@@ -126,9 +140,11 @@ var gridObj = {};
     	}
     }
     //获取创建日期方法
-    function getCreateDate(){
-    	var createDate = $("#createDateMonth").val()+"-01";
-    	$("#createDate").val(createDate);
+    function getCreateDate(_date){
+    	var createDate = _date;
+    	var _createDate =  new Date(createDate);
+    	var actual_createDate = _createDate.getFullYear()+"-"+(_createDate.getMonth().length>1?_createDate.getMonth():"0"+_createDate.getMonth())+"-01";
+    	$("#createDate").val(actual_createDate);
     }
     
     
@@ -158,8 +174,8 @@ var gridObj = {};
 			<div class="search border-bottom">
 				<ul>
 				<li style="width:450px;float:left;"><span>关键字:</span>
-					<input type="text" name="employeeName" id="employeeName" class="search_choose100" placeholder="员工姓名">
-					<input type="text" name="nickName" id="nickName" class="search_choose100" placeholder="员工昵称">
+					<input type="text" name="empName" id="empName" class="search_choose100" placeholder="员工姓名">
+					<input type="text" name="empNickName" id="nickName" class="search_choose100" placeholder="员工昵称">
 					<input type="text" name="empNo" id="empNo" class="search_choose100" placeholder="员工编号">
 				</li><!-- 输入框-->
 				<li>
@@ -174,7 +190,7 @@ var gridObj = {};
 				<li>
 					<span>月份:</span>
 					<div class="time_bg">
-						<input id="createDateMonth" type="text" class="search_time150" name="createDateMonth" onchange="getCreateDate()">
+						<input id="createDateMonth" type="text" class="search_time150" name="createDateMonth" onchange="getCreateDate($(this).val()+'-01')">
 						<input id="createDate" type="hidden" name="createDate">
 						<i class="search_time_ico2" onclick="WdatePicker({el:'createDateMonth'})"></i>
 					</div>

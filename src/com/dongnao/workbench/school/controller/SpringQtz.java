@@ -70,9 +70,6 @@ public class SpringQtz {
 	/*每个月月初更新上一个月的业绩到业绩统计表*/
 	protected void updatePerformance(){
 		Calendar calendar = Calendar.getInstance();
-		int month = calendar.get(Calendar.MONTH);  
-		if(month==0)month=12;
-		
 		Employee employee = new Employee();
 		employee.setDutyId("ddfd8fbf-e7fc-4768-a052-1b252e168344");//只统计讲师的成本
 		List<Employee> EmployeeList = employeeMapper.listByCondition(employee);
@@ -88,7 +85,7 @@ public class SpringQtz {
 			empPerformanceMapper.updatePerformance(performanceStiData);
 			performanceStiData.clear();
 			PerformanceStiData pf = new PerformanceStiData();
-			pf.setMonth(calendar.get(Calendar.YEAR) + "-" + month);
+			pf.setMonth(calendar.getTime());
 			performanceStiData = empPerformanceMapper.perSticlistByCondition(pf);
 			List<PerformanceStiData> perfSticUpdateDataList = new ArrayList<PerformanceStiData>();
 			for(int i = 0 ; i < performanceStiData.size() ; i++){

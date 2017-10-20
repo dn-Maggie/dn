@@ -173,6 +173,7 @@ public class EmpPerformanceController{
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/empPerformance/listEmpPerformance");
 		
 		UserInfo user = Utils.getLoginUserInfo(request);
+		Employee emp = employeeService.getByPrimaryKey(Utils.getLoginUserInfoId(request));
 		mv.addObject("user",user);
 		String userName = user.getUserAccount();
 		String roleId = user.getRoleId();
@@ -184,14 +185,19 @@ public class EmpPerformanceController{
 			mv.addObject("isAdmin",true);
 		}
 		
+		
 		Org org = new Org();
 		org.setParentOrgId("1");
 		if("06b4f5f2-ff20-446b-9c9a-05623c0bb76a".equals(roleId)||//部门负责人
 				"ad07dcf7-336b-4874-b574-d1eec4c21dba".equals(roleId)//部门营销负责人
 			){
 			mv.addObject("leader",true);
-			org.setOrgNo(employeeService.getByPrimaryKey(Utils.getLoginUserInfoId(request)).getDeptNo());
+			org.setOrgNo(emp.getDeptNo());
 			}
+		
+		if(emp!=null && "ddfd8fbf-e7fc-4768-a052-1b252e168344".equals(emp.getDutyId())){
+			mv.addObject("teacher",true);
+		}
 		mv.addObject("org",orgService.listByCondition(org));
 		mv.addObject("followers", standardService.getAllFollowerId());
 		return mv;
@@ -230,6 +236,20 @@ public class EmpPerformanceController{
 		List<EmpPerformance> list = empPerformanceService.listByCondition(empPerformance);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
+	
+	/**
+	 * 查询讲师成本与业绩
+	 */
+	@RequestMapping("/listEmpBonusCost")
+	public void listEmpBonusCost(EmpPerformance empPerformance,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		empPerformance.setPage(page);	
+		List<EmpPerformance> list = empPerformanceService.listEmpBonusCost(empPerformance);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
+	
 	
 	/**
 	 * 根据员工统计方法

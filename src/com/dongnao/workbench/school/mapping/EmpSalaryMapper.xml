@@ -301,9 +301,12 @@
 			,e.nick_name as empNickName
 			,e.curr_state as empStatus
 			,bo.org_name as empDept
-			,ps.cost as actual_salary
+			,ps.cost as actualSalary
+			,ps.emp_performance as meritRaise
+			,ps.bonus as rests
+			,ps.actual_bonus as pushMoney
 		FROM performance_statistics AS ps 
-		RIGHT JOIN  employee AS e ON ps.emp_id = e.id
+		left JOIN  employee AS e ON ps.emp_id = e.id
 		<if test="empStatus != null and '' != empStatus">  
 			and e.curr_state = #{empStatus,jdbcType=VARCHAR}
 		</if>
@@ -314,6 +317,12 @@
 		</if>
 		<if test="empId != null and '' != empId">  
 			and ps.emp_id = #{empId,jdbcType=VARCHAR}
+		</if>
+		<if test="empNo != null and '' != empNo">  
+			and e.emp_no = #{empNo,jdbcType=VARCHAR}
+		</if>
+		<if test="empName != null and '' != empName">  
+			and e.name = #{empName,jdbcType=VARCHAR}
 		</if>
 		<if test="empNickName != null and '' != empNickName">  
 			and e.nick_name = #{empNickName,jdbcType=TIMESTAMP}
@@ -437,7 +446,7 @@
 	</insert>
 	
 	
-	<insert id="addEmpCost" parameterType="com.dongnao.workbench.school.model.EmpSalary">
+	<!-- <insert id="addEmpCost" parameterType="com.dongnao.workbench.school.model.EmpSalary">
 		insert into performance_statistics (
 				id
 				,emp_id
@@ -446,16 +455,20 @@
 				,cost
 				,bonus
 				,actual_bonus
-		)values (
-			#{id,jdbcType=VARCHAR}
-			,#{empId,jdbcType=VARCHAR}
-			,DATE_FORMAT(#{createDate,jdbcType=TIMESTAMP},'%Y-%c-%d')
-			,#{trafficsubsidies,jdbcType=DECIMAL}
-			,#{allSocialSecurity,jdbcType=DECIMAL}
-			,#{trafficsubsidies,jdbcType=DECIMAL}
-			,#{allSocialSecurity,jdbcType=DECIMAL}
-		)
-	</insert>
+		)	SELECT
+				 CONCAT(DATE_FORMAT(#{empEntryDate,jdbcType=TIMESTAMP},'%Y-%c'),e.id)
+				,e.id
+				,DATE_FORMAT(#{empEntryDate,jdbcType=TIMESTAMP},'%Y-%c-%d')  as createDate
+				,(select sum(performance) from emp_performance where employee_id = e.id and DATE_FORMAT(create_date,'%Y-%c')= DATE_FORMAT(#{empEntryDate,jdbcType=TIMESTAMP},'%Y-%c')) as emp_performance
+				,af.money as cost
+				,(select sum(performance) from emp_performance_new where employee_id = e.id and DATE_FORMAT(create_date,'%Y-%c')=DATE_FORMAT(#{empEntryDate,jdbcType=TIMESTAMP},'%Y-%c')) as bonus
+				,(select sum(performance) from emp_performance_new where employee_id = e.id  and DATE_FORMAT(create_date,'%Y-%c')=DATE_FORMAT(#{empEntryDate,jdbcType=TIMESTAMP},'%Y-%c')) as actual_bonus
+			FROM employee AS e
+			LEFT JOIN  account_flow AS af ON af.emp_id = e.id and DATE_FORMAT(af.create_date,'%Y%c') = DATE_FORMAT(#{empEntryDate,jdbcType=TIMESTAMP},'%Y%c')
+			where e.duty_id = 'ddfd8fbf-e7fc-4768-a052-1b252e168344'
+			and af.account_no = 'GZZC'
+			ORDER BY e.id ASC
+	</insert> -->
 	
 	<insert id="addBatch" parameterType="java.util.List">
 	insert into emp_salary (
@@ -663,6 +676,23 @@
 		where id = #{id,jdbcType=VARCHAR} 
 	</update>
 	
+	<!-- <update id="updateEmpCostBonus" parameterType="com.dongnao.workbench.school.model.EmpSalary">
+		update performance_statistics 
+			 <trim prefix="set" suffixOverrides=",">
+				<if test="actualSalary != null and '' != actualSalary">  
+					cost = #{actualSalary,jdbcType=DECIMAL},
+					actual_bonus = (
+					CASE
+					WHEN emp_performance - cost > 0 THEN
+						bonus
+					ELSE
+						bonus/3
+					END
+				)
+				</if>
+			</trim>
+		where id = #{id,jdbcType=VARCHAR} 
+	</update> -->
 	<update id="audit" parameterType="com.dongnao.workbench.school.model.EmpSalary">
 		update emp_salary  set
 			id= #{id,jdbcType=VARCHAR}

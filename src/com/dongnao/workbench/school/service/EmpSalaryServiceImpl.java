@@ -138,6 +138,11 @@ public class EmpSalaryServiceImpl implements EmpSalaryService{
 		empSalaryMapper.addEmpCost(empSalary);
 		return AjaxUtils.getSuccessMessage();
 	}
+
+	@Override
+	public void updateEmpCostBonus(EmpSalary empSalary) {
+		empSalaryMapper.updateEmpCostBonus(empSalary);
+	}
 	
 
 	

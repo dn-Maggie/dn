@@ -162,7 +162,6 @@ function closeOwnVip() {
 
 //填充数据
 function drawForm(rowData) {
-	debugger
 	$('#edit_stuId').val(rowData.id);
 	$('#edit_stuName').val(rowData.name);
 	$('#edit_owePay').val(rowData.owePay);

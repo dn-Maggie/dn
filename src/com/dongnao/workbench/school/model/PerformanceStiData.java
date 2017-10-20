@@ -1,5 +1,7 @@
 package com.dongnao.workbench.school.model;
 
+import java.util.Date;
+
 import com.dongnao.workbench.common.bean.Model;
 
 /**
@@ -10,7 +12,7 @@ public class PerformanceStiData extends Model {
 	
 	private String id;
 	private String EmpId;
-	private String month;
+	private Date month;
 	private double money;
 	private double cost;
 	private double bonus;
@@ -27,10 +29,10 @@ public class PerformanceStiData extends Model {
 	public void setEmpId(String empId) {
 		EmpId = empId;
 	}
-	public String getMonth() {
+	public Date getMonth() {
 		return month;
 	}
-	public void setMonth(String month) {
+	public void setMonth(Date month) {
 		this.month = month;
 	}
 	public double getMoney() {

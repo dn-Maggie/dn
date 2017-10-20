@@ -90,5 +90,9 @@ public interface EmpPerformanceService  {
 	 * @return
 	 */
 	public List<EmpPerformance> selectNewNote(EmpPerformance ep);
+	/**
+	 * 获取讲师成本&业绩，在讲师个人业绩页面展示
+	 */
+	public List<EmpPerformance> listEmpBonusCost(EmpPerformance empPerformance);
 	
 }

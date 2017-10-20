@@ -107,7 +107,7 @@
 						<div  id="remote_prowed4"></div>
 					</div>
 				</c:if>
-				<c:if test="${!revenue}">
+				<c:if test="${!revenue&&!teacher}">
 					<div style="display:inline-block;width:98%;vertical-align: top;">
 						<table  id="remote_rowed" ></table>
 						<div  id="remote_prowed"></div>		
@@ -119,6 +119,24 @@
 					<div style="display:inline-block;width:48%;vertical-align: top;margin-left:2%">
 						<table id="emp_table2"></table>
 						<div id="remote_prowed3"></div>
+					</div>
+				</c:if>
+				<c:if test="${!revenue && teacher}">
+					<div style="display:inline-block;width:98%;vertical-align: top;">
+						<table  id="remote_rowed" ></table>
+						<div  id="remote_prowed"></div>		
+					</div>
+					<div style="display:inline-block;width:33%;vertical-align: top;">
+						<table id="emp_table"></table>
+						<div id="remote_prowed2"></div>
+					</div>
+					<div style="display:inline-block;width:33%;vertical-align: top;">
+						<table id="emp_table2"></table>
+						<div id="remote_prowed3"></div>
+					</div>
+					<div style="display:inline-block;width:32%;vertical-align: top;">
+						<table id="teacher_list"></table>
+						<div id="teacher_list_prowed"></div>
 					</div>
 				</c:if>
 			</div>
@@ -219,6 +237,42 @@
 				{name : "employeeName",label:"员工姓名",index : "employee_name",width:20, frozen : true},	 
 				{name : "nickName",label:"员工昵称",index : "nickName",width:20, frozen : true},
 				{name : "sum",label:"奖金总额",index : "sum",width:25,formatter:formCell,cellattr: addCellAttr},	
+           	],
+           	serializeGridData:function(postData){//添加查询条件值
+				var obj = getQueryCondition();
+    			$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
+    			return obj;
+    		},
+    		gridComplete:function(){//表格加载执行  
+			    $(this).closest(".ui-jqgrid-bdiv").css({'overflow-x' : 'hidden'});
+    		}
+    	  });
+  		
+  		teacherList = new biz.grid({
+            id:"#teacher_list",/*html部分table id*/
+          	url: "<m:url value='/empPerformance/listEmpBonusCost.do'/>",
+            datatype: "json",/*数据类型，设置为json数据，默认为json*/
+           	multiselect:true,
+           	multiboxonly:true,
+        	emptyrecords: "无记录可显示",
+           	pager: '#teacher_list_prowed' /*分页栏id*/,
+     		rowList:[10,15,50,100],//每页显示记录数
+    		rowNum:10,//默认显示15条
+ 			colModel:[
+				{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
+ 		       	{name : "stuJoinTime",label:"统计月份",width:"4",index : "stuJoinTime",
+ 		    	  formatter:'date',formatoptions: {newformat:'Y-m'}, 	
+ 		       	},
+ 		        {name : "performance",label:"贡献绩效总额",width:"4",index : "performance",number:true,hidden : true},
+				{name : "sum",label:"员工成本",width:"4",index : "sum", editable:true,number:true},
+				{name : "actualPay",label:"实际奖金总额",width:"4",index : "actualPay",number:true,
+					cellattr : function(rowId, val, rawObject, cm, rdata){
+						if(rawObject['sum']-rawObject['performance']>0){
+				        	return "style='color:red;font-weight:bold'";
+				        }else{
+				        	return "style='color:green;font-weight:bold'";
+				        }
+			       	}}	
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
@@ -375,6 +429,7 @@
     	if(!isStayCurrentPage)gridObj.setGridParam({"page":"1"});
     	gridObj.trigger('reloadGrid');
     	doSearchForEmpObj(isStayCurrentPage);
+    	doSearchForTeacherList(isStayCurrentPage)
     }
     function doSearchForEmpObj(isStayCurrentPage){
     	if(!isStayCurrentPage)
@@ -392,6 +447,12 @@
     	if(!isStayCurrentPage)
     		revenueObj.setGridParam({"page":"1"});
     	revenueObj.trigger('reloadGrid');
+    }
+    
+    function doSearchForTeacherList(isStayCurrentPage){
+    	if(!isStayCurrentPage)
+    	teacherList.setGridParam({"page":"1"});
+    	teacherList.trigger('reloadGrid');
     }
     //重置查询表单
     function resetForm(formId){

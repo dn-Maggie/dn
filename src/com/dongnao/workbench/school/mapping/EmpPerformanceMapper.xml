@@ -97,6 +97,24 @@
 		</if>
 	</select>
 	
+	
+	<select id="listEmpBonusCost" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
+		select
+				e.id
+				,e.name as employeeName
+				,DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c')  as stuJoinTime
+				,(select sum(performance) from emp_performance where employee_id = e.id and DATE_FORMAT(create_date,'%Y-%c')= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c')) as performance
+				,ps.cost as sum
+				,(select sum(performance) from emp_performance_new where employee_id = e.id and DATE_FORMAT(create_date,'%Y-%c')=DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c')) as shouldPay
+				,(select sum(performance) from emp_performance_new where employee_id = e.id  and DATE_FORMAT(create_date,'%Y-%c')=DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c')) as actualPay
+			FROM employee AS e
+			left join  performance_statistics AS ps ON ps.emp_id = e.id  and DATE_FORMAT(ps.month,'%Y-%c') =  DATE_FORMAT(DATE_SUB(#{propsMap.startDate,jdbcType=TIMESTAMP}, INTERVAL 1 MONTH),'%Y-%c')
+			where e.duty_id = 'ddfd8fbf-e7fc-4768-a052-1b252e168344'
+		<if test="employeeId != null and '' != employeeId">  
+			and e.id = #{employeeId,jdbcType=VARCHAR}
+		</if>
+	</select>
+	
 	<select id="listByEmployee" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
 		select
 			ep.employee_id,
@@ -475,25 +493,25 @@
 		insert into emp_performance_new (
 		<include refid="Base_Column_List" />
 		)values (
-														 #{id,jdbcType=VARCHAR}
-														,#{employeeId,jdbcType=VARCHAR}
-														,#{position,jdbcType=VARCHAR}
-														,#{shouldPay,jdbcType=DOUBLE}
-														,#{actualPay,jdbcType=DOUBLE}
-														,#{performance,jdbcType=DOUBLE}
-														,#{createDate,jdbcType=TIMESTAMP}
-														,#{note,jdbcType=VARCHAR}
-														,#{isPass,jdbcType=VARCHAR}
-														,#{stuId,jdbcType=VARCHAR}
+													 #{id,jdbcType=VARCHAR}
+													,#{employeeId,jdbcType=VARCHAR}
+													,#{position,jdbcType=VARCHAR}
+													,#{shouldPay,jdbcType=DOUBLE}
+													,#{actualPay,jdbcType=DOUBLE}
+													,#{performance,jdbcType=DOUBLE}
+													,#{createDate,jdbcType=TIMESTAMP}
+													,#{note,jdbcType=VARCHAR}
+													,#{isPass,jdbcType=VARCHAR}
+													,#{stuId,jdbcType=VARCHAR}
 									)
 	</insert>
 	
 	<insert id="updatePerformance" parameterType="java.util.List">
 		INSERT into performance_statistics (id,emp_id,month,emp_performance,cost,bonus,actual_bonus)values 
 		<foreach collection ="list" item="item" index= "index" separator =",">
-		(#{item.id,jdbcType=VARCHAR},#{item.EmpId,jdbcType=VARCHAR},(select DATE_FORMAT(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%c')),
+		(#{item.id,jdbcType=VARCHAR},#{item.EmpId,jdbcType=VARCHAR},(select DATE_FORMAT(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%c-%d')),
 		IFNULL((select sum(performance) from emp_performance where employee_id=#{item.EmpId,jdbcType=VARCHAR} and DATE_FORMAT(create_date,'%Y-%c')=(select DATE_FORMAT(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%c'))),0),
-		IFNULL((select a.cost from (select cost from performance_statistics where emp_id=#{item.EmpId,jdbcType=VARCHAR} and month=(select DATE_FORMAT(DATE_SUB(curdate(), INTERVAL 2 MONTH),'%Y-%c')))as a),0),
+		IFNULL((select a.cost from (select cost from performance_statistics where emp_id=#{item.EmpId,jdbcType=VARCHAR} and DATE_FORMAT(month,'%Y-%c')=(select DATE_FORMAT(DATE_SUB(curdate(), INTERVAL 2 MONTH),'%Y-%c')))as a),0),
 		IFNULL((select sum(performance) from emp_performance_new where employee_id=#{item.EmpId,jdbcType=VARCHAR} and DATE_FORMAT(create_date,'%Y-%c')=(select DATE_FORMAT(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%c'))),0),
 		IFNULL((select sum(performance) from emp_performance_new where employee_id=#{item.EmpId,jdbcType=VARCHAR} and DATE_FORMAT(create_date,'%Y-%c')=(select DATE_FORMAT(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%c'))),0)
 		)

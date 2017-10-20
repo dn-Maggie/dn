@@ -33,7 +33,7 @@ public class EmpPerformanceServiceImpl implements EmpPerformanceService{
 		empPerformanceMapper.add(empPerformance);
 		empPerformance.setPerformance(Double.parseDouble(empPerformance.getActualPay())*
 				Double.parseDouble(
-						empPerformance==null||empPerformance.getNewRate()==null?"0":empPerformance.getNewRate())
+						empPerformance==null||"".equals(empPerformance.getNewRate())?"0":empPerformance.getNewRate())
 				);
 		empPerformance.setNote(empPerformance.getActualPay()+"*"+empPerformance==null||empPerformance.getNewRate()==null?"0":empPerformance.getNewRate().toString());
 		empPerformanceMapper.addNewPerformance(empPerformance);
@@ -133,5 +133,11 @@ public class EmpPerformanceServiceImpl implements EmpPerformanceService{
 	public List<EmpPerformance> selectNewNote(EmpPerformance ep) {
 		// TODO Auto-generated method stub
 		return empPerformanceMapper.selectNewNote(ep);
+	}
+
+	@Override
+	public List<EmpPerformance> listEmpBonusCost(EmpPerformance empPerformance) {
+		// TODO Auto-generated method stub
+		return empPerformanceMapper.listEmpBonusCost(empPerformance);
 	}
 }

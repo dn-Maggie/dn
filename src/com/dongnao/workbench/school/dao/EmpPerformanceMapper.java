@@ -102,4 +102,7 @@ public interface EmpPerformanceMapper  {
 	
 	/*更新实际获得的奖金金额（贡献绩效小于成本时实际获得奖金金额为原来的三分之一）*/
 	public void updateActualBonus(PerformanceStiData performanceStiData);
+
+	/*获取讲师成本&业绩*/
+	public List<EmpPerformance> listEmpBonusCost(EmpPerformance empPerformance);
 }

@@ -92,4 +92,9 @@ public interface EmpSalaryMapper  {
 	 * @param empSalary EmpSalary：实体对象
 	 */	
 	public void addEmpCost(EmpSalary empSalary);
+	/**
+	 * 更新整个员工成本业绩
+	 * @param empSalary EmpSalary：实体对象
+	 */	
+	public void updateEmpCostBonus(EmpSalary empSalary);
 }

@@ -563,16 +563,8 @@ public class EmpSalaryController{
 	public void listEmpCost(EmpSalary empSalary,HttpServletRequest request,
 			HttpServletResponse response, Page page){
 		empSalary.setPage(page);	
-		empSalary.setEmpEntryDate(StringUtil.formatDateyyyyMMdd(DateUtil.now()));
 		List<EmpSalary> list = empSalaryService.listEmpCost(empSalary);
-		if(list.size()>0){
-			AjaxUtils.sendAjaxForPage(request, response, page, list);
-		}else{
-			empSalaryService.addEmpCost(empSalary);
-			list = empSalaryService.listEmpCost(empSalary);
-			AjaxUtils.sendAjaxForPage(request, response, page, list);
-		}
-		
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	
 	/**
