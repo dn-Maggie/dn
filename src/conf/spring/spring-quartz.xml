@@ -50,8 +50,8 @@
 			<ref bean="myJobDetail2" />
 		</property>
 		<property name="cronExpression">
-		<!-- 0 0/2 * * * ? -->
-			<value>0 0 2 1 1-12 ?</value>
+		<!--  0 0 2 1 1-12 ?-->
+			<value>0 37 11 * * ?</value>
 		</property>
 	</bean>
 

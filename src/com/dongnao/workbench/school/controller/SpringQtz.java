@@ -69,7 +69,7 @@ public class SpringQtz {
 	
 	/*每个月月初更新上一个月的业绩到业绩统计表*/
 	protected void updatePerformance(){
-		Calendar calendar = Calendar.getInstance();
+		Calendar c = Calendar.getInstance();
 		Employee employee = new Employee();
 		employee.setDutyId("ddfd8fbf-e7fc-4768-a052-1b252e168344");//只统计讲师的成本
 		List<Employee> EmployeeList = employeeMapper.listByCondition(employee);
@@ -85,15 +85,14 @@ public class SpringQtz {
 			empPerformanceMapper.updatePerformance(performanceStiData);
 			performanceStiData.clear();
 			PerformanceStiData pf = new PerformanceStiData();
-			pf.setMonth(calendar.getTime());
+			pf.setMonth(c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+"-"+c.get(Calendar.DAY_OF_MONTH));
 			performanceStiData = empPerformanceMapper.perSticlistByCondition(pf);
-			List<PerformanceStiData> perfSticUpdateDataList = new ArrayList<PerformanceStiData>();
 			for(int i = 0 ; i < performanceStiData.size() ; i++){
 				PerformanceStiData pfsd = performanceStiData.get(i);
-				if(pfsd.getMoney()>=pfsd.getCost())continue;
-				pfsd.setActualBonus(pfsd.getBonus()/3);
-				perfSticUpdateDataList.add(pfsd);
-				empPerformanceMapper.updateActualBonus(pfsd);
+				if(pfsd.getMoney()<pfsd.getCost()){
+					pfsd.setActualBonus(pfsd.getBonus()/3);
+					empPerformanceMapper.updateActualBonus(pfsd);
+				}	
 			}		
 		} catch (Exception e) {
 			e.printStackTrace();
