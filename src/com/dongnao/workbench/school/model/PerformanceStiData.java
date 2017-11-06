@@ -12,7 +12,7 @@ public class PerformanceStiData extends Model {
 	
 	private String id;
 	private String EmpId;
-	private Date month;
+	private String month;
 	private double money;
 	private double cost;
 	private double bonus;
@@ -29,10 +29,11 @@ public class PerformanceStiData extends Model {
 	public void setEmpId(String empId) {
 		EmpId = empId;
 	}
-	public Date getMonth() {
+	
+	public String getMonth() {
 		return month;
 	}
-	public void setMonth(Date month) {
+	public void setMonth(String month) {
 		this.month = month;
 	}
 	public double getMoney() {
