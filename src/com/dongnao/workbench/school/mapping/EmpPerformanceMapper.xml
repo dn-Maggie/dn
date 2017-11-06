@@ -351,7 +351,7 @@
 			and ep.emp_id = #{EmpId,jdbcType=VARCHAR}
 		</if>
 		<if test="month != null and '' != month">  
-			and ep.month = #{month,jdbcType=VARCHAR}
+			and DATE_FORMAT(ep.month,'%Y-%c') = DATE_FORMAT(#{month,jdbcType=VARCHAR},'%Y-%c')
 		</if>
 		<if test="orderFields != null and '' != orderFields">  
            	order by ${orderFields} ${order}
@@ -512,8 +512,8 @@
 		</foreach >		
 	</insert>
 	
-	<update id="updateActualBonus" parameterType="java.util.List">
-		update performance_statistics set actual_bonus =#{actualBonus,jdbcType=DOUBLE}
+	<update id="updateActualBonus" parameterType="com.dongnao.workbench.school.model.PerformanceStiData">
+		update performance_statistics set actual_bonus =truncate(#{actualBonus,jdbcType=DOUBLE},2) 
 		where id=#{id,jdbcType=VARCHAR}    
 	</update>
 	
