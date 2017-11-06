@@ -172,18 +172,6 @@ public class ContinuePayController{
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	
-	/**
-	 * 进入修改页面方法
-	 * @param key String：实体id
-	 * @return ModelAndView: 查询实体
-	 */	
-	@RequestMapping("/toEditContinuePay")
-	public ModelAndView toEdit(String key){
-		ContinuePay entity = continuePayService.getByPrimaryKey(key);
-		Map<String,String> continuePay = FormatEntity.getObjectValue(entity);
-		
-		return new ModelAndView("WEB-INF/jsp/continuePay/continuePay/editContinuePay","continuePay",continuePay );
-	}
 	
 	/**
 	 * 修改方法

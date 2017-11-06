@@ -1,65 +1,43 @@
 package com.dongnao.workbench.school.controller;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.*;
-import java.io.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.dongnao.workbench.account.model.AccountFinance;
-import com.dongnao.workbench.area.model.ChinaArea;
-import com.dongnao.workbench.area.service.ChinaAreaService;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.dongnao.workbench.basic.model.Duty;
 import com.dongnao.workbench.basic.model.Org;
 import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.basic.service.DutyLevelService;
 import com.dongnao.workbench.basic.service.DutyService;
 import com.dongnao.workbench.basic.service.OrgService;
-import com.dongnao.workbench.common.excel.ExcelExpUtils;
-import com.dongnao.workbench.common.excel.ExpParamBean;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
-import com.dongnao.workbench.common.util.DateUtil;
 import com.dongnao.workbench.common.util.Utils;
-import com.dongnao.workbench.continuePay.model.ContinuePay;
-import com.dongnao.workbench.course.model.Course;
-import com.dongnao.workbench.course.service.CourseService;
-import com.dongnao.workbench.fileUpload.FileUpload;
-import com.dongnao.workbench.nation.model.Nation;
-import com.dongnao.workbench.nation.service.NationService;
-import com.dongnao.workbench.salary.model.SalStandard;
-import com.dongnao.workbench.salary.service.SalStandardService;
-import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.school.model.CheckHtmlForm;
 import com.dongnao.workbench.school.model.EmpCheck;
-import com.dongnao.workbench.school.model.EmpSalary;
 import com.dongnao.workbench.school.model.Employee;
 import com.dongnao.workbench.school.service.EmpCheckService;
 import com.dongnao.workbench.school.service.EmployeeService;
-import com.dongnao.workbench.subject.model.Subject;
-import com.dongnao.workbench.system.model.DictInfo;
 import com.dongnao.workbench.system.service.DictInfoService;
-import com.dongnao.workbench.vipRefund.model.VipRefund;
-import com.dongnao.workbench.vipStudent.model.VipStudent;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 
 /**
@@ -80,13 +58,7 @@ public class EmpCheckController{
     @Resource
 	private EmpCheckService empCheckService;
     @Resource
-    private NationService nationService;
-    @Resource
-    private ChinaAreaService chinaAreaService;
-    @Resource
     private OrgService orgService;
-    @Resource
-    private SalStandardService salStandardService;
     @Resource
     private DictInfoService dictInfoService;
     @Resource

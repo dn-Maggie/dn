@@ -2,7 +2,8 @@ package com.dongnao.workbench.school.dao;
 
 import java.util.List;
 
-import com.dongnao.workbench.common.bean.ResultMessage;
+import com.dongnao.workbench.common.bean.ChinaArea;
+import com.dongnao.workbench.common.bean.Nation;
 import com.dongnao.workbench.school.model.Employee;
 /**
  * 描述：员工模块dao接口，提供数据库操作方法
@@ -73,4 +74,14 @@ public interface EmployeeMapper  {
 	 * @param key String:多个由“，”分割开的id字符串
 	 */
 	int checkNameValidation(String checkName);
+	/**
+	 * 获取所有民族信息
+	 */
+	public List<Nation> getAllNation();
+	/**
+	 * 根据pid查找省市区地域列表方法
+	 * @param 父地域的id
+	 * @return List<ChinaArea>: 实体对象的list
+	 */
+	public List<ChinaArea> selectByPid(Integer pid);
 }

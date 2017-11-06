@@ -4,9 +4,7 @@
 <head>
 <%@ include file="../../common/header.jsp"%>
 </head>
-
 <body>
-
 	<div id="editDialog">
 		<form id="dutyFormEdit">
 			<div class="ui-table ui-widget ui-corner-all ui-border">
@@ -29,7 +27,6 @@
 								</c:forEach>
 							</select>
 						</td>
-						
 					</tr>
 					<tr>
 						<td class="inputLabelTd">岗位名称：</td>
@@ -39,7 +36,6 @@
 						<td class="inputLabelTd">职能描述：</td>
 						<td class="inputTd"><input id="edit_dutyDesc" name="dutyDesc"
 							type="text" class="text" value="${duty.dutyDesc}" /></td>
-						
 					</tr>
 					<tr>
 						<td class="inputLabelTd">岗位类型：</td>
@@ -48,16 +44,6 @@
 							value="${duty.dutyTypeName}" /> <input id="dutyType"
 							name="dutyType" type="hidden" class="text"
 							value="${duty.dutyType}" /></td>
-						<%-- <td class="inputLabelTd">岗位级别：</td>
-						<td class="inputTd">
-							<select class="input_select">
-			           			<c:forEach var="dutyLevel" items="${dutyLevelList}">
-			           				<option><c:out value="${dutyLevel.levelType}${dutyLevel.levelName}"></c:out></option>
-			           			</c:forEach>
-			           		</select>
-			           		<a class="dutyLevelOption" href="javascript:0" onclick="addDutyLevel()">新增 </a>
-			           		<a class="dutyLevelOption" href="javascript:0" onclick="deleteDutyLevel()">删除 </a>
-						</td> --%>
 					</tr>
 					<tr>
 						<td class="inputTd" colspan="4" style="text-align: center;">

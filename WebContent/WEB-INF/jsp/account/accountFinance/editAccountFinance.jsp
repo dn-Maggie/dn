@@ -1,3 +1,4 @@
+<%@page import="com.dongnao.workbench.common.enums.FinanceType"%>
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html  >
 <html>
@@ -19,7 +20,7 @@ $(function() {
 					if(d.status){
 						showMessage(d.message,"","",function(){
 							window.parent.closeEdit();
-				     		window.parent.doSearch();
+							List.doSearch(window.parent.gridObj);
 						});
 					}else{
 						showMessage(d.message);
@@ -59,7 +60,12 @@ $(function() {
 			<tr>
 				<td class="inputLabelTd">科目类型：</td>
 				<td class="inputTd">
-					<input id="edit_accountType" name="accountType" type="text" class="text" value="${accountFinance.accountType}"/>
+					<select id="groupFinanceType" name="accountType" >
+						<option value="">--请选择--</option>
+						<c:forEach items="<%=FinanceType.values() %>" var="status">
+							<option value="${status.value}" <c:if test="${accountFinance.accountType eq status.value}" >selected</c:if>>${status.name}</option>
+						</c:forEach>
+					</select> 
 				</td>
 				<td class="inputLabelTd">科目说明：</td>
 				<td class="inputTd">

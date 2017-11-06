@@ -43,11 +43,11 @@ public class OrgServiceImpl implements OrgService {
 	 *            :实体类
 	 */
 	public ResultMessage add(Org org) {
-//		ResultMessage rm=new ResultMessage();
-//		rm.setStatus(Constant.RESULTMESSAGE_STATUS_1);
-		orgMapper.add(org);
-//		return rm;
-		return AjaxUtils.getSuccessMessage();
+		if(orgMapper.add(org)>0){
+			return AjaxUtils.getSuccessMessage();
+		}else{
+			return AjaxUtils.getFailureMessage("插入数据失败");
+		}
 	}
 
 	/**
@@ -106,10 +106,12 @@ public class OrgServiceImpl implements OrgService {
 	 *            Org 实体对象
 	 */
 	public ResultMessage update(Org org) {
-		ResultMessage rm=new ResultMessage();
-		rm.setStatus(Constant.RESULTMESSAGE_STATUS_1);
-		orgMapper.update(org);
-		return rm;
+		
+		if(orgMapper.update(org)>0){
+			return AjaxUtils.getSuccessMessage();
+		}else{
+			return AjaxUtils.getFailureMessage("插入数据失败");
+		}
 	}
 
 	/*
@@ -141,11 +143,8 @@ public class OrgServiceImpl implements OrgService {
 		JSONObject jsonObj;
 		for (Org o : orgs) {
 			jsonObj = new JSONObject();
-//			if (o.getParentOrgId() == null
-//					|| StringUtil.equals("0", o.getParentOrgId())) {
 			jsonObj.put("open", "true");
 			jsonObj.put("isParent", "true");
-//			}
 			jsonObj.put("id", o.getId());
 			jsonObj.put("pId", o.getParentOrgId());
 			jsonObj.put("name", o.getOrgName());

@@ -1,5 +1,4 @@
-<%@ page language="java" pageEncoding="UTF-8"
-	contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -16,9 +15,7 @@
 	$(function() {
 		initDutyTree();
 		//岗位选类型择
-		dutyTypeNameBox = $('#dutyTypeName')
-				.TiledCombobox(
-						{
+		dutyTypeNameBox = $('#dutyTypeName').TiledCombobox({
 							url : "<m:url value='/dictInfo/getDictInfoByType.do?type=dutyType'/>",
 							fieldId : 'value',
 							fieldName : 'name',
@@ -97,80 +94,41 @@
 	var show_iframe_dialog;
 
 	function add() {
-
 		var url = "<m:url value='/duty/toAddDuty.do'/>?pid="+$('#pid').val();
-		add_iframe_dialog = new biz.dialog(
-				{
-					id : $('<div id="addwindow_iframe"></div>')
-							.html(
-									'<iframe id="iframeAdd" name="iframeAdd" src="'
-											+ url
-											+ '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
-					modal : true,
-					width : 870,
-					height :235,
-					title : "岗位信息增加"
-				});
-		add_iframe_dialog.open();
+		var title = "岗位信息增加";
+		add_iframe_dialog = Add.create(url, title,870,235);
+		List.openDialog(add_iframe_dialog);
 	}
 
 	//关闭新增页面，供子页面调用
 	function closeAdd() {
-		add_iframe_dialog.close();
+		List.closeDialog(add_iframe_dialog,gridObj);
 	}
 
 	function edit() {
 		var key = ICSS.utils.getSelectRowData("id");
-		if (key.indexOf(",") > -1 || key == "") {
-			showMessage("请选择一条数据！");
-			return;
-		}
-		var url = "<m:url value='/duty/toEditDuty.do'/>?key=" + key;
-		edit_iframe_dialog = new biz.dialog(
-				{
-					id : $('<div id="editwindow_iframe"></div>')
-							.html(
-									'<iframe id="iframeEdit" name="iframeEdit" src="'
-											+ url
-											+ '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
-					modal : true,
-					width : 870,
-					height : 255,
-					title : "岗位信息编辑"
-				});
-		edit_iframe_dialog.open();
+		var url = "<m:url value='/duty/toEditDuty.do'/>";
+		var title = "岗位信息编辑";
+		edit_iframe_dialog = Edit.create(key, url, title,870,255);
+		List.openDialog(edit_iframe_dialog);
 	}
 
 	//关闭编辑页面，供子页面调用
 	function closeEdit() {
-		edit_iframe_dialog.close();
+		List.closeDialog(edit_iframe_dialog,gridObj);
 	}
 
 	function show() {
 		var key = ICSS.utils.getSelectRowData("id");
-		if (key.indexOf(",") > -1 || key == "") {
-			showMessage("请选择一条数据！");
-			return;
-		}
-		var url = "<m:url value='/duty/toShowDuty.do'/>?key=" + key;
-		show_iframe_dialog = new biz.dialog(
-				{
-					id : $('<div id="showwindow_iframe"></div>')
-							.html(
-									'<iframe id="iframeShow" name="iframeShow" src="'
-											+ url
-											+ '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
-					modal : true,
-					width : 600,
-					height : 255,
-					title : "岗位信息详情"
-				});
-		show_iframe_dialog.open();
+		var url = "<m:url value='/duty/toShowDuty.do'/>";
+		var title = "岗位信息详情";
+		show_iframe_dialog = Show.create(key, url, title,600,255);
+		List.openDialog(show_iframe_dialog);
 	}
 
 	//关闭查看页面，供子页面调用
 	function closeShow() {
-		show_iframe_dialog.close();
+		List.closeDialog(show_iframe_dialog);
 	}
 
 	//查询Grid数据
@@ -192,39 +150,15 @@
 
 	//删除
 	function batchDelete() {
-		var ids = ICSS.utils.getSelectRowData("id");
-		if (ids == "") {
-			showMessage("请至少选择一条数据！");
-			return;
-		} else {
-			new biz.alert({
-				type : "confirm",
-				message : I18N.msg_del_confirm,
-				title : I18N.promp,
-				callback : function(result) {
-					if (result) {
-						$.ajax({
-							url : "<m:url value='/duty/deleteDuty.do'/>?key="
-									+ ids,
-							cache : false,
-							success : function(data, textStatus, jqXHR) {
-								doSearch();
-								showInfo("删除成功", 3000);
-							}
-						});
-					}
-				}
-			});
-		}
+		var id = ICSS.utils.getSelectRowData("id");
+		var url = "<m:url value='/duty/deleteDuty.do'/>";
+		List.batchDelete(id, url,gridObj);
 	}
 
 	function initDutyTree() {
 		$.ajax({
-// 			url : "<m:url value='/duty/initDutyTree.do'/>",
 			url : "<m:url value='/org/initOrgTree.do'/>",
 			data : {
-			//regionName : $('#regionName').val(),
-			//provinceName : $('#provinceName').val()
 			},
 			type : "POST",
 			success : function(data, textStatus, jqXHR) {
@@ -233,22 +167,15 @@
 					id : "#dutyTree",
 					nodes : $.parseJSON(data), //数据节点指定     
 					view : {
-						//addHoverDom : addHoverDom,
-						//removeHoverDom : removeHoverDom,
 						selectedMulti : false
 					},
-					edit : {
-					//enable : true,
-					//editNameSelectAll : true
-					},
+					edit : {},
 					data : {
 						simpleData : {
 							enable : true
 						}
 					},
 					callback : {
-						//beforeEditName : beforeEditName,
-						//beforeRemove : beforeRemove,
 						onClick : treeOnClick
 					}
 				};
@@ -256,7 +183,7 @@
 			}
 		});
 	}
-	function treeOnClick(event, treeId, treeNode) {//
+	function treeOnClick(event, treeId, treeNode) {
 		$("#pid").val(treeNode.id);
 		doSearch();
 	}
@@ -302,13 +229,6 @@
 							name="dutyType" type="hidden" class="text"
 							value="${duty.dutyType}" />
 						</li>
-<!-- 						<li class="w200"><span>岗位级别：</span> <select -->
-<!-- 							name="dutySort" id="dutySort" class="search_choose100"> -->
-<!-- 							   <option value="">--请选择--</option> -->
-<!-- 								<option value="1">集团级</option> -->
-<!-- 								<option value="2">省级</option> -->
-<!-- 								<option value="3">分公司级</option> -->
-<!-- 						</select></li> -->
 						
 						<!-- 输入框-->
 

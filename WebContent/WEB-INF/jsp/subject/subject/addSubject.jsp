@@ -35,6 +35,7 @@
 $(function() {
 	//绑定提交按钮click事件
 	$("#submit").click(function() {
+		debugger
 		if(!biz.validate("valid",$('#subjectFormEdit')[0])){
 			showWarn("数据验证失败",3000);
 			return;
@@ -44,10 +45,11 @@ $(function() {
 			type : "post",
 				dataType:"json",
 				success : function(d) {
+					debugger
 					if(d.status){
 						showMessage(d.message,"","",function(){
 							window.parent.closeAdd();
-				     		window.parent.doSearch();
+							List.doSearch(window.parent.gridObj);
 						});
 					}else{
 						showMessage(d.message);
@@ -62,9 +64,8 @@ $(function() {
 	new biz.validate({
 		id:"#subjectFormEdit",
 		rules:{
-			"name" : {
-				required : true
-			},
+			"name" : {required : true},
+			"perfTarget":{required : true}
 		}
 	}); 
 });

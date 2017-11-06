@@ -112,8 +112,23 @@ public interface VipStudentService  {
 	 * @return List<VipStudent> 实体对象的list
 	 */
 	public List<VipStudent> sumAllmoney(VipStudent vipStudent);
-
+	/**
+	 * 获取学员表所有学员数量、应收款项、实收款项和欠款
+	 * @param vipStudent
+	 * @return
+	 */
 	public List<Statistical> getTotal(VipStudent vipStudent);
+	/**
+	 * 从意向过来报名的学员
+	 */
+	public List<VipStudent> listVipStudentFromMarket(VipStudent vipStudent);
+
+	/**
+	 * 获取学员的QQ，发送邮件
+	 * @param stu
+	 * @return
+	 */
+	public List<VipStudent> listSendEmail(VipStudent stu);
 	
 	
 }

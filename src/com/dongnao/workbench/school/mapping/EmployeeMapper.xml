@@ -46,6 +46,15 @@
 		<result column="probation" property="probation" jdbcType="VARCHAR" />
 		<result column="not_dining" property="notDining" jdbcType="CHAR" />
 	</resultMap>
+	<resultMap id="NationResultMap" type="com.dongnao.workbench.common.bean.Nation">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="nation_name" property="nationName" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="AreaResultMap" type="com.dongnao.workbench.common.bean.ChinaArea">
+		<id column="Id" property="id" jdbcType="INTEGER" />
+		<result column="Name" property="name" jdbcType="VARCHAR" />
+		<result column="Pid" property="pid" jdbcType="INTEGER" />
+	</resultMap>
 	<sql id="Base_Column_List">
 	 				id,
 	 				emp_no,
@@ -143,6 +152,13 @@
 		from employee as e
 		LEFT join basic_org bo on e.dept_no = bo.org_no
 		where e.id = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 获取所有民族 -->
+	<select id="getAllNation" resultMap="NationResultMap" parameterType="java.lang.String">
+		select 
+		*
+		from china_nation
 	</select>
 	
 	<select id="getEmpByEmpNo" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -584,5 +600,14 @@
 	
 	<select id="checkNameValidation" resultType="java.lang.Integer" parameterType="java.lang.String">
 		select count(*) from employee where name=#{checkName,jdbcType=VARCHAR} or nick_name=#{checkName,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectByPid" resultMap="AreaResultMap" parameterType="com.dongnao.workbench.common.bean.ChinaArea">
+		select
+			Id
+			,Name
+			,Pid
+		from CHINA_AREA
+		where 1=1 and id!=0 and Pid = #{pid,jdbcType=INTEGER}
 	</select>
 </mapper>

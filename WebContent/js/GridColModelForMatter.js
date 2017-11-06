@@ -1,12 +1,12 @@
 GridColModelForMatter = {
-	// 计划附件状态
+	//计划附件状态
 	fjFlag : function(cellvalue, options, cellObject) {
 		if (cellvalue == "0")
 			return "无";
 		else
 			return "有";
 	},
-	// 主计划审核状态
+	//审核状态
 	groupCkStatus : function(cellvalue, options, cellObject) {
 		if (cellvalue == "0") {
 			return '<i value="0" class="state_icons icon_noaudit"></i>待审核';
@@ -17,12 +17,17 @@ GridColModelForMatter = {
 		}
 
 	},
-	issuanceType : function(cellvalue, options, cellObject) {
-		if (cellvalue == "1") {
-			return '普通发行';
-		} else if (cellvalue == "2") {
-			return '增发';
-		}
+	//资产状态
+	fixedPropertyState : function(cellvalue, options, cellObject) {
+		 if (cellvalue==1) {
+			 	return '使用中';
+		 }else if (cellvalue==2) {
+		 	return '维修中';
+		 }else if(cellvalue==3){
+			return '已报废';
+		 }else if(cellvalue==4){
+			return '停用中';
+		 }
 	},
 	dutySort : function(cellvalue, options, cellObject) {
 		if (cellvalue == "1") {

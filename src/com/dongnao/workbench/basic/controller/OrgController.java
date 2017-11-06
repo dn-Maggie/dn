@@ -155,10 +155,7 @@ public class OrgController{
 	public void update(Org org,HttpServletResponse response,HttpServletRequest request){
 		org.setUpdated(DateUtil.now());
 		org.setUpdatedby(Utils.getLoginUser(request));
-		orgService.update(org);
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("msg", "成功");
-		AjaxUtils.sendAjaxForMap(response, map);
+		AjaxUtils.sendAjaxForObjectStr(response,orgService.update(org));
 	}
 	
 }

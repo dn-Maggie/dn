@@ -15,7 +15,7 @@ public interface OrgMapper  {
 	 * 新增组织机构方法
 	 * @param org Org:实体类
 	 */
-	void add(Org org);
+	int add(Org org);
 	
 	/**
 	 * 删除组织机构方法
@@ -48,5 +48,5 @@ public interface OrgMapper  {
 	 * 修改组织机构方法
 	 * @param org Org：实体对象
 	 */	
-	public void update(Org org);
+	public int update(Org org);
 }

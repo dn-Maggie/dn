@@ -6,64 +6,36 @@
 <title></title>
 <script type="text/javascript">
 var gridObj = {};
+
+var Model = {
+		url: "<m:url value='/fixedAsset/listFixedAsset.do'/>",
+		colModel:[
+					{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
+					{name : "assetNo",label:"资产编号",index : "asset_no"},				
+					{name : "assetName",label:"资产名称",index : "asset_name"},	
+					{name : "useOrg",label:"使用部门",index : "use_org"},
+					{name : "workNumber",label:"使用人",index : "work_number"},
+					{name : "assetItemId",label:"资产项目名称",index : "asset_item_id"},				
+					{name : "model",label:"规格型号",index : "model"},				
+					{name : "beginDate",label:"开始使用日期",index : "begin_date"},				
+					{name : "initialValue",label:"资产原值",index : "initial_value"},		
+					{name : "perDepred",index : "per_depred",label:"本期折旧 "},	
+					{name : "propertyState",label:"资产状态 ",index : "property_state",align:"center",formatter:GridColModelForMatter.fixedPropertyState}	
+	           	]
+		};
 	$(function(){
-  		gridObj = new biz.grid({
-            id:"#remote_rowed",/*html部分table id*/
-            url: "<m:url value='/fixedAsset/listFixedAsset.do'/>",/*grid初始化请求数据的远程地址*/
-            datatype: "json",/*数据类型，设置为json数据，默认为json*/
-           	sortname:"asset_no",
-           	sortorder:"asc",
-           	multiselect:true,
-           	multiboxonly:true,
-           	pager: '#remote_prowed' /*分页栏id*/,
-     		rowList:[10,15,50,100],//每页显示记录数
-    		rowNum:10,//默认显示15条
-            colModel:[
-				{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
-				{name : "assetNo",label:"资产编号",index : "asset_no"},				
-				{name : "assetName",label:"资产名称",index : "asset_name"},	
-				{name : "useOrg",label:"使用部门",index : "use_org"},
-				{name : "workNumber",label:"使用人",index : "work_number"},
-				{name : "assetItemId",label:"资产项目名称",index : "asset_item_id"},				
-				{name : "model",label:"规格型号",index : "model"},				
-				{name : "beginDate",label:"开始使用日期",index : "begin_date"},				
-				{name : "initialValue",label:"资产原值",index : "initial_value"},		
-				{name : "perDepred",label:"本期折旧 "},	
-				{name : "propertyState",label:"资产状态 ",align:"center",
-					formatter:function(cellvalue, options, rowObject){
-	 				 if (cellvalue==1) {
-		 				 	return '使用中';
-		 				 }else if (cellvalue==2) {
-		 				 	return '维修中';
-		 				 }else if(cellvalue==3){
-		 					return '已报废';
-		 				 }else if(cellvalue==4){
-		 					return '停用中';
-		 				 }
-		 			}}	
-           	],
-           	serializeGridData:function(postData){//添加查询条件值
-				var obj = getQueryCondition();
-    			$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
-    			return obj;
-    		}
-      });
-        
-	new biz.datepicker({
+  		gridObj =  List.createGrid(Model.url,Model.colModel,"asset_no", false);
+		new biz.datepicker({
   			id : "#startDate",
   			maxDate:'#F{$dp.$D(\'endDate\',{d:0});}',
   			dateFmt:'yyyy-MM-dd'
   		});
-  	    
   	    new biz.datepicker({
   			id : "#endDate",
   			minDate:'#F{$dp.$D(\'startDate\',{d:0});}',
   			dateFmt:'yyyy-MM-dd'
   		});
     });
-
- 
-
     //新增的弹出框
 	var add_iframe_dialog;
 	//修改的弹出框
@@ -78,121 +50,79 @@ var gridObj = {};
 	var recovery_iframe_dialog;
   	
   	function add(){
-  	//xin zeng iframe 弹出框
-		var url="<m:url value='/fixedAsset/toAddFixedAsset.do'/>";
-		add_iframe_dialog = new biz.dialog({
-			id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: $(window).width()*0.8,
-			height:$(window).height()*0.8,
-			title: "公司资源信息增加"
-		});
-		add_iframe_dialog.open();
+  		var url = "<m:url value='/fixedAsset/toAddFixedAsset.do'/>";
+		var title = "公司资源信息增加";
+		add_iframe_dialog = Add.create(url, title,$(window).width()*0.8,$(window).height()*0.8);
+		List.openDialog(add_iframe_dialog);
   	}
   	
   	//关闭新增页面，供子页面调用
   	function closeAdd(){
-		add_iframe_dialog.close();
+  		List.closeDialog(add_iframe_dialog,gridObj);
   	}
   	
     function edit(){
-		var key = ICSS.utils.getSelectRowData("id");
-		if(key.indexOf(",")>-1||key==""){
-			showMessage("请选择一条数据！");
-			return ;
-		}
-		var url="<m:url value='/fixedAsset/toEditFixedAsset.do'/>?key="+key;
-		edit_iframe_dialog = new biz.dialog({
-		 	id:$('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: $(window).width()*0.8,
-			height:$(window).height()*0.8,
-			title: "公司资源信息编辑"
-		});
-  		edit_iframe_dialog.open();
+    	var key = ICSS.utils.getSelectRowData("id");
+		var url = "<m:url value='/fixedAsset/toEditFixedAsset.do'/>";
+		var title = "公司资源信息编辑";
+		edit_iframe_dialog = Edit.create(key, url, title,$(window).width()*0.8,$(window).height()*0.8);
+		List.openDialog(edit_iframe_dialog);
     }
     
     //关闭编辑页面，供子页面调用
     function closeEdit(){
-    	edit_iframe_dialog.close();
+    	List.closeDialog(edit_iframe_dialog,gridObj);
     }
     
     function show(){
     	var key = ICSS.utils.getSelectRowData("id");
-		if(key.indexOf(",")>-1||key==""){
-			showMessage("请选择一条数据！");
-			return ;
-		}
-		var url="<m:url value='/fixedAsset/toShowFixedAsset.do'/>?key="+key;
-		show_iframe_dialog = new biz.dialog({
-		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: $(window).width()*0.6,
-			height:$(window).height()*0.67,
-				title: "公司资源信息详情"
-		});
-  		show_iframe_dialog.open();
+		var url = "<m:url value='/fixedAsset/toShowFixedAsset.do'/>";
+		var title = "公司资源信息详情";
+		show_iframe_dialog = Show.create(key, url, title,$(window).width()*0.6,$(window).height()*0.67);
+		List.openDialog(show_iframe_dialog);
     }
     
     //关闭查看页面，供子页面调用
     function closeShow(){
-    	show_iframe_dialog.close();
+    	List.closeDialog(show_iframe_dialog);
     }
     
+    //计提折旧
     function depre(){
     	var key = ICSS.utils.getSelectRowData("id");
-		if(key.indexOf(",")>-1||key==""){
-			showMessage("请选择一条数据！");
-			return ;
-		}
-		var url="<m:url value='/fixedAsset/toShowFixedAsset.do'/>?key="+key;
-		depre_iframe_dialog = new biz.dialog({
-		 	id:$('<div id="deprewindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: $(window).width()*0.6,
-			height:$(window).height()*0.67,
-				title: "计提折旧"
-		});
-		depre_iframe_dialog.open();
+		var url = "<m:url value='/fixedAsset/toShowFixedAsset.do'/>";
+		var title = "计提折旧";
+		depre_iframe_dialog = Edit.create(key, url, title,$(window).width()*0.6,$(window).height()*0.67);
+		List.openDialog(depre_iframe_dialog);
     }
     
     //关闭查看页面，供子页面调用
     function closeDepre(){
-    	depre_iframe_dialog.close();
+    	List.closeDialog(depre_iframe_dialog);
     }
-    
+    //添加资产项目
     function assetitem(){
-		var url="<m:url value='/fixedAsset/toAddAssetItem.do'/>";
-		assetitem_iframe_dialog = new biz.dialog({
-		 	id:$('<div id="assetitemwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: $(window).width()*0.35,
-			height:$(window).height()*0.6,
-				title: "添加资产项目"
-		});
-		assetitem_iframe_dialog.open();
+    	var url = "<m:url value='/fixedAsset/toAddAssetItem.do'/>";
+		var title = "添加资产项目";
+		assetitem_iframe_dialog = Add.create(url, title,$(window).width()*0.35,$(window).height()*0.6);
+		List.openDialog(assetitem_iframe_dialog);
     }
     
     //关闭查看页面，供子页面调用
     function closeAssetitem(){
-    	assetitem_iframe_dialog.close();
+    	List.closeDialog(assetitem_iframe_dialog);
     }
-    
+    //待回收的资源
     function recovery(){
-		var url="<m:url value='/fixedAsset/toRecovery.do'/>";
-		recovery_iframe_dialog = new biz.dialog({
-		 	id:$('<div id="recoverywindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: $(window).width()*0.6,
-			height:$(window).height()*0.45,
-				title: "待回收的资源"
-		});
-		recovery_iframe_dialog.open();
+    	var url="<m:url value='/fixedAsset/toRecovery.do'/>";
+		var title = "待回收的资源";
+		recovery_iframe_dialog = Add.create(url, title,$(window).width()*0.6,$(window).height()*0.45);
+		List.openDialog(recovery_iframe_dialog);
     }
     
     //关闭查看页面，供子页面调用
     function closeRecovery(){
-    	recovery_iframe_dialog.close();
+    	List.closeDialog(recovery_iframe_dialog);
     }
     
     
@@ -208,36 +138,11 @@ var gridObj = {};
         });
 		return obj;
     }
-    //查询Grid数据
-    function doSearch(isStayCurrentPage){
-    	if(!isStayCurrentPage)gridObj.setGridParam({"page":"1"});
-    	gridObj.trigger('reloadGrid');
-    }
-    //重置查询表单
-    function resetForm(formId){
-		document.getElementById(formId).reset();
-	}
-    
     //删除
     function batchDelete(){
-    	var ids = ICSS.utils.getSelectRowData("id");
-    	if(ids==""){
-    		showMessage("请至少选择一条数据！");
-    		return ;
-    	}else{
-    		new biz.alert({type:"confirm",message:I18N.msg_del_confirm,title:I18N.promp,callback:function(result){
-    			if(result){
-    				$ .ajax({
-        				url: "<m:url value='/fixedAsset/deleteFixedAsset.do'/>?key="+ids,
-        				cache:false,
-        				success: function(data, textStatus, jqXHR){
-        					doSearch();
-    						showInfo("删除成功",3000);
-        				}
-        			});
-    			}
-    		}}) ;   
-    	}
+    	var id = ICSS.utils.getSelectRowData("id");
+		var url = "<m:url value='/fixedAsset/deleteFixedAsset.do'/>";
+		List.batchDelete(id, url,gridObj);
     }
     </script>
 </head>
@@ -256,16 +161,16 @@ var gridObj = {};
 				<li class="date_area">
 					<span>使用日期:</span>
 					<div class="time_bg">
-						<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate">
+						<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']">
 						<i class="search_time_ico2"></i>
 					</div>
 					<i>至</i>
 					<div class="time_bg">
-						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" mainid="endDate">
+						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']">
 						<i class="search_time_ico2"></i>
 					</div></li>	
 				 <li style="width: 300px"><span>资产项目名称:</span>
-					<select class="input_select text" name="assetItemId" id="edit_assetType" mainid="assetType" >
+					<select class="input_select text" name="assetItemId" id="edit_assetType">
 						<option value="">所有</option>
 							<c:forEach var="assetItem" items="${assetItem}">
 							<option value="${assetItem.id}">${assetItem.assetName}</option>
@@ -273,7 +178,7 @@ var gridObj = {};
 					</select>
 				</li>
 				 <li style="width: 300px"><span>资产状态:</span>
-					<select class="input_select text" name="propertyState" id="edit_propertyState" mainid="propertyState">
+					<select class="input_select text" name="propertyState" id="edit_propertyState">
 							<option value="">所有</option>
 							<option value="1">使用中</option>
 							<option value="4">停用中</option>
@@ -281,8 +186,8 @@ var gridObj = {};
 							<option value="3">已报废</option>
 					</select>
 				</li>
-				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
-						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
+				<li><input type="reset" class="reset_btn" onclick="List.resetForm('queryForm')" value="重置"><!-- 重置 -->
+						<input type="button" class="search_btn mr22 " onclick="List.doSearch(gridObj);" value="查询"></li><!-- 查询-->
 				</ul>
 		   </div>
 	    </form>
@@ -311,7 +216,7 @@ var gridObj = {};
 							onclick="show();"> <i class="icon_bg icon_ckxq"></i> <span><m:message
 										code="button.view" /></span>
 						</a></li>
-<%-- 						<c:if test="${manage}">
+<%-- 					<c:if test="${manage}">
 						<li><a title="计提折旧" href="javascript:"
 							onclick=";"> <i class="icon_bg icon_submit"></i> <span>计提折旧</span>
 						</a></li>

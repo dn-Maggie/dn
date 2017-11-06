@@ -30,7 +30,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td class="inputLabelTd">科目类型：</td>
-				<td class="inputTd">${accountFinance.accountType}</td>
+				<td class="inputTd">
+					<select name="accountType" disabled="disabled">
+						<option <c:if test="${accountFinance.accountType eq 1}" >selected</c:if>>借[收入]</option>
+						<option <c:if test="${accountFinance.accountType eq 2}" >selected</c:if>>贷[支出]</option>
+					</select> 
+				</td>
 				<td class="inputLabelTd">科目说明：</td>
 				<td class="inputTd">${accountFinance.intro}</td>
 			</tr>

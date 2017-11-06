@@ -7,9 +7,9 @@
 <script type="text/javascript">
 var gridObj = {};
 	$(function(){
-
+		search();
         
-	new biz.datepicker({
+	 	new biz.datepicker({
   			id : "#startDate",
   			maxDate:'#F{$dp.$D(\'endDate\',{d:0});}',
   			dateFmt:'yyyy-MM-dd'
@@ -71,7 +71,7 @@ var gridObj = {};
     function search(){
   		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
-            url: "<m:url value='/vipStudent/listVipStudent.do'/>",
+            url: "<m:url value='/vipStudent/listVipStudentFromMarket.do'/>",
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
            	sortname:"join_time",
            	sortorder:"desc",
@@ -111,7 +111,28 @@ var gridObj = {};
 		<form id="queryForm"><!-- 查询区 表单 -->
 			<div class="search border-bottom">
 				<ul>
+				<li style="width:160px;"><input type="text" name="name" id="name" class="search_choose" style="width:80px;"> <span>学员姓名:</span></li><!-- 输入框-->
 				<li style="width:160px;"><input type="text" name="qq" id="qq" class="search_choose" style="width:80px;"> <span>QQ号码:</span></li><!-- 输入框-->
+				<li style="width:160px;">
+						<select class="search_choose" name="subjectId" id="subjectId" mainid="subjectId" style="width:80px;">
+						<option value="">-请选择-</option>
+						<c:forEach var="mr" items="${er.subject}">
+							<option value="${mr.id}"> <c:out value="${mr.name}"></c:out> </option>
+			            </c:forEach>
+					</select><span>报名学科:</span>
+				</li><!-- 输入框-->
+				<li class="date_area">
+								<span>报名日期:</span>
+									<div class="time_bg">
+										<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate">			
+										<i class="search_time_ico2" onclick="WdatePicker({el:'startDate'})"></i>
+									</div>
+								<i>至</i>
+									<div class="time_bg">
+										<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" mainid="endDate">
+										<i class="search_time_ico2" onclick="WdatePicker({el:'endDate'})"></i>
+									</div>
+								</li>
 				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
 						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
 						

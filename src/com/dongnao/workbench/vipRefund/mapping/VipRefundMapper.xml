@@ -3,32 +3,41 @@
 <mapper namespace="com.dongnao.workbench.vipRefund.dao.VipRefundMapper">
 	<resultMap id="BaseResultMap" type="com.dongnao.workbench.vipRefund.model.VipRefund">
 		<id column="id" property="id" jdbcType="VARCHAR" />
-												<result column="stu_id" property="stuId" jdbcType="VARCHAR" />
-												<result column="stu_name" property="stuName" jdbcType="VARCHAR" />
-												<result column="refund" property="refund" jdbcType="DOUBLE" />
-												<result column="reason" property="reason" jdbcType="VARCHAR" />
-												<result column="time" property="time" jdbcType="TIMESTAMP" />
-												<result column="operator" property="operator" jdbcType="VARCHAR" />
-												<result column="notes" property="notes" jdbcType="VARCHAR" />
-												<result column="is_count" property="isCount" jdbcType="VARCHAR" />
-								</resultMap>
+		<result column="stu_id" property="stuId" jdbcType="VARCHAR" />
+		<result column="stu_name" property="stuName" jdbcType="VARCHAR" />
+		<result column="refund" property="refund" jdbcType="DOUBLE" />
+		<result column="reason" property="reason" jdbcType="VARCHAR" />
+		<result column="time" property="time" jdbcType="TIMESTAMP" />
+		<result column="operator" property="operator" jdbcType="VARCHAR" />
+		<result column="notes" property="notes" jdbcType="VARCHAR" />
+		<result column="is_count" property="isCount" jdbcType="VARCHAR" />
+	</resultMap>
 	<sql id="Base_Column_List">
-						 	id
-										,stu_id
-										,stu_name
-										,refund
-										,reason
-										,time
-										,operator
-										,notes
-										,is_count
-						</sql>
+	 	id
+		,stu_id
+		,stu_name
+		,refund
+		,reason
+		,time
+		,operator
+		,notes
+		,is_count
+	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
-		select
-		<include refid="Base_Column_List" />
-		from vip_refund
-		where id = #{id,jdbcType=VARCHAR}
+		select 
+			vr.id,
+			vr.stu_id,
+			vr.stu_name,
+			vr.refund,
+			vr.reason,
+			vr.time,
+			e.nick_name as operator,
+			vr.notes,
+			vr.is_count
+		from vip_refund as vr
+		LEFT JOIN employee as e on e.id = vr.operator 
+		where vr.id = #{id,jdbcType=VARCHAR}
 	</select>
 	
 	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.vipRefund.model.VipRefund">
@@ -147,21 +156,21 @@
 		insert into vip_refund (
 		<include refid="Base_Column_List" />
 		)values (
-										#{id,jdbcType=VARCHAR}
-										,#{stuId,jdbcType=VARCHAR}
-										,#{stuName,jdbcType=VARCHAR}
-										,#{refund,jdbcType=DOUBLE}
-										,#{reason,jdbcType=VARCHAR}
-										,#{time,jdbcType=TIMESTAMP}
-										,#{operator,jdbcType=VARCHAR}
-										,#{notes,jdbcType=VARCHAR}
-										,#{isCount,jdbcType=VARCHAR}
-									)
+			#{id,jdbcType=VARCHAR}
+			,#{stuId,jdbcType=VARCHAR}
+			,#{stuName,jdbcType=VARCHAR}
+			,#{refund,jdbcType=DOUBLE}
+			,#{reason,jdbcType=VARCHAR}
+			,#{time,jdbcType=TIMESTAMP}
+			,#{operator,jdbcType=VARCHAR}
+			,#{notes,jdbcType=VARCHAR}
+			,#{isCount,jdbcType=VARCHAR}
+		)
 	</insert>
 	
 	<update id="update" parameterType="com.dongnao.workbench.vipRefund.model.VipRefund">
 		update vip_refund  set
-							is_count = #{isCount,jdbcType=VARCHAR}
-							where id = #{id,jdbcType=VARCHAR}
+			is_count = #{isCount,jdbcType=VARCHAR}
+			where id = #{id,jdbcType=VARCHAR}
 	</update>
 </mapper>

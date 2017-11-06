@@ -20,7 +20,7 @@ $(function() {
 				if(d.status){
 					showMessage(d.message,"","",function(){
 						window.parent.closeEdit();
-			     		window.parent.doSearch();
+						List.doSearch(window.parent.gridObj);
 					});
 				}else{
 					showMessage(d.message);
@@ -39,7 +39,6 @@ $(function() {
 		rules:{
 			"orgNo" : {
 				required : true,
-				alnumline : true,
 				maxlength : 50
 			},
 			"orgName" : {

@@ -105,7 +105,9 @@
 	
 
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
-		select a.parent_name as comSourceName, a.sub_name as sourceSubclass,
+		select 
+			a.parent_name as comSourceName,
+			a.sub_name as sourceSubclass,
 		<include refid="Base_Column_List" />
 		from vip_student as v
 		left join (select distinct parent_id,parent_name,sub_id,sub_name from emp_appraisal_standard ) a on v.com_source=a.parent_id and v.source_subclass=a.sub_id
@@ -143,7 +145,7 @@
 		 	vip_student
 		WHERE DATE_FORMAT(join_time,'%Y%m%D') like CONCAT('%',#{today,jdbcType=VARCHAR},'%') limit 0,1
 	</select>
-	
+	<!-- 获取学员表所有学员数量、应收款项、实收款项和欠款 -->
 	<select id="getTotal" resultType="com.dongnao.workbench.vipStudent.model.Statistical" parameterType="com.dongnao.workbench.vipStudent.model.VipStudent">
 		SELECT 
 			COUNT(*) cnt,
@@ -235,8 +237,7 @@
 								(SELECT  count(DISTINCT qq) as s12 FROM `vip_student` where  join_time like concat('%',#{year,jdbcType=VARCHAR},'-12%')<if test="subjectName != null and '' != subjectName">and subject_name = #{subjectName,jdbcType=VARCHAR}</if>) as s12) 
 	</select>
 	
-	<select id="getByStu" resultMap="BaseResultMap"
-		parameterType="com.dongnao.workbench.vipStudent.model.VipStudent">
+	<select id="getByStu" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.vipStudent.model.VipStudent">
 		select 
 		<include refid="Base_Column_List" />
 		from 
@@ -254,8 +255,7 @@
 	</select>
 	
 	
-	<select id="listByCondition" resultMap="BaseResultMap"
-		parameterType="com.dongnao.workbench.vipStudent.model.VipStudent">
+	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.vipStudent.model.VipStudent">
 		select 
 			a1.*,
 			v1.*,
@@ -382,6 +382,139 @@
 			order by ${orderFields} ${order}
 		</if>
 	</select>
+	
+	 <!-- 获取学员的QQ，发送邮件 -->
+	<select id="listSendEmail" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.vipStudent.model.VipStudent">
+		select 
+		`NAME`,qq,qq_nick,join_time,subject_name
+		from 
+			vip_student v1 
+		where id not in (
+			SELECT stu_id from vip_refund
+		)
+		<if test="name != null and '' != name">
+			and v1.NAME like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="age != null and '' != age">
+			and age = #{age,jdbcType=INTEGER}
+		</if>
+		<if test="phone != null and '' != phone">
+			and phone like CONCAT('%',#{phone,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="qq != null and '' != qq">
+			and v1.qq = #{qq,jdbcType=VARCHAR}
+		</if>
+		<if test="qqNick != null and '' != qqNick">
+			and v1.qq_nick like CONCAT('%',#{qqNick,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="payerName != null and '' != payerName">
+			and v1.payer_name = #{payerName,jdbcType=VARCHAR}
+		</if>
+		<if test="subjectName != null and '' != subjectName">
+			and v1.subject_name  = #{subjectName,jdbcType=VARCHAR}
+		</if>
+		<if test="shouldPay != null and '' != shouldPay">
+			and should_pay = #{shouldPay,jdbcType=DOUBLE}
+		</if>
+		<if test="actualPay != null and '' != actualPay">
+			and actual_pay = #{actualPay,jdbcType=DOUBLE}
+		</if>
+		<if test="owePay != null and '' != owePay">
+			and v1.owe_pay > #{owePay,jdbcType=DOUBLE}
+		</if>
+		<if test="isGoclass != null and '' != isGoclass">
+			and is_goclass = #{isGoclass,jdbcType=INTEGER}
+		</if>
+		<if test="notes != null and '' != notes">
+			and notes = #{notes,jdbcType=VARCHAR}
+		</if>
+		<if test="currStatus != null and '' != currStatus">  
+			and curr_status = #{currStatus,jdbcType=VARCHAR}
+		</if>
+		<if test="isCount != null and '' != isCount">  
+			and is_count = #{isCount,jdbcType=VARCHAR}
+		</if>
+		<if test="joinTime != null and '' != joinTime">
+			and join_time = #{joinTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="null != propsMap.startDate and propsMap.startDate != ''">
+			<![CDATA[
+			and DATE_FORMAT(join_time,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
+			]]>
+		</if>
+		<if test="null != propsMap.endDate and propsMap.endDate != ''">
+			<![CDATA[
+				and DATE_FORMAT(join_time,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
+			]]>
+		</if>
+		<if test="null != minOwePay and minOwePay != ''">
+			and owe_pay > #{minOwePay,jdbcType=DOUBLE}
+		</if>
+		<if test="comSource != null and '' != comSource">  
+			and com_source = #{comSource,jdbcType=VARCHAR}
+		</if>
+		<if test="sourceSubclass != null and '' != sourceSubclass">  
+			and source_subclass = #{sourceSubclass,jdbcType=VARCHAR}
+		</if>
+		<![CDATA[
+		and DATE_FORMAT(join_time,'%y%m') = DATE_FORMAT('2017-09-04 22:20:39','%y%m')
+		]]>
+		GROUP BY v1.qq
+		ORDER BY v1.join_time ASC
+	</select>
+	
+	
+	
+	
+	<select id="listVipStudentFromMarket" resultMap="BaseResultMap"
+		parameterType="com.dongnao.workbench.vipStudent.model.VipStudent">
+		select 
+			v.*
+		from 
+			vip_student v
+		WHERE v.qq IN (SELECT qq from market_student)
+		<if test="id != null and '' != id">
+			and v.id = #{id,jdbcType=VARCHAR}
+		</if>
+		<if test="name != null and '' != name">
+			and v.NAME like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="age != null and '' != age">
+			and age = #{age,jdbcType=INTEGER}
+		</if>
+		<if test="phone != null and '' != phone">
+			and phone like CONCAT('%',#{phone,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="qq != null and '' != qq">
+			and v.qq like CONCAT('%',#{qq,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="qqNick != null and '' != qqNick">
+			and v.qq_nick like CONCAT('%',#{qqNick,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="subjectId != null and '' != subjectId">
+			and v.subject_id like CONCAT('%',#{subjectId,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="subjectName != null and '' != subjectName">
+			and v.subject_name like CONCAT('%',#{subjectName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="joinTime != null and '' != joinTime">
+			and join_time = #{joinTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="null != propsMap.startDate and propsMap.startDate != ''">
+			<![CDATA[
+			and DATE_FORMAT(join_time,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
+			]]>
+		</if>
+		<if test="null != propsMap.endDate and propsMap.endDate != ''">
+			<![CDATA[
+				and DATE_FORMAT(join_time,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
+			]]>
+		</if>
+		<if test="orderFields != null and '' != orderFields">
+			order by ${orderFields} ${order}
+		</if>
+	</select>
+	
 	
 	<select id="listCntByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.vipStudent.model.VipStudent">		
 		SELECT * FROM( 

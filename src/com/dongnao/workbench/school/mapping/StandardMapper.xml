@@ -57,7 +57,7 @@
 			and position_id = #{positionId,jdbcType=VARCHAR}
 		</if>
 		<if test="position != null and '' != position">  
-			and position = #{position,jdbcType=VARCHAR}
+			and position like CONCAT('%',#{position,jdbcType=VARCHAR},'%') 
 		</if>
 		<if test="note != null and '' != note">  
 			and note = #{note,jdbcType=VARCHAR}

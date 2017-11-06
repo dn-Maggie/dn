@@ -36,7 +36,6 @@ $(function() {
       });
 	
 	$("#submit").click(function() {
-		/* $("#submit").prop('disabled', true).css({'cursor':'not-allowed'}); */
 		if(!biz.validate("valid",$('#fixedAssetFormEdit')[0])){
 			showWarn("数据验证失败",3000);
 			$("#submit").prop('disabled', false).css({'cursor':'pointer'});

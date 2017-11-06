@@ -22,7 +22,7 @@ import com.dongnao.workbench.vipStudent.model.VipStudent;
  */
 @Service("vipStudentService")
 public class VipStudentServiceImpl implements VipStudentService{
-        @Resource
+    @Resource
 	private VipStudentMapper vipStudentMapper;
 	
  
@@ -155,7 +155,11 @@ public class VipStudentServiceImpl implements VipStudentService{
 	public List<VipStudent> sumAllmoney(VipStudent vipStudent) {
 		return vipStudentMapper.sumAllmoney(vipStudent);
 	}
-
+	/**
+	 * 获取学员表所有学员数量、应收款项、实收款项和欠款
+	 * @param vipStudent
+	 * @return
+	 */
 	public List<Statistical> getTotal(VipStudent vipStudent) {
 		return vipStudentMapper.getTotal(vipStudent);
 	}
@@ -166,6 +170,22 @@ public class VipStudentServiceImpl implements VipStudentService{
 	@Override
 	public StudentBarData getStudentBarData(StudentBarData studentBarData) {
 		 return vipStudentMapper.getStudentBarData(studentBarData);
+	}
+
+	/**
+	 * 从意向过来报名的学员
+	 */
+	public List<VipStudent> listVipStudentFromMarket(VipStudent vipStudent) {
+		return vipStudentMapper.listVipStudentFromMarket(vipStudent);
+	}
+
+	/**
+	 * 获取学员的QQ，发送邮件
+	 * @param stu
+	 * @return
+	 */
+	public List<VipStudent> listSendEmail(VipStudent stu) {
+		return vipStudentMapper.listSendEmail(stu);
 	}
 
 

@@ -3,36 +3,52 @@
 <mapper namespace="com.dongnao.workbench.continuePay.dao.ContinuePayMapper">
 	<resultMap id="BaseResultMap" type="com.dongnao.workbench.continuePay.model.ContinuePay">
 		<id column="id" property="id" jdbcType="VARCHAR" />
-													<result column="stu_id" property="stuId" jdbcType="VARCHAR" />
-													<result column="stu_name" property="stuName" jdbcType="VARCHAR" />
-													<result column="money" property="money" jdbcType="DOUBLE" />
-													<result column="operator" property="operator" jdbcType="VARCHAR" />
-													<result column="TIME" property="time" jdbcType="TIMESTAMP" />
-													<result column="notes" property="notes" jdbcType="VARCHAR" />
-													<result column="is_count" property="isCount" jdbcType="VARCHAR" />
-													<result column="subject_id" property="subjectId" jdbcType="VARCHAR" />
-													<result column="course_id" property="courseId" jdbcType="VARCHAR" />
-									</resultMap>
+		<result column="stu_id" property="stuId" jdbcType="VARCHAR" />
+		<result column="stu_name" property="stuName" jdbcType="VARCHAR" />
+		<result column="money" property="money" jdbcType="DOUBLE" />
+		<result column="operator" property="operator" jdbcType="VARCHAR" />
+		<result column="TIME" property="time" jdbcType="TIMESTAMP" />
+		<result column="notes" property="notes" jdbcType="VARCHAR" />
+		<result column="is_count" property="isCount" jdbcType="VARCHAR" />
+		<result column="subject_id" property="subjectId" jdbcType="VARCHAR" />
+		<result column="course_id" property="courseId" jdbcType="VARCHAR" />
+	</resultMap>
 	<sql id="Base_Column_List">
-						 				id
-										,stu_id
-										,stu_name
-										,money
-										,operator
-										,TIME
-										,notes
-										,is_count
-										,subject_id
-										,course_id
-						</sql>
+		id
+		,stu_id
+		,stu_name
+		,money
+		,operator
+		,TIME
+		,notes
+		,is_count
+		,subject_id
+		,course_id
+	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
-		c.*,v.qq as qq,v.name as stuname,b.full_name as fullname
-		from vip_continue_pay as c left join vip_student as v on c.stu_id=v.id left join basic_user_info as b on c.operator=b.id
+			c.id,
+			c.stu_id,
+			c.stu_name,
+			c.money,
+			e.nick_name as operator,
+			c.TIME,
+			c.notes,
+			c.is_count,
+			c.subject_id,
+			c.course_id,
+			v.qq as qq,
+			v.name as stuname,
+			b.full_name as fullname
+		from vip_continue_pay as c
+		LEFT JOIN vip_student as v on c.stu_id=v.id 
+		LEFT JOIN basic_user_info as b on c.operator=b.id
+		LEFT JOIN employee e ON e.id = c.operator
 		where c.id = #{id,jdbcType=VARCHAR}
 	</select>
 	
+	<!-- 获取补款统计数据 -->
 	<select id="getStatistical" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.continuePay.model.ContinuePay">
 		SELECT 
 			SUM(c.money) as money 
@@ -164,22 +180,22 @@
 		insert into vip_continue_pay (
 		<include refid="Base_Column_List" />
 		)values (
-										 #{id,jdbcType=VARCHAR}
-										,#{stuId,jdbcType=VARCHAR}
-										,#{stuName,jdbcType=VARCHAR}
-										,#{money,jdbcType=DOUBLE}
-										,#{operator,jdbcType=VARCHAR}
-										,#{time,jdbcType=TIMESTAMP}
-										,#{notes,jdbcType=VARCHAR}
-										,#{isCount,jdbcType=VARCHAR}
-										,#{subjectId,jdbcType=VARCHAR}
-										,#{courseId,jdbcType=VARCHAR}
-									)
+			 #{id,jdbcType=VARCHAR}
+			,#{stuId,jdbcType=VARCHAR}
+			,#{stuName,jdbcType=VARCHAR}
+			,#{money,jdbcType=DOUBLE}
+			,#{operator,jdbcType=VARCHAR}
+			,#{time,jdbcType=TIMESTAMP}
+			,#{notes,jdbcType=VARCHAR}
+			,#{isCount,jdbcType=VARCHAR}
+			,#{subjectId,jdbcType=VARCHAR}
+			,#{courseId,jdbcType=VARCHAR}
+		)
 	</insert>
 	
 	<update id="update" parameterType="com.dongnao.workbench.continuePay.model.ContinuePay">
 		update vip_continue_pay  set
-							is_count = #{isCount,jdbcType=VARCHAR}
-							where id = #{id,jdbcType=VARCHAR}
+			is_count = #{isCount,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
 	</update>
 </mapper>

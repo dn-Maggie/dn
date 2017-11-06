@@ -151,7 +151,6 @@ public class VipStudentController {
 		vipStudent.setEnterEmp(Utils.getLoginUserInfoId(request));
 		vipStudentService.add(vipStudent);
 		AjaxUtils.sendAjaxForObjectStr(response,vipStudentService.getByPrimaryKey(vipStudent.getId()));
-//		AjaxUtils.sendAjaxForObjectStr(response,vipStudentService.add(vipStudent));
 	}
 
 	/**
@@ -234,6 +233,20 @@ public class VipStudentController {
 			Page page) {
 		vipStudent.setPage(page);
 		List<VipStudent> list = vipStudentService.listByCondition(vipStudent);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
+	/**
+	 * 从意向过来报名的学员
+	 * @param vipStudent
+	 * @param request
+	 * @param response
+	 * @param page
+	 */
+	@RequestMapping("/listVipStudentFromMarket")
+	public void listVipStudentFromMarket(VipStudent vipStudent, HttpServletRequest request, HttpServletResponse response,
+			Page page) {
+		vipStudent.setPage(page);
+		List<VipStudent> list = vipStudentService.listVipStudentFromMarket(vipStudent);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	
@@ -363,22 +376,6 @@ public class VipStudentController {
 		AjaxUtils.sendAjaxForObjectStr(response, vipStudentService.updateOwe(vipStudent));
 	}
 	
-	/**
-	 * 获取欠费学员列表方法
-	 * 
-	 * @param vipStudent
-	 *            VipStudent：实体对象
-	 * @param response
-	 *            HttpServletResponse
-	 * @return: ajax输入json字符串
-	 */
-	@RequestMapping("/listOwnVipStudent")
-	public void listByOwn(VipStudent vipStudent,HttpServletRequest request,
-			HttpServletResponse response, Page page){		
-		vipStudent.setPage(page);	
-		List<VipStudent> list = vipStudentService.listByOwn();
-		AjaxUtils.sendAjaxForPage(request, response, page, list);
-	}
 	
 	
 	
@@ -449,6 +446,12 @@ public class VipStudentController {
 	@RequestMapping("/toListAVipStudent")
 	public ModelAndView toListA(HttpServletRequest request) {
 		Map<String,Object> model = new HashMap<String,Object>();	
+		Map<String,List> er = new HashMap<String, List>();
+ 		List<Subject> list = subjectService.listByCondition(new Subject());
+ 		
+ 		er.put("subject", list);
+ 		model.put("er", er);
+		
 		return new ModelAndView("WEB-INF/jsp/vipStudent/vipStudent/listAVipStudent",model);
 	}
 	

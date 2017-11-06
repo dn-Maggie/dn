@@ -1,6 +1,9 @@
 package com.dongnao.workbench.school.service;
 
 import java.util.List;
+
+import com.dongnao.workbench.common.bean.ChinaArea;
+import com.dongnao.workbench.common.bean.Nation;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.school.model.Employee;
 
@@ -74,4 +77,15 @@ public interface EmployeeService  {
 	 * 
 	 */
 	public int checkNameValidation(String checkName);
+	/**
+	 *获取所有名族信息 
+	 */
+	public List<Nation> getAllNation();
+	
+	/**
+	 * 根据父区域返回下面的所有子区域集合对象
+	 * @param pid String：父级区域的id
+	 * @return List<ChinaArea>根据pid查询出来的结果，最终以json格式相应客户端
+	 */	
+	public List<ChinaArea> loadAreaByParent(Integer pid);
 }

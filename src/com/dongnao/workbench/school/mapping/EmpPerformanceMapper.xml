@@ -31,11 +31,13 @@
 		<result column="actual_bonus" property="actualBonus" jdbcType="DOUBLE" />
 	</resultMap>
 	<sql id="Base_Column_List">
-						 	id
+							id
 							,employee_id
 							,position
 							,should_pay
 							,actual_pay
+							,com_source
+							,source_subclass
 							,performance
 							,create_date
 							,note
@@ -361,7 +363,6 @@
 			note
 		FROM
 			emp_performance_new
-	
 		WHERE
 			1 = 1
 		<if test="employeeId != null and '' != employeeId">  
@@ -454,7 +455,7 @@
 	
 	<delete id="deleteNewByStuId" parameterType="java.lang.String">
 		delete from emp_performance_new
-		where is_pass="未清算"
+			where is_pass="未清算"
 		<if test="_parameter!=null and _parameter!=''"> 
 			AND DATE_FORMAT(create_date,'%Y-%m') = DATE_FORMAT(#{createDate,jdbcType=VARCHAR},'%Y-%m')
 		</if>
@@ -464,23 +465,15 @@
 	</delete>
 	
 	<insert id="add" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
-		insert into emp_performance (
-							id
-							,employee_id
-							,position
-							,should_pay
-							,actual_pay
-							,performance
-							,create_date
-							,note
-							,is_pass
-							,stu_id
-		)values (
+		insert into emp_performance (<include refid="Base_Column_List" />)
+			values (
 							 #{id,jdbcType=VARCHAR}
 							,#{employeeId,jdbcType=VARCHAR}
 							,#{position,jdbcType=VARCHAR}
 							,#{shouldPay,jdbcType=DOUBLE}
 							,#{actualPay,jdbcType=DOUBLE}
+							,#{comSource,jdbcType=VARCHAR}
+							,#{sourceSubclass,jdbcType=VARCHAR}
 							,#{performance,jdbcType=DOUBLE}
 							,#{createDate,jdbcType=TIMESTAMP}
 							,#{note,jdbcType=VARCHAR}
@@ -490,20 +483,21 @@
 	</insert>
 	
 	<insert id="addNewPerformance" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
-		insert into emp_performance_new (
-		<include refid="Base_Column_List" />
-		)values (
-													 #{id,jdbcType=VARCHAR}
-													,#{employeeId,jdbcType=VARCHAR}
-													,#{position,jdbcType=VARCHAR}
-													,#{shouldPay,jdbcType=DOUBLE}
-													,#{actualPay,jdbcType=DOUBLE}
-													,#{performance,jdbcType=DOUBLE}
-													,#{createDate,jdbcType=TIMESTAMP}
-													,#{note,jdbcType=VARCHAR}
-													,#{isPass,jdbcType=VARCHAR}
-													,#{stuId,jdbcType=VARCHAR}
-									)
+		insert into emp_performance_new (<include refid="Base_Column_List" />)
+			values (
+							 #{id,jdbcType=VARCHAR}
+							,#{employeeId,jdbcType=VARCHAR}
+							,#{position,jdbcType=VARCHAR}
+							,#{shouldPay,jdbcType=DOUBLE}
+							,#{actualPay,jdbcType=DOUBLE}
+							,#{comSource,jdbcType=VARCHAR}
+							,#{sourceSubclass,jdbcType=VARCHAR}
+							,#{performance,jdbcType=DOUBLE}
+							,#{createDate,jdbcType=TIMESTAMP}
+							,#{note,jdbcType=VARCHAR}
+							,#{isPass,jdbcType=VARCHAR}
+							,#{stuId,jdbcType=VARCHAR}
+			)
 	</insert>
 	
 	<insert id="updatePerformance" parameterType="java.util.List">
@@ -526,22 +520,22 @@
 	
 	<update id="update" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
 		update emp_performance  set
-		ID= #{id,jdbcType=VARCHAR}
-											,employee_id = #{employeeId,jdbcType=VARCHAR}
-											,position = #{position,jdbcType=VARCHAR}
-											,performance = #{performance,jdbcType=DOUBLE}
-											,actual_pay = #{actualPay,jdbcType=DOUBLE}
-											,note = #{note,jdbcType=VARCHAR}
-											,is_pass= #{isPass,jdbcType=VARCHAR}
-											,stu_id = #{stuId,jdbcType=VARCHAR}
-											,create_date = #{createDate,jdbcType=TIMESTAMP}
-							where id = #{id,jdbcType=VARCHAR}
+				ID= #{id,jdbcType=VARCHAR}
+				,employee_id = #{employeeId,jdbcType=VARCHAR}
+				,position = #{position,jdbcType=VARCHAR}
+				,performance = #{performance,jdbcType=DOUBLE}
+				,actual_pay = #{actualPay,jdbcType=DOUBLE}
+				,note = #{note,jdbcType=VARCHAR}
+				,is_pass= #{isPass,jdbcType=VARCHAR}
+				,stu_id = #{stuId,jdbcType=VARCHAR}
+				,create_date = #{createDate,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=VARCHAR}
 	</update>
 	
 	<update id="settleByKey" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
 		update emp_performance  set 
-									is_pass= "已清算"
-									where id = #{id,jdbcType=VARCHAR}
+			is_pass= "已清算"
+		where id = #{id,jdbcType=VARCHAR}
 	</update>
 	
 </mapper>

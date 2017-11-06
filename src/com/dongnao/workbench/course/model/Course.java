@@ -23,7 +23,9 @@ public class Course extends Model{
 	                 **/
 				   			private String name;
 		   		
-		            /**
+		           
+
+					/**
 	                 * 所属学科ID
 	                 **/
 				   			private String subjectId;
@@ -72,8 +74,8 @@ public class Course extends Model{
 		
 			
 						
-		  			/**
-			 * 获取 所属学科
+  			/**
+			 * 获取 所属学科Id
 			 * @return String this.subjectId
 			 */
 			public String getSubjectId(){
@@ -81,14 +83,25 @@ public class Course extends Model{
 			}
 			
 			/**
-			 * 设置 所属学科
+			 * 设置 所属学科Id
 			 * @param String subjectId 
 			 */
 			public void setSubjectId(String subjectId){
 				this.subjectId = subjectId;
 			}
-		   		
+			
+			/**
+			 * 获取 所属学科名
+			 * @return String this.subjectId
+			 */
+			public String getSubjectName() {
+				return subjectName;
+			}
 
+			/**
+			 * 设置 所属学科名
+			 * @param String subjectId 
+			 */
 			public void setSubjectName(String subjectName) {
 				this.subjectName = subjectName;
 			}

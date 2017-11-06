@@ -355,9 +355,11 @@
 	</update>
 	
 	<update id="recovery" parameterType="com.dongnao.workbench.account.model.FixedAsset">
-		update company_property cp set
-		work_number = #{workNumber,jdbcType=VARCHAR}
-		,property_state = #{propertyState,jdbcType=INTEGER}
-		where  cp.work_number in(select emp_no from employee where curr_state=3)
+		update company_property cp 
+		set
+			 work_number = #{workNumber,jdbcType=VARCHAR}
+			,property_state = #{propertyState,jdbcType=INTEGER}
+		where  
+			cp.work_number in(select emp_no from employee where curr_state=3)
 	</update>
 </mapper>

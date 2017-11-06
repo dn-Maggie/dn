@@ -1,13 +1,16 @@
 package com.dongnao.workbench.school.service;
-import javax.annotation.Resource;
 import java.util.List;
-import com.dongnao.workbench.school.dao.EmployeeMapper;
-import com.dongnao.workbench.school.model.Employee;
-import com.dongnao.workbench.school.service.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
+
+import com.dongnao.workbench.common.bean.ChinaArea;
+import com.dongnao.workbench.common.bean.Nation;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.util.AjaxUtils;
+import com.dongnao.workbench.school.dao.EmployeeMapper;
+import com.dongnao.workbench.school.model.Employee;
  
 /**
  * 描述：员工模块service接口实现类，实现service接口方法
@@ -119,5 +122,18 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public int checkNameValidation(String checkName) {
 		return employeeMapper.checkNameValidation(checkName);
-	};
+	}
+	/**
+	 *获取所有名族信息 
+	 */
+	@Override
+	public List<Nation> getAllNation() {
+		return employeeMapper.getAllNation();
+	}
+	
+	@Override
+	public List<ChinaArea> loadAreaByParent(Integer pid) {
+		return employeeMapper.selectByPid(pid);
+	}
+
 }

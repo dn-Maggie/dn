@@ -6,43 +6,44 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
+
+<script type="text/javascript">
+  baseUrl="<%=request.getContextPath() %>";
+</script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/excelExport.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/styles/index.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/lib/biz.jquery.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/lib/biz-html5.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/lib/biz-ie.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/lib/WdatePicker.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/i18n/i18n_zh.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/lib/biz.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery.nicescroll.js"></script>
+<script title="js模板控件" type="text/javascript" src="<%=request.getContextPath() %>/js/doT.min.js"></script>
+<!-- 自定义js -->
+<script title="表格列耐热格式" type="text/javascript" src="<%=request.getContextPath() %>/js/GridColModelForMatter.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/bizLib/common.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/bizLib/jquery.form.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/bizLib/jquery.contextmenu.r2.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/tiledCombobox.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/bizLib/placeholder.js"></script>
+
+<script src="<%=request.getContextPath() %>/js/gameco/jquery.collapse.js"></script>	
+<script src="<%=request.getContextPath() %>/modulejs/common.js"></script>	
+<script src="<%=request.getContextPath() %>/js/common-util/opera-util.js"></script>
+<script src="<%=request.getContextPath() %>/js/common-util/grid-util.js"></script>
+
+<!-- 新添加的js -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/statistic/helium.js"></script>
+<script src="<%=request.getContextPath() %>/js/common-util/opera-util.js"></script>
 <meta charset="UTF-8">
 		<title>后台管理</title>
-<!-- basic styles -->
-
 		<link href="${ctx}/static/css/bootstrap.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="${ctx}/static/css/font-awesome.min.css" />
-
-		<!--[if IE 7]>
-		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
-		<![endif]-->
-
-		<!-- page specific plugin styles -->
-
-		<!-- fonts -->
-
-		<!-- ace styles -->
-
 		<link rel="stylesheet" href="${ctx}/static/css/ace.min.css" />
 		<link rel="stylesheet" href="${ctx}/static/css/ace-rtl.min.css" />
 		<link rel="stylesheet" href="${ctx}/static/css/ace-skins.min.css" />
-
-		<!--[if lte IE 8]>
-		  <link rel="stylesheet" href="${ctx}/static/css/ace-ie.min.css" />
-		<![endif]-->
-
-		<!-- inline styles related to this page -->
-
-		<!-- ace settings handler -->
-
-		<script src="${ctx}/static/js/ace-extra.min.js"></script>
-
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-
-		<!--[if lt IE 9]>
-		<script src="${ctx}/static/js/html5shiv.js"></script>
-		<script src="${ctx}/static/js/respond.min.js"></script>
-		<![endif]-->
 		<style type="text/css">
 .mask-wrap {
  position: absolute;
@@ -100,8 +101,6 @@ margin: auto;
 						<li><i class="icon-home home-icon"></i> <a href="#">首页</a></li>
 						<li class="active">学生信息查询</li>
 					</ul>
-					<!-- .breadcrumb -->
-					<!-- #nav-search -->
 				</div>
 				<div class="" id="contentright" > 
 					<iframe style="*overflow-x:hidden;*table-layout:fixed;*word-wrap:break-word;word-break:break-all;"  id="iframepage" name="iframepage" frameBorder=0 width="100%" height="100%" src="vipStudent/toListAVipStudent.do" >
@@ -140,38 +139,6 @@ margin: auto;
 		</div>
 		<!-- /.main-container-inner -->
 	</div>
-	<!-- basic scripts -->
-
-
-
-		<!--[if !IE]> -->
-
-		<script type="text/javascript">
-			window.jQuery || document.write("<script src='${ctx}/static/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
-		</script>
-
-		<!-- <![endif]-->
-
-		<!--[if IE]>
-<script type="text/javascript">
- window.jQuery || document.write("<script src='${ctx}/static/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
-</script>
-<![endif]-->
-
-		<script type="text/javascript">
-			if("ontouchend" in document) document.write("<script src='${ctx}/static/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-		</script>
-		<script src="${ctx}/static/js/bootstrap.min.js"></script>
-		<script src="${ctx}/static/js/typeahead-bs2.min.js"></script>
-
-		<!-- page specific plugin scripts -->
-
-		<!-- ace scripts -->
-
-		<script src="${ctx}/static/js/ace-elements.min.js"></script>
-		<script src="${ctx}/static/js/ace.min.js"></script>
-
-		<!-- inline scripts related to this page -->
 	<script type="text/javascript">
 	function loadingMask(wrap) {
 		return;
@@ -220,7 +187,6 @@ margin: auto;
 				$("#" + fmid).removeClass();
 				fmid = fid;
 			}
-			//$("#" + fid).attr("class", "active open");
 			$("#" + id).attr("class", "active");
 	    if(targetUrl.indexOf('http:')>-1){
 	    	targetUrl=targetUrl.substr(4);
@@ -230,9 +196,6 @@ margin: auto;
 	    }
 	    document.getElementById("iframepage").src = targetUrl; 
 	
-		//setUrlPath(urlPath);
-	        
-		// $("#MainTd").removeClass('animated flipInX');
 	}
 		
 		function pageHeight() {
@@ -261,18 +224,29 @@ margin: auto;
 				$("#sidebar").attr("class", "");
 			}
 		}
-		$(function() {
-			//if (typeof ($.cookie('menusf')) == "undefined") {
-				//$("#menusf").attr("checked", false);
-				//$("#sidebar").attr("class", "menu-min");
-				
-			//} else {
-				//$("#sidebar").attr("class", "");
-			//}
+		//修改密码弹出框
+		var edit_password_iframe_dialog;
+		$(document).ready(function(){
 			cmainFrame();
 			window.onresize = function() {
 				cmainFrame();
 			}
+			//修改密码点击事件
+			//获取父框架修改密码和用户资料按钮
+			var _iframe = window.parent;
+			var _setPwdBtn =_iframe.document.getElementById('setPwdBtn');
+			_setPwdBtn.addEventListener("click", function(){
+				var url= baseUrl +'/userInfo/toEditPassWord.do';
+				edit_password_iframe_dialog = new biz.dialog({
+					id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
+					modal: true,
+					width: 400,
+					height: 240,
+					title: "修改密码"
+				});
+				edit_password_iframe_dialog.open();
+		})
+			
 		});
 	</script>
 

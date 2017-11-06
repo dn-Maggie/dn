@@ -60,7 +60,7 @@ public class EmpPerformanceController{
          @Resource
      	 private VipStudentService vipStudentService;
  	/**
- 	* 进入新增退款、补款业绩页面
+ 	* 进入新增业绩页面
  	* @return ModelAndView 返回到新增页面
  	*/
  	@RequestMapping("/toAddEmpPerformance")
@@ -120,7 +120,7 @@ public class EmpPerformanceController{
 	}
 	
 	/**
-	 * 新增方法
+	 * 新增方法员工贡献绩效
 	 * @param response HttpServletResponse
 	 * @param empPerformance EmpPerformance:实体类
 	 * @return: ajax输入json字符串
@@ -133,7 +133,7 @@ public class EmpPerformanceController{
 	}
 	
 	/**
-	 * 删除方法
+	 * 删除员工贡献绩效方法
 	 * @param response HttpServletResponse
 	 * @param key String:多个由“，”分割开的id字符串
 	 * @return: ajax输入json字符串
@@ -150,14 +150,16 @@ public class EmpPerformanceController{
 	}
 	
 	/**
-	 * 根据学生Id删除
+	 * 根据学生Id删除员工贡献绩效
 	 * @param response HttpServletResponse
 	 * @param key String:多个由“，”分割开的id字符串
 	 * @return: ajax输入json字符串
 	 */
 	@RequestMapping("/deleteEmpPerformanceByStuId")
 	public void deleteByStuId(EmpPerformance empPerformance,HttpServletResponse response){
+		//删掉emp_performance(贡献绩效总额)中的数据
 		empPerformanceService.deleteByStuId(empPerformance);
+		//删掉emp_performance_new(奖金总额)中的数据
 		empPerformanceService.deleteNewByStuId(empPerformance);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("msg", "成功");
@@ -165,48 +167,50 @@ public class EmpPerformanceController{
 	}
 	
 	/**
-	 * 进入列表页面
+	 * 进入员工绩效界面列表页面
 	 * @return ModelAndView
 	 */
 	@RequestMapping("/toListEmpPerformance")
 	public ModelAndView toList(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/empPerformance/listEmpPerformance");
-		
+		//获取用户信息
 		UserInfo user = Utils.getLoginUserInfo(request);
 		Employee emp = employeeService.getByPrimaryKey(Utils.getLoginUserInfoId(request));
 		mv.addObject("user",user);
 		String userName = user.getUserAccount();
 		String roleId = user.getRoleId();
+		//如果是如下几种角色，赋予管理员级别查看权限（可以查看所有人业绩）
 		if("cce57309-c36a-4b2b-8596-4bc3ea008e88".equals(roleId)||//总经理
 				"06b4f5f2-ff20-446b-9c9a-05623c0bb76a".equals(roleId)||//部门负责人
 				"ad07dcf7-336b-4874-b574-d1eec4c21dba".equals(roleId)||//部门营销负责人
 				"dingling".equals(userName)||
-				Utils.isSuperAdmin(request)){
+				Utils.isSuperAdmin(request))
+		{
 			mv.addObject("isAdmin",true);
 		}
 		
 		
 		Org org = new Org();
 		org.setParentOrgId("1");
+		//如果是以下权限，赋予部门负责人权限（可以查看整个部门的业绩）
 		if("06b4f5f2-ff20-446b-9c9a-05623c0bb76a".equals(roleId)||//部门负责人
 				"ad07dcf7-336b-4874-b574-d1eec4c21dba".equals(roleId)//部门营销负责人
-			){
+			)
+		{
 			mv.addObject("leader",true);
 			org.setOrgNo(emp.getDeptNo());
-			}
-		
+		}
+		//如果是讲师，赋予讲师查看成本的功能
 		if(emp!=null && "ddfd8fbf-e7fc-4768-a052-1b252e168344".equals(emp.getDutyId())){
 			mv.addObject("teacher",true);
 		}
 		mv.addObject("org",orgService.listByCondition(org));
 		mv.addObject("followers", standardService.getAllFollowerId());
 		return mv;
-		
-		
 	}
 	
 	/**
-	 * 进入列表页面
+	 * 进入选择补录业绩列表页面
 	 * @return ModelAndView
 	 */
 	@RequestMapping("/toSelectStudent")
@@ -252,7 +256,7 @@ public class EmpPerformanceController{
 	
 	
 	/**
-	 * 根据员工统计方法
+	 * 查看员工贡献绩效总额
 	 * @param empPerformance EmpPerformance：实体对象（查询条件）
 	 * @param request HttpServletRequest
 	 * @param response HttpServletResponse
@@ -266,7 +270,14 @@ public class EmpPerformanceController{
 		List<EmpPerformance> list = empPerformanceService.listByEmployee(empPerformance);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
-	
+	/**
+	 * 查看员工奖金总额
+	 * @param empPerformance EmpPerformance：实体对象（查询条件）
+	 * @param request HttpServletRequest
+	 * @param response HttpServletResponse
+	 * @param page Page:分页对象
+	 * @return: ajax输入json字符串
+	 */
 	@RequestMapping("/listBonusByEmployee")
 	public void listBonusByEmployee(EmpPerformance empPerformance,HttpServletRequest request,
 			HttpServletResponse response, Page page){
@@ -276,7 +287,7 @@ public class EmpPerformanceController{
 	}
 	
 	/**
-	 * 进入修改页面方法
+	 * 进入修改员工贡献绩效总额页面方法
 	 * @param key String：实体id
 	 * @return ModelAndView: 查询实体
 	 */	
@@ -286,7 +297,6 @@ public class EmpPerformanceController{
 				"WEB-INF/jsp/school/empPerformance/editEmpPerformance");
 		
 		EmpPerformance empPerformance = empPerformanceService.getByPrimaryKey(key);
-		
 		mv.addObject("empPerformance", empPerformance);
 		
 		List<Employee> tutor= employeeService.listByCondition(new Employee());
@@ -308,7 +318,7 @@ public class EmpPerformanceController{
 	}
 	
 	/**
-	 * 修改方法
+	 * 修改员工贡献绩效总额方法
 	 * @param empPerformance EmpPerformance：实体对象
 	 * @param response HttpServletResponse
 	 * @return: ajax输入json字符串
@@ -373,7 +383,9 @@ public class EmpPerformanceController{
 		AjaxUtils.sendAjaxForMap(response, map);
 	}
 	
-	
+	/**
+	 * 导出业绩总额方法
+	 */
 	@RequestMapping("/exportExcel")
 	public void exportExcel(EmpPerformance empPerformance, ExpParamBean epb,
 			HttpServletRequest request, HttpServletResponse response, Page page)
@@ -386,25 +398,26 @@ public class EmpPerformanceController{
 		ExcelExpUtils.exportListToExcel(list, response, epb.getFieldlist(),"业绩分配信息列表", "业绩分配信息列表");
 	}
 	
-	
+	/**
+	 * 获取对应岗位业绩分配比例
+	 */
 	@RequestMapping("/getRate")
 	public void getRate(String empId,String stuId,String position,HttpServletResponse response){
-		
-		
  		EmpPerformance ep = new EmpPerformance();
  		ep.setEmployeeId(empId);
  		ep.setStuId(stuId);
  		try {
 			ep.setPosition(new String(position.getBytes("ISO-8859-1"),"utf-8"));
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
  		
+ 		//列出emp_performance_new表中该员工曾经在该学员分配的业绩比例
  		List<EmpPerformance> eps=empPerformanceService.selectNewNote(ep);
+ 		//如果曾经有分配过，则选取历史记录
  		if(eps!=null&&eps.size()>=1){
  			AjaxUtils.sendAjaxForObjectStr(response, eps.get(0));
- 		}else{
+ 		}else{//如果没有，返回空
  			AjaxUtils.sendAjaxForObjectStr(response, ep);
  		}
  		
@@ -420,11 +433,6 @@ public class EmpPerformanceController{
 		Calendar now = Calendar.getInstance();
 		int year = now.get(Calendar.YEAR);
 		int month = (now.get(Calendar.MONTH) + 1);
-		/*if((month - 1)<=0){
-			ecentTwoMonthEmpPerf.setBeginDate(year-- + "-" + (month + 11) + "-" + "01");
-		}else{
-			ecentTwoMonthEmpPerf.setBeginDate(year + "-" + (month -1) + "-" + "01");
-		}*/
 		List<RecentTwoMonthEmpPerf> list = empPerformanceService.recentTwoMonthEmpRevenue(empPerformance);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}

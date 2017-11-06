@@ -259,7 +259,7 @@ function addContinuePay(){
 					if(d.status){
 						showMessage(d.message,"","",function(){	
 							window.parent.closeAdd();
-				     		window.parent.doSearch();
+							List.doSearch(window.parent.gridObj);
 						});
 						
 					}else{
@@ -345,7 +345,6 @@ function countPerformance(){
 	followerIds =$("#followerId").val().split(",");
 	followerNames =$("#followerName").val().split(",");
 	followerRates =$("#followerRate").val().split(",");
-	debugger;
 	//分两种情况增加分配比率：1.未分配业绩订单（及以前遗留订单）  2.已分配业绩订单	
 	//2.已分配业绩订单
 	if(followerNames.length>=1){
@@ -386,10 +385,9 @@ function countPerformance(){
 		}else{
 			createDate= createDate;
 		}	
-		var note = "学费补款-"+$("#subname").val()+actualPay+"*"+folrate;
+		var note = "学费补款-"+actualPay+"*"+folrate;
 		var isPass="未清算";
-		debugger;
-		var newRate = getNewRateFromEmp(employeeId,stuId,position);
+		var newRate = getNewRateFromEmp(employeeId,stuId,position).length>1?getNewRateFromEmp(employeeId,stuId,position):getNewRate(foltype,comSource,sub);
 		var paramDatas = {
 				employeeId:employeeId,
 				employeeName:employeeName,
@@ -417,7 +415,6 @@ function countPerformance(){
 		}
 }
 function getNewRateFromEmp(empId,stuId,position){
-	debugger;
 	var newRate = 0;
 	 $.ajax({
 		 url : "<m:url value='/empPerformance/getRate.do'/>?empId="
@@ -439,17 +436,26 @@ function getNewRateFromEmp(empId,stuId,position){
 }
 function getNewRate(foltype,comSource,sub){
 	var newRate = 0;
+	var num = 0;
+	var followerType = $("#followerType").val().split(",");
+	for(var i in followerType){
+		if(followerType[i] == foltype)num++;
+	}
 	 $.ajax({
 		 url : "<m:url value='/standard/getRate.do'/>?parentId="
 				+ comSource+"&subId="+sub+"&positionId="+foltype,
 		cache : false,
 		async : false,
-		 success:function(response){
-			 newRate = JSON.parse(response).newRate;
-		 },
-		 error:function(){
+		success:function(response){
+			if(response!=null){
+				newRate = (JSON.parse(response).newRate)/num;
+			}else{
+				newRate = 0;
+			}
+		},
+		error:function(){
 			 showError("获取比例出错", 3000);
-		 }
+		}
 	 });
 	return newRate;
 }

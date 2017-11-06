@@ -52,6 +52,8 @@
 
 <script src="<%=request.getContextPath() %>/js/gameco/jquery.collapse.js"></script>	
 <script src="<%=request.getContextPath() %>/modulejs/common.js"></script>	
+<script src="<%=request.getContextPath() %>/js/common-util/opera-util.js"></script>
+<script src="<%=request.getContextPath() %>/js/common-util/grid-util.js"></script>
 
 <!-- 新添加的js -->
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/statistic/helium.js"></script>

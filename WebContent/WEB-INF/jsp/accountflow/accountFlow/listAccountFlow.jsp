@@ -23,7 +23,6 @@
 		}
 		lendTable = new biz.grid({
 			id : "#lend_table",/*html部分table id*/
-// 			url : "<m:url value='/accountFlow/listAccountFlow.do'/>",/*grid初始化请求数据的远程地址*/
 			url:showUrl,
 			datatype : "json",/*数据类型，设置为json数据，默认为json*/
 			sortname : "create_date",
@@ -85,7 +84,6 @@
 		});	
 			loanTable = new biz.grid({
 				id : "#loan_table",/*html部分table id*/
-//	 			url : "<m:url value='/accountFlow/listAccountFlow.do'/>",/*grid初始化请求数据的远程地址*/
 				url:showUrl,
 				datatype : "json",/*数据类型，设置为json数据，默认为json*/
 				sortname : "create_date",
@@ -93,7 +91,6 @@
 				footerrow:true,
 				pager : '#remote_prowed2' /*分页栏id*/,
 				rowList : [ 10, 20, 50, 100 ],//每页显示记录数
-				
 				rowNum : 20,//默认显示15条
 				colModel : [ {
 					name : "id",
@@ -160,18 +157,6 @@
   			minDate:'#F{$dp.$D(\'startDate\',{d:0});}',
   			dateFmt:'yyyy-MM-dd'
   		});
-		
-		/* $.ajax({
-			url : "<m:url value='/accountFlow/getTotal.do'/>",
-			success : function(result) {
-				var data = {};
-				data = eval("("+result+")");
-				data = data.money;
-				$("#lend_text").text(data.lend);
-				$("#loan_text").text(data.loan);
-				$("#total_text").text(data.total);
-			}
-		}); */
 	});
 
 	//新增的弹出框
@@ -186,136 +171,54 @@
 	var count_iframe_dialog;
 
 	function add() {
-		//xin zeng iframe 弹出框
 		var url = "<m:url value='/accountFlow/toAddAccountFlow.do'/>";
-		add_iframe_dialog = new biz.dialog(
-				{
-					id : $('<div id="addwindow_iframe"></div>')
-							.html(
-									'<iframe id="iframeAdd" name="iframeAdd" src="'
-											+ url
-											+ '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
-					modal : true,
-					width : 800,
-					height : 285,
-					title : "财务流水增加"
-				});
-		add_iframe_dialog.open();
+		var title = "财务流水增加";
+		add_iframe_dialog = Add.create(url, title,800,285);
+		List.openDialog(add_iframe_dialog);
 	}
 
 	//关闭新增页面，供子页面调用
 	function closeAdd() {
-		add_iframe_dialog.close();
+		List.closeDialog(add_iframe_dialog,lendTable,loanTable);
 	}
 
 	function edit() {
 		var key = ICSS.utils.getSelectRowData("id");
-		if (key.indexOf(",") > -1 || key == "") {
-			showMessage("请选择一条数据！");
-			return;
-		}
-		var url = "<m:url value='/accountFlow/toEditAccountFlow.do'/>?key="
-				+ key;
-		edit_iframe_dialog = new biz.dialog(
-				{
-					id : $('<div id="editwindow_iframe"></div>')
-							.html(
-									'<iframe id="iframeEdit" name="iframeEdit" src="'
-											+ url
-											+ '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
-					modal : true,
-					width : 800,
-					height : 285,
-					title : "财务流水编辑"
-				});
-		edit_iframe_dialog.open();
+		var url = "<m:url value='/accountFlow/toEditAccountFlow.do'/>";
+		var title = "财务流水编辑";
+		edit_iframe_dialog = Edit.create(key, url, title,800,255);
+		List.openDialog(edit_iframe_dialog);
 	}
 
 	//关闭编辑页面，供子页面调用
 	function closeEdit() {
-		edit_iframe_dialog.close();
+		List.closeDialog(edit_iframe_dialog,lendTable,loanTable);
 	}
 
 	function show() {
 		var key = ICSS.utils.getSelectRowData("id");
-		if (key.indexOf(",") > -1 || key == "") {
-			showMessage("请选择一条数据！");
-			return;
-		}
-		var url = "<m:url value='/accountFlow/toShowAccountFlow.do'/>?key="
-				+ key;
-		show_iframe_dialog = new biz.dialog(
-				{
-					id : $('<div id="showwindow_iframe"></div>')
-							.html(
-									'<iframe id="iframeShow" name="iframeShow" src="'
-											+ url
-											+ '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
-					modal : true,
-					width : 800,
-					height : 235,
-					title : "财务流水详情"
-				});
-		show_iframe_dialog.open();
+		var url = "<m:url value='/accountFlow/toShowAccountFlow.do'/>";
+		var title = "财务流水详情";
+		show_iframe_dialog = Show.create(key, url, title,800,235);
+		List.openDialog(show_iframe_dialog);
 	}
 
 	//关闭查看页面，供子页面调用
 	function closeShow() {
-		show_iframe_dialog.close();
+		List.closeDialog(show_iframe_dialog);
 	}
 	
-	function account() {
-		var key = lendTable.getGridParam('selarrrow');
-		key += loanTable.getGridParam('selarrrow');
-		if (key.indexOf(",") > -1 ||key == "") {
-			showMessage("请选择一条数据！");
-			return;
-		}
-		//xin zeng iframe 弹出框
-		var url = "<m:url value='/accountFlow/toAddNewAccounting.do'/>?key="
-			+ key;
-
-		account_iframe_dialog = new biz.dialog(
-				{
-					id : $('<div id="accountwindow_iframe"></div>')
-							.html(
-									'<iframe id="iframeAdd" name="iframeAdd" src="'
-											+ url
-											+ '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
-					modal : true,
-					width : 1040,
-					height : 705,
-					title : "新增会计凭证"
-				});
-		account_iframe_dialog.open();
-	}
-
-	//关闭新增页面，供子页面调用
-	function closeAccount() {
-		account_iframe_dialog.close();
-	}
-	
+	//查看总计窗口打开
 	function count() {
-		//xin zeng iframe 弹出框
 		var url = "<m:url value='/accountFlow/toCountAll.do'/>";
-		count_iframe_dialog = new biz.dialog(
-				{
-					id : $('<div id="countwindow_iframe"></div>')
-							.html(
-									'<iframe id="iframeAdd" name="iframeAdd" src="'
-											+ url
-											+ '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
-					modal : true,
-					width : 800,
-					height : 685,
-					title : "财务报表"
-				});
-		count_iframe_dialog.open();
+		var title = "财务报表";
+		count_iframe_dialog = Add.create(url, title,800,685);
+		List.openDialog(count_iframe_dialog);
 	}
 
-	//关闭新增页面，供子页面调用
+	//关闭查看总计窗口
 	function closeCount() {
-		count_iframe_dialog.close();
+		List.closeDialog(count_iframe_dialog);
 	}
 	
 	/**
@@ -347,43 +250,14 @@
 			});
 		loanTable.trigger('reloadGrid');
 	}
-	//重置查询表单
-	function resetForm(formId) {
-		document.getElementById(formId).reset();
-	}
-
 	//删除
 	function batchDelete() {
-		var ids = ICSS.utils.getSelectRowData("id");
-		if (ids == "") {
-			showMessage("请至少选择一条数据！");
-			return;
-		} else {
-			new biz.alert(
-					{
-						type : "confirm",
-						message : I18N.msg_del_confirm,
-						title : I18N.promp,
-						callback : function(result) {
-							if (result) {
-								$
-										.ajax({
-											url : "<m:url value='/accountFlow/deleteAccountFlow.do'/>?key="
-													+ ids,
-											cache : false,
-											success : function(data,
-													textStatus, jqXHR) {
-												doSearch();
-												showInfo("删除成功", 3000);
-											}
-										});
-							}
-						}
-					});
-		}
+		var id = ICSS.utils.getSelectRowData("id");
+		var url = "<m:url value='/accountFlow/deleteAccountFlow.do'/>";
+		List.batchDelete(id, url,lendTable,loanTable);
 	}
-	//总计
-  	//@param jqGridObj
+	  //总计
+  	  //@param jqGridObj
 	  function getFooterJsonData(jqGridObj){
 	  	var addFootData = {} ;
 	  	var resObj = ajaxGetStatistic();
@@ -414,15 +288,15 @@
             paramObj.endDate= $("#endDate").val()||"";
             paramArray.push(paramObj);
        	$.ajax({
-   			url : "<m:url value='/accountFlow/getTotal.do'/>",
-   			type: 'post',
-               dataType:"json",
-               cache: false,
-               async : false,
-               data: JSON.stringify(paramArray),
-	   		processData: false,// 告诉jQuery不要去处理发送的数据
-            contentType: false, // 告诉jQuery不要去设置Content-Type请求头
-   			success : function(data) {
+   				url : "<m:url value='/accountFlow/getTotal.do'/>",
+   				type: 'post',
+                dataType:"json",
+                cache: false,
+                async : false,
+                data: JSON.stringify(paramArray),
+		   		processData: false,// 告诉jQuery不要去处理发送的数据
+	            contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+	   			success : function(data) {
    				if(data.money){
 	   				resObj.lend= parseFloat(data.money.lend);
 	   				resObj.loan = parseFloat(data.money.loan);
@@ -474,16 +348,8 @@
 							</c:otherwise>
 						</c:choose>
 						 <span>科目名称:</span></li>
-						<li style="width:180px;">
-						<select class="search_choose" name="isAccount" id="isAccount" mainid="isAccount" style="width:100px;">
-							<option value="">--请选择--</option>
-							<option value="1">未清算</option>
-							<option value="2">已清算</option>
-						</select><span>是否清算:</span>
-				<!--  <input type="text" name="subjectId" id="subjectId" class="search_choose"> -->
-					</li><!-- 输入框-->
 					<li style="width:160px;">
-						<select class="search_choose" name="subjectName" id="subjectName" mainid="subjectName" style="width:88px;">
+						<select class="search_choose" name="subjectName" id="subjectName" style="width:88px;">
 						<option value="">-请选择-</option>
 						<c:forEach var="mr" items="${er.subject}">
 							<option value="${mr.name}"> <c:out value="${mr.name}"></c:out> </option>
@@ -496,25 +362,25 @@
 					<div class="time_bg">
 						<c:choose>
 							<c:when test="${condition=='monthcost'||condition=='monthxftk'||condition=='monthmajorIncome'||condition=='monthactualPay'}">
-								<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate" value="${currDate}">
+								<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" value="${currDate}">
 							</c:when>
 							<c:when test="${condition=='yearcost'||condition=='yearxftk'||condition=='allCost'||condition=='QT'||condition=='majorIncome'||condition=='QTSR'||condition=='majorCost'||condition=='yearactualPay'}">
-								<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate" value="${currDate}">
+								<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" value="${currDate}">
 							</c:when>
 							<c:otherwise>
-								<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate">
+								<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" >
 							</c:otherwise>
 						</c:choose>
 						<i class="search_time_ico2"></i>
 					</div>
 					<i>至</i>
 					<div class="time_bg">
-						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" mainid="endDate">
+						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" >
 						<i class="search_time_ico2"></i>
 					</div></li>	
 					<!--下拉 -->
 					<li><input type="reset" class="reset_btn"
-						onclick="resetForm('queryForm')" value="重置"> <!-- 重置 --> <input
+						onclick="List.resetForm('queryForm')" value="重置"> <!-- 重置 --> <input
 						type="button" class="search_btn mr22 " onclick="doSearch();"
 						value="查询"></li>
 					<!-- 查询-->
@@ -531,12 +397,6 @@
 							href="javascript:;" onclick="add();"> <i
 								class="icon_bg icon_add"> </i> <span><m:message
 										code="button.add" /></span>
-						</a></li>
-					</c:if>
-					<c:if test="${account}">
-						<li><a title="结转凭证"
-							href="javascript:;" onclick="account();"> <i
-								class="icon_bg icon_add"> </i> <span>结转凭证</span>
 						</a></li>
 					</c:if>
 					<c:if test="${count}">
@@ -579,10 +439,5 @@
 			
 		</div>
 	</div>
-			<!-- <div id="total" style="position:fixed;bottom:0px;width:600px;left:50%;margin-left:-250px">
-				<div id="lend" style="width:33%;float:left">借[收入]：<span id="lend_text" ></span></div>
-				<div id="loan" style="width:33%;float:left">贷[支出]：<span id="loan_text"></span></div>
-				<div id="total" style="width:33%;float:left">余额情况：<span id="total_text"></span></div>
-			</div>  -->
 </body>
 </html>

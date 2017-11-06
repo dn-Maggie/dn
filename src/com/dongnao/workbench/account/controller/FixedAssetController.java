@@ -227,21 +227,19 @@ public class FixedAssetController{
 	@RequestMapping("/listRecovery")
 	public void listRecovery(FixedAsset fixedAsset,HttpServletRequest request,
 			HttpServletResponse response, Page page){
-/*		fixedAsset.setWorkNumber("DN-75");//回收的资源全部绑定到行政账号下
-		fixedAsset.setPropertyState(4);//设置为停用状态
-*/		fixedAsset.setPage(page);	
+		fixedAsset.setPage(page);	
 		List<FixedAsset> list = fixedAssetService.listRecovery(fixedAsset);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	
 	/**
-	 * 回收资源方法
+	 * 回收资源方法(停用离职员工所用资源)
 	 * @param fixedAsset FixedAsset：实体对象（查询条件）
 	 */
 	@RequestMapping("/recovery")
 	public void recovery(HttpServletResponse response){
 		FixedAsset fixedAsset = new FixedAsset();
-		fixedAsset.setWorkNumber("DN-75");//回收的资源全部绑定到行政账号下
+		fixedAsset.setWorkNumber("");//回收的资源全部绑定到行政账号下
 		fixedAsset.setPropertyState(4);//设置为停用状态
 		fixedAssetService.recovery(fixedAsset);
 		Map<String, String> map = new HashMap<String, String>();

@@ -40,15 +40,15 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("vipRefund")
 public class VipRefundController{
-         @Resource
-         private VipRefundService vipRefundService;
-         @Resource
-     	 private AccountFinanceService accountFinanceService;
-         @Resource
-     	 private VipStudentService vipStudentService;
+        @Resource
+        private VipRefundService vipRefundService;
+        @Resource
+     	private AccountFinanceService accountFinanceService;
+        @Resource
+     	private VipStudentService vipStudentService;
       	@Resource
      	private SubjectService subjectService;
-	 
+ 
  	/**
  	* 进入新增页面
  	* @return ModelAndView 返回到新增页面
@@ -183,19 +183,6 @@ public class VipRefundController{
 		Map<String,Object> model =new HashMap<String, Object>();
 		model.put("statics", vipRefundService.getStatistical(vipRefund));
 		AjaxUtils.sendAjaxForMap(response, model);
-	}
-	
-	/**
-	 * 进入修改页面方法
-	 * @param key String：实体id
-	 * @return ModelAndView: 查询实体
-	 */	
-	@RequestMapping("/toEditVipRefund")
-	public ModelAndView toEdit(String key){
-		VipRefund entity = vipRefundService.getByPrimaryKey(key);
-		Map<String,String> vipRefund = FormatEntity.getObjectValue(entity);
-		
-		return new ModelAndView("WEB-INF/jsp/vipRefund/vipRefund/editVipRefund","vipRefund",vipRefund );
 	}
 	
 	/**

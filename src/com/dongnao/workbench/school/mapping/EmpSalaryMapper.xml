@@ -660,10 +660,9 @@
 	
 	<update id="updateEmpCost" parameterType="com.dongnao.workbench.school.model.EmpSalary">
 		update performance_statistics 
-			 <trim prefix="set" suffixOverrides=",">
-				<if test="actualSalary != null and '' != actualSalary">  
-					cost = #{actualSalary,jdbcType=DECIMAL},
-					actual_bonus = (
+			set id = #{id,jdbcType=VARCHAR} 
+				,cost = #{actualSalary,jdbcType=DECIMAL}
+				,actual_bonus = (
 					CASE
 					WHEN emp_performance - cost > 0 THEN
 						bonus
@@ -671,8 +670,6 @@
 						bonus/3
 					END
 				)
-				</if>
-			</trim>
 		where id = #{id,jdbcType=VARCHAR} 
 	</update>
 	

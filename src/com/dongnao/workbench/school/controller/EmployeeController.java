@@ -11,41 +11,27 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.dongnao.workbench.account.model.AccountFinance;
-import com.dongnao.workbench.area.model.ChinaArea;
-import com.dongnao.workbench.area.service.ChinaAreaService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.dongnao.workbench.basic.model.Duty;
 import com.dongnao.workbench.basic.model.DutyLevel;
 import com.dongnao.workbench.basic.model.Org;
-import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.basic.service.DutyLevelService;
 import com.dongnao.workbench.basic.service.DutyService;
 import com.dongnao.workbench.basic.service.OrgService;
+import com.dongnao.workbench.common.bean.ChinaArea;
+import com.dongnao.workbench.common.bean.Nation;
 import com.dongnao.workbench.common.excel.ExcelExpUtils;
 import com.dongnao.workbench.common.excel.ExpParamBean;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
-import com.dongnao.workbench.common.util.Utils;
-import com.dongnao.workbench.continuePay.model.ContinuePay;
-import com.dongnao.workbench.course.model.Course;
-import com.dongnao.workbench.course.service.CourseService;
-import com.dongnao.workbench.nation.model.Nation;
-import com.dongnao.workbench.nation.service.NationService;
-import com.dongnao.workbench.salary.model.SalStandard;
-import com.dongnao.workbench.salary.service.SalStandardService;
 import com.dongnao.workbench.common.util.FormatEntity;
+import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.school.model.Employee;
 import com.dongnao.workbench.school.service.EmployeeService;
-import com.dongnao.workbench.subject.model.Subject;
-import com.dongnao.workbench.system.model.DictInfo;
 import com.dongnao.workbench.system.service.DictInfoService;
-import com.dongnao.workbench.vipRefund.model.VipRefund;
-import com.dongnao.workbench.vipStudent.model.VipStudent;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 
 /**
@@ -61,13 +47,7 @@ public class EmployeeController{
     @Resource
 	private EmployeeService employeeService;
     @Resource
-    private NationService nationService;
-    @Resource
-    private ChinaAreaService chinaAreaService;
-    @Resource
     private OrgService orgService;
-    @Resource
-    private SalStandardService salStandardService;
     @Resource
     private DictInfoService dictInfoService;
     @Resource
@@ -85,7 +65,7 @@ public class EmployeeController{
  		ModelAndView mv = new ModelAndView(
  				"WEB-INF/jsp/school/employee/addEmployee");
  		
- 		List<Nation> nation= nationService.getAllNation();
+ 		List<Nation> nation= employeeService.getAllNation();
  		mv.addObject("nation",nation);
  		
  		Org org = new Org();
@@ -93,19 +73,16 @@ public class EmployeeController{
  		mv.addObject("org",orgService.listByCondition(org));
  		
  		Map<String,List> area = new HashMap<String, List>();
- 		List<ChinaArea> list = chinaAreaService.loadAreaByParent(0);
+ 		List<ChinaArea> list = employeeService.loadAreaByParent(0);
  		List<ChinaArea> list2 =new ArrayList<ChinaArea>();
  		if(list!=null && list.size()>0){
- 	 		list2=chinaAreaService.loadAreaByParent(list.get(0).getId());
+ 	 		list2=employeeService.loadAreaByParent(list.get(0).getId());
  		}
  		area.put("parent",list);
  		area.put("child",list2);
  		mv.addObject("area",area);
  		
  		mv.addObject("nowEmpNo", employeeService.getNowEmpNo());
-		List<SalStandard> salStandardList = salStandardService.listByCondition(new SalStandard());
-		mv.addObject("salStandardList", salStandardList);
-		
 		List<Employee> tutor= employeeService.listByCondition(new Employee());
  		mv.addObject("tutor", tutor);
 		return mv;
@@ -115,7 +92,7 @@ public class EmployeeController{
 	 */
 	@RequestMapping("/getAreaList")
 	public void getAreaList(Integer key,HttpServletResponse response){
- 		List<ChinaArea> chinaArea = chinaAreaService.loadAreaByParent(key);
+ 		List<ChinaArea> chinaArea = employeeService.loadAreaByParent(key);
 		Map<String, List> map = new HashMap<String, List>();
 		map.put("ca",chinaArea);
 		AjaxUtils.sendAjaxForMap(response,map);
@@ -255,17 +232,17 @@ public class EmployeeController{
 		Map<String,String> employee = FormatEntity.getObjectValue(entity);
 		mv.addObject("employee", employee);
 		
-		List<Nation> nation= nationService.getAllNation();
+		List<Nation> nation= employeeService.getAllNation();
  		mv.addObject("nation", nation);
  		
  		mv.addObject("org",orgService.listByCondition(new Org()));
  		mv.addObject("dutyLevel", dutyLevelService.listByCondition(new DutyLevel()));
  		
  		Map<String,List> area = new HashMap<String, List>();
- 		List<ChinaArea> list = chinaAreaService.loadAreaByParent(0);
+ 		List<ChinaArea> list = employeeService.loadAreaByParent(0);
  		List<ChinaArea> list2 =new ArrayList<ChinaArea>();
  		if(list!=null && list.size()>0){
- 	 		list2=chinaAreaService.loadAreaByParent(list.get(0).getId());
+ 	 		list2=employeeService.loadAreaByParent(list.get(0).getId());
  		}
  		area.put("parent",list);
  		area.put("child",list2);

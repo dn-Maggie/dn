@@ -20,7 +20,7 @@ $(function() {
 				if(response.status){
 					showMessage(response.message,"","",function(){
 						window.parent.closeAdd();
-			     		window.parent.doSearch();
+						List.doSearch(window.parent.gridObj);
 					});
 				}else{
 					showMessage(response.message);

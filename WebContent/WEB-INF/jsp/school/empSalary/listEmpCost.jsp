@@ -25,7 +25,6 @@ var gridObj = {};
            	footerrow:true,//页脚汇总行
            	cellEdit:true,
            	afterSaveCell : function(rowid,name,val,iRow,iCol) {
-           			debugger
            			var paramDatas = {};
 	           		paramDatas[name] = val;
 	           		paramDatas.id = rowid;
@@ -58,20 +57,20 @@ var gridObj = {};
 				{name : "empNickName",label:"昵称",hidden : true,index : "empNickName",cellattr: function(rowId, value, rowObject, colModel, arrData) {
 	 		          return " style=display:none; ";
  		        }},
- 		      /*  {name : "empEntryDate",label:"录入月份",width:"6",index : "empEntryDate",
+ 		        {name : "empEntryDate",label:"录入月份",width:"6",index : "empEntryDate",
  		    	  formatter:'date',formatoptions: {newformat:'Y-m'}, 	
- 		       	}, */
- 		      /*  {name : "meritRaise",label:"贡献绩效总额",width:"4",index : "meritRaise",number:true}, */
+ 		       	}, 
+ 		       {name : "meritRaise",label:"贡献绩效总额",width:"4",index : "meritRaise",number:true}, 
 				{name : "actualSalary",label:"员工成本",width:"4",index : "actualSalary", editable:true,number:true},
-				/* {name : "rests",label:"奖金总额",width:"4",index : "rests",number:true}, */
-				/* {name : "pushMoney",label:"实际奖金总额",width:"4",index : "pushMoney",number:true,
+				 {name : "rests",label:"奖金总额",width:"4",index : "rests",number:true}, 
+				{name : "pushMoney",label:"实际奖金总额",width:"4",index : "pushMoney",number:true,
 					cellattr : function(rowId, val, rawObject, cm, rdata){
 						if(rawObject['actualSalary']-rawObject['meritRaise']>0){
 				        	return "style='color:red'";
 				        }else{
 				        	return "style='color:green'";
 				        }
-			       	}} */
+			       	}}
            	],
            	serializeGridData:function(postData){//添加查询条件值，把数据进行序列化
 				var obj = getQueryCondition();

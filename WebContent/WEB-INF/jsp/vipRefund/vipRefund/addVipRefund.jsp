@@ -84,6 +84,7 @@
 	var followerNames = [];
 	var followerRates = [];
 $(function() {
+	//默认设置为当前日期
 	$("#edit_time").val(createDate);
 	
 	//绑定提交按钮click事件
@@ -109,7 +110,7 @@ $(function() {
 					if(d.status){
 						showMessage(d.message,"","",function(){
 							window.parent.closeAdd();
-				     		window.parent.doSearch();
+							List.doSearch(window.parent.gridObj);
 						});
 					}else{
 						showMessage(d.message);
@@ -140,24 +141,14 @@ $(function() {
 //打开欠费Vip学员信息界面
 function allVipMgt() {
 	var url = baseUrl + '/vipRefund/toSelectAllVip.do';
-	allViplist_iframe_dialog = new biz.dialog(
-			{
-				id : $('<div id="sublist_window_iframe"></div>')
-						.html(
-								'<iframe id="iframeSublist" name="iframeSublist" src="'
-										+ url
-										+ '" width="100%" frameborder="no" border="0" height="97%"></iframe>'),
-				modal : true,
-				width : $(window).width(),
-				height : $(window).height(),
-				title: "学员信息列表"
-			});
-	allViplist_iframe_dialog.open();
+	var title = "学员信息列表";
+	allViplist_iframe_dialog = Add.create(url, title);
+	List.openDialog(allViplist_iframe_dialog);
 }
 
 // 关闭欠费Vip学员信息界面
 function closeAllVip() {
-	allViplist_iframe_dialog.close();
+	List.closeDialog(allViplist_iframe_dialog);
 }
 
 //填充数据
@@ -197,8 +188,7 @@ function updateVipOwe(){
 	}
 	var stuId=$("#edit_stuId").val();
 	var paramDatas = {
-			owePay:owe,
-			id:stuId,actualPay:actualPay,shouldPay:$('#shouldPay').val(),currStatus:currStatus};
+			owePay:owe,id:stuId,actualPay:actualPay,shouldPay:$('#shouldPay').val(),currStatus:currStatus};
 	$.ajax({
 		   type: "post",
 		   url: "<m:url value='/vipStudent/updateOweVipStudent.do'/>",
@@ -292,7 +282,7 @@ function countPerformance(){
 		var position = folposition;
 		var actualPay = parseFloat(0)-parseFloat($("#edit_refund").val());
 		var performance = parseFloat(actualPay)*parseFloat(data);
-		var newRate = getNewRateFromEmp(employeeId,stuId,position);
+		var newRate = getNewRateFromEmp(employeeId,stuId,position).length>1?getNewRateFromEmp(employeeId,stuId,position):getNewRate(foltype,comSource,sub);
 		if(($("#edit_time").val()).length>0){
 			createDate = $("#edit_time").val();
 		}else{
@@ -346,17 +336,26 @@ function getNewRateFromEmp(empId,stuId,position){
 }
 function getNewRate(foltype,comSource,sub){
 	var newRate = 0;
+	var num = 0;
+	var followerType = $("#followerType").val().split(",");
+	for(var i in followerType){
+		if(followerType[i] == foltype)num++;
+	}
 	 $.ajax({
 		 url : "<m:url value='/standard/getRate.do'/>?parentId="
 				+ comSource+"&subId="+sub+"&positionId="+foltype,
 		cache : false,
 		async : false,
-		 success:function(response){
-			 newRate = JSON.parse(response).newRate;
-		 },
-		 error:function(){
+		success:function(response){
+			if(response!=null){
+				newRate = (JSON.parse(response).newRate)/num;
+			}else{
+				newRate = 0;
+			}
+		},
+		error:function(){
 			 showError("获取比例出错", 3000);
-		 }
+		}
 	 });
 	return newRate;
 }

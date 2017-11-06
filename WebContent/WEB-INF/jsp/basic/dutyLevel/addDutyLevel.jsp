@@ -19,10 +19,7 @@ $(function() {
 					if(d.status){
 						showMessage(d.message,"","",function(){
 							window.parent.closeAdd();
-							if(typeof(window.parent.doSearch)=="function"){
-								window.parent.doSearch();
-							}
-				     		
+							parent.location.reload()
 						});
 					}else{
 						showMessage(d.message);

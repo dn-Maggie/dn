@@ -39,18 +39,7 @@ $(function() {
 				{name : "beginDate",label:"开始使用日期",index : "begin_date"},				
 				/* {name : "initialValue",label:"资产原值",index : "initial_value"},		
 				{name : "perDepred",label:"本期折旧 "},	 */
-				{name : "propertyState",label:"资产状态 ",align:"center",
-					formatter:function(cellvalue, options, rowObject){
-	 				 if (cellvalue==1) {
-		 				 	return '使用中';
-		 				 }else if (cellvalue==2) {
-		 				 	return '维修中';
-		 				 }else if(cellvalue==3){
-		 					return '已报废';
-		 				 }else if(cellvalue==4){
-		 					return '停用中';
-		 				 }
-		 			}}
+				{name : "propertyState",label:"资产状态 ",index : "property_state",align:"center",formatter:GridColModelForMatter.fixedPropertyState}
            	],
       });
 	

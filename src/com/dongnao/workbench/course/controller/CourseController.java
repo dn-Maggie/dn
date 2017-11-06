@@ -138,24 +138,7 @@ public class CourseController {
 	@RequestMapping("/listCourse")
 	public void listByCondition(Course course, HttpServletRequest request, HttpServletResponse response, Page page) {
 		course.setPage(page);
-		List<Course> list;
-//		String name=course.getName();
-//		String subid=course.getSubjectId();
-//		if(name.equals("all")&&subid.equals("all")){//全部全选
-//			course.setName(null);
-//			course.setSubjectId(null);
-//		}else if(name.equals("all")){//全选名字，选学科
-//			course.setName(null);
-//		}else if(subid.equals("all")){//全选名字，选学科
-//			course.setSubjectId(null);
-//		}
-		list = courseService.listByCondition(course);
-//		for (int i=0;i<list.size();i++) {
-//			Subject s =subjectService.getByPrimaryKey(list.get(i).getSubjectId());
-//			if(s!=null){
-//				list.get(i).setSubjectId(s.getName());
-//			}
-//		}
+		List<Course> list = courseService.listByCondition(course);
 		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 

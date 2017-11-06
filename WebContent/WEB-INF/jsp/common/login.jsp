@@ -141,7 +141,6 @@
 			cache : false,
 			dataType : 'json',
 			success : function(data, textStatus, jqXHR) {
-				debugger
 				if (data.status == 1 && codeChecked == true) {
 					window.location.href = 'index.do';
 				} else {

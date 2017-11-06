@@ -51,9 +51,9 @@
 							value="${duty.dutyType}" /></td>
 						<td class="inputLabelTd">岗位级别：</td>
 						<td class="inputTd">
-							<select class="input_select">
+							<select class="input_select" id="dutyLevel">
 			           			<c:forEach var="dutyLevel" items="${dutyLevelList}">
-			           				<option><c:out value="${dutyLevel.levelType}${dutyLevel.levelName}"></c:out></option>
+			           				<option value="${dutyLevel.id }"><c:out value="${dutyLevel.levelType}${dutyLevel.levelName}"></c:out></option>
 			           			</c:forEach>
 			           		</select>
 			           		<a class="dutyLevelOption" href="javascript:0" onclick="addDutyLevel()">新增 </a>
@@ -120,37 +120,32 @@
 	
 	//新增的弹出框
 	var add_iframe_dialog;
+	
 	function addDutyLevel(){
-	  	//xin zeng iframe 弹出框
-			var url="<m:url value='/dutyLevel/toAddDutyLevel.do'/>?dutyId="+$("#edit_id").val();
-			add_iframe_dialog = new biz.dialog({
-				id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-				modal: true,
-				width: 800,
-				height: 235,
-				title: "岗位级别表增加"
-			});
-			add_iframe_dialog.open();
-	  	}
+		var url="<m:url value='/dutyLevel/toAddDutyLevel.do'/>?dutyId="+$("#edit_id").val();
+		var title = "岗位级别表增加";
+		add_iframe_dialog = Add.create(url, title,800,235);
+		List.openDialog(add_iframe_dialog);
+  	}
  	//关闭新增页面，供子页面调用
  	function closeAdd(){
-		add_iframe_dialog.close();
+ 		List.closeDialog(add_iframe_dialog);
  	}
  	
- 	 //删除
+ 	 //删除岗位级别
     function deleteDutyLevel(){
-    	//var ids = ICSS.utils.getSelectRowData("id");
+    	var ids = $.trim($("#dutyLevel").find("option:selected").val());
    		new biz.alert({type:"confirm",message:"该数据已关联员工岗位级别，确定删除？",title:I18N.promp,callback:function(result){
-   			/* if(result){
+   			if(result){
    				$ .ajax({
        				url: "<m:url value='/dutyLevel/deleteDutyLevel.do'/>?key="+ids,
        				cache:false,
        				success: function(data, textStatus, jqXHR){
-       					doSearch();
+       					window.location.reload();
    						showInfo("删除成功",3000);
        				}
        			});
-   			} */
+   			} 
    		}}) ;   
     }
 </script>

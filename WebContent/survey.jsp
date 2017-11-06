@@ -59,7 +59,6 @@ $(function() {
 		</div>
 		<div class="paddingZero col-xs-12 col-sm-12 col-md-12 col-lg-12">
 			<form id="surveyForm" border='0'>
-		  <!--   <div class="ui-table ui-widget ui-corner-all ui-border" > -->
 				<table class="table">
 					<tr>
 						<td class="inputTd" style="text-align:center;border-style:none">
@@ -68,7 +67,6 @@ $(function() {
 					</tr>
 					<tr>
 						<td class="inputTd" colspan="4" style="text-align:center;height:80px;border-style:none">
-							<!-- <input id="submit" type="button" class="ti_bottom" style="min-width:100px;" value="提交"/> -->
 							<input id="submit" type="button" class="" style="min-width:100px;min-height:40px;font-size:26px;" value="提交"/>
 						</td>
 					</tr>

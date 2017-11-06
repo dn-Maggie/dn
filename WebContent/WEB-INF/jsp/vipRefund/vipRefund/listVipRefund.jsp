@@ -18,7 +18,7 @@
 				<ul>
 				<li><input type="text" name="stuName" id="stuName" class="search_choose"> <span>学员姓名:</span></li><!-- 输入框-->
 				<li style="width:160px;">
-							<select class="search_choose" name="subjectName" id="subjectName" mainid="subjectName" style="width:80px;">
+							<select class="search_choose" name="subjectName" id="subjectName" style="width:80px;">
 							<option value="">-请选择-</option>
 							<c:forEach var="mr" items="${er.subject}">
 								<option value="${mr.name}"> <c:out value="${mr.name}"></c:out> </option>
@@ -28,12 +28,12 @@
 					<li class="date_area">
 					<span>报名日期:</span>
 					<div class="time_bg">
-						<input id="joinStartDate" type="text" class="search_time150" name="propsMap['joinStartDate']" mainid="joinStartDate">			
+						<input id="joinStartDate" type="text" class="search_time150" name="propsMap['joinStartDate']" >			
 						<i class="search_time_ico2"></i>
 					</div>
 					<i>至</i>
 					<div class="time_bg">
-						<input id="joinEndDate" type="text" class="search_time150" name="propsMap['joinEndDate']" mainid="joinEndDate">
+						<input id="joinEndDate" type="text" class="search_time150" name="propsMap['joinEndDate']" >
 						<i class="search_time_ico2"></i>
 					</div></li>	
 				<li class="date_area">
@@ -41,28 +41,28 @@
 					<div class="time_bg">
 						<c:choose>
 							<c:when test="${condition=='month'}">
-								<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate" value="${currDate}">	
+								<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" value="${currDate}">	
 							</c:when>
 							<c:otherwise>
-								<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate">			
+								<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" >			
 							</c:otherwise>
 						</c:choose>
 						<i class="search_time_ico2"></i>
 					</div>
 					<i>至</i>
 					<div class="time_bg">
-						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" mainid="endDate">
+						<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" >
 						<i class="search_time_ico2"></i>
 					</div></li>	
 					<li>
-						<select class="search_choose" name="isCount" id="isCount" mainid="isCount">
+						<select class="search_choose" name="isCount" id="isCount">
 						<option value="">--请选择--</option>
 							<option value="未分配业绩">未分配业绩</option>
 							<option value="已分配业绩">已分配业绩</option>
 					</select><span>业绩分配:</span>
 				</li><!-- 输入框-->
-				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
-						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
+				<li><input type="reset" class="reset_btn" onclick="List.resetForm('queryForm')" value="重置"><!-- 重置 -->
+						<input type="button" class="search_btn mr22 " onclick="List.doSearch(gridObj);" value="查询"></li><!-- 查询-->
 				</ul>
 		   </div>
 	    </form>
@@ -76,17 +76,6 @@
 											code="button.add" /></span>
 							</a></li>
 						</c:if>
-<%-- 						<c:if test="${edit}"> --%>
-<%-- 							<li><a title="<m:message code="button.edit"/>" href="javascript:;" --%>
-<%-- 								onclick="edit();"><i class="icon_bg icon_edit"></i> <span><m:message --%>
-<%-- 											code="button.edit" /></span> </a></li> --%>
-<%-- 						</c:if> --%>
-<%-- 						<c:if test="${delete}"> --%>
-<%-- 							<li><a title="<m:message code="button.delete"/>" href="javascript:;" --%>
-<%-- 								onclick="batchDelete();"> <i class="icon_bg icon_del"></i> <span><m:message --%>
-<%-- 											code="button.delete" /></span> --%>
-<!-- 							</a></li> -->
-<%-- 						</c:if> --%>
 						<li><a title="<m:message code="button.view"/>" href="javascript:"
 							onclick="show();"> <i class="icon_bg icon_ckxq"></i> <span><m:message
 										code="button.view" /></span>
@@ -142,7 +131,7 @@ jsion_sumColumns["sumColumns"] = "rn,refund";
 				{name : "reason",label:"退款原因",index : "reason"},	
            	],
            	serializeGridData:function(postData){//添加查询条件值
-				var obj = getQueryCondition();
+				var obj = List.getQueryCondition();
     			$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
     			return obj;
     		},
@@ -185,142 +174,63 @@ jsion_sumColumns["sumColumns"] = "rn,refund";
 	var show_iframe_dialog;
   	
   	function add(){
-  	//xin zeng iframe 弹出框
-		var url="<m:url value='/vipRefund/toAddVipRefund.do'/>";
-		add_iframe_dialog = new biz.dialog({
-			id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: $(window).width()*0.6,
-			height:$(window).height()*0.8,
-			title: "退款信息增加"
-		});
-		add_iframe_dialog.open();
+  		var url = "<m:url value='/vipRefund/toAddVipRefund.do'/>";
+		var title = "退款信息增加";
+		add_iframe_dialog = Add.create(url, title);
+		List.openDialog(add_iframe_dialog);
   	}
   	
   	//关闭新增页面，供子页面调用
   	function closeAdd(){
-		add_iframe_dialog.close();
+  		List.closeDialog(add_iframe_dialog,gridObj);
   	}
-  	
-    function edit(){
-		var key = ICSS.utils.getSelectRowData("id");
-		if(key.indexOf(",")>-1||key==""){
-			showMessage("请选择一条数据！");
-			return ;
-		}
-		var url="<m:url value='/vipRefund/toEditVipRefund.do'/>?key="+key;
-		edit_iframe_dialog = new biz.dialog({
-		 	id:$('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: $(window).width()*0.6,
-			height:$(window).height()*0.5,
-			title: "退款信息编辑"
-		});
-  		edit_iframe_dialog.open();
-    }
-    
-    //关闭编辑页面，供子页面调用
-    function closeEdit(){
-    	edit_iframe_dialog.close();
-    }
     
     function show(){
     	var key = ICSS.utils.getSelectRowData("id");
-		if(key.indexOf(",")>-1||key==""){
-			showMessage("请选择一条数据！");
-			return ;
-		}
-		var url="<m:url value='/vipRefund/toShowVipRefund.do'/>?key="+key;
-		show_iframe_dialog = new biz.dialog({
-		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
-			modal: true,
-			width: $(window).width()*0.6,
-			height:$(window).height()*0.5,
-				title: "退款信息详情"
-		});
-  		show_iframe_dialog.open();
+		var url = "<m:url value='/vipRefund/toShowVipRefund.do'/>";
+		var title = "退款信息详情";
+		show_iframe_dialog = Show.create(key, url, title);
+		List.openDialog(show_iframe_dialog);
     }
     
     //关闭查看页面，供子页面调用
     function closeShow(){
-    	show_iframe_dialog.close();
+    	List.closeDialog(show_iframe_dialog);
     }
-    /**
-    * 获取查询条件值
-    */
-    function getQueryCondition(){
-       var obj = {};
-		jQuery.each($("#queryForm").serializeArray(),function(i,o){
-        	if(o.value){
-        		obj[o.name] = o.value;
-        	}
-        });
-		return obj;
-    }
-    //查询Grid数据
-    function doSearch(isStayCurrentPage){
-    	if(!isStayCurrentPage)gridObj.setGridParam({"page":"1"});
-    	gridObj.trigger('reloadGrid');
-    }
-    //重置查询表单
-    function resetForm(formId){
-		document.getElementById(formId).reset();
-	}
     
     //删除
     function batchDelete(){
-    	var ids = ICSS.utils.getSelectRowData("id");
-    	if(ids==""){
-    		showMessage("请至少选择一条数据！");
-    		return ;
-    	}else{
-    		new biz.alert({type:"confirm",message:I18N.msg_del_confirm,title:I18N.promp,callback:function(result){
-    			if(result){
-    				$ .ajax({
-        				url: "<m:url value='/vipRefund/deleteVipRefund.do'/>?key="+ids,
-        				cache:false,
-        				success: function(data, textStatus, jqXHR){
-        					doSearch();
-    						showInfo("删除成功",3000);
-        				}
-        			});
-    			}
-    		}}) ;   
-    	}
+    	var id = ICSS.utils.getSelectRowData("id");
+		var url = "<m:url value='/vipRefund/deleteVipRefund.do'/>";
+		List.batchDelete(id, url,gridObj);
     }
     
-    
-    
-  		//总计
-  		//@param jqGridObj
-	  function getFooterJsonData(jqGridObj){
-		  	var addFootData = {} ;
-		  	var resObj = ajaxGetStatistic();
-				var _strColumns = jsion_sumColumns.sumColumns.split(",");
-	            for(var k = 0;k<_strColumns.length; k++){
-	            	k == 0?addFootData[_strColumns[k]] = "总计":addFootData[_strColumns[k]] = Math.round(resObj[_strColumns[k]]) ||0;
-	            }
-	   		jqGridObj.jqGrid('footerData','set',addFootData,false);
-	  	}
-		//根据条件从数据库获取结果集
-		function ajaxGetStatistic(){
-			var resObj = {};
-	       	$.ajax({
-	   			url : "<m:url value='/vipRefund/staticVipRefund.do'/>",
-	   			cache : false,
-	   			data: getQueryCondition(),
-	   			async : false,
-	   			dataType:"json",
-	   			success : function(data) {
-	   				resObj.refund= parseFloat(data.statics[0].refund);
-	   			}
-	   		});
-	       	return resObj;
-		};
-    
-    
-    
-    
+ 		//总计
+ 		//@param jqGridObj
+  	function getFooterJsonData(jqGridObj){
+	  	var addFootData = {} ;
+	  	var resObj = ajaxGetStatistic();
+			var _strColumns = jsion_sumColumns.sumColumns.split(",");
+            for(var k = 0;k<_strColumns.length; k++){
+            	k == 0?addFootData[_strColumns[k]] = "总计":addFootData[_strColumns[k]] = Math.round(resObj[_strColumns[k]]) ||0;
+            }
+   		jqGridObj.jqGrid('footerData','set',addFootData,false);
+  	}
+	//根据条件从数据库获取结果集
+	function ajaxGetStatistic(){
+		var resObj = {};
+       	$.ajax({
+   			url : "<m:url value='/vipRefund/staticVipRefund.do'/>",
+   			cache : false,
+   			data: List.getQueryCondition(),
+   			async : false,
+   			dataType:"json",
+   			success : function(data) {
+   				resObj.refund= parseFloat(data.statics[0].refund);
+   			}
+   		});
+       	return resObj;
+	};
     function expExcelWinShow(){
     	ExpExcel.showWin(gridObj,baseUrl+"/vipRefund/exportExcel.do",'grid','queryForm');
     }
