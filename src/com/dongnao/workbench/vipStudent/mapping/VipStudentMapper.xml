@@ -389,78 +389,8 @@
 		`NAME`,qq,qq_nick,join_time,subject_name
 		from 
 			vip_student v1 
-		where id not in (
-			SELECT stu_id from vip_refund
-		)
-		<if test="name != null and '' != name">
-			and v1.NAME like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
-		</if>
-		<if test="age != null and '' != age">
-			and age = #{age,jdbcType=INTEGER}
-		</if>
-		<if test="phone != null and '' != phone">
-			and phone like CONCAT('%',#{phone,jdbcType=VARCHAR},'%')
-		</if>
-		<if test="qq != null and '' != qq">
-			and v1.qq = #{qq,jdbcType=VARCHAR}
-		</if>
-		<if test="qqNick != null and '' != qqNick">
-			and v1.qq_nick like CONCAT('%',#{qqNick,jdbcType=VARCHAR},'%')
-		</if>
-		<if test="payerName != null and '' != payerName">
-			and v1.payer_name = #{payerName,jdbcType=VARCHAR}
-		</if>
-		<if test="subjectName != null and '' != subjectName">
-			and v1.subject_name  = #{subjectName,jdbcType=VARCHAR}
-		</if>
-		<if test="shouldPay != null and '' != shouldPay">
-			and should_pay = #{shouldPay,jdbcType=DOUBLE}
-		</if>
-		<if test="actualPay != null and '' != actualPay">
-			and actual_pay = #{actualPay,jdbcType=DOUBLE}
-		</if>
-		<if test="owePay != null and '' != owePay">
-			and v1.owe_pay > #{owePay,jdbcType=DOUBLE}
-		</if>
-		<if test="isGoclass != null and '' != isGoclass">
-			and is_goclass = #{isGoclass,jdbcType=INTEGER}
-		</if>
-		<if test="notes != null and '' != notes">
-			and notes = #{notes,jdbcType=VARCHAR}
-		</if>
-		<if test="currStatus != null and '' != currStatus">  
-			and curr_status = #{currStatus,jdbcType=VARCHAR}
-		</if>
-		<if test="isCount != null and '' != isCount">  
-			and is_count = #{isCount,jdbcType=VARCHAR}
-		</if>
-		<if test="joinTime != null and '' != joinTime">
-			and join_time = #{joinTime,jdbcType=TIMESTAMP}
-		</if>
-		<if test="null != propsMap.startDate and propsMap.startDate != ''">
-			<![CDATA[
-			and DATE_FORMAT(join_time,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
-			]]>
-		</if>
-		<if test="null != propsMap.endDate and propsMap.endDate != ''">
-			<![CDATA[
-				and DATE_FORMAT(join_time,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
-			]]>
-		</if>
-		<if test="null != minOwePay and minOwePay != ''">
-			and owe_pay > #{minOwePay,jdbcType=DOUBLE}
-		</if>
-		<if test="comSource != null and '' != comSource">  
-			and com_source = #{comSource,jdbcType=VARCHAR}
-		</if>
-		<if test="sourceSubclass != null and '' != sourceSubclass">  
-			and source_subclass = #{sourceSubclass,jdbcType=VARCHAR}
-		</if>
-		<![CDATA[
-		and DATE_FORMAT(join_time,'%y%m') = DATE_FORMAT('2017-09-04 22:20:39','%y%m')
-		]]>
-		GROUP BY v1.qq
-		ORDER BY v1.join_time ASC
+		WHERE subject_name = 'JAVASCRIPT' AND `NAME` in ('常帅','杨欢','吴伊')
+
 	</select>
 	
 	

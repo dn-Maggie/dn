@@ -181,6 +181,7 @@ public class EmpPerformanceController{
 		String roleId = user.getRoleId();
 		//如果是如下几种角色，赋予管理员级别查看权限（可以查看所有人业绩）
 		if("cce57309-c36a-4b2b-8596-4bc3ea008e88".equals(roleId)||//总经理
+				"fcbb3b89-6aa8-428e-86e4-05f2ff8631da".equals(roleId)||//股东
 				"06b4f5f2-ff20-446b-9c9a-05623c0bb76a".equals(roleId)||//部门负责人
 				"ad07dcf7-336b-4874-b574-d1eec4c21dba".equals(roleId)||//部门营销负责人
 				"dingling".equals(userName)||

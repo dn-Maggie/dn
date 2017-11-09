@@ -57,11 +57,11 @@ var gridObj = {};
 				{name : "empNickName",label:"昵称",hidden : true,index : "empNickName",cellattr: function(rowId, value, rowObject, colModel, arrData) {
 	 		          return " style=display:none; ";
  		        }},
- 		        {name : "empEntryDate",label:"录入月份",width:"6",index : "empEntryDate",
+ 		        {name : "empEntryDate",label:"绩效统计月份",width:"6",index : "empEntryDate",
  		    	  formatter:'date',formatoptions: {newformat:'Y-m'}, 	
  		       	}, 
  		       {name : "meritRaise",label:"贡献绩效总额",width:"4",index : "meritRaise",number:true}, 
-				{name : "actualSalary",label:"员工成本",width:"4",index : "actualSalary", editable:true,number:true},
+				{name : "actualSalary",label:"员工本月成本",width:"4",index : "actualSalary", editable:true,number:true},
 				 {name : "rests",label:"奖金总额",width:"4",index : "rests",number:true}, 
 				{name : "pushMoney",label:"实际奖金总额",width:"4",index : "pushMoney",number:true,
 					cellattr : function(rowId, val, rawObject, cm, rdata){
@@ -140,9 +140,11 @@ var gridObj = {};
     }
     //获取创建日期方法
     function getCreateDate(_date){
+    	debugger
+    	
     	var createDate = _date;
     	var _createDate =  new Date(createDate);
-    	var actual_createDate = _createDate.getFullYear()+"-"+(_createDate.getMonth().length>1?_createDate.getMonth():"0"+_createDate.getMonth())+"-01";
+    	var actual_createDate = _createDate.getFullYear()+"-"+(_createDate.getMonth()+1>=10?_createDate.getMonth()+1:"0"+_createDate.getMonth())+"-01";
     	$("#createDate").val(actual_createDate);
     }
     

@@ -79,7 +79,6 @@ public class BaseController {
 		//批量制作，插入数据库学生姓名
 		/*数据库获取学生姓名-课程*/
 		VipStudent stu = new VipStudent();
-		stu.setSubjectName("ANDROID");
 		List<VipStudent> students = vipStudentService.listSendEmail(stu);
 		for(int i = 0;i<students.size();i++){
 			generatePdf(students.get(i));

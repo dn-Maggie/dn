@@ -106,11 +106,12 @@
 				,e.name as employeeName
 				,DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c')  as stuJoinTime
 				,(select sum(performance) from emp_performance where employee_id = e.id and DATE_FORMAT(create_date,'%Y-%c')= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c')) as performance
-				,ps.cost as sum
+				,case when ps.cost is not null  then ps.cost else last_ps.cost end  as sum
 				,(select sum(performance) from emp_performance_new where employee_id = e.id and DATE_FORMAT(create_date,'%Y-%c')=DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c')) as shouldPay
-				,(select sum(performance) from emp_performance_new where employee_id = e.id  and DATE_FORMAT(create_date,'%Y-%c')=DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c')) as actualPay
+				,case when ps.actual_bonus is not null then ps.actual_bonus ELSE (select sum(performance) from emp_performance_new where employee_id = e.id  and DATE_FORMAT(create_date,'%Y-%c')=DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c')) end as actualPay
 			FROM employee AS e
-			left join  performance_statistics AS ps ON ps.emp_id = e.id  and DATE_FORMAT(ps.month,'%Y-%c') =  DATE_FORMAT(DATE_SUB(#{propsMap.startDate,jdbcType=TIMESTAMP}, INTERVAL 1 MONTH),'%Y-%c')
+			left join  performance_statistics AS ps ON ps.emp_id = e.id  and DATE_FORMAT(ps.month,'%Y-%c') =  DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%c')
+			left join  performance_statistics AS last_ps ON last_ps.emp_id = e.id  and DATE_FORMAT(last_ps.month,'%Y-%c') =  DATE_FORMAT(DATE_SUB(#{propsMap.startDate,jdbcType=TIMESTAMP}, INTERVAL 1 MONTH),'%Y-%c')
 			where e.duty_id = 'ddfd8fbf-e7fc-4768-a052-1b252e168344'
 		<if test="employeeId != null and '' != employeeId">  
 			and e.id = #{employeeId,jdbcType=VARCHAR}

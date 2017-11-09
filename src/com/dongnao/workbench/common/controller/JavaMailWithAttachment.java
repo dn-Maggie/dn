@@ -47,7 +47,7 @@ public class JavaMailWithAttachment {
             properties.setProperty("mail.transport.protocol", "smtp");    // 发送邮件协议名称  
             properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
             properties.setProperty("mail.smtp.port", "465");
-            int num = new Random().nextInt(3);
+           /* int num = new Random().nextInt(3);
             switch (num) {
 			case 0:
 				 properties.setProperty("mail.smtp.host", "smtp.126.com");
@@ -69,7 +69,10 @@ public class JavaMailWithAttachment {
 				 properties.setProperty("mail.sender.username", "hndongnaoedu@126.com");    // 发送邮件地址 
 		         properties.setProperty("mail.sender.password", "dongnao123");    // 发送邮件地址   
 				break;
-			}
+			}*/
+            properties.setProperty("mail.smtp.host", "smtp.163.com");
+			 properties.setProperty("mail.sender.username", "HNdongnaoedu@163.com");    // 发送邮件地址 
+	         properties.setProperty("mail.sender.password", "dongnao123");    // 发送邮件地址   
             properties.setProperty("mail.smtp.socketFactory.port","465");
             
             this.mailHost = properties.getProperty("mail.smtp.host");
