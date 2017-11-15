@@ -279,8 +279,8 @@ public class EmpSalaryController{
 	        props.setProperty("mail.transport.protocol", "smtp");    // 发送邮件协议名称  
 	        Session session = Session.getInstance(props);  // 设置环境信息  
 	        
-	        String sendFrom = "meimei@dongnaoedu.com";
-      		String sendPwd = "Dn123456";
+	        String sendFrom = "maggie@dongnaoedu.com";
+      		String sendPwd = "Mm677294";
 	        
       		//1.通过id， 根据employee表取到所有的发送人邮箱地址 设置为 sendTo
 	        //2.通过id， 根据empSalary表取到需要发送的内容 设置为 sendBody
@@ -310,9 +310,9 @@ public class EmpSalaryController{
 		msg.setSubject(subject);// 邮件主题
 		MimeBodyPart mbp = new MimeBodyPart();
         String htmlText = "<h3>"
-        		+ "注：1、请核对好工资、卡号，如有疑问，请及时到行政部核对，核对截止时间今日15:00；</br>"
-        		+"    2、薪酬工资属于保密，核对无误后，请及时删除本邮件；</br>"
-        		+ "3、该工资条属于"+DateUtil.parseDate(empSalary.getCreateDate(), "yyyy-MM")+"月份工资。</h3>"
+        		+ "注：1、请核对好工资，如有疑问，请及时到行政部反馈，核对截止时间今日16:00；</br>"
+        		+"    2、薪酬工资属于保密信息，核对无误后，请及时删除本邮件；</br>"
+        		+ "3、该工资条是"+DateUtil.parseDate(empSalary.getCreateDate(), "yyyy-MM")+"月份工资。</h3>"
         		+ "<table  border='2' ><thead><tr><th>姓名</th><th>昵称</th>"
         		+ "<th>电话号码</th><th>请假天数</th><th>迟到早退（次）</th>"
         		+ "<th>打卡异常（次）</th><th>基本工资</th>"
