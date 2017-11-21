@@ -383,19 +383,6 @@
 		</if>
 	</select>
 	
-	 <!-- 获取学员的QQ，发送邮件 -->
-	<select id="listSendEmail" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.vipStudent.model.VipStudent">
-		select 
-		`NAME`,qq,qq_nick,join_time,subject_name
-		from 
-			vip_student v1 
-		WHERE subject_name = 'JAVASCRIPT' AND `NAME` in ('常帅','杨欢','吴伊')
-
-	</select>
-	
-	
-	
-	
 	<select id="listVipStudentFromMarket" resultMap="BaseResultMap"
 		parameterType="com.dongnao.workbench.vipStudent.model.VipStudent">
 		select 
@@ -444,7 +431,6 @@
 			order by ${orderFields} ${order}
 		</if>
 	</select>
-	
 	
 	<select id="listCntByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.vipStudent.model.VipStudent">		
 		SELECT * FROM( 

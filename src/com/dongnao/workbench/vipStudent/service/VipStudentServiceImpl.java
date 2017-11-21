@@ -179,16 +179,4 @@ public class VipStudentServiceImpl implements VipStudentService{
 		return vipStudentMapper.listVipStudentFromMarket(vipStudent);
 	}
 
-	/**
-	 * 获取学员的QQ，发送邮件
-	 * @param stu
-	 * @return
-	 */
-	public List<VipStudent> listSendEmail(VipStudent stu) {
-		return vipStudentMapper.listSendEmail(stu);
-	}
-
-
-	
-	
 }

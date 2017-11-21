@@ -126,7 +126,8 @@ jsion_sumColumns["sumColumns"] = "rn,money";   //总计
    			async : false,
    			dataType:"json",
    			success : function(data) {
-   				resObj.money= parseFloat(data.statics[0].money);
+   				if(data.statics[0]!=null){resObj.money= parseFloat(data.statics[0].money);}
+   				else{resObj.money=0; debugger}
    			}
    		});
        	return resObj;

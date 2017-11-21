@@ -236,6 +236,7 @@ input[name='timeQuantum']:checked+label{
 				url: "<m:url value='/standard/listFinStatements.do'/>",
 				cache:false,
 				success: function(data){
+					debugger
 					chartarr.push(data.rows);
 					drawGrid(data.rows);
 					//drawChart();
@@ -280,7 +281,7 @@ input[name='timeQuantum']:checked+label{
 		var htmlTemp = [];//临时存放html数组
 		var tabheaderTemp = [];//临时存放tabheader数组
 		var tabbodyTemp = [];//临时存放tabbody数组
-    	
+    	debugger
     	for(var i = 0;i<data.length;i++){
     		//取到科目,判断科目是否已经拿到
     		//jQuery.inArray(value,array)搜索数组中指定值并返回它的索引（如果没有找到则返回-1）
@@ -369,19 +370,19 @@ input[name='timeQuantum']:checked+label{
     		 		   .replace('{{class}}', 'profit')
    				       .replace('{{subject}}', subArr[i].j_subject)
    				       .replace('{{classType}}', '利润')
-   				       .replace('{{jan}}', (subArr[i].achieve.monthData[0]-subArr[i].cost.monthData[0]).toFixed(2)||0)
-   				       .replace('{{feb}}', (subArr[i].achieve.monthData[1]-subArr[i].cost.monthData[1]).toFixed(2)||0)
-   				       .replace('{{mar}}', (subArr[i].achieve.monthData[2]-subArr[i].cost.monthData[2]).toFixed(2)||0)
-   				       .replace('{{apr}}', (subArr[i].achieve.monthData[3]-subArr[i].cost.monthData[3]).toFixed(2)||0)
-   				       .replace('{{may}}', (subArr[i].achieve.monthData[4]-subArr[i].cost.monthData[4]).toFixed(2)||0)
-   				       .replace('{{jun}}', (subArr[i].achieve.monthData[5]-subArr[i].cost.monthData[5]).toFixed(2)||0)
-   				       .replace('{{jul}}', (subArr[i].achieve.monthData[6]-subArr[i].cost.monthData[6]).toFixed(2)||0)
-   				       .replace('{{aug}}', (subArr[i].achieve.monthData[7]-subArr[i].cost.monthData[7]).toFixed(2)||0)
-   				       .replace('{{sep}}', (subArr[i].achieve.monthData[8]-subArr[i].cost.monthData[8]).toFixed(2)||0)
-   				       .replace('{{oct}}', (subArr[i].achieve.monthData[9]-subArr[i].cost.monthData[9]).toFixed(2)||0)
-   				       .replace('{{nov}}', (subArr[i].achieve.monthData[10]-subArr[i].cost.monthData[10]).toFixed(2)||0)
-   				       .replace('{{dec}}', (subArr[i].achieve.monthData[11]-subArr[i].cost.monthData[11]).toFixed(2)||0)
-   				       .replace('{{total}}',(achieveTotal-costTotal).toFixed(2)||0)
+   				       .replace('{{jan}}', (strToNumber(subArr[i].achieve.monthData[0])-(subArr[i].cost!=undefined?strToNumber(subArr[i].cost.monthData[0]):0)).toFixed(2)||0)
+   				       .replace('{{feb}}', (strToNumber(subArr[i].achieve.monthData[1])-(subArr[i].cost!=undefined?strToNumber(subArr[i].cost.monthData[1]):0)).toFixed(2)||0)
+   				       .replace('{{mar}}', (strToNumber(subArr[i].achieve.monthData[2])-(subArr[i].cost!=undefined?strToNumber(subArr[i].cost.monthData[2]):0)).toFixed(2)||0)
+   				       .replace('{{apr}}', (strToNumber(subArr[i].achieve.monthData[3])-(subArr[i].cost!=undefined?strToNumber(subArr[i].cost.monthData[3]):0)).toFixed(2)||0)
+   				       .replace('{{may}}', (strToNumber(subArr[i].achieve.monthData[4])-(subArr[i].cost!=undefined?strToNumber(subArr[i].cost.monthData[4]):0)).toFixed(2)||0)
+   				       .replace('{{jun}}', (strToNumber(subArr[i].achieve.monthData[5])-(subArr[i].cost!=undefined?strToNumber(subArr[i].cost.monthData[5]):0)).toFixed(2)||0)
+   				       .replace('{{jul}}', (strToNumber(subArr[i].achieve.monthData[6])-(subArr[i].cost!=undefined?strToNumber(subArr[i].cost.monthData[6]):0)).toFixed(2)||0)
+   				       .replace('{{aug}}', (strToNumber(subArr[i].achieve.monthData[7])-(subArr[i].cost!=undefined?strToNumber(subArr[i].cost.monthData[7]):0)).toFixed(2)||0)
+   				       .replace('{{sep}}', (strToNumber(subArr[i].achieve.monthData[8])-(subArr[i].cost!=undefined?strToNumber(subArr[i].cost.monthData[8]):0)).toFixed(2)||0)
+   				       .replace('{{oct}}', (strToNumber(subArr[i].achieve.monthData[9])-(subArr[i].cost!=undefined?strToNumber(subArr[i].cost.monthData[9]):0)).toFixed(2)||0)
+   				       .replace('{{nov}}', (strToNumber(subArr[i].achieve.monthData[10])-(subArr[i].cost!=undefined?strToNumber(subArr[i].cost.monthData[10]):0)).toFixed(2)||0)
+   				       .replace('{{dec}}', (strToNumber(subArr[i].achieve.monthData[11])-(subArr[i].cost!=undefined?strToNumber(subArr[i].cost.monthData[11]):0)).toFixed(2)||0)
+   				       .replace('{{total}}',(parseInt(0+achieveTotal)-parseInt(0+costTotal)).toFixed(2)||0)
 	    		);
     		}
     	}
@@ -403,18 +404,18 @@ input[name='timeQuantum']:checked+label{
     				   .replace('{{subsize}}', $("[name='timeQuantum']:checked").size())
     			       .replace('{{subject}}', subName)
     			       .replace('{{classType}}', classType)
-    			       .replace('{{jan}}', subObj.monthData[0]||0)
-    			       .replace('{{feb}}', subObj.monthData[1]||0)
-    			       .replace('{{mar}}', subObj.monthData[2]||0)
-    			       .replace('{{apr}}', subObj.monthData[3]||0)
-    			       .replace('{{may}}', subObj.monthData[4]||0)
-    			       .replace('{{jun}}', subObj.monthData[5]||0)
-    			       .replace('{{jul}}', subObj.monthData[6]||0)
-    			       .replace('{{aug}}', subObj.monthData[7]||0)
-    			       .replace('{{sep}}', subObj.monthData[8]||0)
-    			       .replace('{{oct}}', subObj.monthData[9]||0)
-    			       .replace('{{nov}}', subObj.monthData[10]||0)
-    			       .replace('{{dec}}', subObj.monthData[11]||0)
+    			       .replace('{{jan}}',  (subObj.monthData[0])||0)
+    			       .replace('{{feb}}', (subObj.monthData[1])||0)
+    			       .replace('{{mar}}', (subObj.monthData[2])||0)
+    			       .replace('{{apr}}', (subObj.monthData[3])||0)
+    			       .replace('{{may}}',  (subObj.monthData[4])||0)
+    			       .replace('{{jun}}', (subObj.monthData[5])||0)
+    			       .replace('{{jul}}', (subObj.monthData[6])||0)
+    			       .replace('{{aug}}', (subObj.monthData[7])||0)
+    			       .replace('{{sep}}', (subObj.monthData[8])||0)
+    			       .replace('{{oct}}', (subObj.monthData[9])||0)
+    			       .replace('{{nov}}',  (subObj.monthData[10])||0)
+    			       .replace('{{dec}}', (subObj.monthData[11])||0)
     			       .replace('{{total}}',total.toFixed(2))
     				)
     	   }
@@ -457,7 +458,11 @@ input[name='timeQuantum']:checked+label{
     	alldata=[];//页面显示完成后置为空
     	chartarr=[];
     	}
-   	
+	//字符串转数字
+	function strToNumber(str){
+		if(str!="undefined")return parseInt(0+str);
+		else{return 0}
+	}
    	//数据格式转换
    	function dataformat(){
 		//定义存放部门的数组

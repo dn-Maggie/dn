@@ -118,11 +118,4 @@ public interface VipStudentMapper  {
 	 * 从意向过来报名的学员
 	 */
 	public List<VipStudent> listVipStudentFromMarket(VipStudent vipStudent);
-	/**
-	 * 获取学员的QQ，发送邮件
-	 * @param stu
-	 * @return
-	 */
-	public List<VipStudent> listSendEmail(VipStudent stu);
-	
 }
