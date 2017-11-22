@@ -22,8 +22,8 @@
 		where id = #{id,jdbcType=VARCHAR}
 	</select>
 	
-	<select id="queryPerfTarget" resultType="Integer" >
-		SELECT sum(perf_target) from subject
+	<select id="queryPerfTarget" resultType="java.lang.Integer" >
+		 SELECT IFNULL(sum(perf_target),0) from subject 
 	</select>
 	
 	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.subject.model.Subject">

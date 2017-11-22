@@ -102,16 +102,22 @@
 							<option value="博士研究生">博士研究生</option>
 					</select>
 				</td>
+				<td class="inputLabelTd">毕业院校：</td>
+				<td class="inputTd">
+					<input id="edit_educationExperience" name="educationExperience" type="text" class="text" value="${employee.educationExperience}"/>
+				</td>
+			</tr>
+			<tr>
 				<td class="inputLabelTd">所学专业：</td>
 				<td class="inputTd">
 					<input id="edit_profession" name="profession" type="text" class="text" value="${employee.profession}"/>
 				</td>
-			</tr>
-			<tr>
 				<td class="inputLabelTd">外语水平：</td>
 				<td class="inputTd">
 					<input id="edit_foreignLanguage" name="foreignLanguage" type="text" class="text" value="${employee.foreignLanguage}"/>
 				</td>
+			</tr>
+			<tr>
 				<td class="inputLabelTd">职业资格：</td>
 				<td class="inputTd">
 					<input id="edit_professionalQualification" name="professionalQualification" type="text" class="text" value="${employee.professionalQualification}"/>
@@ -299,14 +305,7 @@
 				<td class="inputTd" colspan="3" title="家庭成员姓名+关系+联系方式">
 					<textarea id="edit_familyMember" name="familyMember"  class="text" ></textarea>
 				</td>
-			</tr>
-			<tr>
-				<td class="inputLabelTd">教育经历：</td>
-				<td class="inputTd" colspan="3" title="时间+详细信息">
-					<textarea id="edit_educationExperience" name="educationExperience"  class="text"></textarea>
-				</td>
-			</tr>
-			
+			</tr>					
 			<tr>
 				<td class="inputLabelTd">工作经历：</td>
 				<td class="inputTd" colspan="3" title="时间+详细信息">

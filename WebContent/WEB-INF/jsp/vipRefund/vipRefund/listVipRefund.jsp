@@ -226,7 +226,9 @@ jsion_sumColumns["sumColumns"] = "rn,refund";
    			async : false,
    			dataType:"json",
    			success : function(data) {
-   				resObj.refund= parseFloat(data.statics[0].refund);
+   				if(data.statics[0]!=null){resObj.refund= parseFloat(data.statics[0].refund);}
+   				else{resObj.refund=0;}
+   				
    			}
    		});
        	return resObj;

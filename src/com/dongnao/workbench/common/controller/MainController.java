@@ -260,7 +260,7 @@ public class MainController {
 		model.put("myMessage", employeeService.getMyMessage(user.getId()));
 		model.put("myPerformance", empPerformanceService.getMyPerformance(user.getId(),curr.get(Calendar.YEAR)+"-"+(curr.get(Calendar.MONTH)+1)+"-01"));
 		accountxf.setCreateTime(curr.get(Calendar.YEAR)+""+(curr.get(Calendar.MONTH)+1));
-		accountxf.setSubjectName(orgService.listByCondition(org).get(0).getPinyin());
+		accountxf.setSubjectName(orgService.listByCondition(org).size()>0?orgService.listByCondition(org).get(0).getPinyin():"");
 		model.put("deptPerformance", accountFlowService.getBarStatistic(accountxf));
 		//消息中心
  		mv.addObject("noticeList", empNoticeService.listByCondition(new EmpNotice()));

@@ -16,7 +16,7 @@ import com.dongnao.workbench.vipStudent.model.VipStudent;
  * @author cheng.mo
  * @version 1.0 2016-05-02
  */
-public interface VipStudentService  {
+public interface VipStudentService{
 
 	/**
 	 * 新增会员信息管理表方法
@@ -122,13 +122,5 @@ public interface VipStudentService  {
 	 * 从意向过来报名的学员
 	 */
 	public List<VipStudent> listVipStudentFromMarket(VipStudent vipStudent);
-
-	/**
-	 * 获取学员的QQ，发送邮件
-	 * @param stu
-	 * @return
-	 */
-	public List<VipStudent> listSendEmail(VipStudent stu);
-	
 	
 }
