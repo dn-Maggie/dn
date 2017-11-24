@@ -35,7 +35,7 @@
 									</div>
 							</li>
 						</c:when>
-						<c:otherwise>
+					 	 <c:otherwise>
 							<input type="hidden" name="userId" id="userId" value="${userInfo.id}">
 						</c:otherwise>
 					</c:choose>
@@ -78,33 +78,8 @@
 <script type="text/javascript">
 var gridObj = {};
 	$(function(){
-  		gridObj = new biz.grid({
-            id:"#remote_rowed",/*html部分table id*/
-            url: "<m:url value='/marketStudent/listMarketStudent.do'/>",/*grid初始化请求数据的远程地址*/
-            datatype: "json",/*数据类型，设置为json数据，默认为json*/
-           	sortname:"time",
-           	sortorder:"desc",
-           	multiselect:true,
-           	multiboxonly:true,
-           	pager: '#remote_prowed' /*分页栏id*/,
-     		rowList:[10,20,50,100],//每页显示记录数
-    		rowNum:10,//默认显示15条
-            colModel:[
-				{name : "id",hidden : true,key : true,label:"",index : "id"},				
-				{name : "qq",label:"QQ号码",index : "qq"},				
-				{name : "subjectname",label:"意向学科",index : "subjectname"},			
-				{name : "fullname",label:"录入人",index : "fullname"},	
-				{name : "time",label:"时间",index : "time"},			
-				{name : "notes",label:"备注",index : "notes"}				
-           	],
-           	serializeGridData:function(postData){//添加查询条件值
-				var obj = getQueryCondition();
-    			$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
-    			return obj;
-    		}
-      });
-        
-	new biz.datepicker({
+		search();
+		new biz.datepicker({
   			id : "#startDate",
   			maxDate:'#F{$dp.$D(\'endDate\',{d:0});}',
   			dateFmt:'yyyy-MM-dd'
@@ -176,7 +151,7 @@ var gridObj = {};
 			modal: true,
 			width: $(window).width()*0.6,
 			height:$(window).height()*0.8,
-				title: "录入学员信息表详情"
+			title: "录入学员信息表详情"
 		});
   		show_iframe_dialog.open();
     }
@@ -189,16 +164,22 @@ var gridObj = {};
     * 获取查询条件值
     */
     function getQueryCondition(){
+    	debugger
        var obj = {};
 		jQuery.each($("#queryForm").serializeArray(),function(i,o){
         	if(o.value){
         		obj[o.name] = o.value;
+        	}
+        	if($.trim($("#qq").val()).length>0){
+        		obj["createdby"] = "";
+        		obj["userId"] = "";
         	}
         });
 		return obj;
     }
     //查询Grid数据
     function doSearch(isStayCurrentPage){
+    	search();
     	if(!isStayCurrentPage)gridObj.setGridParam({"page":"1"});
     	gridObj.trigger('reloadGrid');
     }
@@ -228,6 +209,34 @@ var gridObj = {};
     		}}) ;   
     	}
     }
+    
+    function search(){
+  		gridObj = new biz.grid({
+            id:"#remote_rowed",/*html部分table id*/
+            url: "<m:url value='/marketStudent/listMarketStudent.do'/>",/*grid初始化请求数据的远程地址*/
+            datatype: "json",/*数据类型，设置为json数据，默认为json*/
+           	sortname:"time",
+           	sortorder:"desc",
+           	multiselect:true,
+           	multiboxonly:true,
+           	pager: '#remote_prowed' /*分页栏id*/,
+     		rowList:[10,20,50,100],//每页显示记录数
+    		rowNum:10,//默认显示15条
+            colModel:[
+				{name : "id",hidden : true,key : true,label:"",index : "id"},				
+				{name : "qq",label:"QQ号码",index : "qq"},				
+				{name : "subjectname",label:"意向学科",index : "subjectname"},			
+				{name : "fullname",label:"录入人",index : "fullname"},	
+				{name : "time",label:"时间",index : "time"},			
+				{name : "notes",label:"备注",index : "notes"}				
+           	],
+           	serializeGridData:function(postData){//添加查询条件值
+				var obj = getQueryCondition();
+    			$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
+    			return obj;
+    		}
+      });
+	 }
 </script>
 </body>
 </html>
