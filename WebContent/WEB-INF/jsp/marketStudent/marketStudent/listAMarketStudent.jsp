@@ -60,10 +60,12 @@
 							onclick="show();"> <i class="icon_bg icon_ckxq"></i> <span><m:message
 										code="button.view" /></span>
 						</a></li>
+						<c:if test="${delete}">
 						<li><a title="<m:message code="button.delete"/>" href="javascript:;"
 								onclick="batchDelete();"> <i class="icon_bg icon_del"></i> <span><m:message
 											code="button.delete" /></span>
 						</a></li>
+						</c:if>
 					</ul>
 				</div>
 	
@@ -164,7 +166,7 @@ var gridObj = {};
     * 获取查询条件值
     */
     function getQueryCondition(){
-    	debugger
+    	
        var obj = {};
 		jQuery.each($("#queryForm").serializeArray(),function(i,o){
         	if(o.value){
