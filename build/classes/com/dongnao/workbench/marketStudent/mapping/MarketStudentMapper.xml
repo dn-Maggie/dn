@@ -122,7 +122,7 @@
 		ID= #{id,jdbcType=VARCHAR}
 											,qq = #{qq,jdbcType=VARCHAR}
 											,subject_id = #{subjectId,jdbcType=VARCHAR}
-											,user_id = #{userId,jdbcType=VARCHAR}
+											<!-- ,user_id = #{userId,jdbcType=VARCHAR} -->
 <!-- 											,time = #{time,jdbcType=TIMESTAMP} -->
 											,notes = #{notes,jdbcType=VARCHAR}
 											,file_url = #{fileUrl,jdbcType=BLOB}
