@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
- * 描述：spring上下文环境对象设置，获取
+ * 描述：spring上下文环境对象设置，获取上下文对象
  * 
  * @author zhou.zheng 
  * @version 1.0 2013-10-22
