@@ -102,18 +102,18 @@ var y = today.getFullYear();
 			<tr>
 				<td class="inputLabelTd">最高学历：</td>
 				<td class="inputTd">${employee.educationBackground}</td>
-				<td class="inputLabelTd">专业：</td>
-				<td class="inputTd">${employee.profession}</td>
-			</tr>
+				<td class="inputLabelTd">毕业院校：</td>
+				<td class="inputTd">${employee.educationExperience}</td>
+							</tr>
 			<tr>
+			<td class="inputLabelTd">专业：</td>
+				<td class="inputTd">${employee.profession}</td>
 				<td class="inputLabelTd">外语水平：</td>
 				<td class="inputTd">${employee.foreignLanguage}</td>
+							</tr>
+			<tr>
 				<td class="inputLabelTd">职业资格：</td>
 				<td class="inputTd">${employee.professionalQualification}</td>
-			</tr>
-			<tr>
-				<td class="inputLabelTd">教育经历：</td>
-				<td class="inputTd">${employee.educationExperience}</td>
 				<td class="inputLabelTd">工作经历：</td>
 				<td class="inputTd">${employee.workExperience}</td>
 			</tr>

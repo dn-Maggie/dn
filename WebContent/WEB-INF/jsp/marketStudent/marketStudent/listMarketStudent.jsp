@@ -66,7 +66,7 @@
 	    </form>
 		<div class="listplace">
 				<!--功能按钮begin-->
-				<div class="list_btn_bg fl"><!--功能按钮 div-->
+				<div class="list_btn_bg fl"><!--功能88按钮 div-->
 					<ul>
 						<c:if test="${add}">
 							<li><a title="<m:message code="button.add"/>" href="javascript:;"
