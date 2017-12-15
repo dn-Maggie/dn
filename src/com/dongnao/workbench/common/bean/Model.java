@@ -10,7 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.dongnao.workbench.common.page.Page;
 
 /**
- * 描述：实体类，负责分页数据传输功能
+ * 描述实体类，负责分页数据传输功能
  * 
  * @author joan.xiong
  * @version 1.0 2014-05-12

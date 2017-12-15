@@ -6,7 +6,7 @@ import com.dongnao.workbench.account.model.AssetItem;
 import com.dongnao.workbench.account.model.FixedAsset;
 
 /**
- * 描述：固定资产信息模块service接口，提供controller操作所需方法
+ * 描述：固定资产信息模块service接口，提供controller操作所需
  *
  * @author maggie
  * @version 1.0 2016-08-12
