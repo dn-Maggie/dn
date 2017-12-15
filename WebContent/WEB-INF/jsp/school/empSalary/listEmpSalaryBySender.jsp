@@ -28,7 +28,7 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
            	multiboxonly:false,/*仅可通过checkBox多选*/
            	emptyrecords: "无记录可显示",
         	footerrow:true,
-        	/* cellEdit:true, *///是否开启单元格的编辑功能  
+        	cellEdit:true, //是否开启单元格的编辑功能  
            	cellsubmit:'remote',//or 'clientArray',remote代表每次编辑提交后进行服务器保存，  clientArray只保存到数据表格不保存到服务器  
            	cellurl:'<m:url value='/empSalary/updateEmpSalary.do'/>',//cellsubmit要提交的后台路径  
            	pager: '#remote_prowed' /*分页栏id*/,
@@ -115,7 +115,7 @@ jsion_sumColumns["sumColumns"] = "rn,actualSalary";   //总计
                 businessplanmag_iRow=iRow;//全局变量
                 businessplanmag_iCol=iCol;
             },
-    		/* editurl : "<m:url value='/empSalary/operEmpSalary.do'/>", */
+    		editurl : "<m:url value='/empSalary/operEmpSalary.do'/>", 
     		gridComplete:function(){
     			$(".ui-jqgrid-sdiv").show();
            		//如果需要统计则需要定义

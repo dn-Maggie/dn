@@ -12,7 +12,6 @@ td>.editable {
 var gridObj = {};
 	$(function(){
 		getCreateDate(new Date());
-		
   		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
             url: "<m:url value='/empSalary/listEmpCost.do'/>",/*grid初始化请求数据的远程地址*/
@@ -48,7 +47,10 @@ var gridObj = {};
 		 		{name : "empDept",label:"所属部门",index : "empDept",hidden : true},
 				{name : "empStatus",label:"在职状态",index : "empStatus",width:"3",
 					formatter:function(cellvalue, options, rowObject){
-	 				if (cellvalue==1) {return '在职';}else if (cellvalue==2){return '试用';}else if (cellvalue==3){return '离职';}else if (cellvalue==4){return '兼职';}
+	 				if (cellvalue==1) {return '在职';}
+	 				else if (cellvalue==2){return '试用';}
+	 				else if (cellvalue==3){return '离职';}
+	 				else if (cellvalue==4){return '兼职';}
 	 			}},	
 	 			{name : "empName",label:"员工姓名",index : "empName",frozen : true,width:"4",
 			        formatter : function(value, options, rData){
@@ -205,8 +207,13 @@ var gridObj = {};
 						<option value="4">兼职</option>
 					</select><span>在职状态:</span>
 				</li>	
-				<li><input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
-						<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询"></li><!-- 查询-->
+				<li>
+					<input type="reset" class="reset_btn" onclick="refresh()" style="background: #fc0000" value="更新"><!--  更新-->
+				</li>
+				<li>
+					<input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
+					<input type="button" class="search_btn mr22 " onclick="doSearch();" value="查询">
+				</li><!-- 查询-->
 				</ul>
 		   </div>
 	    </form>

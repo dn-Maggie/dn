@@ -107,10 +107,12 @@ public class ImportExcelUtil {
         Workbook wb = null;  
         String fileType = fileName.substring(fileName.lastIndexOf("."));  
         if(excel2003L.equals(fileType)){  
-            wb = new HSSFWorkbook(inStr);  //2003-  
-        	//wb = new XSSFWorkbook(inStr);
+	        //wb = new HSSFWorkbook(inStr);  //2003-
+	        System.out.println("2003-------------------------------------------------");
+	       	wb = new XSSFWorkbook(inStr);
         }else if(excel2007U.equals(fileType)){  
-            wb = new XSSFWorkbook(inStr);  //2007+  
+        	wb = new XSSFWorkbook(inStr);  //2007+  
+        	System.out.println("2007-------------------------------------------------");
         }else{  
             throw new Exception("解析的文件格式有误！");  
         }  
