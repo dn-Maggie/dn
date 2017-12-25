@@ -460,9 +460,9 @@
 				name = arr[0][names[j]];
 				if(name){
 					actualPay.push(Math.round(name.xfsr));
-					allCome.push(Math.round(name.xfbk+name.xfsr));
+					allCome.push(Math.round(name.xfbk+name.xfsr-name.xftk));
 					shouldPay.push(Math.round(name.shouldPay));
-					profit.push(Math.round(name.xfbk+name.xfsr-name.pay));
+					profit.push(Math.round(name.xfbk+name.xfsr-name.xftk-name.pay));
 					pay.push(Math.round(name.pay));
 				}else{
 					actualPay.push(0);allCome.push(0);profit.push(0);pay.push(0);shouldPay.push(0);
@@ -670,7 +670,8 @@
 	//根据条件从数据库获取结果集
 	function ajaxGetStatistic(){
 			var paramDatas = {months:$("#monthChoose").val(),subjectName:encodeURI($("#subjectName").val())};
-	       	$.ajax({
+	       	console.log(paramDatas);
+			$.ajax({
 	   			url : "<m:url value='/standard/getBarStatistic.do'/>",
 	   			cache : false,
 	   			data: paramDatas,

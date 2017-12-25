@@ -49,7 +49,7 @@ import net.sf.json.JSONObject;
 
 
 /**
- * 描述：考核标准表模块controller类，负责页面分发与跳转
+ * 描述：业务统计模块controller类，负责页面分发与跳转
  * 
  * @author maggie
  * @version 1.0 2016-07-18
@@ -313,39 +313,26 @@ public class StandardController{
 	@RequestMapping("/getBarStatistic")
 	public void getBarStatistic(String months,String subjectName,HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException {
 		Map<Object,Object> model = new HashMap<Object,Object>();
-		
-		//1.有条件传入：有月份或有科目名
-		if(months!=""||subjectName!=""){
-			//拆分几个年月
-			String[] yearMonth = months.split(",");
-			//有月份，没有科目名
-			if(yearMonth.length>0&&subjectName==""){
-				//输入或没输入科目，有月份
-				for(int i=0;i<yearMonth.length;i++){
-					String[] ym = yearMonth[i].split("-");//分别获取日期的年、月，存入数组ym中
-					int month = Integer.parseInt(ym[1]);//将月份转化为整型
-					AccountFlow accountFlow = new AccountFlow();//创建一个财务流水实例
-					accountFlow.setSubjectName(subjectName);//设置科目为所传入科目
-					accountFlow.setCreateTime(ym[0]+month);//设置时间为所传入年月
-					ResultMoney resm  = accountFlowService.getBarStatistic(accountFlow);//根据查询条件获取查询值并添加在对象中
-					if(resm==null)resm = new ResultMoney();
-					VipStudent vipStudent = new VipStudent();//创建一个学生类实例
-					vipStudent.setJointime(ym[0]+month);//时间为所传入年月
-					vipStudent.setSubjectName(subjectName);//时间为所传入年月
-					List<Statistical> sv = vipStudentService.getTotal(vipStudent);//获取本月应收账款
-					if(sv.size()>0&&sv.get(0).getShouldPay()!=null){
-						resm.setShouldPay(sv.get(0).getShouldPay().doubleValue());//添加在对象中
-					}else{resm.setShouldPay(0.00);}
-					model.put(yearMonth[i], resm);
-				}
+		if(months!=""){
+			String[] yearMonth = months.split(",");//拆分年月
+			for(int i=0;i<yearMonth.length;i++){
+				String[] ym = yearMonth[i].split("-");//分别获取日期的年、月，存入数组ym中
+				int month = Integer.parseInt(ym[1]);//将月份转化为整型
+				AccountFlow accountFlow = new AccountFlow();//创建一个财务流水实例
+				if(subjectName!=""&&subjectName!=null)accountFlow.setSubjectName(subjectName);//设置科目为所传入科目
+				accountFlow.setCreateTime(ym[0]+month);//设置时间为所传入年月
+				ResultMoney resm  = accountFlowService.getBarStatistic(accountFlow);//根据查询条件获取查询值并添加在对象中
+				if(resm==null)resm = new ResultMoney();
+				VipStudent vipStudent = new VipStudent();//创建一个学生类实例
+				vipStudent.setJointime(ym[0]+month);//时间为所传入年月
+				if(subjectName!=""&&subjectName!=null)vipStudent.setSubjectName(subjectName);//科目
+				List<Statistical> sv = vipStudentService.getTotal(vipStudent);//获取本月应收账款
+				if(sv.size()>0&&sv.get(0).getShouldPay()!=null){
+					resm.setShouldPay(sv.get(0).getShouldPay().doubleValue());//添加在对象中
+				}else{resm.setShouldPay(0.00);}
+				model.put(yearMonth[i], resm);
 			}
-			//无月份，有科目名
-			else{
-				initBar(model,subjectName);
-			}
-		}
-		//2.无条件传入：没有月份且没有科目名
-		else{
+		}else{
 			initBar(model,subjectName);
 		}
 		AjaxUtils.sendAjaxForMap(response, model);
@@ -356,7 +343,7 @@ public class StandardController{
 		int month = calendar.get(Calendar.MONTH)+1;
 		for(int i=0;i<=5;i++){
 			AccountFlow accountFlow = new AccountFlow();
-			accountFlow.setSubjectName(subjectName);
+			if(subjectName!=""&&subjectName!=null)accountFlow.setSubjectName(subjectName);
 			int year = calendar.get(Calendar.YEAR);
 				if(month-i<=0){
 					year=year-1;
@@ -367,7 +354,7 @@ public class StandardController{
 				//获取本月应收账款
 				VipStudent vipStudent = new VipStudent();
 				vipStudent.setJointime(year+""+((month-i>0)?(month-i):(month-i+12)));
-				vipStudent.setSubjectName(subjectName);
+				if(subjectName!=""&&subjectName!=null)vipStudent.setSubjectName(subjectName);
 				List<Statistical> sv = vipStudentService.getTotal(vipStudent);
 				//添加在对象中
 				if(sv.size()>0&&sv.get(0).getShouldPay()!=null){
