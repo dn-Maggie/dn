@@ -62,7 +62,7 @@ body{
 }
 
 .profit td {
-	color: #ff0000;
+	color: green;
 }
 
 .deptchart {
@@ -100,6 +100,12 @@ input[name='timeQuantum']:checked+label{
     height: 30px;
     line-height: 30px;
     border-radius:6px;
+}
+#yjbcc{
+	background-color:#FFAEB9;
+}
+#totalbc{
+	background-color:#FF3030;
 }
 
 </style>
@@ -202,18 +208,18 @@ input[name='timeQuantum']:checked+label{
 	<script type="text/template" id="subject-tpl-first">
 					<tr class="ui-widget-content jqgrow ui-row-ltr {{class}}">
 						<td class="first" style="color:#444444" rowspan={{subsize}}>{{subject}}</td><td>{{classType}}</td>
-						<td>{{jan}}</td><td>{{feb}}</td>
-						<td>{{mar}}</td><td>{{apr}}</td>
-						<td>{{may}}</td><td>{{jun}}</td>
-						<td>{{jul}}</td><td>{{aug}}</td>
-						<td>{{sep}}</td><td>{{oct}}</td>
-						<td>{{nov}}</td><td>{{dec}}</td><td>{{total}}</td>
+						<td id="yjbcc">{{jan}}</td><td id="yjbcc">{{feb}}</td>
+						<td id="yjbcc">{{mar}}</td><td id="yjbcc">{{apr}}</td>
+						<td id="yjbcc">{{may}}</td><td id="yjbcc">{{jun}}</td>
+						<td id="yjbcc">{{jul}}</td><td id="yjbcc">{{aug}}</td>
+						<td id="yjbcc">{{sep}}</td><td id="yjbcc">{{oct}}</td>
+						<td id="yjbcc">{{nov}}</td><td id="yjbcc">{{dec}}</td><td id="totalbc">{{total}}</td>
 					</tr>
     </script>
     <script type="text/template" id="subject-tpl">
 					<tr class="ui-widget-content jqgrow ui-row-ltr {{class}}">
 						<td>{{classType}}</td>
-						<td>{{jan}}</td><td>{{feb}}</td>
+						<td >{{jan}}</td><td>{{feb}}</td>
 						<td>{{mar}}</td><td>{{apr}}</td>
 						<td>{{may}}</td><td>{{jun}}</td>
 						<td>{{jul}}</td><td>{{aug}}</td>
