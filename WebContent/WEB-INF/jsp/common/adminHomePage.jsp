@@ -103,13 +103,12 @@
 						<div class="cd-pricing-header topper">
 							<span class="nameTop">
 								<i class="iconfont">&#xe883;</i>
-									<label>新增VIP学员
-									</label>
+									<label>新增VIP学员</label>
 							</span>
 							<div class="cd-price">
 								<span class="cd-value-big" title="本月新增报名学员">${model.currMonth.vipcnt}</span>
 							</div>
-							<c:if test="${model.currMonth.vipcnt-model.beforeMonth.vipcnt>=0&&model.beforeMonth.vipcnt>0}">
+							<c:if test="${model.currMonth.vipcnt - model.beforeMonth.vipcnt >= 0 && model.beforeMonth.vipcnt>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${(model.currMonth.vipcnt - model.beforeMonth.vipcnt)/model.beforeMonth.vipcnt}" type="percent"></fmt:formatNumber>
 								</div>
@@ -659,8 +658,8 @@
 						<div class="cd-pricing-header topper"> 
 							<span class="nameTop">
 								<i class="iconfont">&#xe81d;</i>
-								<label>今日业绩
-								<i class="info-iconfont" title="当日业绩总额">&#xe637;</i>
+								<label>今年业绩
+								<i class="info-iconfont" title="当年业绩总额">&#xe637;</i>
 								</label>
 							</span>
 								<div class="cd-price">
@@ -799,7 +798,6 @@
 								</label>
 							</span>
 							<div class="cd-price">
-							<!--  <span class="cd-value-small">${model.allxf.xfsr+model.allxf.xfbk-model.allxf.xftk}</span>-->	
 							<span class="cd-value-small">
 								<fmt:formatNumber value="${model.all.actualPay}" pattern="0" type="number"></fmt:formatNumber>
 							</span>

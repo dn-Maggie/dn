@@ -257,6 +257,38 @@ public class DateUtil {
 	}
 
 	/**
+	 * 字符串格式化成今日日期 yyyy-MM-dd，返回字符串
+	 * 
+	 * @param dataStr
+	 *            日期字符串2015-11-11 11:11:11
+	 * @param format
+	 *            日期格式
+	 * @return
+	 */
+	public static String parseDateString(Date dateStr,String formatStr){
+		SimpleDateFormat sdf =   new SimpleDateFormat(formatStr);
+		String date = "";
+		date = sdf.format(dateStr);
+		return date;
+	}
+	
+	
+	/**
+	 *  yyyy-MM-01，返回字符串
+	 * 
+	 * @param dataStr
+	 *            日期字符串2015-11-11 11:11:11
+	 * @param format
+	 *            日期格式
+	 * @return
+	 */
+	public static String getFirDate(Date dateStr){
+		SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-01");
+		String date = "";
+		date = sdf.format(dateStr);
+		return date;
+	}
+	/**
 	 * 计算相隔天数的日期
 	 * 
 	 * @param date
@@ -390,5 +422,12 @@ public class DateUtil {
 			return dateBuff.toString();
 		}
 		return null;
+	}
+	
+	public static void main(String[] args) {
+		SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-01");
+		String date = "";
+		date = sdf.format(now());
+		System.out.println(date);
 	}
 }

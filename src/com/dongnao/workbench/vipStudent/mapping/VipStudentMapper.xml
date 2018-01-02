@@ -122,11 +122,11 @@
 			SUM(actual_pay) actualPay,
 			SUM(should_pay)-SUM(actual_pay) owePay,
 			(select sum(case WHEN ACCOUNT_NO ='XFSR' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1  <if test="jointime!=null and jointime!=''">  AND DATE_FORMAT(create_date,'%Y%m') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')</if>) xfsr,
-(select sum(case WHEN ACCOUNT_NO ='XFBK' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1 <if test="jointime!=null and jointime!=''"> AND DATE_FORMAT(create_date,'%Y%m') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')</if>) xfbk,
-(select sum(case WHEN ACCOUNT_NO ='XFTK' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1 <if test="jointime!=null and jointime!=''"> AND DATE_FORMAT(create_date,'%Y%m') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')</if>) xftk
-		FROM 
-		 	vip_student
-		WHERE 1=1 
+			(select sum(case WHEN ACCOUNT_NO ='XFBK' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1 <if test="jointime!=null and jointime!=''"> AND DATE_FORMAT(create_date,'%Y%m') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')</if>) xfbk,
+			(select sum(case WHEN ACCOUNT_NO ='XFTK' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1 <if test="jointime!=null and jointime!=''"> AND DATE_FORMAT(create_date,'%Y%m') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')</if>) xftk
+			FROM 
+			 	vip_student
+			WHERE 1=1 
 		<if test="jointime!=null and jointime!=''"> 
 			AND DATE_FORMAT(join_time,'%Y%m') like CONCAT('%',#{jointime,jdbcType=VARCHAR},'%')
 		</if>
@@ -138,9 +138,9 @@
 		
 	<select id="getStatisticaltoday" resultType="com.dongnao.workbench.vipStudent.model.Statistical" parameterType="java.lang.String">
 		SELECT 
-(select sum(case WHEN ACCOUNT_NO ='XFSR' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1  AND DATE_FORMAT(create_date,'%Y%m%D') like CONCAT('%',#{today,jdbcType=VARCHAR},'%')) xfsr,
-(select sum(case WHEN ACCOUNT_NO ='XFBK' and money>0 THEN MONEY ELSE 0 END) AS xfbk from account_flow where 1=1 AND DATE_FORMAT(create_date,'%Y%m%D') like CONCAT('%',#{today,jdbcType=VARCHAR},'%')) xfbk,
-(select sum(case WHEN ACCOUNT_NO ='XFTK' and money>0 THEN MONEY ELSE 0 END) AS xftk from account_flow where 1=1 AND DATE_FORMAT(create_date,'%Y%m%D') like CONCAT('%',#{today,jdbcType=VARCHAR},'%')) xftk
+		(select sum(case WHEN ACCOUNT_NO ='XFSR' and money>0 THEN MONEY ELSE 0 END) AS xfsr from account_flow where 1=1  AND DATE_FORMAT(create_date,'%Y%m%D') like CONCAT('%',#{today,jdbcType=VARCHAR},'%')) xfsr,
+		(select sum(case WHEN ACCOUNT_NO ='XFBK' and money>0 THEN MONEY ELSE 0 END) AS xfbk from account_flow where 1=1 AND DATE_FORMAT(create_date,'%Y%m%D') like CONCAT('%',#{today,jdbcType=VARCHAR},'%')) xfbk,
+		(select sum(case WHEN ACCOUNT_NO ='XFTK' and money>0 THEN MONEY ELSE 0 END) AS xftk from account_flow where 1=1 AND DATE_FORMAT(create_date,'%Y%m%D') like CONCAT('%',#{today,jdbcType=VARCHAR},'%')) xftk
 		FROM 
 		 	vip_student
 		WHERE DATE_FORMAT(join_time,'%Y%m%D') like CONCAT('%',#{today,jdbcType=VARCHAR},'%') limit 0,1
