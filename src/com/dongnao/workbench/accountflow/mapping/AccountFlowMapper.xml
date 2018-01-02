@@ -378,7 +378,7 @@ values
 	</select>
 	
 	<select id="getBarStatistic" resultMap="MoneyResultMap" parameterType="com.dongnao.workbench.accountflow.model.AccountFlow">
-		select
+<!-- 20171225之前的sql		select
 		sum(case WHEN a.ACCOUNT_NO='XFSR' and money>0 THEN MONEY ELSE 0 END) AS xfsr,
 		sum(case WHEN a.ACCOUNT_NO='XFBK' and money>0 THEN MONEY ELSE 0 END) AS xfbk,
 		sum(case WHEN a.ACCOUNT_NO='XFTK' and money>0 THEN MONEY ELSE 0 END) AS xftk,
@@ -402,7 +402,22 @@ values
 			<if test="null!=createTime and ''!=createTime"> 
 				AND DATE_FORMAT(af.create_date,'%Y%c') like CONCAT('%',#{createTime,jdbcType=VARCHAR},'%')
 			</if>
-		) a
+		) a -->
+		select sum(case WHEN t.ACCOUNT_NO='XFSR' and money>0 THEN MONEY ELSE 0 END) as xfsr,
+			sum(case WHEN t.ACCOUNT_NO='XFBK' and money>0 THEN MONEY ELSE 0 END) as xfbk,
+			sum(case WHEN t.ACCOUNT_NO='XFTK' and money>0 THEN MONEY ELSE 0 END)as xftk,
+			IFNULL(f2.pay,0) as pay
+		from 
+			(select af2.* from financial_flow af2,vip_student vs1 where af2.ACCOUNT_NO IN('XFSR','XFBK','XFTK')
+			<if test="null!=createTime and ''!=createTime">
+				and DATE_FORMAT(af2.create_date,'%Y%c')=#{createTime,jdbcType=VARCHAR} </if>and af2.stu_id=vs1.id  
+			<if test="null!=subjectName and ''!=subjectName"> 
+				and vs1.subject_name=#{subjectName,jdbcType=VARCHAR}</if>) t,
+			(SELECT truncate(sum(af2.money),2)as pay from financial_flow af2 where af2.ACCOUNT_NO IN ('GZZC','SBKK') 
+			<if test="null!=createTime and ''!=createTime">
+				and DATE_FORMAT(af2.create_date,'%Y%c')=#{createTime,jdbcType=VARCHAR}</if>
+			<if test="null!=subjectName and ''!=subjectName"> 
+				and af2.d_name=#{subjectName,jdbcType=VARCHAR}</if>) f2
 	</select>
 	
 	<select id="listByAccountName" resultMap="BaseResultMap" parameterType="java.lang.String">

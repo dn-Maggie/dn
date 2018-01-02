@@ -492,7 +492,7 @@
     }
     function formCell(cellValue,options,rowObject) {
         if("阳智薇薇嘉文".indexOf(rowObject.nickName)!=-1){
-        	return "p";
+        	return "x";
         }else{
         	return cellValue;
         }
