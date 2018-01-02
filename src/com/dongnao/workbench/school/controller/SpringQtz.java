@@ -36,35 +36,32 @@ public class SpringQtz {
 	EmpPerformanceMapper empPerformanceMapper;
 
 	/**
-	 * 定时更新成本业绩临时表
+	 * 定时更新成本业绩数据表
 	 */	
 	protected void execute() {
-		//System.out.println(accountFlowMapper);
 		ReportQuerycondition rqc = new ReportQuerycondition();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-		Date date = new Date();
-		String nowyear = sdf.format(date);
-		rqc.setYear(nowyear);
-		//int a =accountFlowMapper.timedupdatecostprofitdelete(rqc);
-/*		List<ReportQuerycondition> rqclistr = new ArrayList<ReportQuerycondition>();
-		List<ReportQuerycondition> rqclistc = new ArrayList<ReportQuerycondition>();*/
-		List<Subject> Deptlist = subjectService.listByCondition(new Subject());
-		for (int i = 0; i < Deptlist.size(); i++) {
-			ReportQuerycondition rqcr = new ReportQuerycondition();
-			ReportQuerycondition rqcc = new ReportQuerycondition();
-			rqcr.setYear(nowyear);
-			rqcc.setYear(nowyear);
-			rqcr.setDeptname(Deptlist.get(i).getName());
-			rqcc.setDeptname(Deptlist.get(i).getName());
-			rqcr.setClasstype("achieve");
-			rqcc.setClasstype("cost");
-			accountFlowMapper.timedupdatecostprofitcs(rqcc);//不采用批量插入
-			accountFlowMapper.timedupdatecostprofitrs(rqcr);
-/*			rqclistr.add(rqcr);
-			rqclistc.add(rqcc);*/
-		}
-/*		accountFlowMapper.timedupdatecostprofitr(rqclistr);//批量插入
-		accountFlowMapper.timedupdatecostprofitc(rqclistc);*/
+		String nowYear = new SimpleDateFormat("yyyy").format(new Date());
+		rqc.setYear(nowYear);
+		int a =accountFlowMapper.timedupdatecostprofitdelete(rqc);//删除当年的旧数据
+		  /*List<ReportQuerycondition> rqclistr = new ArrayList<ReportQuerycondition>();
+			List<ReportQuerycondition> rqclistc = new ArrayList<ReportQuerycondition>();*/
+			List<Subject> Deptlist = subjectService.listByCondition(new Subject());
+			for (int i = 0; i < Deptlist.size(); i++) {//不采用批量插入
+				ReportQuerycondition rqcr = new ReportQuerycondition();//业绩
+				ReportQuerycondition rqcc = new ReportQuerycondition();//成本
+				rqcr.setYear(nowYear);
+				rqcc.setYear(nowYear);
+				rqcr.setDeptname(Deptlist.get(i).getName());
+				rqcc.setDeptname(Deptlist.get(i).getName());
+				rqcr.setClasstype("achieve");
+				rqcc.setClasstype("cost");
+				accountFlowMapper.timedupdatecostprofitrs(rqcr);//插入当年每个月此部门的业绩
+				accountFlowMapper.timedupdatecostprofitcs(rqcc);//插入当年每个月此部门的成本
+	/*			rqclistr.add(rqcr);
+				rqclistc.add(rqcc);*/
+			}
+	/*		accountFlowMapper.timedupdatecostprofitr(rqclistr);//批量插入
+			accountFlowMapper.timedupdatecostprofitc(rqclistc);*/
 	}
 	
 	/*每个月月初更新上一个月的业绩到业绩统计表*/

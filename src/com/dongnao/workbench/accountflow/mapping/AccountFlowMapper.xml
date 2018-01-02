@@ -165,10 +165,7 @@
 	
 	<delete id="timedupdatecostprofitdelete" parameterType="com.dongnao.workbench.common.bean.ReportQuerycondition">
 		delete from cost_profit_temporary
-		where 1=1
-		<if test="year != null and '' != year">  
-			and j_year = #{year,jdbcType=VARCHAR}
-		</if>
+		where j_year = #{year,jdbcType=VARCHAR}
 	</delete>
 	
 	<insert id="add" parameterType="com.dongnao.workbench.accountflow.model.AccountFlow">
@@ -224,33 +221,139 @@ values
 	</insert>
 	
 			<insert id="timedupdatecostprofitrs" parameterType="com.dongnao.workbench.common.bean.ReportQuerycondition">
-update cost_profit_temporary set j_oct=(select IFNULL(sum1.num1,0) -IFNULL(sum2.num2,0) from 
+insert into cost_profit_temporary (j_jan,j_feb,j_mar,j_apr,j_may,j_jun,j_jul,j_aug,j_sep,j_oct,j_nov,j_dec,subname,classType,j_year)
+values (
+((select IFNULL(sum1.num1,0) -IFNULL(sum2.num2,0) from 
  (SELECT truncate(sum(af2.money),2) as num1 from financial_flow af2,vip_student vs1 
-	where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-10') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) sum1 ,
+	where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-1') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) sum1 ,
  (SELECT truncate(sum(af2.money),2) as num2 from financial_flow af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFTK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-10') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR})sum2),
-j_nov=(select IFNULL(sum1.num1,0) -IFNULL(sum2.num2,0) from 
+			where af2.ACCOUNT_NO IN ('XFTK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-1') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR})sum2)),
+
+((select IFNULL(sum1.num1,0) -IFNULL(sum2.num2,0) from 
  (SELECT truncate(sum(af2.money),2) as num1 from financial_flow af2,vip_student vs1 
-	where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-11') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) sum1 ,
+	where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-2') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) sum1 ,
  (SELECT truncate(sum(af2.money),2) as num2 from financial_flow af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFTK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-11') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR})sum2),
-j_dec=(select IFNULL(sum1.num1,0) -IFNULL(sum2.num2,0) from 
+			where af2.ACCOUNT_NO IN ('XFTK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-2') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR})sum2)),
+
+((select IFNULL(sum1.num1,0) -IFNULL(sum2.num2,0) from 
  (SELECT truncate(sum(af2.money),2) as num1 from financial_flow af2,vip_student vs1 
-	where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-12') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) sum1 ,
+	where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-3') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) sum1 ,
  (SELECT truncate(sum(af2.money),2) as num2 from financial_flow af2,vip_student vs1 
-			where af2.ACCOUNT_NO IN ('XFTK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-12') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR})sum2)
-where j_year=#{year,jdbcType=VARCHAR} and subname=#{deptname,jdbcType=VARCHAR} and classtype=#{classtype,jdbcType=VARCHAR}
+			where af2.ACCOUNT_NO IN ('XFTK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-3') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR})sum2)),
+
+((select IFNULL(sum1.num1,0) -IFNULL(sum2.num2,0) from 
+ (SELECT truncate(sum(af2.money),2) as num1 from financial_flow af2,vip_student vs1 
+	where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-4') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) sum1 ,
+ (SELECT truncate(sum(af2.money),2) as num2 from financial_flow af2,vip_student vs1 
+			where af2.ACCOUNT_NO IN ('XFTK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-4') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR})sum2)),
+
+((select IFNULL(sum1.num1,0) -IFNULL(sum2.num2,0) from 
+ (SELECT truncate(sum(af2.money),2) as num1 from financial_flow af2,vip_student vs1 
+	where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-5') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) sum1 ,
+ (SELECT truncate(sum(af2.money),2) as num2 from financial_flow af2,vip_student vs1 
+			where af2.ACCOUNT_NO IN ('XFTK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-5') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR})sum2)),
+
+((select IFNULL(sum1.num1,0) -IFNULL(sum2.num2,0) from 
+ (SELECT truncate(sum(af2.money),2) as num1 from financial_flow af2,vip_student vs1 
+	where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-6') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) sum1 ,
+ (SELECT truncate(sum(af2.money),2) as num2 from financial_flow af2,vip_student vs1 
+			where af2.ACCOUNT_NO IN ('XFTK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-6') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR})sum2)),
+
+((select IFNULL(sum1.num1,0) -IFNULL(sum2.num2,0) from 
+ (SELECT truncate(sum(af2.money),2) as num1 from financial_flow af2,vip_student vs1 
+	where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-7') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) sum1 ,
+ (SELECT truncate(sum(af2.money),2) as num2 from financial_flow af2,vip_student vs1 
+			where af2.ACCOUNT_NO IN ('XFTK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-7') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR})sum2)),
+
+((select IFNULL(sum1.num1,0) -IFNULL(sum2.num2,0) from 
+ (SELECT truncate(sum(af2.money),2) as num1 from financial_flow af2,vip_student vs1 
+	where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-8') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) sum1 ,
+ (SELECT truncate(sum(af2.money),2) as num2 from financial_flow af2,vip_student vs1 
+			where af2.ACCOUNT_NO IN ('XFTK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-8') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR})sum2)),
+
+((select IFNULL(sum1.num1,0) -IFNULL(sum2.num2,0) from 
+ (SELECT truncate(sum(af2.money),2) as num1 from financial_flow af2,vip_student vs1 
+	where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-9') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) sum1 ,
+ (SELECT truncate(sum(af2.money),2) as num2 from financial_flow af2,vip_student vs1 
+			where af2.ACCOUNT_NO IN ('XFTK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-9') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR})sum2)),
+
+((select IFNULL(sum1.num1,0) -IFNULL(sum2.num2,0) from 
+ (SELECT truncate(sum(af2.money),2) as num1 from financial_flow af2,vip_student vs1 
+	where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-10') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) sum1 ,
+ (SELECT truncate(sum(af2.money),2) as num2 from financial_flow af2,vip_student vs1 
+			where af2.ACCOUNT_NO IN ('XFTK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-10') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR})sum2)),
+
+((select IFNULL(sum1.num1,0) -IFNULL(sum2.num2,0) from 
+ (SELECT truncate(sum(af2.money),2) as num1 from financial_flow af2,vip_student vs1 
+	where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-11') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) sum1 ,
+ (SELECT truncate(sum(af2.money),2) as num2 from financial_flow af2,vip_student vs1 
+			where af2.ACCOUNT_NO IN ('XFTK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-11') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR})sum2)),
+
+((select IFNULL(sum1.num1,0) -IFNULL(sum2.num2,0) from 
+ (SELECT truncate(sum(af2.money),2) as num1 from financial_flow af2,vip_student vs1 
+	where af2.ACCOUNT_NO IN ('XFSR','XFBK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-12') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR}) sum1 ,
+ (SELECT truncate(sum(af2.money),2) as num2 from financial_flow af2,vip_student vs1 
+			where af2.ACCOUNT_NO IN ('XFTK') and DATE_FORMAT(af2.create_date,'%Y-%c')=
+concat(#{year,jdbcType=VARCHAR},'-12') and af2.stu_id=vs1.id and vs1.subject_name=#{deptname,jdbcType=VARCHAR})sum2)),
+#{deptname,jdbcType=VARCHAR},
+			#{classtype,jdbcType=VARCHAR},
+			#{year,jdbcType=VARCHAR})
 	</insert>
 	
 	
 	<insert id="timedupdatecostprofitcs" parameterType="com.dongnao.workbench.common.bean.ReportQuerycondition">
-	update cost_profit_temporary set j_oct=(SELECT truncate(sum(af2.money),2) from financial_flow af2 
-			where af2.ACCOUNT_NO IN ('GZZC','SBKK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-10') and af2.d_name=#{deptname,jdbcType=VARCHAR}),
-j_nov=(SELECT truncate(sum(af2.money),2) from financial_flow af2 
-			where af2.ACCOUNT_NO IN ('GZZC','SBKK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-11') and af2.d_name=#{deptname,jdbcType=VARCHAR}),
-j_dec=(SELECT truncate(sum(af2.money),2) from financial_flow af2 
-			where af2.ACCOUNT_NO IN ('GZZC','SBKK') and DATE_FORMAT(af2.create_date,'%Y-%m')=concat(#{year,jdbcType=VARCHAR},'-12') and af2.d_name=#{deptname,jdbcType=VARCHAR})
-where j_year=#{year,jdbcType=VARCHAR} and subname=#{deptname,jdbcType=VARCHAR} and classtype=#{classtype,jdbcType=VARCHAR}
+	insert into cost_profit_temporary (j_jan,j_feb,j_mar,j_apr,j_may,j_jun,j_jul,j_aug,j_sep,j_oct,j_nov,j_dec,subname,classType,j_year)
+values (
+((SELECT truncate(sum(af2.money),2) from financial_flow af2 
+			where af2.ACCOUNT_NO IN ('GZZC','SBKK') and DATE_FORMAT(af2.create_date,'%Y-%c')=concat(#{year,jdbcType=VARCHAR},'-1') and af2.d_name=#{deptname,jdbcType=VARCHAR})),
+((SELECT truncate(sum(af2.money),2) from financial_flow af2 
+			where af2.ACCOUNT_NO IN ('GZZC','SBKK') and DATE_FORMAT(af2.create_date,'%Y-%c')=concat(#{year,jdbcType=VARCHAR},'-2') and af2.d_name=#{deptname,jdbcType=VARCHAR})),
+((SELECT truncate(sum(af2.money),2) from financial_flow af2 
+			where af2.ACCOUNT_NO IN ('GZZC','SBKK') and DATE_FORMAT(af2.create_date,'%Y-%c')=concat(#{year,jdbcType=VARCHAR},'-3') and af2.d_name=#{deptname,jdbcType=VARCHAR})),
+((SELECT truncate(sum(af2.money),2) from financial_flow af2 
+			where af2.ACCOUNT_NO IN ('GZZC','SBKK') and DATE_FORMAT(af2.create_date,'%Y-%c')=concat(#{year,jdbcType=VARCHAR},'-4') and af2.d_name=#{deptname,jdbcType=VARCHAR})),
+((SELECT truncate(sum(af2.money),2) from financial_flow af2 
+			where af2.ACCOUNT_NO IN ('GZZC','SBKK') and DATE_FORMAT(af2.create_date,'%Y-%c')=concat(#{year,jdbcType=VARCHAR},'-5') and af2.d_name=#{deptname,jdbcType=VARCHAR})),
+((SELECT truncate(sum(af2.money),2) from financial_flow af2 
+			where af2.ACCOUNT_NO IN ('GZZC','SBKK') and DATE_FORMAT(af2.create_date,'%Y-%c')=concat(#{year,jdbcType=VARCHAR},'-6') and af2.d_name=#{deptname,jdbcType=VARCHAR})),
+((SELECT truncate(sum(af2.money),2) from financial_flow af2 
+			where af2.ACCOUNT_NO IN ('GZZC','SBKK') and DATE_FORMAT(af2.create_date,'%Y-%c')=concat(#{year,jdbcType=VARCHAR},'-7') and af2.d_name=#{deptname,jdbcType=VARCHAR})),
+((SELECT truncate(sum(af2.money),2) from financial_flow af2 
+			where af2.ACCOUNT_NO IN ('GZZC','SBKK') and DATE_FORMAT(af2.create_date,'%Y-%c')=concat(#{year,jdbcType=VARCHAR},'-8') and af2.d_name=#{deptname,jdbcType=VARCHAR})),
+((SELECT truncate(sum(af2.money),2) from financial_flow af2 
+			where af2.ACCOUNT_NO IN ('GZZC','SBKK') and DATE_FORMAT(af2.create_date,'%Y-%c')=concat(#{year,jdbcType=VARCHAR},'-9') and af2.d_name=#{deptname,jdbcType=VARCHAR})),
+((SELECT truncate(sum(af2.money),2) from financial_flow af2 
+			where af2.ACCOUNT_NO IN ('GZZC','SBKK') and DATE_FORMAT(af2.create_date,'%Y-%c')=concat(#{year,jdbcType=VARCHAR},'-10') and af2.d_name=#{deptname,jdbcType=VARCHAR})),
+((SELECT truncate(sum(af2.money),2) from financial_flow af2 
+			where af2.ACCOUNT_NO IN ('GZZC','SBKK') and DATE_FORMAT(af2.create_date,'%Y-%c')=concat(#{year,jdbcType=VARCHAR},'-11') and af2.d_name=#{deptname,jdbcType=VARCHAR})),
+((SELECT truncate(sum(af2.money),2) from financial_flow af2 
+			where af2.ACCOUNT_NO IN ('GZZC','SBKK') and DATE_FORMAT(af2.create_date,'%Y-%c')=concat(#{year,jdbcType=VARCHAR},'-12') and af2.d_name=#{deptname,jdbcType=VARCHAR})),
+#{deptname,jdbcType=VARCHAR},
+			#{classtype,jdbcType=VARCHAR},
+			#{year,jdbcType=VARCHAR})
 	</insert>
 	
 	<insert id="timedupdatecostprofitc" parameterType="java.util.List">
