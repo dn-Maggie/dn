@@ -272,10 +272,11 @@ public class StandardController{
 		if(subjectName!=null && subjectName!="")rt.setSubjectName(subjectName);
 		
 		Calendar now = Calendar.getInstance();
-		int year = now.get(Calendar.YEAR);
+		
 		int month = (now.get(Calendar.MONTH) + 1);
 				
 		for(int i=0;i<3;i++){
+			int year = now.get(Calendar.YEAR);
 			int queryMonth = 1;
 			if((month - i)<=0){
 				queryMonth = month - i + 12;

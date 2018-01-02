@@ -3,6 +3,7 @@ import javax.annotation.Resource;
 import java.util.List;
 import com.dongnao.workbench.marketStudent.dao.MarketStudentMapper;
 import com.dongnao.workbench.marketStudent.model.MarketStudent;
+import com.dongnao.workbench.marketStudent.model.Promotionalinfo;
 import com.dongnao.workbench.marketStudent.service.MarketStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,5 +68,11 @@ public class MarketStudentServiceImpl implements MarketStudentService{
 
 	public MarketStudent getMarkStuCount(String month) {
 		return marketStudentMapper.getMarkStuCount(month);
+	}
+
+
+	@Override
+	public List<Promotionalinfo> listPromotionalInfo(Promotionalinfo promotionalinfo) {
+		return marketStudentMapper.listPromotionalInfo(promotionalinfo);
 	}
 }

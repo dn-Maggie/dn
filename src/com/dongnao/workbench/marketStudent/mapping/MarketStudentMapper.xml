@@ -3,23 +3,36 @@
 <mapper namespace="com.dongnao.workbench.marketStudent.dao.MarketStudentMapper">
 	<resultMap id="BaseResultMap" type="com.dongnao.workbench.marketStudent.model.MarketStudent">
 		<id column="id" property="id" jdbcType="VARCHAR" />
-													<result column="qq" property="qq" jdbcType="VARCHAR" />
-													<result column="subject_id" property="subjectId" jdbcType="VARCHAR" />
-													<result column="user_id" property="userId" jdbcType="VARCHAR" />
-													<result column="time" property="time" jdbcType="TIMESTAMP" />
-													<result column="notes" property="notes" jdbcType="VARCHAR" />
-													<result column="subjectname" property="subjectname" jdbcType="VARCHAR" />
-													<result column="coursename" property="coursename" jdbcType="VARCHAR" />
-													<result column="file_url" property="fileUrl" jdbcType="BLOB" />
-									</resultMap>
+		<result column="qq" property="qq" jdbcType="VARCHAR" />
+		<result column="subject_id" property="subjectId" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="time" property="time" jdbcType="TIMESTAMP" />
+		<result column="notes" property="notes" jdbcType="VARCHAR" />
+		<result column="subjectname" property="subjectname" jdbcType="VARCHAR" />
+		<result column="coursename" property="coursename" jdbcType="VARCHAR" />
+		<result column="file_url" property="fileUrl" jdbcType="BLOB" />
+	</resultMap>
+	
+	<resultMap id="ProInfoResultMap" type="com.dongnao.workbench.marketStudent.model.Promotionalinfo">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="qq" property="qq" jdbcType="VARCHAR" />
+		<result column="course" property="course" jdbcType="VARCHAR" />
+		<result column="level" property="level" jdbcType="VARCHAR" />
+		<result column="entry_emp" property="entry_emp" jdbcType="VARCHAR" />
+		<result column="entry_time" property="entry_time" jdbcType="TIMESTAMP" />
+		<result column="is_buy" property="is_buy" jdbcType="VARCHAR" />
+		<result column="auxiliary" property="auxiliary" jdbcType="VARCHAR" />
+		<result column="notes" property="notes" jdbcType="VARCHAR" />
+	</resultMap>						
+									
 	<sql id="Base_Column_List">
-						 	m.id
-							,m.qq
-							,m.subject_id
-							,m.user_id
-							,m.time
-							,m.notes
-							,file_url
+	 	m.id
+		,m.qq
+		,m.subject_id
+		,m.user_id
+		,m.time
+		,m.notes
+		,file_url
 	</sql>
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -40,6 +53,52 @@
 			AND DATE_FORMAT(time,'%Y%m') like CONCAT('%',#{month,jdbcType=VARCHAR},'%')
 		</if>
 	</select>
+	
+	<select id="listPromotionalInfo" resultMap="ProInfoResultMap" parameterType="com.dongnao.workbench.marketStudent.model.Promotionalinfo">
+		select id,qq,course,level,entry_emp,entry_time,is_buy,auxiliary,notes from promotional_info 
+		where 1=1
+		<if test="id != null and '' != id">  
+			and id = #{id,jdbcType=VARCHAR}
+		</if>
+		<if test="qq != null and '' != qq">  
+			and qq = #{qq,jdbcType=VARCHAR}
+		</if>
+		<if test="course != null and '' != course">  
+			and course = #{course,jdbcType=VARCHAR}
+		</if>
+		<if test="level != null and '' != level">  
+			and level = #{level,jdbcType=VARCHAR}
+		</if>
+		<if test="entry_emp != null and '' != entry_emp">  
+			and entry_emp = #{entry_emp,jdbcType=VARCHAR}
+		</if>
+		<if test="entry_time != null and '' != entry_time">  
+			and entry_time = #{entry_time,jdbcType=TIMESTAMP}
+		</if>
+		<if test="is_buy != null and '' != is_buy">  
+			and is_buy = #{is_buy,jdbcType=VARCHAR}
+		</if>
+		<if test="auxiliary != null and '' != auxiliary">  
+			and auxiliary = #{auxiliary,jdbcType=VARCHAR}
+		</if>
+		<if test="notes != null and '' != notes">  
+			and notes = #{notes,jdbcType=VARCHAR}
+		</if>
+		<if test="null != propsMap.startDate and propsMap.startDate != ''">
+			<![CDATA[
+			and DATE_FORMAT(entry_time,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
+			]]>
+		</if>
+		<if test="null != propsMap.endDate and propsMap.endDate != ''">
+			<![CDATA[
+				and DATE_FORMAT(entry_time,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
+			]]>
+		</if>
+				<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+         	</if>
+	</select>
+	
 	
 	
 	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.marketStudent.model.MarketStudent">
