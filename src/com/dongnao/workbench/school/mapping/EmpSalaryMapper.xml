@@ -673,23 +673,35 @@
 		where id = #{id,jdbcType=VARCHAR} 
 	</update>
 	
-	<!-- <update id="updateEmpCostBonus" parameterType="com.dongnao.workbench.school.model.EmpSalary">
-		update performance_statistics 
-			 <trim prefix="set" suffixOverrides=",">
-				<if test="actualSalary != null and '' != actualSalary">  
-					cost = #{actualSalary,jdbcType=DECIMAL},
-					actual_bonus = (
+	<!-- 更新成本和业绩 -->
+	<update id="updateCostPerf" parameterType="java.lang.String">
+		UPDATE performance_statistics SET emp_performance = (
+			SELECT sum(performance) from
+			emp_performance
+			WHERE
+				create_date LIKE CONCAT('%',#{month,jdbcType=VARCHAR},'%')
+			AND 
+			employee_id = emp_id
+			)
+			,bonus = (
+			SELECT sum(performance) from
+			emp_performance_new
+			WHERE
+				create_date LIKE CONCAT('%',#{month,jdbcType=VARCHAR},'%')
+			AND 
+			employee_id = emp_id
+			)
+			,actual_bonus = (
 					CASE
 					WHEN emp_performance - cost > 0 THEN
 						bonus
 					ELSE
 						bonus/3
 					END
-				)
-				</if>
-			</trim>
-		where id = #{id,jdbcType=VARCHAR} 
-	</update> -->
+			)
+			WHERE  month  LIKE CONCAT('%',#{month,jdbcType=VARCHAR},'%');
+	</update>
+	
 	<update id="audit" parameterType="com.dongnao.workbench.school.model.EmpSalary">
 		update emp_salary  set
 			id= #{id,jdbcType=VARCHAR}

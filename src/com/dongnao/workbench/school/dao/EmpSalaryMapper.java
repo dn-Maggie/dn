@@ -96,5 +96,5 @@ public interface EmpSalaryMapper  {
 	 * 更新整个员工成本业绩
 	 * @param empSalary EmpSalary：实体对象
 	 */	
-	public void updateEmpCostBonus(EmpSalary empSalary);
+	public void updateCostPerf(String month);
 }

@@ -72,7 +72,12 @@ public class SpringQtz {
 		List<Employee> EmployeeList = employeeMapper.listByCondition(employee);
 		List<PerformanceStiData> performanceStiData = new ArrayList<PerformanceStiData>();
 		for(int i = 0 ; i < EmployeeList.size() ; i++) {
-			if(EmployeeList.get(i).getCurrState().equals("3"))continue;
+			try {
+				if(EmployeeList.get(i).getCurrState().equals("3"))continue;
+			} catch (Exception e) {
+				e.printStackTrace();
+				continue;
+			}
 			PerformanceStiData pfsd = new PerformanceStiData();
 			pfsd.setId(Utils.generateUniqueID());
 			pfsd.setEmpId(EmployeeList.get(i).getId());

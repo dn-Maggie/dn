@@ -514,7 +514,7 @@
 	</insert>
 	
 	<update id="updateActualBonus" parameterType="com.dongnao.workbench.school.model.PerformanceStiData">
-		update performance_statistics set actual_bonus =truncate(#{actualBonus,jdbcType=DOUBLE},2) 
+		update performance_statistics set actual_bonus = truncate(#{actualBonus,jdbcType=DOUBLE},2) 
 		where id=#{id,jdbcType=VARCHAR}    
 	</update>
 	

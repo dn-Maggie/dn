@@ -96,8 +96,8 @@ public interface EmpSalaryService  {
 
 	public ResultMessage addEmpCost(EmpSalary empSalary);
 
-
-	public void updateEmpCostBonus(EmpSalary empSalary);
+	
+	public ResultMessage updateCostPerf(String month);
 
 	
 }

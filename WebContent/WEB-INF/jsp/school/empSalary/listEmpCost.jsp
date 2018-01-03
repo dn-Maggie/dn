@@ -142,8 +142,6 @@ var gridObj = {};
     }
     //获取创建日期方法
     function getCreateDate(_date){
-    	debugger
-    	
     	var createDate = _date;
     	var _createDate =  new Date(createDate);
     	var actual_createDate = _createDate.getFullYear()+"-"+(_createDate.getMonth()+1>=10?_createDate.getMonth()+1:"0"+_createDate.getMonth())+"-01";
@@ -169,6 +167,26 @@ var gridObj = {};
   	function closeAdd(){
 		add_iframe_dialog.close();
   	}
+	
+	
+	function refresh(){
+		var month = $("#createDateMonth").val();
+    	if(month==""){
+    		showMessage("请选择需要更新的月份！");
+    		return ;
+    	}else{
+    		$ .ajax({
+    			type:"post",
+    			url: "<m:url value='/empSalary/updateCostPerf.do'/>",
+    			cache:false,
+    			data: {month:month},
+    			success: function(data, textStatus, jqXHR){
+    				doSearch();
+    			}
+    		});
+    	}
+		
+	}
     </script>
 </head>
 <body style="height:100%;">
@@ -208,7 +226,7 @@ var gridObj = {};
 					</select><span>在职状态:</span>
 				</li>	
 				<li>
-					<input type="reset" class="reset_btn" onclick="refresh()" style="background: #fc0000" value="更新"><!--  更新-->
+					<input type="reset" class="reset_btn" onclick="refresh()" style="text-align: center" value="一键更新"><!--  更新-->
 				</li>
 				<li>
 					<input type="reset" class="reset_btn" onclick="resetForm('queryForm')" value="重置"><!-- 重置 -->
@@ -232,8 +250,8 @@ var gridObj = {};
 			<!--功能按钮end-->
 				<div class="listtable_box">
 					<!--此处放表格-->
-				<table  id="remote_rowed" ></table>
-				<div  id="remote_prowed"></div>		
+					<table  id="remote_rowed" ></table>
+					<div  id="remote_prowed"></div>		
 				</div>
 		</div>
 	</div>

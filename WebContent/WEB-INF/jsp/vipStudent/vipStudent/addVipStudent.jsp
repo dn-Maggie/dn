@@ -29,6 +29,7 @@ $(function() {
 	/*报名日期格式化*/
 	new biz.datepicker({
 		id : "#edit_joinTime",
+		minDate:'#F{$dp.$D(\'edit_joinTime\',{d:-1});}',
 		maxDate:'#F{$dp.$D(\'edit_joinTime\',{d:0});}',
 		dateFmt:'yyyy-MM-dd HH:mm:ss'
 	});

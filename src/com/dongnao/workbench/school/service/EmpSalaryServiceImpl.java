@@ -20,7 +20,7 @@ import com.dongnao.workbench.common.util.AjaxUtils;
  */
 @Service("empSalaryService")
 public class EmpSalaryServiceImpl implements EmpSalaryService{
-        @Resource
+    @Resource
 	private EmpSalaryMapper empSalaryMapper;
 	
  
@@ -140,8 +140,9 @@ public class EmpSalaryServiceImpl implements EmpSalaryService{
 	}
 
 	@Override
-	public void updateEmpCostBonus(EmpSalary empSalary) {
-		empSalaryMapper.updateEmpCostBonus(empSalary);
+	public ResultMessage updateCostPerf(String month) {
+		empSalaryMapper.updateCostPerf(month);
+		return AjaxUtils.getSuccessMessage();
 	}
 	
 

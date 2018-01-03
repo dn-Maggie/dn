@@ -83,11 +83,11 @@
       <param-name>codeCount</param-name>
       <param-value>4</param-value>
     </init-param>
-    </servlet>  
-    <servlet-mapping>  
-	    <servlet-name>ValidateCode</servlet-name>  
-	    <url-pattern>/validateCode</url-pattern>  
-	 </servlet-mapping>
+ </servlet>  
+ <servlet-mapping>  
+    <servlet-name>ValidateCode</servlet-name>  
+    <url-pattern>/validateCode</url-pattern>  
+ </servlet-mapping>
    <!-- SpringMVC -->
   <servlet>
     <servlet-name>SpringMVC</servlet-name>

@@ -637,7 +637,7 @@
 			
 			<li  class="cd-popular" style="width:33.3%" >
 				<ul class="cd-pricing-wrapper">
-					<li data-type="monthly" class="is-visible oor"  did="continuePay" id="ContinuePay" term="month" onclick="lookMore(this.id,this.attributes['did'].value,this.attributes['term'].value)">
+					<li data-type="monthly" class="is-visible oor"  did="continuePay" id="ContinuePay" term="month">
 						<div class="cd-pricing-header topper">
 							<span class="nameTop">
 								<i class="iconfont">&#xe6cc;</i>
@@ -645,7 +645,6 @@
 								<i class="info-iconfont" title="当日业绩总额">&#xe637;</i>
 								</label>
 							</span>
-
 								<div class="cd-price">
 								<span class="cd-value-big" >
 									<fmt:formatNumber value="${model.today.xfsr-model.today.xfsr+model.today.xfsr}" pattern="0" type="number"></fmt:formatNumber>
@@ -654,7 +653,7 @@
 						</div> 
 					</li>
 
-					<li data-type="yearly" class="is-hidden oor"  did="continuePay" id="ContinuePay" term="year" onclick="lookMore(this.id,this.attributes['did'].value,this.attributes['term'].value)">
+					<li data-type="yearly" class="is-hidden oor"  did="continuePay" id="ContinuePay" term="year">
 						<div class="cd-pricing-header topper"> 
 							<span class="nameTop">
 								<i class="iconfont">&#xe81d;</i>
@@ -674,7 +673,7 @@
 			
 			<li  class="cd-popular" style="width:33.3%" >
 				<ul class="cd-pricing-wrapper">
-					<li data-type="monthly" class="is-visible oor"  did="continuePay" id="ContinuePay" term="month" onclick="lookMore(this.id,this.attributes['did'].value,this.attributes['term'].value)">
+					<li data-type="monthly" class="is-visible oor"  did="continuePay" id="ContinuePay" term="month">
 						<div class="cd-pricing-header topper">
 							<span class="nameTop">
 								<i class="iconfont">&#xe6cc;</i>
@@ -690,7 +689,7 @@
 						</div> 
 					</li>
 
-					<li data-type="yearly" class="is-hidden oor"  did="continuePay" id="ContinuePay" term="year" onclick="lookMore(this.id,this.attributes['did'].value,this.attributes['term'].value)">
+					<li data-type="yearly" class="is-hidden oor"  did="continuePay" id="ContinuePay" term="year">
 						<div class="cd-pricing-header topper">
 							<span class="nameTop">
 								<i class="iconfont">&#xe81d;</i>
@@ -710,7 +709,7 @@
 			
 			<li  class="cd-popular" style="width:33.3%" >
 				<ul class="cd-pricing-wrapper">
-					<li data-type="monthly" class="is-visible oor"  did="continuePay" id="ContinuePay" term="month" onclick="lookMore(this.id,this.attributes['did'].value,this.attributes['term'].value)">
+					<li data-type="monthly" class="is-visible oor"  did="continuePay" id="ContinuePay" term="month">
 						<div class="cd-pricing-header topper">
 							<span class="nameTop">
 								<i class="iconfont">&#xe6cc;</i>
@@ -726,7 +725,7 @@
 						</div> 
 					</li>
 
-					<li data-type="yearly" class="is-hidden oor"  did="continuePay" id="ContinuePay" term="year" onclick="lookMore(this.id,this.attributes['did'].value,this.attributes['term'].value)">
+					<li data-type="yearly" class="is-hidden oor"  did="continuePay" id="ContinuePay" term="year">
 						<div class="cd-pricing-header topper">
 							<span class="nameTop">
 								<i class="iconfont">&#xe81d;</i>

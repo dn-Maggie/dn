@@ -718,9 +718,18 @@ public class EmpSalaryController{
 	 * @return ModelAndView
 	 */
 	@RequestMapping("/getEmpSalaryStatistic")
-	public void getEmpSalaryStatistic(EmpSalary empSalary ,HttpServletRequest request,HttpServletResponse response) {
+	public void getEmpSalaryStatistic(EmpSalary empSalary,HttpServletRequest request,HttpServletResponse response) {
 			Map<Object,Object> model = new HashMap<Object,Object>();
 			model.put("curr", empSalaryService.getEmpSalaryStatistic(empSalary));
 			AjaxUtils.sendAjaxForMap(response, model);
 	}
+	/**
+	 * 更新讲师成本和业绩
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/updateCostPerf")
+	public void updateCostPerf(String month,HttpServletRequest request,HttpServletResponse response){
+		AjaxUtils.sendAjaxForObjectStr(response,empSalaryService.updateCostPerf(month));
+	}
+	
 }
