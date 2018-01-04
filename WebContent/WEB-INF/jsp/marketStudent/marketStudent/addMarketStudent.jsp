@@ -134,7 +134,7 @@ $(function() {
 	new biz.validate({
 		id:"#marketStudentFormEdit",
 		rules:{
-			"qq" : {required : true,number:true,rangelength:[6,10],digits:true },
+			"qq" : {required : true,number:true,rangelength:[5,11],digits:true },
 		}
 	}); 
  

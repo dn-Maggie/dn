@@ -355,7 +355,7 @@ public class MainController {
 		model.put("myExpense", expenseAccountService.getMyExpense(user.getId(),DateUtil.getFirDate(DateUtil.now())));
 		model.put("myMessage", employeeService.getMyMessage(user.getId()));
 		model.put("myPerformance", empPerformanceService.getMyPerformance(user.getId(),DateUtil.getFirDate(DateUtil.now())));
-		accountxf.setCreateTime(DateUtil.parseDateString(DateUtil.now(),"yyyyMM"));
+		accountxf.setCreateTime(DateUtil.parseDateString(DateUtil.now(),"yyyyMMdd"));
 		accountxf.setSubjectName(orgService.listByCondition(org).get(0).getPinyin());
 		model.put("deptPerformance", accountFlowService.getBarStatistic(accountxf));
 		

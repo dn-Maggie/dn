@@ -133,6 +133,7 @@ $(function() {
 	
 	new biz.datepicker({
 		id : "#edit_time",
+		minDate:'2018-01-01 00:00:00',
 		maxDate:'#F{$dp.$D(\'edit_time\',{d:0});}',
 		dateFmt:'yyyy-MM-dd HH:mm:ss'
 	});

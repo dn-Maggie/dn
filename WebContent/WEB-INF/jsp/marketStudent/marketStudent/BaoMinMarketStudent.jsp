@@ -199,8 +199,8 @@ $(function() {
 		id:"#marketStudentFormEdit",
 		rules:{
 			"name" :{required : true},
-			"qq" : {required : true,number:true,rangelength:[6,10],digits:true },
-			"phone" :{required : true,rangelength:[7,11],digits:true },
+			"qq" : {required : true,number:true,rangelength:[5,11],digits:true },
+			"phone" :{required : true,digits:true },
 			"age" : {required : true,digits:true,max:100},
 			"subjectId" : {required : true},
 			"courseName": {required : true},
