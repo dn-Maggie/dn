@@ -26,6 +26,7 @@ import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.course.model.Course;
 import com.dongnao.workbench.course.service.CourseService;
 import com.dongnao.workbench.marketStudent.model.MarketStudent;
+import com.dongnao.workbench.marketStudent.model.Promotionalinfo;
 import com.dongnao.workbench.marketStudent.service.MarketStudentService;
 import com.dongnao.workbench.school.model.Employee;
 import com.dongnao.workbench.school.model.Standard;
@@ -230,6 +231,39 @@ public class MarketStudentController{
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("msg", "成功");
 		AjaxUtils.sendAjaxForMap(response, map);
+	}
+	
+	/*进入推广信息录入页面*/
+	@RequestMapping("/toPromotionalInfo")
+	public ModelAndView toPromotionalInfo(){
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/marketStudent/marketStudent/promotionalInfo");
+		Course c=new Course();
+		List<Course> couList=courseService.listByCondition(c);
+ 		mv.addObject("couList",couList);
+ 		/*Employee emp = new Employee();
+ 		List<Employee> emplist = employeeService.listByCondition(emp);
+ 		for(int i=0;i<emplist.size();i++){
+ 			Employee ep = emplist.get(i);
+ 			if(ep.getCurrState().equals('3'))
+ 			emplist.remove(i);
+ 		}
+		mv.addObject("emplist", emplist);*/
+ 		List<Employee> tutor= employeeService.listByCondition(new Employee());
+ 		for(int i =0;i<tutor.size();i++){
+ 			if(tutor.get(i).getCurrState().equals("3"))
+ 				tutor.remove(i);
+ 		}
+ 		mv.addObject("tutor", tutor);
+		return mv;
+	}
+	
+	/*查询推广信息列表数据*/
+	@RequestMapping("/listPromotionalInfo")
+	public void listPromotionalInfo(Promotionalinfo promotionalinfo,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		promotionalinfo.setPage(page);	
+		List<Promotionalinfo> list = marketStudentService.listPromotionalInfo(promotionalinfo);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	
 	/**

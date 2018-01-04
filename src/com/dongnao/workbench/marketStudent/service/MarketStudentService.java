@@ -3,6 +3,7 @@ package com.dongnao.workbench.marketStudent.service;
 import java.util.List;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.marketStudent.model.MarketStudent;
+import com.dongnao.workbench.marketStudent.model.Promotionalinfo;
 
 /**
  * 描述：录入学员信息模块service接口，提供controller操作所需方法
@@ -37,6 +38,8 @@ public interface MarketStudentService  {
 	 * @return: 实体对象的list
 	 */
 	public List<MarketStudent> listByCondition(MarketStudent marketStudent);
+	
+	public List<Promotionalinfo> listPromotionalInfo(Promotionalinfo promotionalinfo);
 	
 	/**
 	 * 修改录入学员信息方法

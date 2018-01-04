@@ -2,6 +2,7 @@ package com.dongnao.workbench.marketStudent.dao;
 
 import java.util.List;
 import com.dongnao.workbench.marketStudent.model.MarketStudent;
+import com.dongnao.workbench.marketStudent.model.Promotionalinfo;
 /**
  * 描述：录入学员信息模块dao接口，提供数据库操作方法
  *
@@ -35,6 +36,8 @@ public interface MarketStudentMapper  {
 	 * @return List<MarketStudent>: 实体对象的list
 	 */
 	public List<MarketStudent>  listByCondition(MarketStudent marketStudent);
+	
+	public List<Promotionalinfo>  listPromotionalInfo(Promotionalinfo promotionalinfo);
 	
 	/**
 	 * 修改录入学员信息方法
