@@ -13,6 +13,7 @@ public class Promotionalinfo extends Model{
 	
 	private String id;
 	private String qq;
+	private String subjectid;
 	private String course;
 	private String level;
 	private String entry_emp;
@@ -42,6 +43,13 @@ public class Promotionalinfo extends Model{
 		this.qq = qq;
 	}
 	
+	
+	public String getSubjectid() {
+		return subjectid;
+	}
+	public void setSubjectid(String subjectid) {
+		this.subjectid = subjectid;
+	}
 	public String getCourse() {
 		return course;
 	}

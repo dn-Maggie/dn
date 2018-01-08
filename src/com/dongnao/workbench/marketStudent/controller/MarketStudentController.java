@@ -3,6 +3,7 @@ package com.dongnao.workbench.marketStudent.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,9 +88,26 @@ public class MarketStudentController{
  		
  		List<Standard> standard= standardService.getAllResourceId();
  		mv.addObject("standard", standard);
+		return mv;
+	}
+ 	/*添加推广信息*/
+ 	@RequestMapping("/toAddPromotionalInfo")
+	public ModelAndView toAddPromotionalInfo(){
+ 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/marketStudent/marketStudent/addPromotionalInfo");
+ 		Map<String,List> er = new HashMap<String, List>();
+ 		List<Subject> list = subjectService.listByCondition(new Subject());
+ 		List<Course> list2 =new ArrayList<Course>();
+ 		if(list!=null && list.size()>0){
+ 			Course c=new Course();
+ 	 		c.setSubjectId(list.get(0).getId());
+ 	 		list2=courseService.listByCondition(c);
+ 		}
+ 		er.put("subject", list);
+ 		er.put("course", list2);
+ 		mv.addObject("er", er);
  		
- 		
- 		
+ 		List<Standard> standard= standardService.getAllResourceId();
+ 		mv.addObject("standard", standard);
 		return mv;
 	}
  	/**
@@ -194,13 +212,23 @@ public class MarketStudentController{
 				response,vipStudentService.add(vipstudent));	
 	}
 	
-	/**
-	 * 新增方法
-	 * @param response HttpServletResponse
-	 * @param marketStudent MarketStudent:实体类
-	 * @return: ajax输入json字符串
-	 * @throws IOException 
-	 */
+
+	@RequestMapping("/AddPromotionalInfo")
+	public void AddPromotionalInfo(Promotionalinfo promotionalinfo,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		UserInfo user=Utils.getLoginUserInfo(request);
+		Promotionalinfo pi = new Promotionalinfo();
+		pi.setQq(promotionalinfo.getQq());
+		pi.setCourse(promotionalinfo.getCourse());
+		if(marketStudentService.listPromotionalInfo(pi).size()>0){
+			AjaxUtils.sendAjaxForObjectStr(response,"{}");
+		}else{
+			promotionalinfo.setId(Utils.generateUniqueID());
+			promotionalinfo.setEntry_emp(user.getFullName());		
+			promotionalinfo.setEntry_time(new Date());
+			AjaxUtils.sendAjaxForObjectStr(response,marketStudentService.addPromotionalInfo(promotionalinfo));
+		}
+	}
+	
 	@RequestMapping("/addMarketStudent")
 	public void add(MarketStudent marketStudent,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		UserInfo user=Utils.getLoginUserInfo(request);
@@ -215,6 +243,7 @@ public class MarketStudentController{
 			AjaxUtils.sendAjaxForObjectStr(response,marketStudentService.add(marketStudent));
 		}
 	}
+	
 	
 	/**
 	 * 删除方法
@@ -357,19 +386,48 @@ public class MarketStudentController{
 		return new ModelAndView("WEB-INF/jsp/marketStudent/marketStudent/editMarketStudent",map );
 	}
 	
+	@RequestMapping("/toEditPromotionalInfo")
+	public ModelAndView toEditPromotionalInfo(String key){
+		Promotionalinfo entity = marketStudentService.getPIByPrimaryKey(key);
+		Map<String,List> er = new HashMap<String, List>();
+ 		List<Subject> list = subjectService.listByCondition(new Subject());
+ 		List<Course> list2 =new ArrayList<Course>();
+ 		Course c=new Course();
+		c.setSubjectId(entity.getSubjectid());
+		list2=courseService.listByCondition(c);
+ 		er.put("xueke", list);
+ 		er.put("kechen", list2);
+		Map<String,String> Promotionalinfo = FormatEntity.getObjectValue(entity);
+		Map<String,Object>  map=new HashMap<String, Object>();
+		map.put("promotionalinfo", Promotionalinfo);
+		map.put("er", er);
+		return new ModelAndView("WEB-INF/jsp/marketStudent/marketStudent/editPromotionalInfo",map );
+	}
+	
+	
 	/**
 	 * 修改方法
 	 * @param marketStudent MarketStudent：实体对象
 	 * @param response HttpServletResponse
 	 * @return: ajax输入json字符串
 	 */	
+	@RequestMapping("/updatePromotionalInfo")
+	public void updatePromotionalInfo(Promotionalinfo promotionalinfo,HttpServletRequest request,HttpServletResponse response)throws IOException{
+		UserInfo user=Utils.getLoginUserInfo(request);
+		Promotionalinfo pi = marketStudentService.getPIByPrimaryKey(promotionalinfo.getId());
+		if(!pi.getEntry_emp().equals(user.getFullName())){
+			AjaxUtils.getFailureMessage("只能修改自己录入的意向信息！");
+		}else{
+			AjaxUtils.sendAjaxForObjectStr(response,marketStudentService.updatePromotionalInfo(promotionalinfo));	
+		}	
+	}	
+	
 	@RequestMapping("/updateMarketStudent")
 	public void update(MarketStudent marketStudent,HttpServletRequest request,HttpServletResponse response)throws IOException{
 		UserInfo user=Utils.getLoginUserInfo(request);
 		marketStudent.setUserId(user.getId());		
-		AjaxUtils.sendAjaxForObjectStr(
-				response,marketStudentService.update(marketStudent));	
-	}	
+		AjaxUtils.sendAjaxForObjectStr(response,marketStudentService.update(marketStudent));	
+	}
 	
 	/**
 	 * 进入兼职班主任可查看列表页面

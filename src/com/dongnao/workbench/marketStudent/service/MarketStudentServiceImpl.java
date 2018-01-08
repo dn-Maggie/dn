@@ -31,6 +31,11 @@ public class MarketStudentServiceImpl implements MarketStudentService{
 		return AjaxUtils.getSuccessMessage();
 	}
 	
+	public ResultMessage addPromotionalInfo(Promotionalinfo promotionalinfo){
+		marketStudentMapper.addPromotionalInfo(promotionalinfo);
+		return AjaxUtils.getSuccessMessage();
+	}
+	
 	/**
 	 * 根据主键查找录入学员信息实体方法
 	 * @param key String 实体主键
@@ -38,6 +43,10 @@ public class MarketStudentServiceImpl implements MarketStudentService{
 	 */
 	public MarketStudent getByPrimaryKey(String key){
 		return marketStudentMapper.getByPrimaryKey(key);
+	}
+	
+	public Promotionalinfo getPIByPrimaryKey(String key){
+		return marketStudentMapper.getPIByPrimaryKey(key);
 	}
 	
 	/**
@@ -65,7 +74,12 @@ public class MarketStudentServiceImpl implements MarketStudentService{
 		marketStudentMapper.update(marketStudent);
 		return AjaxUtils.getSuccessMessage();
 	}
-
+	
+	public ResultMessage updatePromotionalInfo(Promotionalinfo promotionalinfo){
+		marketStudentMapper.updatePromotionalInfo(promotionalinfo);
+		return AjaxUtils.getSuccessMessage();
+	}
+	
 	public MarketStudent getMarkStuCount(String month) {
 		return marketStudentMapper.getMarkStuCount(month);
 	}
@@ -75,4 +89,6 @@ public class MarketStudentServiceImpl implements MarketStudentService{
 	public List<Promotionalinfo> listPromotionalInfo(Promotionalinfo promotionalinfo) {
 		return marketStudentMapper.listPromotionalInfo(promotionalinfo);
 	}
+
+	
 }

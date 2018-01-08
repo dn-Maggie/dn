@@ -16,6 +16,7 @@
 	<resultMap id="ProInfoResultMap" type="com.dongnao.workbench.marketStudent.model.Promotionalinfo">
 		<id column="id" property="id" jdbcType="VARCHAR" />
 		<result column="qq" property="qq" jdbcType="VARCHAR" />
+		<result column="subjectid" property="subjectid" jdbcType="VARCHAR"/>
 		<result column="course" property="course" jdbcType="VARCHAR" />
 		<result column="level" property="level" jdbcType="VARCHAR" />
 		<result column="entry_emp" property="entry_emp" jdbcType="VARCHAR" />
@@ -44,6 +45,11 @@
 		where m.id = #{id,jdbcType=VARCHAR}
 	</select>
 	
+	<select id="getPIByPrimaryKey" resultMap="ProInfoResultMap" parameterType="java.lang.String">
+		select id,qq,subjectid,course,level,entry_emp,entry_time,is_buy,auxiliary,notes from promotional_info
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	
 	<select id="getMarkStuCount" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
 		select count(*) as markStuCount
@@ -62,6 +68,9 @@
 		</if>
 		<if test="qq != null and '' != qq">  
 			and qq = #{qq,jdbcType=VARCHAR}
+		</if>
+		<if test="subjectid != null and '' != subjectid">  
+			and subjectid = #{subjectid,jdbcType=VARCHAR}
 		</if>
 		<if test="course != null and '' != course">  
 			and course = #{course,jdbcType=VARCHAR}
@@ -176,6 +185,32 @@
 									)
 	</insert>
 	
+	<insert id="addPromotionalInfo" parameterType="com.dongnao.workbench.marketStudent.model.Promotionalinfo">
+		insert into promotional_info(
+			id
+			,qq
+			,subjectid
+			,course
+			,level
+			,entry_emp
+			,entry_time
+			,is_buy
+			,auxiliary
+			,notes
+		)values (
+			#{id,jdbcType=VARCHAR}
+			,#{qq,jdbcType=VARCHAR}
+			,#{subjectid,jdbcType=VARCHAR}
+			,#{course,jdbcType=VARCHAR}
+			,#{level,jdbcType=VARCHAR}
+			,#{entry_emp,jdbcType=TIMESTAMP}
+			,#{entry_time,jdbcType=TIMESTAMP}
+			,#{is_buy,jdbcType=BLOB}
+			,#{auxiliary,jdbcType=BLOB}
+			,#{notes,jdbcType=BLOB}
+		)
+	</insert>
+	
 	<update id="update" parameterType="com.dongnao.workbench.marketStudent.model.MarketStudent">
 		update market_student  set
 		ID= #{id,jdbcType=VARCHAR}
@@ -186,5 +221,16 @@
 											,notes = #{notes,jdbcType=VARCHAR}
 											,file_url = #{fileUrl,jdbcType=BLOB}
 							where id = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updatePromotionalInfo" parameterType="com.dongnao.workbench.marketStudent.model.Promotionalinfo">
+		update promotional_info  set
+			subjectid = #{subjectid,jdbcType=VARCHAR}
+			,course = #{course,jdbcType=VARCHAR}
+			,level = #{level,jdbcType=VARCHAR}
+			,is_buy = #{is_buy,jdbcType=VARCHAR}
+			,auxiliary = #{auxiliary,jdbcType=VARCHAR}
+			,notes = #{notes,jdbcType=VARCHAR}
+			where id = #{id,jdbcType=VARCHAR}
 	</update>
 </mapper>
