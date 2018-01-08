@@ -348,6 +348,7 @@ public class VipStudentController {
 		AjaxUtils.sendAjaxForObjectStr(response, vipStudentService.update(vipStudent));
 	}
 	
+	
 	/**
 	 * 修改方法
 	 * 
@@ -377,7 +378,19 @@ public class VipStudentController {
 	}
 	
 	
-	
+	/**
+	 * 根据条件查找
+	 * 
+	 * @param vipStudent
+	 *            VipStudent：实体对象
+	 * @param response
+	 *            HttpServletResponse
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/listStuByCondition")
+	public void listStuByCondition(VipStudent vipStudent, HttpServletRequest request, HttpServletResponse response) {
+		AjaxUtils.sendAjaxForListStr(response, vipStudentService.listByCondition(vipStudent));
+	}
 	
 	/**
 	 * ajax验证VIP是否存在

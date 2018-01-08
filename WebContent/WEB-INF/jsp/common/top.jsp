@@ -25,8 +25,42 @@
 					<ul class="nav ace-nav">
 						<li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+								<i class="icon-search"></i>
+								<input type="text" name="stu_qq" id="stu_qq" list="stuQQList"  oninput="searchStuByQQ()" placeholder="搜索学员QQ" />	
+								<datalist id="stuQQList">
+								</datalist>
+							</a>
+							<script type="text/javascript">
+							 	baseUrl="<%=request.getContextPath() %>";
+								function searchStuByQQ(){
+									var paramDatas = {
+										qq:$("#stu_qq").val(),
+									};
+									if($("#stu_qq").val().length>3){
+										$.ajax({
+											   type: "post",
+											   url: baseUrl+"/vipStudent/listStuByCondition.do",
+											   data: paramDatas,
+											   cache: false,
+											   dataType:"json",
+											   success:function(response){
+												   $('#stuQQList option').remove();
+													for(var i in response){
+														if(response[i].name){
+															$('#stuQQList').append('<option value="'+response[i].name+'">'+response[i].qq+'</option>');
+														}
+													}
+										   		}
+										});
+									}
+								}
+							</script>
+						</li>
+						
+						<li class="purple">
+							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
-								<span class="badge badge-grey">4</span>
+								<span class="badge badge-important">4</span>
 							</a>
 
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
@@ -96,10 +130,10 @@
 							</ul>
 						</li>
 
-						<li class="purple">
+						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-bell-alt icon-animated-bell"></i>
-								<span class="badge badge-important">8</span>
+								<span class="badge badge-grey">8</span>
 							</a>
 
 							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
@@ -159,78 +193,6 @@
 								</li>
 							</ul>
 						</li>
-
-						<li class="green">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-envelope icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
-							</a>
-
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-								<li class="dropdown-header">
-									<i class="icon-envelope-alt"></i>5条消息
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<%=request.getContextPath() %>/styles/images/logo_face.png" class="msg-photo" alt="Alex's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												不知道写啥 ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>1分钟以前</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<%=request.getContextPath() %>/styles/images/logo_face.png" class="msg-photo" alt="Susan's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												不知道翻译...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>20分钟以前</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<img src="<%=request.getContextPath() %>/styles/images/logo_face.png" class="msg-photo" alt="Bob's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												到底是不是英文 ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>下午3:15</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										查看所有消息
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-					
 					
 						<!-- 
 							<li class="system-name" style="color:#fff;font-size:24px;margin-right:50px;">
