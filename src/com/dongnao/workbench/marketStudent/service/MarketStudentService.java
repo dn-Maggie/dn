@@ -32,6 +32,8 @@ public interface MarketStudentService  {
 	 */
 	public MarketStudent getByPrimaryKey(String key);
 	
+	public Promotionalinfo getPIByPrimaryKey(String key);
+	
 	/**
 	 * 根据条件查找录入学员信息列表方法
 	 * @param marketStudent MarketStudent 实体对象（查询条件）
@@ -46,8 +48,11 @@ public interface MarketStudentService  {
 	 * @param marketStudent MarketStudent 实体对象
 	 */	
 	public ResultMessage update(MarketStudent marketStudent);
+	
+	public ResultMessage updatePromotionalInfo(Promotionalinfo promotionalinfo);
 
 	public MarketStudent getMarkStuCount(String month);
 	
+	public ResultMessage addPromotionalInfo(Promotionalinfo promotionalinfo);
 	
 }

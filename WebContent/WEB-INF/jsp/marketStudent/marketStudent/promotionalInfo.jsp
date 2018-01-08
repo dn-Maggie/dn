@@ -37,7 +37,7 @@
 						<select class="search_choose" name="course" id="course" mainid="course">
 						<option value="">--请选择--</option>
 						<c:forEach var="mr" items="${couList}">
-							<option value="${mr.id}"> <c:out value="${mr.name}"></c:out> </option>
+							<option value="${mr.name}"> <c:out value="${mr.name}"></c:out> </option>
 			            </c:forEach>
 					</select><span>意向课程:</span>
 				</li><!--下拉 -->	
@@ -161,13 +161,13 @@ var gridObj = {};
 	var show_iframe_dialog;
   	
   	function add(){
-  		var url="<m:url value='/marketStudent/toAddMarketStudent.do'/>";
+  		var url="<m:url value='/marketStudent/toAddPromotionalInfo.do'/>";
 		add_iframe_dialog = new biz.dialog({
 			id:$('<div id="addwindow_iframe"></div>').html('<iframe id="iframeAdd" name="iframeAdd" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
 			width: 800,
-			height: 250,
-			title: "录入学员信息表增加"
+			height: 445,
+			title: "添加一条意向信息"
 		});
 		add_iframe_dialog.open();
   	}
@@ -183,13 +183,13 @@ var gridObj = {};
 			showMessage("请选择一条数据！");
 			return ;
 		}
-		var url="<m:url value='/marketStudent/toEditMarketStudent.do'/>?key="+key;
+		var url="<m:url value='/marketStudent/toEditPromotionalInfo.do'/>?key="+key;
 		edit_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="editwindow_iframe"></div>').html('<iframe id="iframeEdit" name="iframeEdit" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
-			width: $(window).width()*0.6,
-			height:$(window).height()*0.8,
-			title: "录入学员信息表编辑"
+			width: 800,
+			height: 465,
+			title: "编辑意向信息"
 		});
   		edit_iframe_dialog.open();
     }
