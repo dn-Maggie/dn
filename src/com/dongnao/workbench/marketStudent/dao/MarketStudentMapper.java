@@ -47,6 +47,8 @@ public interface MarketStudentMapper  {
 	 */	
 	public void update(MarketStudent marketStudent);
 	
+	public void updateProInfoIsBuy(Promotionalinfo promotionalinfo);
+	
 	public void updatePromotionalInfo(Promotionalinfo promotionalinfo);
 
 	public MarketStudent getMarkStuCount(String month);

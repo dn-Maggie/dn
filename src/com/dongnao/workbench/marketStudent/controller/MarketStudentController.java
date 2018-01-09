@@ -242,8 +242,7 @@ public class MarketStudentController{
 		map.put("tutor", tutor);
 		AccountFinance accountFlow = accountFinanceService.getByPrimaryKey("67250e52-e356-44a7-bb0e-f073360fb732");
 		map.put("accountFlow", accountFlow);
-		
- 		return new ModelAndView("WEB-INF/jsp/marketStudent/marketStudent/BaoMinMarketStudent",map );
+ 		return new ModelAndView("WEB-INF/jsp/marketStudent/marketStudent/BaoMinProInfo",map );
 	}
 	/**
 	 * 报名
@@ -258,6 +257,17 @@ public class MarketStudentController{
 		marketStudentService.deleteByKey(request.getParameter("stuid"));
 		AjaxUtils.sendAjaxForObjectStr(
 				response,vipStudentService.add(vipstudent));	
+	}
+	
+	@RequestMapping("/proInfobaomin")
+	public void proInfobaomin(VipStudent vipstudent,HttpServletRequest request,HttpServletResponse response){
+		vipstudent.setEnterEmp(Utils.getLoginUserInfoId(request));
+		vipstudent.setId(Utils.generateUniqueID());
+		Promotionalinfo promotionalinfo = new Promotionalinfo();
+		promotionalinfo.setId(request.getParameter("piid"));
+		promotionalinfo.setIs_buy("是");
+		marketStudentService.updateProInfoIsBuy(promotionalinfo);//更改学员状态为已报名
+		AjaxUtils.sendAjaxForObjectStr(response,vipStudentService.add(vipstudent));	
 	}
 	
 
