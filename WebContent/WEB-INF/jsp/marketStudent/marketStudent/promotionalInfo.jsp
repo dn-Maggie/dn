@@ -80,12 +80,12 @@
 								onclick="edit();"><i class="icon_bg icon_edit"></i> <span><m:message
 											code="button.edit" /></span> </a></li>
 						</c:if>
-						<c:if test="${delete}">
+						<%-- <c:if test="${delete}">
 							<li><a title="<m:message code="button.delete"/>" href="javascript:;"
 								onclick="batchDelete();"> <i class="icon_bg icon_del"></i> <span><m:message
 											code="button.delete" /></span>
 							</a></li>
-						</c:if>
+						</c:if> --%>
 						<li><a title="<m:message code="button.view"/>" href="javascript:"
 							onclick="show();"> <i class="icon_bg icon_ckxq"></i> <span><m:message
 										code="button.view" /></span>
@@ -205,13 +205,13 @@ var gridObj = {};
 			showMessage("请选择一条数据！");
 			return ;
 		}
-		var url="<m:url value='/marketStudent/toShowMarketStudent.do'/>?key="+key;
+		var url="<m:url value='/marketStudent/toShowPromotionalInfo.do'/>?key="+key;
 		show_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,
 			width: $(window).width()*0.6,
-			height:$(window).height()*0.8,
-				title: "录入学员信息表详情"
+			height:$(window).height()*0.6,
+				title: "意向学员信息详情"
 		});
   		show_iframe_dialog.open();
     }
@@ -239,7 +239,7 @@ var gridObj = {};
 			showMessage("请选择一条数据！");
 			return ;
 		}
-		var url="<m:url value='/marketStudent/toBaoMinMarketStudent.do'/>?key="+key;
+		var url="<m:url value='/marketStudent/proinfoPagtoBM.do'/>?key="+key;
 		show_iframe_dialog = new biz.dialog({
 		 	id:$('<div id="showwindow_iframe"></div>').html('<iframe id="iframeShow" name="iframeShow" src="'+url+'" width="100%" frameborder="no" border="0" height="97%"></iframe>'),  
 			modal: true,

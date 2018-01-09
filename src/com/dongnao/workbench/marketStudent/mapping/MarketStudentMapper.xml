@@ -41,17 +41,16 @@
 		<include refid="Base_Column_List" />
 		from market_student as m 
 		left join subject as s on m.subject_id=s.id 
-		left join basic_user_info as b on m.user_id=b.id
+		left join basic_user_info as3 b on m.user_id=b.id
 		where m.id = #{id,jdbcType=VARCHAR}
 	</select>
 	
 	<select id="getPIByPrimaryKey" resultMap="ProInfoResultMap" parameterType="java.lang.String">
-		select id,qq,subjectid,course,level,entry_emp,entry_time,is_buy,auxiliary,notes from promotional_info
+		select id,qq,subjectid,course,level,entry_emp,DATE_FORMAT(entry_time,'%Y-%m-%d') as entry_time,is_buy,auxiliary,notes from promotional_info
 		where id = #{id,jdbcType=VARCHAR}
 	</select>
 	
-	<select id="getMarkStuCount" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
+	<select id="getMarkStuCount" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select count(*) as markStuCount
 		from market_student
 		WHERE 1=1 
