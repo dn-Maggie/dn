@@ -49,6 +49,8 @@ public interface MarketStudentService  {
 	 */	
 	public ResultMessage update(MarketStudent marketStudent);
 	
+	public ResultMessage updateProInfoIsBuy(Promotionalinfo promotionalinfo);
+	
 	public ResultMessage updatePromotionalInfo(Promotionalinfo promotionalinfo);
 
 	public MarketStudent getMarkStuCount(String month);

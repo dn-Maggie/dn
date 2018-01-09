@@ -80,6 +80,13 @@ public class MarketStudentServiceImpl implements MarketStudentService{
 		return AjaxUtils.getSuccessMessage();
 	}
 	
+	
+	public ResultMessage updateProInfoIsBuy(Promotionalinfo promotionalinfo){
+		marketStudentMapper.updateProInfoIsBuy(promotionalinfo);
+		return AjaxUtils.getSuccessMessage();
+	}
+	
+	
 	public MarketStudent getMarkStuCount(String month) {
 		return marketStudentMapper.getMarkStuCount(month);
 	}
