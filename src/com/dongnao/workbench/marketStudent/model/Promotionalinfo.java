@@ -17,6 +17,7 @@ public class Promotionalinfo extends Model{
 	private String course;
 	private String level;
 	private String entry_emp;
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
 	private Date entry_time;
 	private String is_buy;
 	private String auxiliary;

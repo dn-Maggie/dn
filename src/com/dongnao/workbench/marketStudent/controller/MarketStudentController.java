@@ -145,7 +145,20 @@ public class MarketStudentController{
 	public ModelAndView toShow(String key){
 		MarketStudent entity = marketStudentService.getByPrimaryKey(key);
 		Map<String,String> marketStudent = FormatEntity.getObjectValue(entity);
-		return new ModelAndView("WEB-INF/jsp/marketStudent/marketStudent/showMarketStudent","marketStudent",marketStudent );
+		return new ModelAndView("WEB-INF/jsp/marketStudent/marketStudent/showMarketStudent","marketStudent",marketStudent);
+	}
+	
+	@RequestMapping("/toShowPromotionalInfo")
+	public ModelAndView toShowPromotionalInfo(String key){
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/marketStudent/marketStudent/showPromotionalinfo");
+		mv.addObject("subjectList", subjectService.listByCondition(new Subject()));
+		Promotionalinfo promotionalInfo = marketStudentService.getPIByPrimaryKey(key);
+		Map<String,String> proinfo = FormatEntity.getObjectValue(promotionalInfo);
+		mv.addObject("pi", proinfo);
+		UserInfo user = new UserInfo();
+ 		user.setId(promotionalInfo.getEntry_emp());
+ 		mv.addObject("user", userInfoService.listByCondition(user).get(0).getFullName());
+		return mv; 
 	}
 	/**
 	 * 进入跟踪页面方法
@@ -192,6 +205,41 @@ public class MarketStudentController{
 		List<Employee> tutor= employeeService.listByCondition(new Employee());
 		map.put("tutor", tutor);
  		
+		AccountFinance accountFlow = accountFinanceService.getByPrimaryKey("67250e52-e356-44a7-bb0e-f073360fb732");
+		map.put("accountFlow", accountFlow);
+		
+ 		return new ModelAndView("WEB-INF/jsp/marketStudent/marketStudent/BaoMinMarketStudent",map );
+	}
+	
+	@RequestMapping("/proinfoPagtoBM")
+	public ModelAndView proinfoPagtoBM(String key){
+		Promotionalinfo entity = marketStudentService.getPIByPrimaryKey(key);
+		Map<String,List> er = new HashMap<String, List>();
+ 		List<Subject> list = subjectService.listByCondition(new Subject());
+ 		List<Course> list2 =new ArrayList<Course>();
+ 		Course c=new Course();
+		c.setSubjectId(entity.getSubjectid());
+		list2=courseService.listByCondition(c);
+ 		er.put("xueke", list);
+ 		er.put("kechen", list2);
+		
+		Map<String,String> marketStudent = FormatEntity.getObjectValue(entity);
+		Map<String,Object>  map=new HashMap<String, Object>();
+		map.put("marketStudent", marketStudent);
+		map.put("er", er);
+		List<UserInfo> userlist=userInfoService.listByCondition(new UserInfo());
+		map.put("userlist", userlist);
+		
+		Employee emp = new Employee();
+		emp.setPosition("讲师");
+		List<Employee> teacher= employeeService.listByCondition(emp);
+		map.put("teacher", teacher);
+		
+		List<Standard> standard= standardService.getAllResourceId();
+		map.put("standard", standard);
+		
+		List<Employee> tutor= employeeService.listByCondition(new Employee());
+		map.put("tutor", tutor);
 		AccountFinance accountFlow = accountFinanceService.getByPrimaryKey("67250e52-e356-44a7-bb0e-f073360fb732");
 		map.put("accountFlow", accountFlow);
 		
