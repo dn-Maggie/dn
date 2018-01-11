@@ -113,14 +113,6 @@ public class VipStudentServiceImpl implements VipStudentService{
 		return vipStudentMapper.getStatisticalBySubject(month);
 	}
 	
-	/**
-	 * 获取所有欠费学员方法
-	 * @return: return List<VipStudent> 实体对象的list
-	 */
-	public List<VipStudent> listByOwn(){
-		return vipStudentMapper.listByOwn();
-		
-	}
 
 	/**
 	 * 获取用户信息是否重复

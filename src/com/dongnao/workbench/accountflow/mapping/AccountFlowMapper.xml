@@ -481,51 +481,26 @@ values
 	</select>
 	
 	<select id="getBarStatistic" resultMap="MoneyResultMap" parameterType="com.dongnao.workbench.accountflow.model.AccountFlow">
-<!-- 20171225之前的sql		select
-		sum(case WHEN a.ACCOUNT_NO='XFSR' and money>0 THEN MONEY ELSE 0 END) AS xfsr,
-		sum(case WHEN a.ACCOUNT_NO='XFBK' and money>0 THEN MONEY ELSE 0 END) AS xfbk,
-		sum(case WHEN a.ACCOUNT_NO='XFTK' and money>0 THEN MONEY ELSE 0 END) AS xftk,
-		sum(case WHEN a.account_type='1' and money>0 THEN MONEY ELSE 0 END)-sum(case WHEN a.account_type='2' and money>0 THEN MONEY ELSE 0 END) AS profit,
-		sum(case WHEN a.account_type='2' and money>0 THEN MONEY ELSE 0 END) AS pay		
-		from (
-			SELECT
-				af.account_no,
-				af.account_type,
-				af.create_date,
-				af.money,
-				af.stu_id,
-				v.subject_name AS subjectName
-			FROM
-				account_flow AS af
-			LEFT JOIN vip_student AS v ON af.stu_id = v.id
-			where 1=1
-			<if test="null!=subjectName and ''!=subjectName"> 
-				and v.subject_name = #{subjectName,jdbcType=VARCHAR}
-			</if>
-			<if test="null!=createTime and ''!=createTime"> 
-				AND DATE_FORMAT(af.create_date,'%Y%c') like CONCAT('%',#{createTime,jdbcType=VARCHAR},'%')
-			</if>
-		) a -->
 		select 
-			sum(case WHEN t.ACCOUNT_NO='XFSR' and money>0 THEN MONEY ELSE 0 END) as xfsr,
-			sum(case WHEN t.ACCOUNT_NO='XFBK' and money>0 THEN MONEY ELSE 0 END) as xfbk,
-			sum(case WHEN t.ACCOUNT_NO='XFTK' and money>0 THEN MONEY ELSE 0 END) as xftk,
-			IFNULL(f2.pay,0) as pay
+			sum(case WHEN t.ACCOUNT_NO='XFSR' THEN MONEY ELSE 0 END) as xfsr,
+			sum(case WHEN t.ACCOUNT_NO='XFBK' THEN MONEY ELSE 0 END) as xfbk,
+			sum(case WHEN t.ACCOUNT_NO='XFTK' THEN MONEY ELSE 0 END) as xftk,
+			f2.pay as pay
 		from 
-			(select af2.* from financial_flow af2,vip_student vs1 
+			(select af2.ACCOUNT_NO, af2.money from financial_flow af2,vip_student vs1 
 				where af2.ACCOUNT_NO IN('XFSR','XFBK','XFTK')
 			<if test="null!=createTime and ''!=createTime">
-				and DATE_FORMAT(af2.create_date,'%Y%c') = DATE_FORMAT(#{createTime,jdbcType=VARCHAR},'%Y%c') 
+				and DATE_FORMAT(af2.create_date,'%Y%m') = DATE_FORMAT(#{createTime,jdbcType=VARCHAR},'%Y%m') 
 			</if>
-				and af2.stu_id=vs1.id  
+				and af2.stu_id = vs1.id  
 			<if test="null!=subjectName and ''!=subjectName"> 
 				and vs1.subject_name = #{subjectName,jdbcType=VARCHAR}
 			</if>
 			) t,
-			(SELECT sum(af2.money) as pay from financial_flow af2 
+			(SELECT IFNULL(sum(af2.money),0) as pay from financial_flow af2 
 				where af2.ACCOUNT_NO IN ('GZZC','SBKK') 
 			<if test="null!=createTime and ''!=createTime">
-				and DATE_FORMAT(af2.create_date,'%Y%c') = DATE_FORMAT(#{createTime,jdbcType=VARCHAR},'%Y%c') 
+				and DATE_FORMAT(af2.create_date,'%Y%m') = DATE_FORMAT(#{createTime,jdbcType=VARCHAR},'%Y%m') 
 			</if>
 			<if test="null!=subjectName and ''!=subjectName"> 
 				and af2.d_name = #{subjectName,jdbcType=VARCHAR}
@@ -545,7 +520,7 @@ values
 	
 	<select id="getRecentlyThirtyDayData" resultMap="ThirtyDayResultMap" parameterType="java.lang.String">
 		SELECT lefttable.date,IFNULL(righttable.m,'0') as money
-FROM 
+	FROM 
 		(SELECT date_sub(CURDATE(),interval @i:=@i+1 day) as date 
 				from ( select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all
 							 select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all select 1 union all  

@@ -17,32 +17,9 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/css/ace-rtl.min.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/css/ace-skins.min.css" />
 <script src="<%=request.getContextPath() %>/static/js/jquery.easy-pie-chart.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/statistic/modernizr.js"></script> <!-- Modernizr -->
+<title></title>
 	
-	<script src="<%=request.getContextPath() %>/js/statistic/modernizr.js"></script> <!-- Modernizr -->
-	<title></title>
-	<script type="text/javascript">
-	jQuery(function($) {
-		$('.easy-pie-chart.percentage').each(function(){
-			var barColor = $(this).data('color') || '#26a711';
-			var trackColor = barColor == 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#FFF';
-			var size = parseInt($(this).data('size')) || 50;
-			$(this).easyPieChart({
-				barColor: barColor,
-				trackColor: trackColor,
-				scaleColor: false,
-				lineCap: 'butt',
-				lineWidth:4,
-				animate: /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ? false : 1000,
-				size: size
-			});
-		})
-	});
-	
-		function lookMore(id,did,term){
-		  	var url = baseUrl + '/'+did+'/toList'+id+'.do?term='+term;
-		  	window.parent.document.getElementById('iframepage').src=url;	 
-		}
-	</script>
 </head>
 <body onselect="return false;" style="background: #fff">
 	<div class="cd-pricing-container cd-full-width cd-secondary-theme">
@@ -59,16 +36,6 @@
 							<div class="cd-price">
 								<span class="cd-value-big" title="本月新增意向学员">${model.currMonthMarkStu.markStuCount}</span>
 							</div>
-							<c:if test="${model.currMonthMarkStu.markStuCount-model.beforeMonthMarkStu.markStuCount>=0&&model.beforeMonthMarkStu.markStuCount>0}">
-								<div class="stat stat-success">
-									<fmt:formatNumber value="${(model.currMonthMarkStu.markStuCount-model.beforeMonthMarkStu.markStuCount)/model.beforeMonthMarkStu.markStuCount}" type="percent"></fmt:formatNumber>
-								</div>
-							</c:if>
-							<c:if test="${model.currMonthMarkStu.markStuCount-model.beforeMonthMarkStu.markStuCount<0&&model.beforeMonthMarkStu.markStuCount>0}">
-								<div class="stat stat-important">
-									<fmt:formatNumber value="${(model.beforeMonthMarkStu.markStuCount-model.currMonthMarkStu.markStuCount)/model.beforeMonthMarkStu.markStuCount}" type="percent"></fmt:formatNumber>
-								</div>
-							</c:if>
 						</div>
 					</li>
 
@@ -82,16 +49,6 @@
 							<div class="cd-price" >
 								<span class="cd-value-big" title="本年新增意向学员">${model.currYearMarkStu.markStuCount}</span>
 							</div>
-							<c:if test="${model.currYearMarkStu.markStuCount - model.beforeYearMarkStu.markStuCount>=0&&model.beforeYearMarkStu.markStuCount>0}">
-								<div class="stat stat-success">
-									<fmt:formatNumber value="${(model.currYearMarkStu.markStuCount-model.beforeYearMarkStu.markStuCount)/model.beforeYearMarkStu.markStuCount}" type="percent"></fmt:formatNumber>
-								</div>
-							</c:if>
-							<c:if test="${model.currYearMarkStu.markStuCount - model.beforeYearMarkStu.markStuCount<0&&model.beforeYearMarkStu.markStuCount>0}">
-								<div class="stat stat-important">
-									<fmt:formatNumber value="${(model.beforeYearMarkStu.markStuCount-model.currYearMarkStu.markStuCount)/model.beforeYearMarkStu.markStuCount}" type="percent"></fmt:formatNumber>
-								</div>
-							</c:if>
 						</div>
 					</li>
 				</ul> <!-- .cd-pricing-wrapper -->
@@ -108,7 +65,7 @@
 							<div class="cd-price">
 								<span class="cd-value-big" title="本月新增报名学员">${model.currMonth.vipcnt}</span>
 							</div>
-							<c:if test="${model.currMonth.vipcnt - model.beforeMonth.vipcnt >= 0 && model.beforeMonth.vipcnt>0}">
+							<%-- <c:if test="${model.currMonth.vipcnt - model.beforeMonth.vipcnt >= 0 && model.beforeMonth.vipcnt>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${(model.currMonth.vipcnt - model.beforeMonth.vipcnt)/model.beforeMonth.vipcnt}" type="percent"></fmt:formatNumber>
 								</div>
@@ -117,7 +74,7 @@
 								<div class="stat stat-important">
 									<fmt:formatNumber value="${(model.beforeMonth.vipcnt - model.currMonth.vipcnt)/model.beforeMonth.vipcnt}" type="percent"></fmt:formatNumber>
 								</div>
-							</c:if>
+							</c:if> --%>
 						</div>
 					</li>
 
@@ -131,7 +88,7 @@
 							<div class="cd-price">
 								<span class="cd-value-big" title="本年新增报名学员">${model.currYear.vipcnt}</span>
 							</div>
-							<c:if test="${model.currYear.vipcnt - model.beforeYear.vipcnt>=0&&model.beforeYear.vipcnt>0}">
+							<%-- <c:if test="${model.currYear.vipcnt - model.beforeYear.vipcnt>=0&&model.beforeYear.vipcnt>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${(model.currYear.vipcnt - model.beforeYear.vipcnt)/model.beforeYear.vipcnt}" type="percent"></fmt:formatNumber>
 								</div>
@@ -140,7 +97,7 @@
 								<div class="stat stat-important">
 									<fmt:formatNumber value="${(model.beforeYear.vipcnt - model.currYear.vipcnt)/model.beforeYear.vipcnt}" type="percent"></fmt:formatNumber>
 								</div>
-							</c:if>
+							</c:if> --%>
 						</div>
 					</li>
 				</ul> <!-- .cd-pricing-wrapper -->
@@ -158,7 +115,7 @@
 							<div class="cd-price">
 								<span class="cd-value-big" title="本月新增报名订单">${model.currMonth.cnt}</span>
 							</div>
-							<c:if test="${model.currMonth.cnt - model.beforeMonth.cnt>=0&&model.beforeMonth.cnt>0}">
+							<%-- <c:if test="${model.currMonth.cnt - model.beforeMonth.cnt>=0&&model.beforeMonth.cnt>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${(model.currMonth.cnt - model.beforeMonth.cnt)/model.beforeMonth.cnt}" type="percent"></fmt:formatNumber>
 								</div>
@@ -167,7 +124,7 @@
 								<div class="stat stat-important">
 									<fmt:formatNumber value="${(model.beforeMonth.cnt - model.currMonth.cnt)/model.beforeMonth.cnt}" type="percent"></fmt:formatNumber>
 								</div>
-							</c:if>
+							</c:if> --%>
 						</div> <!-- .cd-pricing-header -->
 					</li>
 
@@ -181,7 +138,7 @@
 							<div class="cd-price">
 								<span class="cd-value-big"  title="本年新增报名订单">${model.currYear.cnt}</span>
 							</div>
-							<c:if test="${model.currYear.cnt - model.beforeYear.cnt>=0&&model.beforeYear.cnt>0}">
+							<%-- <c:if test="${model.currYear.cnt - model.beforeYear.cnt>=0&&model.beforeYear.cnt>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${(model.currYear.cnt - model.beforeYear.cnt)/model.beforeYear.cnt}" type="percent"></fmt:formatNumber>
 								</div>
@@ -190,7 +147,7 @@
 								<div class="stat stat-important">
 									<fmt:formatNumber value="${(model.beforeYear.cnt - model.currYear.cnt)/model.beforeYear.cnt}" type="percent"></fmt:formatNumber>
 								</div>
-							</c:if>
+							</c:if> --%>
 						</div> <!-- .cd-pricing-header -->
 					</li>
 				</ul>
@@ -211,7 +168,7 @@
 									<fmt:formatNumber value="${model.currMonthMoney.loan-model.currMonthxf.xftk-model.currMonthxf.xftj}" pattern="0" type="number"></fmt:formatNumber>
 								</span>
 							</div>
-							<c:if test="${(model.currMonthMoney.loan-model.currMonthxf.xftk-model.currMonthxf.xftj) - (model.beforeMonthMoney.loan-model.beforeMonthxf.xftk-model.beforeMonthxf.xftj)>=0&&(model.beforeMonthMoney.loan-model.beforeMonthxf.xftk-model.beforeMonthxf.xftj)>0}">
+							<%-- <c:if test="${(model.currMonthMoney.loan-model.currMonthxf.xftk-model.currMonthxf.xftj) - (model.beforeMonthMoney.loan-model.beforeMonthxf.xftk-model.beforeMonthxf.xftj)>=0&&(model.beforeMonthMoney.loan-model.beforeMonthxf.xftk-model.beforeMonthxf.xftj)>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${((model.currMonthMoney.loan-model.currMonthxf.xftk-model.currMonthxf.xftj) - (model.beforeMonthMoney.loan-model.beforeMonthxf.xftk-model.beforeMonthxf.xftj))/(model.beforeMonthMoney.loan-model.beforeMonthxf.xftk-model.beforeMonthxf.xftj)}" type="percent"></fmt:formatNumber>
 								</div>
@@ -220,7 +177,7 @@
 								<div class="stat stat-important">
 									<fmt:formatNumber value="${((model.beforeMonthMoney.loan-model.beforeMonthxf.xftk-model.beforeMonthxf.xftj) - (model.currMonthMoney.loan-model.currMonthxf.xftk-model.currMonthxf.xftj))/(model.beforeMonthMoney.loan-model.beforeMonthxf.xftk-model.beforeMonthxf.xftj)}" type="percent"></fmt:formatNumber>
 								</div>
-							</c:if>
+							</c:if> --%>
 						</div> 
 					</li>
 
@@ -237,7 +194,7 @@
 									<fmt:formatNumber value="${model.currYearMoney.loan-model.currYearxf.xftk-model.currYearxf.xftj}" pattern="0" type="number"></fmt:formatNumber>							
 								</span>
 							</div>
-							<c:if test="${(model.currYearMoney.loan-model.currYearxf.xftk-model.currYearxf.xftj) - (model.beforeYearMoney.loan-model.beforeYearxf.xftk-model.beforeYearxf.xftj)>=0&&(model.beforeYearMoney.loan-model.beforeYearxf.xftk-model.beforeYearxf.xftj)>0}">
+							<%-- <c:if test="${(model.currYearMoney.loan-model.currYearxf.xftk-model.currYearxf.xftj) - (model.beforeYearMoney.loan-model.beforeYearxf.xftk-model.beforeYearxf.xftj)>=0&&(model.beforeYearMoney.loan-model.beforeYearxf.xftk-model.beforeYearxf.xftj)>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${((model.currYearMoney.loan-model.currYearxf.xftk-model.currYearxf.xftj) - (model.beforeYearMoney.loan-model.beforeYearxf.xftk-model.beforeYearxf.xftj))/(model.beforeYearMoney.loan-model.beforeYearxf.xftk-model.beforeYearxf.xftj)}" type="percent"></fmt:formatNumber>
 								</div>
@@ -246,7 +203,7 @@
 								<div class="stat stat-important">
 									<fmt:formatNumber value="${((model.beforeYearMoney.loan-model.beforeYearxf.xftk-model.beforeYearxf.xftj) - (model.currYearMoney.loan-model.currYearxf.xftk-model.currYearxf.xftj))/(model.beforeYearMoney.loan-model.beforeYearxf.xftk-model.beforeYearxf.xftj)}" type="percent"></fmt:formatNumber>
 								</div>
-							</c:if>
+							</c:if> --%>
 						</div> <!-- .cd-pricing-header -->
 					</li>
 					
@@ -268,7 +225,7 @@
 									<fmt:formatNumber value="${model.currMonth.shouldPay}" pattern="0" type="number"></fmt:formatNumber>																						
 								</span>
 							</div>
-							<c:if test="${model.currMonth.shouldPay-model.beforeMonth.shouldPay>=0&&model.beforeMonth.shouldPay>0}">
+							<%-- <c:if test="${model.currMonth.shouldPay-model.beforeMonth.shouldPay>=0&&model.beforeMonth.shouldPay>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${(model.currMonth.shouldPay - model.beforeMonth.shouldPay)/model.beforeMonth.shouldPay}" type="percent"></fmt:formatNumber>
 								</div>
@@ -277,7 +234,7 @@
 								<div class="stat stat-important">
 									<fmt:formatNumber value="${(model.beforeMonth.shouldPay - model.currMonth.shouldPay)/model.beforeMonth.shouldPay}" type="percent"></fmt:formatNumber>
 								</div>
-							</c:if>
+							</c:if> --%>
 						</div> <!-- .cd-pricing-header -->
 					</li>
 
@@ -294,7 +251,7 @@
 									<fmt:formatNumber value="${model.currYear.shouldPay}" pattern="0" type="number"></fmt:formatNumber>																																																			
 								</span>
 							</div>
-							<c:if test="${model.currYear.shouldPay - model.beforeYear.shouldPay>=0&&model.beforeYear.shouldPay>0}">
+							<%-- <c:if test="${model.currYear.shouldPay - model.beforeYear.shouldPay>=0&&model.beforeYear.shouldPay>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${(model.currYear.shouldPay - model.beforeYear.shouldPay)/model.beforeYear.shouldPay}" type="percent"></fmt:formatNumber>
 								</div>
@@ -303,7 +260,7 @@
 								<div class="stat stat-important">
 									<fmt:formatNumber value="${(model.beforeYear.shouldPay - model.currYear.shouldPay)/model.beforeYear.shouldPay}" type="percent"></fmt:formatNumber>
 								</div>
-							</c:if>
+							</c:if> --%>
 						</div> <!-- .cd-pricing-header -->
 					</li>
 				</ul> <!-- .cd-pricing-wrapper -->
@@ -324,7 +281,7 @@
 									<fmt:formatNumber value="${model.currMonthxf.xftk}" pattern="0" type="number"></fmt:formatNumber>														
 								</span>
 							</div>
-							<c:if test="${model.currMonthxf.xftk - model.beforeMonthxf.xftk>=0&&model.beforeMonthxf.xftk>0}">
+							<%-- <c:if test="${model.currMonthxf.xftk - model.beforeMonthxf.xftk>=0&&model.beforeMonthxf.xftk>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${(model.currMonthxf.xftk - model.beforeMonthxf.xftk)/model.beforeMonthxf.xftk}" type="percent"></fmt:formatNumber>
 								</div>
@@ -333,7 +290,7 @@
 								<div class="stat stat-important">
 									<fmt:formatNumber value="${(model.beforeMonthxf.xftk - model.currMonthxf.xftk)/model.beforeMonthxf.xftk}" type="percent"></fmt:formatNumber>
 								</div>
-							</c:if>
+							</c:if> --%>
 						</div> <!-- .cd-pricing-header -->
 					</li>
 
@@ -350,7 +307,7 @@
 									<fmt:formatNumber value="${model.currYearxf.xftk}" pattern="0" type="number"></fmt:formatNumber>																											
 								</span>
 							</div>
-							<c:if test="${model.currYearxf.xftk - model.beforeYearxf.xftk>=0&&model.beforeYearxf.xftk>0}">
+							<%-- <c:if test="${model.currYearxf.xftk - model.beforeYearxf.xftk>=0&&model.beforeYearxf.xftk>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${(model.currYearxf.xftk - model.beforeYearxf.xftk)/model.beforeYearxf.xftk}" type="percent"></fmt:formatNumber>
 								</div>
@@ -359,7 +316,7 @@
 								<div class="stat stat-important">
 									<fmt:formatNumber value="${(model.beforeYearxf.xftk - model.currYearxf.xftk)/model.beforeYearxf.xftk}" type="percent"></fmt:formatNumber>
 								</div>
-							</c:if>
+							</c:if> --%>
 						</div> <!-- .cd-pricing-header -->
 					</li>
 				</ul> <!-- .cd-pricing-wrapper -->
@@ -380,7 +337,7 @@
 									<fmt:formatNumber value="${model.currMonth.owePay}" pattern="0" type="number"></fmt:formatNumber>
 								</span>
 							</div>
-							<c:if test="${model.currMonth.owePay-model.beforeMonth.owePay>=0&&model.beforeMonth.owePay>0}">
+							<%-- <c:if test="${model.currMonth.owePay-model.beforeMonth.owePay>=0&&model.beforeMonth.owePay>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${(model.currMonth.owePay - model.beforeMonth.owePay)/model.beforeMonth.owePay}" type="percent"></fmt:formatNumber>
 								</div>
@@ -389,7 +346,7 @@
 								<div class="stat stat-important">
 									<fmt:formatNumber value="${(model.beforeMonth.owePay - model.currMonth.owePay)/model.beforeMonth.owePay}" type="percent"></fmt:formatNumber>
 								</div>
-							</c:if>
+							</c:if> --%>
 						</div> <!-- .cd-pricing-header -->
 					</li>
 
@@ -406,7 +363,7 @@
 									<fmt:formatNumber value="${model.currYear.owePay}" pattern="0" type="number"></fmt:formatNumber>
 								</span>
 							</div>
-							<c:if test="${model.currYear.owePay - model.beforeYear.owePay>=0&&model.beforeYear.owePay>0}">
+							<%-- <c:if test="${model.currYear.owePay - model.beforeYear.owePay>=0&&model.beforeYear.owePay>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${(model.currYear.owePay - model.beforeYear.owePay)/model.beforeYear.owePay}" type="percent"></fmt:formatNumber>
 								</div>
@@ -415,7 +372,7 @@
 								<div class="stat stat-important">
 									<fmt:formatNumber value="${(model.beforeYear.owePay - model.currYear.owePay)/model.beforeYear.owePay}" type="percent"></fmt:formatNumber>
 								</div>
-							</c:if>
+							</c:if> --%>
 						</div> <!-- .cd-pricing-header -->
 					</li>
 				</ul> <!-- .cd-pricing-wrapper -->
@@ -457,7 +414,7 @@
 									<fmt:formatNumber value="${model.currYear.xfsr + model.currYear.xfbk}" pattern="0" type="number"></fmt:formatNumber>								
 								</span>
 							</div>
-							<c:if test="${model.currYear.xfsr + model.currYear.xfbk - model.beforeYear.xfsr - model.beforeYear.xfbk>=0&&model.beforeYear.xfsr + model.beforeYear.xfbk>0}">
+							<%-- <c:if test="${model.currYear.xfsr + model.currYear.xfbk - model.beforeYear.xfsr - model.beforeYear.xfbk>=0&&model.beforeYear.xfsr + model.beforeYear.xfbk>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${(model.currYear.xfsr + model.currYear.xfbk - model.beforeYear.xfsr - model.beforeYear.xfbk)/(model.beforeYear.xfsr + model.beforeYear.xfbk)}" type="percent"></fmt:formatNumber>
 								</div>
@@ -466,7 +423,7 @@
 								<div class="stat stat-important">
 									<fmt:formatNumber value="${(model.beforeYear.xfsr + model.beforeYear.xfbk - model.currYear.xfsr - model.currYear.xfbk)/(model.beforeYear.xfsr + model.beforeYear.xfbk)}" type="percent"></fmt:formatNumber>
 								</div>
-							</c:if> 
+							</c:if>  --%>
 						</div> 
 					</li>
 				</ul>
@@ -508,7 +465,7 @@
 									<fmt:formatNumber value="${model.currYear.xfsr + model.currYear.xfbk - model.currYear.xftk}" pattern="0" type="number"></fmt:formatNumber>								
 								</span>
 							</div>
-							<c:if test="${(model.currYear.xfsr + model.currYear.xfbk - model.currYear.xftk) - (model.beforeYear.xfsr + model.beforeYear.xfbk - model.beforeYear.xftk)>=0&&(model.beforeYear.xfsr + model.beforeYear.xfbk - model.beforeYear.xftk)>0}">
+							<%-- <c:if test="${(model.currYear.xfsr + model.currYear.xfbk - model.currYear.xftk) - (model.beforeYear.xfsr + model.beforeYear.xfbk - model.beforeYear.xftk)>=0&&(model.beforeYear.xfsr + model.beforeYear.xfbk - model.beforeYear.xftk)>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${((model.currYear.xfsr + model.currYear.xfbk - model.currYear.xftk) - (model.beforeYear.xfsr + model.beforeYear.xfbk - model.beforeYear.xftk))/(model.beforeYear.xfsr + model.beforeYear.xfbk - model.beforeYear.xftk)}" type="percent"></fmt:formatNumber>
 								</div>
@@ -517,7 +474,7 @@
 								<div class="stat stat-important">
 									<fmt:formatNumber value="${((model.beforeYear.xfsr + model.beforeYear.xfbk - model.beforeYear.xftk) - (model.currYear.xfsr + model.currYear.xfbk - model.currYear.xftk))/(model.beforeYear.xfsr + model.beforeYear.xfbk - model.beforeYear.xftk)}" type="percent"></fmt:formatNumber>
 								</div>
-							</c:if>
+							</c:if> --%>
 						</div> <!-- .cd-pricing-header -->
 					</li>
 				</ul> <!-- .cd-pricing-wrapper -->
@@ -538,7 +495,7 @@
 									<fmt:formatNumber value="${model.currMonthxf.xfsr}" pattern="0" type="number"></fmt:formatNumber>								
 								</span>
 							</div>
-							<c:if test="${model.currMonthxf.xfsr - model.beforeMonthxf.xfsr>=0&&model.beforeMonthxf.xfsr>0}">
+							<%-- <c:if test="${model.currMonthxf.xfsr - model.beforeMonthxf.xfsr>=0&&model.beforeMonthxf.xfsr>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${(model.currMonthxf.xfsr - model.beforeMonthxf.xfsr)/model.beforeMonthxf.xfsr}" type="percent"></fmt:formatNumber>
 								</div>
@@ -547,7 +504,7 @@
 								<div class="stat stat-important">
 									<fmt:formatNumber value="${(model.beforeMonthxf.xfsr - model.currMonthxf.xfsr)/model.beforeMonthxf.xfsr}" type="percent"></fmt:formatNumber>
 								</div>
-							</c:if>
+							</c:if> --%>
 						</div> <!-- .cd-pricing-header -->
 					</li>
 
@@ -564,7 +521,7 @@
 									<fmt:formatNumber value="${model.currYearxf.xfsr}" pattern="0" type="number"></fmt:formatNumber>								
 								</span>
 							</div>
-							<c:if test="${model.currYearxf.xfsr - model.beforeYearxf.xfsr>=0&&model.beforeYearxf.xfsr>0}">
+							<%-- <c:if test="${model.currYearxf.xfsr - model.beforeYearxf.xfsr>=0&&model.beforeYearxf.xfsr>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${(model.currYearxf.xfsr - model.beforeYearxf.xfsr)/model.beforeYearxf.xfsr}" type="percent"></fmt:formatNumber>
 								</div>
@@ -573,7 +530,7 @@
 								<div class="stat stat-important">
 									<fmt:formatNumber value="${(model.beforeYearxf.xfsr - model.currYearxf.xfsr)/model.beforeYearxf.xfsr}" type="percent"></fmt:formatNumber>
 								</div>
-							</c:if>
+							</c:if> --%>
 						</div> <!-- .cd-pricing-header -->
 					</li>
 				</ul> <!-- .cd-pricing-wrapper -->
@@ -594,7 +551,7 @@
 									<fmt:formatNumber value="${model.currMonthxf.xfbk}" pattern="0" type="number"></fmt:formatNumber>
 								</span>
 							</div>
-							<c:if test="${model.currMonthxf.xfbk - model.beforeMonthxf.xfbk>=0&&model.beforeMonthxf.xfbk>0}">
+							<%-- <c:if test="${model.currMonthxf.xfbk - model.beforeMonthxf.xfbk>=0&&model.beforeMonthxf.xfbk>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${(model.currMonthxf.xfbk - model.beforeMonthxf.xfbk)/model.beforeMonthxf.xfbk}" type="percent"></fmt:formatNumber>
 								</div>
@@ -603,7 +560,7 @@
 								<div class="stat stat-important">
 									<fmt:formatNumber value="${(model.beforeMonthxf.xfbk - model.currMonthxf.xfbk)/model.beforeMonthxf.xfbk}" type="percent"></fmt:formatNumber>
 								</div>
-							</c:if>
+							</c:if> --%>
 						</div> 
 					</li>
 
@@ -620,7 +577,7 @@
 									<fmt:formatNumber value="${model.currYearxf.xfbk}" pattern="0" type="number"></fmt:formatNumber>
 								</span>
 							</div>
-							<c:if test="${model.currYearxf.xfbk-model.beforeYearxf.xfbk>=0&&model.beforeYearxf.xfbk>0}">
+							<%-- <c:if test="${model.currYearxf.xfbk-model.beforeYearxf.xfbk>=0&&model.beforeYearxf.xfbk>0}">
 								<div class="stat stat-success">
 									<fmt:formatNumber value="${(model.currYearxf.xfbk - model.beforeYearxf.xfbk)/model.beforeYearxf.xfbk}" type="percent"></fmt:formatNumber>
 								</div>
@@ -629,7 +586,7 @@
 								<div class="stat stat-important">
 									<fmt:formatNumber value="${(model.beforeYearxf.xfbk - model.currYearxf.xfbk)/model.beforeYearxf.xfbk}" type="percent"></fmt:formatNumber>
 								</div>
-							</c:if>
+							</c:if> --%>
 						</div>
 					</li>
 				</ul>
@@ -896,6 +853,29 @@
 		</ul> 
 	</div>
 <script src="<%=request.getContextPath() %>/js/statistic/main.js"></script> <!-- Resource jQuery -->
+<script type="text/javascript">
+	jQuery(function($) {
+		$('.easy-pie-chart.percentage').each(function(){
+			var barColor = $(this).data('color') || '#26a711';
+			var trackColor = barColor == 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#FFF';
+			var size = parseInt($(this).data('size')) || 50;
+			$(this).easyPieChart({
+				barColor: barColor,
+				trackColor: trackColor,
+				scaleColor: false,
+				lineCap: 'butt',
+				lineWidth:4,
+				animate: /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ? false : 1000,
+				size: size
+			});
+		})
+	});
+	
+		function lookMore(id,did,term){
+		  	var url = baseUrl + '/'+did+'/toList'+id+'.do?term='+term;
+		  	window.parent.document.getElementById('iframepage').src=url;	 
+		}
+	</script>
 </body>
 </html>
 

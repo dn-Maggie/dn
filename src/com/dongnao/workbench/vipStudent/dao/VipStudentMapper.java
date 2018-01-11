@@ -67,11 +67,6 @@ public interface VipStudentMapper  {
 	 * @param vipStudent VipStudent：实体对象
 	 */	
 	public void updateOwe(VipStudent vipStudent);
-	/**
-	 * 获取所有的欠费学员
-	 * @param vipStudent VipStudent：实体对象
-	 */
-	public List<VipStudent> listByOwn();
 	
 	/**
 	 * 获取重复用户信息

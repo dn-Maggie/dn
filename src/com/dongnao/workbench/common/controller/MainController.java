@@ -219,7 +219,6 @@ public class MainController {
 		model.put("today", vipStudentService.getStatisticaltoday(DateUtil.parseDateString(DateUtil.now(),"yyyyMMdd")));//今日学生总数
 		vipStudent.setJointime(DateUtil.parseDateString(DateUtil.now(),"yyyyMM"));
 		model.put("currMonth", vipStudentService.getStatistical(vipStudent));//本月学生数据
-		System.out.println(model.get("currMonth"));
 		vipStudent.setJointime(DateUtil.parseDateString(DateUtil.now(),"yyyy"));
 		model.put("currYear", vipStudentService.getStatistical(vipStudent));//本年学生数据
 		vipStudent.setJointime(StringUtil.formatDateyyyyMM(before.getTime()));
@@ -227,16 +226,11 @@ public class MainController {
 		vipStudent.setJointime((curr.get(Calendar.YEAR)-1)+"");
 		model.put("beforeYear", vipStudentService.getStatistical(vipStudent));//上年学生数据
 		
-		
 		//意向学员信息
 		model.put("allMarkStu", marketStudentService.getMarkStuCount(""));
-		System.out.println(model.get("allMarkStu"));
 		model.put("currMonthMarkStu", marketStudentService.getMarkStuCount(DateUtil.parseDateString(DateUtil.now(),"yyyyMM")));		
-		System.out.println(model.get("currMonthMarkStu"));
 		model.put("currYearMarkStu", marketStudentService.getMarkStuCount(DateUtil.parseDateString(DateUtil.now(),"yyyy")));
-		System.out.println(model.get("currYearMarkStu"));
 		model.put("beforeMonthMarkStu", marketStudentService.getMarkStuCount(StringUtil.formatDateyyyyMM(before.getTime())));	
-		System.out.println(model.get("beforeYearMarkStu"));
 		model.put("beforeYearMarkStu", marketStudentService.getMarkStuCount((curr.get(Calendar.YEAR)-1)+""));
 		
 		AccountFlow accountEnt = new AccountFlow();
@@ -262,15 +256,16 @@ public class MainController {
 		model.put("beforeYearxf", accountFlowService.getXFMoney(accountxf));
 		mv.addObject("model", model);		
 		
-		model.put("myExpense", expenseAccountService.getMyExpense(user.getId(),DateUtil.getFirDate(DateUtil.now())));
+		/*model.put("myExpense", expenseAccountService.getMyExpense(user.getId(),DateUtil.getFirDate(DateUtil.now())));
 		model.put("myMessage", employeeService.getMyMessage(user.getId()));
-		model.put("myPerformance", empPerformanceService.getMyPerformance(user.getId(),DateUtil.getFirDate(DateUtil.now())));
+		model.put("myPerformance", empPerformanceService.getMyPerformance(user.getId(),DateUtil.getFirDate(DateUtil.now())));*/
+		
 		accountxf.setCreateTime(DateUtil.parseDateString(DateUtil.now(),"yyyyMM"));
 		accountxf.setSubjectName(orgService.listByCondition(org).size()>0?orgService.listByCondition(org).get(0).getPinyin():"");
 		model.put("deptPerformance", accountFlowService.getBarStatistic(accountxf));
+		
 		//消息中心
  		mv.addObject("noticeList", empNoticeService.listByCondition(new EmpNotice()));
-		
 		List<Subject> sublist = subjectService.listByCondition(new Subject());
 		for(int i=0;i<sublist.size();i++){
 			String deptname = sublist.get(i).getName();
@@ -333,7 +328,6 @@ public class MainController {
 		vipStudent.setJointime(DateUtil.parseDateString(DateUtil.now(),"yyyyMM"));
 		model.put("today", vipStudentService.getStatisticaltoday(DateUtil.parseDateString(DateUtil.now(),"yyyyMMdd")));
 		model.put("currMonth", vipStudentService.getStatistical(vipStudent));
-		System.out.println(model.get("currMonth"));
 		vipStudent.setJointime(StringUtil.formatDateyyyyMM(before.getTime()));
 		model.put("beforeMonth", vipStudentService.getStatistical(vipStudent));
 		

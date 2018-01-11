@@ -85,7 +85,7 @@
 	
 	
 	<select id="sumOrder" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.account.model.OrderInfo">
-		<if test="groupBy != null and '' != groupBy">
+		 <if test="groupBy != null and '' != groupBy">
 		SELECT 
 				subjectName,
 				COUNT(DISTINCT stu_id) AS cnt,
@@ -149,9 +149,9 @@
 				<if test="groupBy == 'subjectName'">
 					GROUP BY o.subjectName
 				</if>
-				<if test="groupBy == 'courseName'">
+				<!-- <if test="groupBy == 'courseName'">
 					GROUP BY o.courseName
-				</if>
+				</if> -->
 			
 		</if>	
 	</select>

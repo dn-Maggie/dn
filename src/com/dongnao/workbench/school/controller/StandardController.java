@@ -342,6 +342,8 @@ public class StandardController{
 	public void initBar(Map<Object, Object> modelObj,String subjectName) {
 		Calendar calendar = Calendar.getInstance();
 		int month = calendar.get(Calendar.MONTH)+1;
+		
+		
 		for(int i=0;i<=5;i++){
 			AccountFlow accountFlow = new AccountFlow();
 			if(subjectName!=""&&subjectName!=null)accountFlow.setSubjectName(subjectName);
@@ -349,14 +351,20 @@ public class StandardController{
 				if(month-i<=0){
 					year=year-1;
 				}
-				accountFlow.setCreateTime(year+""+((month-i>0)?(month-i):(month-i+12)));
+				accountFlow.setCreateTime(year+""+(((month-i>0)?(month-i):(month-i+12))<10?"0"+((month-i>0)?(month-i):(month-i+12)):((month-i>0)?(month-i):(month-i+12)))+"01");
 				ResultMoney resm = accountFlowService.getBarStatistic(accountFlow);
 				if(resm==null)resm = new ResultMoney();
+				
+				
 				//获取本月应收账款
 				VipStudent vipStudent = new VipStudent();
 				vipStudent.setJointime(year+""+((month-i>0)?(month-i):(month-i+12)));
 				if(subjectName!=""&&subjectName!=null)vipStudent.setSubjectName(subjectName);
+				
+				
 				List<Statistical> sv = vipStudentService.getTotal(vipStudent);
+				
+				
 				//添加在对象中
 				if(sv.size()>0&&sv.get(0).getShouldPay()!=null){
 					resm.setShouldPay(Double.valueOf(sv.get(0).getShouldPay().toString()));

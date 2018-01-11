@@ -134,10 +134,6 @@
 		height: auto;
 		width: auto;
 	}
-
-/* 	#thirtyData,#recentThMonth,#vipnumber{
-		width: 1500px;
-	} */
 	.widget-toolbar{
 		float: left;
 	}

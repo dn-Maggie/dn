@@ -83,12 +83,6 @@ public interface VipStudentService{
 	 * */
 	public ResultMessage updateEmpPerform(VipStudent vipStudent);
 
-	/**
-	 * 获取所有欠费学员方法
-	 * @param vipStudent VipStudent 实体对象
-	 */	
-	public List<VipStudent> listByOwn();
-	
 	
 	/**
 	 * 查找是否重复

@@ -38,10 +38,16 @@
 	
 	<select id="getByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select s.name as subjectname,b.full_name as fullname, 
-		<include refid="Base_Column_List" />
-		from market_student as m 
-		left join subject as s on m.subject_id=s.id 
-		left join basic_user_info as3 b on m.user_id=b.id
+		m.id
+		,m.qq
+		,m.subject_id
+		,m.user_id
+		,m.time
+		,m.notes
+		,file_url
+			from market_student as m 
+			left join subject as s on m.subject_id=s.id 
+			left join basic_user_info as b on m.user_id=b.id
 		where m.id = #{id,jdbcType=VARCHAR}
 	</select>
 	

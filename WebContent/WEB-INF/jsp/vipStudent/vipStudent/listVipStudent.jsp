@@ -17,19 +17,6 @@ jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";//声明页脚�
 		//$("#endDate").val(new Date().format('yyyy-MM-dd'));
 		var showType = $("#showType").val();//？
 		switch (showType) {
-		case "vipCnt":
-			showUrl = "<m:url value='/vipStudent/listVipStudentCnt.do'/>";
-			showColModel=  [{name : "id",hidden : true,key : true,label:"",index : "id"},				
-							{name : "name",label:"学员姓名"},				
-							{name : "qq",label:"QQ",index : "qq"},	
-							{name : "qqNick",label:"QQ昵称"},	
-							{name : "phone",label:"手机号码"},
-							{name : "courses",label:"报名课程数量"},				
-							{name : "actualPay",label:"实缴学费总额",index : "course_name"},
-							{name : "shouldPay",label:"应缴学费总额",index : "should_pay"},
-							{name : "owePay",label:"欠缴学费总额",index : "should_pay"},
-							{name : "joinTime",hidden:true}]
-			break;
 		case "monthshouldPay":
 		case "yearshouldPay":
 			showUrl = "<m:url value='/vipStudent/listVipStudent.do'/>";

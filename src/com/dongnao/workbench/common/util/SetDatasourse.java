@@ -23,7 +23,7 @@ public class SetDatasourse {
 		String methodName = jp.getSignature().getName();
 
 		//如果是枚举类中的方法，切换为写的数据源
-	mark: 
+		mark: 
 		for (EnumConstant ec : EnumConstant.values()) {
 			if (methodName.startsWith(ec.name())) {
 				DynamicDataSource.setCurrentLookupKey("write");

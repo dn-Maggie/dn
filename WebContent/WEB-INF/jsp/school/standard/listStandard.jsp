@@ -231,7 +231,7 @@
     function ajaxGetStatistic(){
     	var startDate = $("#startDate").val();
     	var temp = startDate.split("-");
-    	var month = temp[0]+""+(temp[1]<10?(temp[1].substring(1,2)):temp[1]);
+    	var month = temp[0]+""+temp[1];
     	var paramDatas = {month:month,subject:$("#subjectName").val()};
     	$.ajax({
 			url : "<m:url value='/standard/getStatistic.do'/>",

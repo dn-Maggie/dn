@@ -69,6 +69,8 @@ http://www.springframework.org/schema/cache/spring-cache.xsd"
 		<!-- <property name="filters" value="stat" /> -->
 		<property name="filters" value="mergeStat" />
 	</bean>  
+	
+	
 	<!--创建操作数据源 -->  
 	<bean id="editDataSource" class="com.dongnao.workbench.common.util.RsaPassword" destroy-method="close">  
 	    <property name="driverClassName" value="${driverClassName_w}" />  
