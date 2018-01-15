@@ -242,7 +242,6 @@ input[name='timeQuantum']:checked+label{
 				url: "<m:url value='/standard/listFinStatements.do'/>",
 				cache:false,
 				success: function(data){
-					debugger
 					chartarr.push(data.rows);
 					drawGrid(data.rows);
 					//drawChart();
@@ -287,7 +286,6 @@ input[name='timeQuantum']:checked+label{
 		var htmlTemp = [];//临时存放html数组
 		var tabheaderTemp = [];//临时存放tabheader数组
 		var tabbodyTemp = [];//临时存放tabbody数组
-    	debugger
     	for(var i = 0;i<data.length;i++){
     		//取到科目,判断科目是否已经拿到
     		//jQuery.inArray(value,array)搜索数组中指定值并返回它的索引（如果没有找到则返回-1）

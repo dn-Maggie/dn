@@ -69,7 +69,6 @@ function ajaxGetVipInfoByStu(stuqq,subjectid,courseid) {
 								callback:function(result){
 				    			if(result){
 				    				addVipStudent();
-				    				return;
 				    			}
 				    		}}) ;   
 						}else{
