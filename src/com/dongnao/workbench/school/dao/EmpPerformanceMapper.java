@@ -11,7 +11,7 @@ import com.dongnao.workbench.school.model.RecentTwoMonthEmpPerf;
  * @version 1.0 2016-07-24
  */
 public interface EmpPerformanceMapper  {
-
+	
 	/**
 	 * 新增员工绩效信息表方法
 	 * @param empPerformance EmpPerformance:实体类
@@ -105,4 +105,13 @@ public interface EmpPerformanceMapper  {
 
 	/*获取讲师成本&业绩*/
 	public List<EmpPerformance> listEmpBonusCost(EmpPerformance empPerformance);
+	
+	/**
+	 * 讲师营收统计明细
+	 * @param empPerformance 
+	 */
+	public List<EmpPerformance> listTeacPerformance(EmpPerformance empPerformance);
+
+	/*讲师营收统计总额*/
+	public List<EmpPerformance> listTeacTotal(EmpPerformance empPerformance);
 }

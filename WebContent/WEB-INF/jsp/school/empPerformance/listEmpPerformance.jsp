@@ -11,7 +11,7 @@
 			<div class="search border-bottom">
 				<ul>
 				<li style="width:auto;float:left;"><span>关键字:</span>
-				<c:if test="${!isAdmin}">
+				<c:if test="${!isAdmin && !leader}">
 					<input type="hidden" name="employeeId" id="employeeId" value="${user.id}">
 				</c:if>
 				<c:if test="${isAdmin}">
@@ -89,7 +89,7 @@
 			<!--功能按钮end-->
 			<div class="listtable_box" style="position:relative">
 				<!--此处放表格-->
-				<c:if test="${revenue}">
+				<c:if test="${revenue || isAdmin}">
 					<div style="display:inline-block;width:98%;vertical-align: top;">
 						<table  id="remote_rowed" ></table>
 						<div  id="remote_prowed"></div>		
@@ -107,7 +107,7 @@
 						<div  id="remote_prowed4"></div>
 					</div>
 				</c:if>
-				<c:if test="${!revenue&&!teacher}">
+				<c:if test="${!revenue &&!teacher}">
 					<div style="display:inline-block;width:98%;vertical-align: top;">
 						<table  id="remote_rowed" ></table>
 						<div  id="remote_prowed"></div>		
@@ -121,19 +121,19 @@
 						<div id="remote_prowed3"></div>
 					</div>
 				</c:if>
-				<c:if test="${!revenue && teacher}">
+				<c:if test="${!revenue && teacher && !isAdmin}">
 					<div style="display:inline-block;width:98%;vertical-align: top;">
 						<table  id="remote_rowed" ></table>
 						<div  id="remote_prowed"></div>		
 					</div>
-					<div style="display:inline-block;width:33%;vertical-align: top;">
-						<table id="emp_table"></table>
-						<div id="remote_prowed2"></div>
+					<div style="display:inline-block;width:67%;vertical-align: top;">
+						<table id="teach_rowed"></table>
+						<div id="teach_prowed"></div>
 					</div>
-					<div style="display:inline-block;width:33%;vertical-align: top;">
+					<!--div style="display:inline-block;width:33%;vertical-align: top;">
 						<table id="emp_table2"></table>
 						<div id="remote_prowed3"></div>
-					</div>
+					</div-->
 					<div style="display:inline-block;width:32%;vertical-align: top;">
 						<table id="teacher_list"></table>
 						<div id="teacher_list_prowed"></div>
@@ -147,6 +147,7 @@
 	var empObj = {};
 	var empObj2 = {};
 	var revenueObj = {};
+	var teachObj = {};
 	$(function(){
 		$("#startDate").val(new Date().format('yyyy-MM-01'));
 		$("#endDate").val(new Date().format('yyyy-MM-dd'));
@@ -185,21 +186,54 @@
     		},
 			gridComplete:function(){//表格加载执行  
 			    $(this).closest(".ui-jqgrid-bdiv").css({'overflow-x' : 'hidden'});
-			 		/* $(".ui-jqgrid-sdiv").show();
-				 	var footerCell = $(this).footerData();
-				 	var footerObj = {};
-				 	for(var i in footerCell){
-				 		footerObj[i]=$(this).getCol(i,false,"sum")?$(this).getCol(i,false,"sum").toFixed(3):0;
-				 	}
-				 	footerObj['raw'] = true;
-				 	footerObj['rn'] = "合";
-				 	footerObj['cb'] = "计"; 
-			    	$(this).footerData("set",footerObj); */ //将合计值显示出来
 			}
 
       	});
         
-  		
+		teachObj = new biz.grid({
+            id:"#teach_rowed",/*html部分table id*/
+            url: "<m:url value='/empPerformance/listTeacPerformance.do'/>",/*grid初始化请求数据的远程地址*/
+            datatype: "json",/*数据类型，设置为json数据，默认为json*/
+           	sortname:"stuJoinTime",
+           	sortorder:"desc",
+           	footerrow:true,
+           	pager: '#teach_prowed' /*分页栏id*/,
+     		rowList:[10,15,50,100],//每页显示记录数
+    		rowNum:20,//默认显示15条
+            colModel:[
+				{name : "employeeName",label:"员工姓名",index : "employeeName",width:20, frozen : true},	 
+				{name : "nickName",label:"员工昵称",index : "nickName",width:20, frozen : true},
+				{name : "position",label:"参与岗位",width:40},	
+				{name : "stuName",label:"学生姓名",index : "stuName",width:30},
+				{name : "stuQq",label:"学生QQ",index : "stuQq",width:40},
+				{name : "actualPay",label:"已付",index : "actualPay",width:30},				
+				{name : "performance",label:"营收额",index : "performance",width:20,
+					formatter : "number",
+					formatoptions : {
+					decimalSeparator : ".",
+					thousandsSeparator : ",",
+					decimalPlaces : 1,
+					defaulValue : 0
+					},},
+				{name : "stuJoinTime",label:"报名时间",index : "stuJoinTime",width:30}	
+           	],
+           	serializeGridData:function(postData){//添加查询条件值
+				var obj = getQueryCondition();
+    			$ .extend(true,obj,postData);//合并查询条件值与grid的默认传递参数
+    			return obj;
+    		},
+    		gridComplete:function(){//表格加载执行  
+			    $(this).closest(".ui-jqgrid-bdiv").css({'overflow-x' : 'hidden'});
+			 		$(".ui-jqgrid-sdiv").show();
+				 	var footerObj = {};
+			 		footerObj["performance"]=$(this).getCol("performance",false,"sum").toFixed(3);
+				 	footerObj['raw'] = true;
+				 	footerObj['rn'] = "合";
+				 	footerObj['cb'] = "计"; 
+			    	$(this).footerData("set",footerObj);  //将合计值显示出来
+			}
+      	});
+		
   		empObj = new biz.grid({
             id:"#emp_table",/*html部分table id*/
           	url: "<m:url value='/empPerformance/listByEmployee.do'/>",
@@ -250,7 +284,7 @@
   		
   		teacherList = new biz.grid({
             id:"#teacher_list",/*html部分table id*/
-          	url: "<m:url value='/empPerformance/listEmpBonusCost.do'/>",
+            url: "<m:url value='/empPerformance/listTeacTotal.do'/>",
             datatype: "json",/*数据类型，设置为json数据，默认为json*/
            	multiselect:true,
            	multiboxonly:true,
@@ -259,20 +293,16 @@
      		rowList:[10,15,50,100],//每页显示记录数
     		rowNum:10,//默认显示15条
  			colModel:[
-				{name : "id",hidden : true,key : true,label:"主键",index : "id"},				
- 		       	{name : "stuJoinTime",label:"统计月份",width:"4",index : "stuJoinTime",
- 		    	  formatter:'date',formatoptions: {newformat:'Y-m'}, 	
- 		       	},
- 		        {name : "performance",label:"贡献绩效总额",width:"4",index : "performance",number:true,hidden : true},
-				{name : "sum",label:"员工成本",width:"4",index : "sum", editable:true,number:true},
-				{name : "actualPay",label:"实际奖金总额",width:"4",index : "actualPay",number:true,
-					cellattr : function(rowId, val, rawObject, cm, rdata){
-						if(rawObject['sum']-rawObject['performance']>0){
-				        	return "style='color:red;font-weight:bold'";
-				        }else{
-				        	return "style='color:green;font-weight:bold'";
-				        }
-			       	}}	
+				{name : "employeeName",label:"员工姓名",index : "employee_name",width:20, frozen : true},	 
+				{name : "nickName",label:"员工昵称",index : "nickName",width:20, frozen : true},
+				{name : "sum",label:"营收总额",index : "sum",width:25,
+					formatter : "number",
+					formatoptions : {
+					decimalSeparator : ".",
+					thousandsSeparator : ",",
+					decimalPlaces : 1,
+					defaulValue : 0
+				}}
            	],
            	serializeGridData:function(postData){//添加查询条件值
 				var obj = getQueryCondition();
@@ -448,12 +478,19 @@
     		revenueObj.setGridParam({"page":"1"});
     	revenueObj.trigger('reloadGrid');
     }
-    
+   
     function doSearchForTeacherList(isStayCurrentPage){
     	if(!isStayCurrentPage)
     	teacherList.setGridParam({"page":"1"});
     	teacherList.trigger('reloadGrid');
+    	doSearchForTeacherObj(isStayCurrentPage);
     }
+    function doSearchForTeacherObj(isStayCurrentPage){
+    	if(!isStayCurrentPage)
+    	teachObj.setGridParam({"page":"1"});
+    	teachObj.trigger('reloadGrid');
+    }
+    
     //重置查询表单
     function resetForm(formId){
 		document.getElementById(formId).reset();

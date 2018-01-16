@@ -352,13 +352,13 @@
 			and tutor_id like CONCAT(#{tutorId,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="followerType != null and '' != followerType">
-			and follower_type like CONCAT(#{followerType,jdbcType=VARCHAR},'%')
+			and follower_type like CONCAT('%',#{followerType,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="followerId != null and '' != followerId">
-			and follower_id like CONCAT(#{followerId,jdbcType=VARCHAR},'%')
+			and follower_id like CONCAT('%',#{followerId,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="followerName != null and '' != followerName">
-			and v1.follower_name like CONCAT(#{followerName,jdbcType=VARCHAR},'%')
+			and v1.follower_name like CONCAT('%',#{followerName,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="shouldPay != null and '' != shouldPay">
 			and should_pay = #{shouldPay,jdbcType=DOUBLE}
