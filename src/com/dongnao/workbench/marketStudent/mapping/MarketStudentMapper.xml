@@ -24,7 +24,21 @@
 		<result column="is_buy" property="is_buy" jdbcType="VARCHAR" />
 		<result column="auxiliary" property="auxiliary" jdbcType="VARCHAR" />
 		<result column="notes" property="notes" jdbcType="VARCHAR" />
-	</resultMap>						
+	</resultMap>	
+	
+	<resultMap id="KouBeiResultMap" type="com.dongnao.workbench.marketStudent.model.KouBeiStudent">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="qq" property="qq" jdbcType="VARCHAR" />
+		<result column="tel" property="tel" jdbcType="VARCHAR" />
+		<result column="subjectid" property="subjectid" jdbcType="VARCHAR"/>
+		<result column="courseid" property="courseid" jdbcType="VARCHAR" />
+		<result column="entry_emp" property="entry_emp" jdbcType="VARCHAR" />
+		<result column="time" property="time" jdbcType="TIMESTAMP" />
+		<result column="is_buy" property="is_buy" jdbcType="VARCHAR" />
+		<result column="notes" property="notes" jdbcType="VARCHAR" />
+		<result column="subjectname" property="subjectname" jdbcType="VARCHAR" />
+		<result column="coursename" property="coursename" jdbcType="VARCHAR" />
+	</resultMap>					
 									
 	<sql id="Base_Column_List">
 	 	m.id
@@ -56,6 +70,14 @@
 		where id = #{id,jdbcType=VARCHAR}
 	</select>
 	
+	<select id="getKBByPrimaryKey" resultMap="KouBeiResultMap" parameterType="java.lang.String">
+		select k.id,k.qq,k.tel,k.subjectid,k.courseid,s.name as subjectname,c.name as coursename,k.entry_emp,k.time,k.is_buy,k.notes 
+		from koubei_student k
+		left join subject as s on k.subjectid=s.id 
+		left join course as c on k.courseid=c.id
+		where k.id = #{k.id,jdbcType=VARCHAR}
+	</select>
+	
 	<select id="getMarkStuCount" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select count(*) as markStuCount
 		from market_student
@@ -63,6 +85,54 @@
 		<if test="_parameter!=null and _parameter!=''"> 
 			AND DATE_FORMAT(time,'%Y%m') like CONCAT('%',#{month,jdbcType=VARCHAR},'%')
 		</if>
+	</select>
+	
+		<select id="listKouBeiStudent" resultMap="KouBeiResultMap" parameterType="com.dongnao.workbench.marketStudent.model.KouBeiStudent">
+		select k.id,k.qq,k.tel,s.name as subjectname,c.name as coursename,k.entry_emp,k.time,k.is_buy,k.notes 
+		from koubei_student k
+		left join subject as s on k.subjectid=s.id 
+		left join course as c on k.courseid=c.id
+		where 1=1
+		<if test="id != null and '' != id">  
+			and k.id = #{id,jdbcType=VARCHAR}
+		</if>
+		<if test="qq != null and '' != qq">  
+			and k.qq = #{qq,jdbcType=VARCHAR}
+		</if>
+		<if test="tel != null and '' != tel">  
+			and k.tel = #{tel,jdbcType=VARCHAR}
+		</if>
+		<if test="subjectid != null and '' != subjectid">  
+			and k.subjectid = #{subjectid,jdbcType=VARCHAR}
+		</if>
+		<if test="courseid != null and '' != courseid">  
+			and k.courseid = #{courseid,jdbcType=VARCHAR}
+		</if>
+		<if test="entry_emp != null and '' != entry_emp">  
+			and k.entry_emp = #{entry_emp,jdbcType=VARCHAR}
+		</if>
+		<if test="time != null and '' != time">  
+			and k.time = #{time,jdbcType=TIMESTAMP}
+		</if>
+		<if test="is_buy != null and '' != is_buy">  
+			and k.is_buy = #{is_buy,jdbcType=VARCHAR}
+		</if>
+		<if test="notes != null and '' != notes">  
+			and k.notes = #{notes,jdbcType=VARCHAR}
+		</if>
+		<if test="null != propsMap.startDate and propsMap.startDate != ''">
+			<![CDATA[
+			and DATE_FORMAT(k.time,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
+			]]>
+		</if>
+		<if test="null != propsMap.endDate and propsMap.endDate != ''">
+			<![CDATA[
+				and DATE_FORMAT(k.time,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
+			]]>
+		</if>
+			<if test="orderFields != null and '' != orderFields">  
+           	order by ${orderFields} ${order}
+         	</if>
 	</select>
 	
 	<select id="listPromotionalInfo" resultMap="ProInfoResultMap" parameterType="com.dongnao.workbench.marketStudent.model.Promotionalinfo">
@@ -215,6 +285,32 @@
 		)
 	</insert>
 	
+	<insert id="addKouBeiStudent" parameterType="com.dongnao.workbench.marketStudent.model.KouBeiStudent">
+		insert into koubei_student(
+			id
+			,qq
+			,tel
+			,subjectid
+			,courseid
+			,entry_emp
+			,time
+			,is_buy
+			,notes
+		)values (
+			#{id,jdbcType=VARCHAR}
+			,#{qq,jdbcType=VARCHAR}
+			,#{tel,jdbcType=VARCHAR}
+			,#{subjectid,jdbcType=VARCHAR}
+			,#{courseid,jdbcType=VARCHAR}
+			,#{entry_emp,jdbcType=TIMESTAMP}
+			,#{time,jdbcType=TIMESTAMP}
+			,#{is_buy,jdbcType=BLOB}
+			,#{notes,jdbcType=BLOB}
+		)
+	</insert>
+	
+	
+	
 	<update id="update" parameterType="com.dongnao.workbench.marketStudent.model.MarketStudent">
 		update market_student  set
 		ID= #{id,jdbcType=VARCHAR}
@@ -234,6 +330,17 @@
 			,level = #{level,jdbcType=VARCHAR}
 			,is_buy = #{is_buy,jdbcType=VARCHAR}
 			,auxiliary = #{auxiliary,jdbcType=VARCHAR}
+			,notes = #{notes,jdbcType=VARCHAR}
+			where id = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateKouBeiStudent" parameterType="com.dongnao.workbench.marketStudent.model.KouBeiStudent">
+		update koubei_student  set
+			qq = #{qq,jdbcType=VARCHAR}
+			,tel = #{tel,jdbcType=VARCHAR}
+			,subjectid = #{subjectid,jdbcType=VARCHAR}
+			,courseid = #{courseid,jdbcType=VARCHAR}
+			,is_buy = #{is_buy,jdbcType=VARCHAR}
 			,notes = #{notes,jdbcType=VARCHAR}
 			where id = #{id,jdbcType=VARCHAR}
 	</update>

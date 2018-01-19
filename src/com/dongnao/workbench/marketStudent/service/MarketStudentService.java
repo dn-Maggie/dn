@@ -2,6 +2,7 @@ package com.dongnao.workbench.marketStudent.service;
 
 import java.util.List;
 import com.dongnao.workbench.common.bean.ResultMessage;
+import com.dongnao.workbench.marketStudent.model.KouBeiStudent;
 import com.dongnao.workbench.marketStudent.model.MarketStudent;
 import com.dongnao.workbench.marketStudent.model.Promotionalinfo;
 
@@ -34,6 +35,8 @@ public interface MarketStudentService  {
 	
 	public Promotionalinfo getPIByPrimaryKey(String key);
 	
+	public KouBeiStudent getKBByPrimaryKey(String key);
+	
 	/**
 	 * 根据条件查找录入学员信息列表方法
 	 * @param marketStudent MarketStudent 实体对象（查询条件）
@@ -42,6 +45,8 @@ public interface MarketStudentService  {
 	public List<MarketStudent> listByCondition(MarketStudent marketStudent);
 	
 	public List<Promotionalinfo> listPromotionalInfo(Promotionalinfo promotionalinfo);
+	
+	public List<KouBeiStudent> listKouBeiStudent(KouBeiStudent kouBeiStudent);
 	
 	/**
 	 * 修改录入学员信息方法
@@ -52,9 +57,12 @@ public interface MarketStudentService  {
 	public ResultMessage updateProInfoIsBuy(Promotionalinfo promotionalinfo);
 	
 	public ResultMessage updatePromotionalInfo(Promotionalinfo promotionalinfo);
-
+	
+	public ResultMessage updateKouBeiStudent(KouBeiStudent kouBeiStudent);
+	
 	public MarketStudent getMarkStuCount(String month);
 	
 	public ResultMessage addPromotionalInfo(Promotionalinfo promotionalinfo);
 	
+	public ResultMessage addKouBeiStudent(KouBeiStudent kouBeiStudent);
 }

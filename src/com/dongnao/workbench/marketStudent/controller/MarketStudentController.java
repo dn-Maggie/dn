@@ -26,6 +26,7 @@ import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.common.util.Utils;
 import com.dongnao.workbench.course.model.Course;
 import com.dongnao.workbench.course.service.CourseService;
+import com.dongnao.workbench.marketStudent.model.KouBeiStudent;
 import com.dongnao.workbench.marketStudent.model.MarketStudent;
 import com.dongnao.workbench.marketStudent.model.Promotionalinfo;
 import com.dongnao.workbench.marketStudent.service.MarketStudentService;
@@ -94,6 +95,28 @@ public class MarketStudentController{
  	@RequestMapping("/toAddPromotionalInfo")
 	public ModelAndView toAddPromotionalInfo(){
  		ModelAndView mv = new ModelAndView("WEB-INF/jsp/marketStudent/marketStudent/addPromotionalInfo");
+ 		Map<String,List> er = new HashMap<String, List>();
+ 		List<Subject> list = subjectService.listByCondition(new Subject());
+ 		List<Course> list2 =new ArrayList<Course>();
+ 		if(list!=null && list.size()>0){
+ 			Course c=new Course();
+ 	 		c.setSubjectId(list.get(0).getId());
+ 	 		list2=courseService.listByCondition(c);
+ 		}
+ 		er.put("subject", list);
+ 		er.put("course", list2);
+ 		mv.addObject("er", er);
+ 		
+ 		List<Standard> standard= standardService.getAllResourceId();
+ 		mv.addObject("standard", standard);
+		return mv;
+	}
+ 	/**
+ 	 * 添加口碑学员信息
+ 	 * */
+ 	@RequestMapping("/toAddKouBeiStudent")
+	public ModelAndView toAddKouBeiStudent(){
+ 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/marketStudent/marketStudent/addKouBeiStudent");
  		Map<String,List> er = new HashMap<String, List>();
  		List<Subject> list = subjectService.listByCondition(new Subject());
  		List<Course> list2 =new ArrayList<Course>();
@@ -244,6 +267,40 @@ public class MarketStudentController{
 		map.put("accountFlow", accountFlow);
  		return new ModelAndView("WEB-INF/jsp/marketStudent/marketStudent/BaoMinProInfo",map );
 	}
+	
+	@RequestMapping("/kouBeiPagtoBM")
+	public ModelAndView kouBeiPagtoBM(String key){
+		KouBeiStudent entity = marketStudentService.getKBByPrimaryKey(key);
+		Map<String,List> er = new HashMap<String, List>();
+ 		List<Subject> list = subjectService.listByCondition(new Subject());
+ 		List<Course> list2 =new ArrayList<Course>();
+ 		Course c=new Course();
+		c.setSubjectId(entity.getSubjectid());
+		list2=courseService.listByCondition(c);
+ 		er.put("xueke", list);
+ 		er.put("kechen", list2);
+		
+		Map<String,String> marketStudent = FormatEntity.getObjectValue(entity);
+		Map<String,Object>  map=new HashMap<String, Object>();
+		map.put("marketStudent", marketStudent);
+		map.put("er", er);
+		List<UserInfo> userlist=userInfoService.listByCondition(new UserInfo());
+		map.put("userlist", userlist);
+		
+		Employee emp = new Employee();
+		emp.setPosition("讲师");
+		List<Employee> teacher= employeeService.listByCondition(emp);
+		map.put("teacher", teacher);
+		
+		List<Standard> standard= standardService.getAllResourceId();
+		map.put("standard", standard);
+		
+		List<Employee> tutor= employeeService.listByCondition(new Employee());
+		map.put("tutor", tutor);
+		AccountFinance accountFlow = accountFinanceService.getByPrimaryKey("67250e52-e356-44a7-bb0e-f073360fb732");
+		map.put("accountFlow", accountFlow);
+ 		return new ModelAndView("WEB-INF/jsp/marketStudent/marketStudent/BaoMinProInfo",map );
+	}
 	/**
 	 * 报名
 	 * @param response HttpServletResponse
@@ -284,6 +341,22 @@ public class MarketStudentController{
 			promotionalinfo.setEntry_emp(user.getFullName());		
 			promotionalinfo.setEntry_time(new Date());
 			AjaxUtils.sendAjaxForObjectStr(response,marketStudentService.addPromotionalInfo(promotionalinfo));
+		}
+	}
+	
+	@RequestMapping("/AddKouBeiStudent")
+	public void AddKouBeiStudent(KouBeiStudent kouBeiStudent,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		UserInfo user=Utils.getLoginUserInfo(request);
+		KouBeiStudent ko = new KouBeiStudent();
+		ko.setQq(kouBeiStudent.getQq());
+		ko.setCourseid(kouBeiStudent.getCourseid());
+		if(marketStudentService.listKouBeiStudent(ko).size()>0){
+			AjaxUtils.sendAjaxForObjectStr(response,"{}");
+		}else{
+			kouBeiStudent.setId(Utils.generateUniqueID());
+			kouBeiStudent.setEntry_emp(user.getFullName());		
+			kouBeiStudent.setTime(new Date());
+			AjaxUtils.sendAjaxForObjectStr(response,marketStudentService.addKouBeiStudent(kouBeiStudent));
 		}
 	}
 	
@@ -342,6 +415,30 @@ public class MarketStudentController{
  		}
  		mv.addObject("tutor", tutor);
 		return mv;
+	}
+	
+	/*进入口碑学员信息页面*/
+	@RequestMapping("/toKouBeiStudent")
+	public ModelAndView toKouBeiStudent(){
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/marketStudent/marketStudent/kouBeiStudent");
+		Course c=new Course();
+		List<Course> couList=courseService.listByCondition(c);
+ 		mv.addObject("couList",couList);
+ 		List<Employee> tutor= employeeService.listByCondition(new Employee());
+ 		for(int i =0;i<tutor.size();i++){
+ 			if(tutor.get(i).getCurrState().equals("3"))
+ 				tutor.remove(i);
+ 		}
+ 		mv.addObject("tutor", tutor);
+		return mv;
+	}
+	
+	/*查询推广信息列表数据*/
+	@RequestMapping("/listKouBeiStudent")
+	public void listKouBeiStudent(KouBeiStudent kouBeiStudent,HttpServletRequest request,HttpServletResponse response, Page page){
+		kouBeiStudent.setPage(page);	
+		List<KouBeiStudent> list = marketStudentService.listKouBeiStudent(kouBeiStudent);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
 	}
 	
 	/*查询推广信息列表数据*/
@@ -462,6 +559,23 @@ public class MarketStudentController{
 		return new ModelAndView("WEB-INF/jsp/marketStudent/marketStudent/editPromotionalInfo",map );
 	}
 	
+	@RequestMapping("/toEditKouBeiStudent")
+	public ModelAndView toEditKouBeiStudent(String key){
+		KouBeiStudent entity = marketStudentService.getKBByPrimaryKey(key);
+		Map<String,List> er = new HashMap<String, List>();
+ 		List<Subject> list = subjectService.listByCondition(new Subject());
+ 		Course c=new Course();
+		c.setSubjectId(entity.getSubjectid());
+		List<Course> list2=courseService.listByCondition(c);
+ 		er.put("xueke", list);
+ 		er.put("kechen", list2);
+		Map<String,String> kouBeiStudent = FormatEntity.getObjectValue(entity);
+		Map<String,Object>  map=new HashMap<String, Object>();
+		map.put("kouBeiStudent", kouBeiStudent);
+		map.put("er", er);
+		return new ModelAndView("WEB-INF/jsp/marketStudent/marketStudent/editKouBeiStudent",map);
+	}
+	
 	
 	/**
 	 * 修改方法
@@ -479,6 +593,17 @@ public class MarketStudentController{
 			AjaxUtils.sendAjaxForObjectStr(response,marketStudentService.updatePromotionalInfo(promotionalinfo));	
 		}	
 	}	
+	
+	@RequestMapping("/updateKouBeiStudent")
+	public void updateKouBeiStudent(KouBeiStudent kouBeiStudent,HttpServletRequest request,HttpServletResponse response)throws IOException{
+		UserInfo user=Utils.getLoginUserInfo(request);
+		KouBeiStudent pi = marketStudentService.getKBByPrimaryKey(kouBeiStudent.getId());
+		if(!pi.getEntry_emp().equals(user.getFullName())){
+			AjaxUtils.sendAjaxForObjectStr(response,AjaxUtils.getFailureMessage("只能修改自己录入的口碑学员信息！"));
+		}else{
+			AjaxUtils.sendAjaxForObjectStr(response,marketStudentService.updateKouBeiStudent(kouBeiStudent));	
+		}	
+	}
 	
 	@RequestMapping("/updateMarketStudent")
 	public void update(MarketStudent marketStudent,HttpServletRequest request,HttpServletResponse response)throws IOException{
