@@ -474,7 +474,7 @@ public class MarketStudentController{
 		UserInfo user=Utils.getLoginUserInfo(request);
 		Promotionalinfo pi = marketStudentService.getPIByPrimaryKey(promotionalinfo.getId());
 		if(!pi.getEntry_emp().equals(user.getFullName())){
-			AjaxUtils.getFailureMessage("只能修改自己录入的意向信息！");
+			AjaxUtils.sendAjaxForObjectStr(response,AjaxUtils.getFailureMessage("只能修改自己录入的意向信息！"));
 		}else{
 			AjaxUtils.sendAjaxForObjectStr(response,marketStudentService.updatePromotionalInfo(promotionalinfo));	
 		}	

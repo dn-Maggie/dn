@@ -85,6 +85,7 @@ $(function() {
 			type : "post",
 				dataType:"json",
 				success : function(d) {
+					console.log(d);
 					if(d.status){
 						showMessage(d.message,"","",function(){
 							window.parent.closeEdit();
