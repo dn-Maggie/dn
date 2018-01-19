@@ -1,6 +1,8 @@
 package com.dongnao.workbench.marketStudent.dao;
 
 import java.util.List;
+
+import com.dongnao.workbench.marketStudent.model.KouBeiStudent;
 import com.dongnao.workbench.marketStudent.model.MarketStudent;
 import com.dongnao.workbench.marketStudent.model.Promotionalinfo;
 /**
@@ -32,6 +34,8 @@ public interface MarketStudentMapper  {
 	
 	public Promotionalinfo getPIByPrimaryKey(String key);
 	
+	
+	public KouBeiStudent getKBByPrimaryKey(String key);
 	/**
 	 * 根据条件查找录入学员信息列表方法
 	 * @param MarketStudent marketStudent：实体对象（查询条件）
@@ -41,6 +45,8 @@ public interface MarketStudentMapper  {
 	
 	public List<Promotionalinfo>  listPromotionalInfo(Promotionalinfo promotionalinfo);
 	
+	
+	public List<KouBeiStudent>  listKouBeiStudent(KouBeiStudent kouBeiStudent);
 	/**
 	 * 修改录入学员信息方法
 	 * @param marketStudent MarketStudent：实体对象
@@ -50,8 +56,12 @@ public interface MarketStudentMapper  {
 	public void updateProInfoIsBuy(Promotionalinfo promotionalinfo);
 	
 	public void updatePromotionalInfo(Promotionalinfo promotionalinfo);
-
+	
+	public void updateKouBeiStudent(KouBeiStudent kouBeiStudent);
+	
 	public MarketStudent getMarkStuCount(String month);
 	
 	void addPromotionalInfo(Promotionalinfo promotionalinfo);
+	
+	void addKouBeiStudent(KouBeiStudent kouBeiStudent);
 }

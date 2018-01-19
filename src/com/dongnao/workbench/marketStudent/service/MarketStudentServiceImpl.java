@@ -2,6 +2,7 @@ package com.dongnao.workbench.marketStudent.service;
 import javax.annotation.Resource;
 import java.util.List;
 import com.dongnao.workbench.marketStudent.dao.MarketStudentMapper;
+import com.dongnao.workbench.marketStudent.model.KouBeiStudent;
 import com.dongnao.workbench.marketStudent.model.MarketStudent;
 import com.dongnao.workbench.marketStudent.model.Promotionalinfo;
 import com.dongnao.workbench.marketStudent.service.MarketStudentService;
@@ -49,6 +50,11 @@ public class MarketStudentServiceImpl implements MarketStudentService{
 		return marketStudentMapper.getPIByPrimaryKey(key);
 	}
 	
+	
+	public KouBeiStudent getKBByPrimaryKey(String key){
+		return marketStudentMapper.getKBByPrimaryKey(key);
+	}
+	
 	/**
 	 * 删除录入学员信息方法
 	 * @param key String 多个由“，”分割开的id字符串
@@ -80,6 +86,11 @@ public class MarketStudentServiceImpl implements MarketStudentService{
 		return AjaxUtils.getSuccessMessage();
 	}
 	
+	public ResultMessage updateKouBeiStudent(KouBeiStudent kouBeiStudent){
+		marketStudentMapper.updateKouBeiStudent(kouBeiStudent);
+		return AjaxUtils.getSuccessMessage();
+	}
+	
 	
 	public ResultMessage updateProInfoIsBuy(Promotionalinfo promotionalinfo){
 		marketStudentMapper.updateProInfoIsBuy(promotionalinfo);
@@ -96,6 +107,20 @@ public class MarketStudentServiceImpl implements MarketStudentService{
 	public List<Promotionalinfo> listPromotionalInfo(Promotionalinfo promotionalinfo) {
 		return marketStudentMapper.listPromotionalInfo(promotionalinfo);
 	}
+	
+	@Override
+	public List<KouBeiStudent> listKouBeiStudent(KouBeiStudent kouBeiStudent) {
+		return marketStudentMapper.listKouBeiStudent(kouBeiStudent);
+	}
 
+	/* (non-Javadoc)
+	 * @see com.dongnao.workbench.marketStudent.service.MarketStudentService#addKouBeiStudent(com.dongnao.workbench.marketStudent.model.KouBeiStudent)
+	 */
+	@Override
+	public ResultMessage addKouBeiStudent(KouBeiStudent kouBeiStudent) {
+		marketStudentMapper.addKouBeiStudent(kouBeiStudent);
+		return AjaxUtils.getSuccessMessage();
+	}
+	
 	
 }
