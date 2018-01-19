@@ -102,9 +102,9 @@
 						<table id="emp_table2"></table>
 						<div id="remote_prowed3"></div>
 					</div>
-					<div style="display:inline-block;width:33%;vertical-align: top;">
-						<table  id="emp_revenue" ></table>
-						<div  id="remote_prowed4"></div>
+					<div style="display:inline-block;width:32%;vertical-align: top;">
+						<table id="teacher_list"></table>
+						<div id="teacher_list_prowed"></div>
 					</div>
 				</c:if>
 				<c:if test="${!revenue &&!teacher}">
