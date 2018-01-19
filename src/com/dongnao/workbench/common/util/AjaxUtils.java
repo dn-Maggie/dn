@@ -294,7 +294,7 @@ public class AjaxUtils {
 		sendAjaxForObjectStr(response, getSuccessMessage());
 	}
 	/**
-	 * 将成功消息对象传到前台
+	 * 将失败消息对象传到前台
 	 * 
 	 * @param response
 	 *            HttpServletResponse
