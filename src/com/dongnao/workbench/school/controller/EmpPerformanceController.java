@@ -210,6 +210,85 @@ public class EmpPerformanceController{
 		return mv;
 	}
 	
+	
+	/**
+	 * 进入讲师营收统计页面
+	 * @return ModelAndView
+	 */
+	@RequestMapping("/toListTeacPerformance")
+	public ModelAndView toListTeacPerformance(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView("WEB-INF/jsp/school/empPerformance/listTeacPerformance");
+		//获取用户信息
+		UserInfo user = Utils.getLoginUserInfo(request);
+		Employee emp = employeeService.getByPrimaryKey(Utils.getLoginUserInfoId(request));
+		mv.addObject("user",user);
+		String userName = user.getUserAccount();
+		String roleId = user.getRoleId();
+		//如果是如下几种角色，赋予管理员级别查看权限（可以查看所有人业绩）
+		if("cce57309-c36a-4b2b-8596-4bc3ea008e88".equals(roleId)||//总经理
+				"fcbb3b89-6aa8-428e-86e4-05f2ff8631da".equals(roleId)||//股东
+				"06b4f5f2-ff20-446b-9c9a-05623c0bb76a".equals(roleId)||//部门负责人
+				"ad07dcf7-336b-4874-b574-d1eec4c21dba".equals(roleId)||//部门营销负责人
+				"dingling".equals(userName)||
+				Utils.isSuperAdmin(request))
+		{
+			mv.addObject("isAdmin",true);
+		}
+		
+		
+		Org org = new Org();
+		org.setParentOrgId("1");
+		//如果是以下权限，赋予部门负责人权限（可以查看整个部门的业绩）
+		if("06b4f5f2-ff20-446b-9c9a-05623c0bb76a".equals(roleId)||//部门负责人
+				"ad07dcf7-336b-4874-b574-d1eec4c21dba".equals(roleId)//部门营销负责人
+			)
+		{
+			mv.addObject("leader",true);
+			org.setOrgNo(emp.getDeptNo());
+		}
+		//如果是讲师，赋予讲师查看成本的功能
+		if(emp!=null && "ddfd8fbf-e7fc-4768-a052-1b252e168344".equals(emp.getDutyId())){
+			mv.addObject("teacher",true);
+		}
+		mv.addObject("org",orgService.listByCondition(org));
+		mv.addObject("followers", standardService.getAllFollowerId());
+		return mv;
+	}
+	
+	/**
+	 * 查询讲师营收总额明细
+	 * @param empPerformance EmpPerformance：实体对象（查询条件）
+	 * @param request HttpServletRequest
+	 * @param response HttpServletResponse
+	 * @param page Page:分页对象
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/listTeacPerformance")
+	public void listTeacPerformance(EmpPerformance empPerformance,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		empPerformance.setPage(page);	
+		List<EmpPerformance> list = empPerformanceService.listTeacPerformance(empPerformance);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
+	
+	/**
+	 * 讲师营收总额统计
+	 * @param empPerformance EmpPerformance：实体对象（查询条件）
+	 * @param request HttpServletRequest
+	 * @param response HttpServletResponse
+	 * @param page Page:分页对象
+	 * @return: ajax输入json字符串
+	 */
+	@RequestMapping("/listTeacTotal")
+	public void listTeacTotal(EmpPerformance empPerformance,HttpServletRequest request,
+			HttpServletResponse response, Page page){
+		empPerformance.setPage(page);	
+		List<EmpPerformance> list = empPerformanceService.listTeacTotal(empPerformance);
+		AjaxUtils.sendAjaxForPage(request, response, page, list);
+	}
+	
 	/**
 	 * 进入选择补录业绩列表页面
 	 * @return ModelAndView

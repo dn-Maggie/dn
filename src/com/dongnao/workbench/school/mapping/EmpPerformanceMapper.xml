@@ -100,6 +100,123 @@
 	</select>
 	
 	
+	<select id="listTeacPerformance" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
+				SELECT
+					v.qq as stuQq,
+					v.id as stuId,
+					v. NAME as stuName,
+					epn.actual_pay as actualPay,
+					(epn.actual_pay/sum(tempt.count)) as performance,
+					e.id as employeeId,
+					e. NAME as employeeName,
+					e.nick_name as nickName,
+					epn.position as position,
+					v.join_time as stuJoinTime
+				FROM
+					`emp_performance_new` AS epn
+				LEFT JOIN employee e ON e.id = epn.employee_id
+				LEFT JOIN vip_student v ON v.id = epn.stu_id
+				LEFT JOIN (
+					SELECT				
+						stu_id,
+						COUNT(DISTINCT epn.stu_id) as count
+					FROM
+						`emp_performance_new` AS epn
+					LEFT JOIN employee e ON e.id = epn.employee_id
+					WHERE
+						e.duty_id = 'ddfd8fbf-e7fc-4768-a052-1b252e168344' and epn.position like '%课%'
+					GROUP BY
+						epn.stu_id,epn.employee_id
+				)as tempt on tempt.stu_id = epn.stu_id
+				WHERE
+					e.duty_id = 'ddfd8fbf-e7fc-4768-a052-1b252e168344' and epn.position like '%课%'
+				<if test="nickName != null and '' != nickName">  
+					and e.nick_name like CONCAT(#{nickName,jdbcType=VARCHAR},'%') 
+				</if>
+				<if test="empDept != null and '' != empDept">  
+					and e.dept_no = #{empDept,jdbcType=VARCHAR}
+				</if>
+				<if test="employeeId != null and '' != employeeId">  
+					and e.id = #{employeeId,jdbcType=VARCHAR}
+				</if>
+				<if test="employeeName != null and '' != employeeName">  
+					and e.name like CONCAT('%',#{employeeName,jdbcType=VARCHAR},'%') 
+				</if>
+				<if test="null != propsMap.startDate and propsMap.startDate != ''">
+					<![CDATA[
+					and DATE_FORMAT(epn.create_date,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
+					]]>
+				</if>
+				<if test="null != propsMap.endDate and propsMap.endDate != ''">
+					<![CDATA[
+						and DATE_FORMAT(epn.create_date,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
+					]]>
+				</if>	
+				GROUP BY
+				e.id,v.id,epn.id
+				<if test="orderFields != null and '' != orderFields">  
+		           	order by ${orderFields} ${order}
+		       	</if>
+	</select>
+	
+	<select id="listTeacTotal" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
+				SELECT t1.employeeName,t1.nickName,sum(t1.performance) as sum FROM
+				(SELECT
+					v.qq as stuQq,
+					v.id as stuId,
+					v. NAME as stuName,
+					epn.actual_pay as actualPay,
+					(epn.actual_pay/sum(tempt.count)) as performance,
+					e.id as employeeId,
+					e. NAME as employeeName,
+					e.nick_name as nickName,
+					epn.position as position,
+					v.join_time as stuJoinTime
+				FROM
+					`emp_performance_new` AS epn
+				LEFT JOIN employee e ON e.id = epn.employee_id
+				LEFT JOIN vip_student v ON v.id = epn.stu_id
+				LEFT JOIN (
+					SELECT
+						stu_id,
+						COUNT(DISTINCT epn.stu_id) as count
+					FROM
+						`emp_performance_new` AS epn
+					LEFT JOIN employee e ON e.id = epn.employee_id
+					WHERE
+						e.duty_id = 'ddfd8fbf-e7fc-4768-a052-1b252e168344' and epn.position like '%课%'
+					GROUP BY
+						epn.stu_id,epn.employee_id
+				)as tempt on tempt.stu_id = epn.stu_id
+				WHERE
+					e.duty_id = 'ddfd8fbf-e7fc-4768-a052-1b252e168344' and epn.position like '%课%'
+				<if test="nickName != null and '' != nickName">  
+					and e.nick_name like CONCAT(#{nickName,jdbcType=VARCHAR},'%') 
+				</if>
+				<if test="empDept != null and '' != empDept">  
+					and e.dept_no = #{empDept,jdbcType=VARCHAR}
+				</if>
+				<if test="employeeId != null and '' != employeeId">  
+					and e.id = #{employeeId,jdbcType=VARCHAR}
+				</if>
+				<if test="employeeName != null and '' != employeeName">  
+					and e.name like CONCAT('%',#{employeeName,jdbcType=VARCHAR},'%') 
+				</if>
+				<if test="null != propsMap.startDate and propsMap.startDate != ''">
+					<![CDATA[
+					and DATE_FORMAT(epn.create_date,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
+					]]>
+				</if>
+				<if test="null != propsMap.endDate and propsMap.endDate != ''">
+					<![CDATA[
+						and DATE_FORMAT(epn.create_date,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
+					]]>
+				</if>	
+				GROUP BY
+				e.id,v.id,epn.id
+				)as t1 GROUP BY t1.employeeId
+	</select>
+	
 	<select id="listEmpBonusCost" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.school.model.EmpPerformance">
 		select
 				e.id
@@ -129,7 +246,7 @@
 		LEFT JOIN employee e on e.id = ep.employee_id
 		where e.curr_state !=3
 		<if test="nickName != null and '' != nickName">  
-			and e.nick_name like CONCAT('%',#{nickName,jdbcType=VARCHAR},'%') 
+			and e.nick_name like CONCAT(#{nickName,jdbcType=VARCHAR},'%') 
 		</if>
 		<if test="position != null and '' != position">  
 			and ep.position like  CONCAT('%',#{position,jdbcType=VARCHAR},'%') 

@@ -94,5 +94,13 @@ public interface EmpPerformanceService  {
 	 * 获取讲师成本&业绩，在讲师个人业绩页面展示
 	 */
 	public List<EmpPerformance> listEmpBonusCost(EmpPerformance empPerformance);
+	/**
+	 * 讲师营收统计明细
+	 */
+	public List<EmpPerformance> listTeacPerformance(EmpPerformance empPerformance);
+	/**
+	 * 讲师营收统计
+	 */
+	public List<EmpPerformance> listTeacTotal(EmpPerformance empPerformance);
 	
 }

@@ -21,7 +21,7 @@ import com.dongnao.workbench.school.model.RecentTwoMonthEmpPerf;
  */
 @Service("empPerformanceService")
 public class EmpPerformanceServiceImpl implements EmpPerformanceService{
-        @Resource
+	@Resource
 	private EmpPerformanceMapper empPerformanceMapper;
 	
  
@@ -139,5 +139,17 @@ public class EmpPerformanceServiceImpl implements EmpPerformanceService{
 	public List<EmpPerformance> listEmpBonusCost(EmpPerformance empPerformance) {
 		// TODO Auto-generated method stub
 		return empPerformanceMapper.listEmpBonusCost(empPerformance);
+	}
+
+	/*讲师营收明细*/
+	@Override
+	public List<EmpPerformance> listTeacPerformance(EmpPerformance empPerformance) {
+		return empPerformanceMapper.listTeacPerformance(empPerformance);
+	}
+	
+	/*讲师营收统计总额*/
+	@Override
+	public List<EmpPerformance> listTeacTotal(EmpPerformance empPerformance) {
+		return empPerformanceMapper.listTeacTotal(empPerformance);
 	}
 }

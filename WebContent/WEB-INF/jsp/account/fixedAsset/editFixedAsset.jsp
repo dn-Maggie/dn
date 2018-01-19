@@ -119,7 +119,6 @@ function orgEmp(val){
 	if($("#employeeList")[0].children.length>0){
 	}else{//当dataList里面没有数据的时候(初始加载ajax)
 		if(val&val.length>0){
-			console.log("a");
 			$ .ajax({
 				url: "<m:url value='/employee/listEmployeeByCondition.do'/>",
 				cache:false,

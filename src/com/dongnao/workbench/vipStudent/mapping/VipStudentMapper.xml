@@ -147,9 +147,10 @@
 		salary,
 		enter_emp
 	FROM
-		vip_student AS v,emp_appraisal_standard as a
+		vip_student v
+		LEFT JOIN emp_appraisal_standard as a on v.com_source = a.parent_id and v.source_subclass = a.sub_id
 	WHERE
-		v.com_source = a.parent_id and v.source_subclass = a.sub_id
+		1=1
 		AND  v.id = #{id,jdbcType=VARCHAR}
 	</select>
 	
@@ -216,12 +217,12 @@
 		</if> 
 		<if test="null != propsMap.startDate and propsMap.startDate != ''">
 			<![CDATA[
-				and DATE_FORMAT(v.join_time,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
+			and DATE_FORMAT(v.join_time,'%Y-%m-%d') >= DATE_FORMAT(#{propsMap.startDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="null != propsMap.endDate and propsMap.endDate != ''">
 			<![CDATA[
-				and DATE_FORMAT(v.join_time,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
+			and DATE_FORMAT(v.join_time,'%Y-%m-%d') <= DATE_FORMAT(#{propsMap.endDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 			]]>
 		</if>
 		<if test="currStatus != null and '' != currStatus">  
@@ -234,7 +235,7 @@
 		</if>
 		<if test="null != joinEndDate and joinEndDate != ''">
 				<![CDATA[
-					and DATE_FORMAT(v.join_time,'%Y-%m-%d') <= DATE_FORMAT(#{joinEndDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
+				and DATE_FORMAT(v.join_time,'%Y-%m-%d') <= DATE_FORMAT(#{joinEndDate,jdbcType=TIMESTAMP},'%Y-%m-%d')
 				]]>
 		</if>
 		<if test="jointime != null and '' != jointime">  
@@ -282,6 +283,7 @@
 	<select id="listByCondition" resultMap="BaseResultMap" parameterType="com.dongnao.workbench.vipStudent.model.VipStudent">
 		SELECT
 			DISTINCT a1.parent_name, 
+			v1.id,
 			v1.qq,
 			v1.name,
 			v1.phone,
@@ -350,13 +352,13 @@
 			and tutor_id like CONCAT(#{tutorId,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="followerType != null and '' != followerType">
-			and follower_type like CONCAT(#{followerType,jdbcType=VARCHAR},'%')
+			and follower_type like CONCAT('%',#{followerType,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="followerId != null and '' != followerId">
-			and follower_id like CONCAT(#{followerId,jdbcType=VARCHAR},'%')
+			and follower_id like CONCAT('%',#{followerId,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="followerName != null and '' != followerName">
-			and v1.follower_name like CONCAT(#{followerName,jdbcType=VARCHAR},'%')
+			and v1.follower_name like CONCAT('%',#{followerName,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="shouldPay != null and '' != shouldPay">
 			and should_pay = #{shouldPay,jdbcType=DOUBLE}
@@ -393,7 +395,7 @@
 			]]>
 		</if>
 		<if test="null != minOwePay and minOwePay != ''">
-			and owe_pay > #{minOwePay,jdbcType=DOUBLE}
+			<![CDATA[and owe_pay > #{minOwePay,jdbcType=DOUBLE}]]>
 		</if>
 		<if test="comSource != null and '' != comSource">  
 			and com_source = #{comSource,jdbcType=VARCHAR}

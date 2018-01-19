@@ -14,7 +14,6 @@ var arr = [];//总数据结果集
 var jsion_sumColumns = {};
 jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";//声明页脚需要求和的总计列
 	$(function(){
-		//$("#endDate").val(new Date().format('yyyy-MM-dd'));
 		var showType = $("#showType").val();//？
 		switch (showType) {
 		case "monthshouldPay":
@@ -69,8 +68,6 @@ jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";//声明页脚�
 							{name : "enterEmpname",label:"录入人"}]
 			break;
 		}
-		
-		
   		gridObj = new biz.grid({
             id:"#remote_rowed",/*html部分table id*/
             url: showUrl,/*grid初始化请求数据的远程地址*/
@@ -83,7 +80,6 @@ jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";//声明页脚�
            	pager: '#remote_prowed', /*分页栏id*/
      		rowList:[10,20,50,100],//每页显示记录数
     		rowNum:20,//表格中可见的记录数。
-    		jsonReader:{repeatitems: false},//JSON数据结构数组
             colModel:showColModel,//描述列参数数组
            	serializeGridData:function(postData){//添加查询条件值,序列化传递给ajax请求的的数据。此事件将返回一个已序列化的数据。
 				var obj = getQueryCondition();//返回json格式查询数据
@@ -92,21 +88,18 @@ jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";//声明页脚�
     			return obj;
     		},
     		gridComplete:function(){//当表格所有数据都加载完成，处理统计行数据
-    			//$(".ui-jqgrid-sdiv").show();//
            		//如果需要统计则需要定义
                	getFooterJsonData($(this));//添加页脚合计数据
 	 		}
       	});
-        
 		new biz.datepicker({//
   			id : "#startDate",//找到开始时间选择器的id
-  			maxDate:'#F{$dp.$D(\'endDate\',{d:0});}',//
+  			maxDate:'#F{$dp.$D(\'endDate\',{d:0});}',
   			dateFmt:'yyyy-MM-dd'
   		});
-  	    
   	    new biz.datepicker({//
   			id : "#endDate",//找到结束时间选择器的id
-  			minDate:'#F{$dp.$D(\'startDate\',{d:0});}',//
+  			minDate:'#F{$dp.$D(\'startDate\',{d:0});}',
   			dateFmt:'yyyy-MM-dd'
   		});
     });
@@ -119,7 +112,6 @@ jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";//声明页脚�
 	var show_iframe_dialog;
 	//业绩分配的弹出框
 	var manage_iframe_dialog;
-  	
 	
   	function add(){ 
   	//xin zeng iframe 弹出框
@@ -182,7 +174,6 @@ jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";//声明页脚�
     function closeShow(){
     	show_iframe_dialog.close();
     }
-    
     
     function manage(){
 		var key = ICSS.utils.getSelectRowData("id");
@@ -258,15 +249,11 @@ jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";//声明页脚�
   function getFooterJsonData(jqGridObj){
      var addFootData = {} ;
 	 var resObj = ajaxGetStatistic();//根据条件从数据库获取结果集
-     try{
        //总计
    		var _strColumns = jsion_sumColumns.sumColumns.split(",");//拆分jsion_sumColumns数组
            for(var k = 0;k<_strColumns.length; k++){//遍历resObj的值存入addFootData
         	   k == 0?addFootData[_strColumns[k]] = "总计":addFootData[_strColumns[k]] = Math.round(resObj[_strColumns[k]]) ||0;
            }
-     }
-   	catch(e){
-    }    
    		jqGridObj.jqGrid('footerData','set',addFootData,false);//添加数据
   	}
 	//根据条件从数据库获取结果集
@@ -305,7 +292,7 @@ jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";//声明页脚�
 				<li style="width:160px;"><input type="text" name="qq" id="qq" class="search_choose" style="width:80px;"> <span>QQ号码:</span></li><!-- 输入框-->
 				<li style="width:160px;"><input type="text" name="followerName" id="followerName" class="search_choose" style="width:80px;"> <span>转化人:</span></li><!-- 输入框-->
 				<li style="width:160px;">
-						<select class="search_choose" name="subjectId" id="subjectId" mainid="subjectId" style="width:80px;">
+						<select class="search_choose" name="subjectId" id="subjectId" style="width:80px;">
 						<option value="">-请选择-</option>
 						<c:forEach var="mr" items="${er.subject}">
 							<option value="${mr.id}"> <c:out value="${mr.name}"></c:out> </option>
@@ -313,7 +300,7 @@ jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";//声明页脚�
 					</select><span>报名学科:</span>
 				</li><!-- 输入框-->
 				<li style="width:160px;">
-				<select class="search_choose" name="comSource" id="comSource" mainid="comSource" style="width:80px;">
+				<select class="search_choose" name="comSource" id="comSource" style="width:80px;">
 						<option value="">-请选择-</option>
 						<option value="1">口碑</option>
 						<option value="2">自然流量</option>
@@ -324,7 +311,7 @@ jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";//声明页脚�
 				</li><!-- 输入框-->
 				
 				<li style="width:180px;">
-						<select class="search_choose" name="currStatus" id="currStatus" mainid="currStatus" style="width:100px;">
+						<select class="search_choose" name="currStatus" id="currStatus" style="width:100px;">
 						<option value="">--请选择--</option>
 							<option value="已付全款">已付全款</option>
 							<option value="分期付款">分期付款</option>
@@ -337,29 +324,29 @@ jsion_sumColumns["sumColumns"] = "rn,shouldPay,actualPay,owePay";//声明页脚�
 									<div class="time_bg">
 									<c:choose>
 										<c:when test="${condition=='month'||condition=='monthshouldPay'}">
-											<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate" value="${currDate}">	
+											<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" value="${currDate}">	
 										</c:when>
 										<c:when test="${condition=='year'||condition=='yearshouldPay'}">
-											<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate" value="${currDate}">	
+											<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" value="${currDate}">	
 										</c:when>
 										<c:when test="${condition=='monthowePay'||condition=='yearowePay'}">
-											<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate" value="${currDate}">
+											<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" value="${currDate}">
 											<input id="minOwePay" type="hidden" name="minOwePay" value="10">	
 										</c:when>
 										<c:otherwise>
-											<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']" mainid="startDate">			
+											<input id="startDate" type="text" class="search_time150" name="propsMap['startDate']">			
 										</c:otherwise>
 									</c:choose>
 									<i class="search_time_ico2" onclick="WdatePicker({el:'startDate'})"></i>
 									</div>
 								<i>至</i>
 									<div class="time_bg">
-										<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" mainid="endDate">
+										<input id="endDate" type="text" class="search_time150" name="propsMap['endDate']" >
 										<i class="search_time_ico2" onclick="WdatePicker({el:'endDate'})"></i>
 									</div>
 								</li>	
-					<li><select class="search_choose" name="isCount" id="isCount" mainid="isCount">
-						<option value="">--请选择--</option>
+					<li><select class="search_choose" name="isCount" id="isCount" >
+							<option value="">--请选择--</option>
 							<option value="未分配业绩">未分配业绩</option>
 							<option value="已分配业绩">已分配业绩</option>
 					</select><span>业绩分配:</span>
