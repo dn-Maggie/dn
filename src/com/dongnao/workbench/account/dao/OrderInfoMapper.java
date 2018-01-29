@@ -2,7 +2,7 @@ package com.dongnao.workbench.account.dao;
 
 import java.util.List;
 import com.dongnao.workbench.account.model.OrderInfo;
-import com.dongnao.workbench.vipStudent.model.Statistical;
+import com.dongnao.workbench.student.model.Statistical;
 /**
  * 描述：订单信息模块dao接口，提供数据库操作方法
  *

@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dongnao.workbench.basic.model.Course;
 import com.dongnao.workbench.basic.model.Org;
 import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.basic.service.OrgService;
@@ -21,7 +22,6 @@ import com.dongnao.workbench.common.excel.ExpParamBean;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.Utils;
-import com.dongnao.workbench.course.model.Course;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.school.model.EmpPerformance;
 import com.dongnao.workbench.school.model.Employee;
@@ -30,8 +30,8 @@ import com.dongnao.workbench.school.model.Standard;
 import com.dongnao.workbench.school.service.EmpPerformanceService;
 import com.dongnao.workbench.school.service.EmployeeService;
 import com.dongnao.workbench.school.service.StandardService;
-import com.dongnao.workbench.vipStudent.model.VipStudent;
-import com.dongnao.workbench.vipStudent.service.VipStudentService;
+import com.dongnao.workbench.student.model.VipStudent;
+import com.dongnao.workbench.student.service.VipStudentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

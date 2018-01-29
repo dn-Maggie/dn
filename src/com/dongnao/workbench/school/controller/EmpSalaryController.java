@@ -41,8 +41,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dongnao.workbench.accountflow.model.AccountFlow;
-import com.dongnao.workbench.accountflow.service.AccountFlowService;
+import com.dongnao.workbench.account.model.AccountFlow;
+import com.dongnao.workbench.account.service.AccountFlowService;
 import com.dongnao.workbench.basic.model.Org;
 import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.basic.service.OrgService;

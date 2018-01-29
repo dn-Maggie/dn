@@ -1,5 +1,5 @@
 html{position:relative;min-height:100%;overflow: hidden;}
-body{padding-bottom:0;min-height:100%;background-color:#e4e6e9;color:#393939;font-size:13px;font-family: "PingFang SC", "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Microsoft Yahei", Î¢ÈíÑÅºÚ, STHeiti, »ªÎÄÏ¸ºÚ, sans-serif;line-height:1.5}
+body{padding-bottom:0;min-height:100%;background-color:#e4e6e9;color:#393939;font-size:13px;font-family: "PingFang SC", "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Microsoft Yahei", Î¢ï¿½ï¿½ï¿½Åºï¿½, STHeiti, ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½, sans-serif;line-height:1.5}
 body.navbar-fixed{padding-top:45px}
 body.breadcrumbs-fixed{padding-top:86px}
 .main-container{position:static;padding:0}
@@ -341,10 +341,10 @@ blockquote,blockquote.pull-right{border-color:#e5eaf1}
 }
 @media only screen and (max-width:460px){.navbar .navbar-header.pull-left{float:none!important;display:block}
 .navbar .navbar-header.pull-right{float:none!important;display:block}
-.ace-nav{float:none!important;display:block;border:1px solid #DDD;border-width:1px 0;background-color:#404040;text-align:center;letter-spacing:-3px}
+.ace-nav{float:none!important;display:block;background-color:#404040;text-align:center;letter-spacing:-3px;}
 .ace-nav>li{float:none!important;display:inline-block;text-align:left;letter-spacing:normal}
-.ace-nav>li:first-child{border-left:1px solid #DDD}
-.ace-nav>li:last-child{border-right:1px solid #DDD}
+.ace-nav>li:first-child{}
+.ace-nav>li:last-child{}
 }
 @media only screen and (max-width:320px){.ace-nav>li>a{padding:0 5px!important}
 }

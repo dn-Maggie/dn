@@ -102,7 +102,7 @@
   
    <servlet>
     <servlet-name>fileUpload</servlet-name>
-    <servlet-class>com.dongnao.workbench.fileUpload.FileUpload</servlet-class>
+    <servlet-class>com.dongnao.workbench.common.fileUpload.FileUpload</servlet-class>
     <!--表示启动容器时初始化该servlet  -->
     <load-on-startup>1</load-on-startup>
   </servlet>
@@ -113,20 +113,12 @@
   
   <servlet>
     <servlet-name>fileDownload</servlet-name>
-    <servlet-class>com.dongnao.workbench.fileUpload.FileDownload</servlet-class>
+    <servlet-class>com.dongnao.workbench.common.fileUpload.FileDownload</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
     <servlet-name>fileDownload</servlet-name>
     <url-pattern>/download/fileDownload</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>QuestionSurveyServlet</servlet-name>
-    <servlet-class>com.dongnao.workbench.fileUpload.QuestionSurveyServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>QuestionSurveyServlet</servlet-name>
-    <url-pattern>/QuestionSurvey</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>SpringMVC</servlet-name>
@@ -160,15 +152,4 @@
     <param-name>log4jConfigLocation</param-name>
     <param-value>classpath:conf/properties/log4j.properties</param-value>
   </context-param>
-  
-  <!-- <context-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>classpath:conf/spring/quartzconfiguration.xml</param-value>
-     </context-param> -->
-
-     <!-- <listener>
-         <listener-class>
-                  org.springframework.web.context.ContextLoaderListener
-         </listener-class>
-     </listener> -->
 </web-app>

@@ -94,9 +94,6 @@
 	.yearItem.active+.timeMon{
 		display: block;
 	}
-	/* ul li:hover{
-		background: #fff;
-	} */
 	ul{
 	    margin: 0;
 	}
@@ -552,114 +549,6 @@
 		}
 		mainChart.setOption(option);
 	}
-	/* function drawMainChart(){
-		//初始化变量
-		var names = [];
-		var actualPay = []
-		var allCome = [];
-		var shouldPay = [];
-		var profit = [];
-		var pay = [];
-		//先判断结果集是否存在，通过遍历结果集，分别获得月份名、实收报名费、总业绩、应收学费
-		if(arr.length>0){
-			for(var key in arr[0]){//遍历data数据放入names 
-				names.push(key);//names存放的是key值 ：比如2016-09
-			}
-			names.sort(function compare(v1,v2){
-				return  v1.split("-")[0]==v2.split("-")[0]?v1.split("-")[1]-v2.split("-")[1]:v1.split("-")[0]>v2.split("-")[0];
-			});
-			var name;
-			for(var j=0;j<names.length;j++){    
-				name = arr[0][names[j]];
-				if(name){
-					actualPay.push(Math.round(name.xfsr));
-					allCome.push(Math.round(name.xfbk+name.xfsr));
-					shouldPay.push(Math.round(name.shouldPay));
-					profit.push(Math.round(name.xfbk+name.xfsr-name.pay));
-					pay.push(Math.round(name.pay));
-				}else{
-					actualPay.push(0);allCome.push(0);profit.push(0);pay.push(0);shouldPay.push(0);
-				}
-	        } 
-		}
-		var mainChart = echarts.init(document.getElementById("main"));
-		$(window).on('resize',function(){//大小自适应
-			mainChart.resize();
-		});
-		var option = {
-			tooltip: {
-				show:true,
-		        trigger: 'axis'
-		    },
-		     toolbox: {
-		        feature: {
-		            dataView: {show: true, readOnly: true,title:'数据视图'},//右侧小图标
-		            magicType: {show: true, type: ['line', 'bar']},
-		            saveAsImage: {show: true}//保存为图片
-		        }
-		    },
-			title: {
-	            text: ''
-	        },
-	        legend: {
-	            data:['总业绩','应收总额','实收报名费','总成本','总利润','业绩增长比']//更换成指标项 ：总业绩、应收总额、实收报名费
-	        },
-	        //x坐标
-	        xAxis: [
-	        	{
-	   				type: 'category', //坐标轴类型
-	   				axisLabel:{
-	        			show:true
-	        		},
-	                data:  names //更换成动态数据，最近6个月
-				}
-	        ],
-	        //y坐标
-	        yAxis: {
-	            type: 'value',
-	            name: '金额',
-	            min: 0,
-	            axisLabel: {
-	                formatter: '$ {value}'
-	            }
-	        },
-			series: [{
-	                name: '总业绩',
-	                type: 'bar',
-	                data: allCome //更换成动态数据
-	          	},
-		        {
-		            name:'应收总额',
-		            type:'bar',
-		            data:shouldPay //更换成动态数据
-		        },
-		        {
-		            name:'实收报名费',
-		            type:'bar',
-		            data:actualPay //更换成动态数据
-		        },
-		        {
-		            name:'总成本',
-		            type:'bar',
-		            data:pay //更换成动态数据
-		        },
-		        {
-		            name:'总利润',
-		            type:'bar',
-		            data:profit //更换成动态数据
-		        },
-		        {
-		            name:'业绩增长比',
-		            type:'line',
-		            data:allCome //更换成动态数据
-		        }
-		    ],
-		    color:['#f68484',  '#75b9e6', 'rgb(135, 184, 127)','#ae91e1', '#f6ac61', '#c4ccd3'],
-		}
-		mainChart.setOption(option);
-	}
-	 */
-	
 	function hideMonthMap(){
 		$(".timeWrapper").css("display", "none"); 
 	} 
@@ -678,7 +567,6 @@
 	   			}
 	   		});
     };
-    
   //根据条件从数据库获取结果集
 	function ajaxGetVipNumver(){
 	       	$.ajax({
@@ -691,7 +579,6 @@
 	   			}
 	   		});
     };
-    
     //根据条件从数据库获取结果集
 	function ajaxGetThirtyData(){
 	       	$.ajax({
@@ -704,7 +591,6 @@
 	   			}
 	   		});
     };
-    
     function ajaxGetRecentThMonthData(){
     	$.ajax({
    			url : "<m:url value='/standard/getRecentlyThreeMonthData.do'/>?subjectName="+$("#subjectName4").val(),
@@ -716,7 +602,6 @@
    			}
    		});
     }
-    
     function drawVipNumber(){
 		//初始化变量
 		var xAxis = [];

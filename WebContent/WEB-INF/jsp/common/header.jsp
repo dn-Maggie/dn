@@ -9,13 +9,11 @@
 <meta http-equiv="cache-control" content="no-cache" /> 
 <meta http-equiv="expires" content="0">   
 
-
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/default/index.css"/>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/default/menu_animation.css"/>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/skin/default/theme.css"/>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/skin/default/components/jqgrid/jquery.jqgrid.css"/>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/skin/default/components/tree/zTreeStyle.css"/>
-
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/default/css/base.css"  media="screen" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/default/css/master.css"/>
@@ -24,8 +22,6 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/default/css/style.css"  media="screen" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/default/css/pagination.css"  media="screen" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/styles/font-awesome/css/font-awesome.min.css"/>
-
-
 
 <%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/lib/chimpz.css"/> --%>
 <script type="text/javascript">

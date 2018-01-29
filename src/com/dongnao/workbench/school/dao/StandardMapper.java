@@ -2,7 +2,7 @@ package com.dongnao.workbench.school.dao;
 
 import java.util.List;
 import com.dongnao.workbench.school.model.Standard;
-import com.dongnao.workbench.vipStudent.model.Statistical;
+import com.dongnao.workbench.student.model.Statistical;
 /**
  * 描述：考核标准表模块dao接口，提供数据库操作方法
  *

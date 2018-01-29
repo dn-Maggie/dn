@@ -4,7 +4,7 @@ import java.util.List;
 import com.dongnao.workbench.school.dao.StandardMapper;
 import com.dongnao.workbench.school.model.Standard;
 import com.dongnao.workbench.school.service.StandardService;
-import com.dongnao.workbench.vipStudent.model.Statistical;
+import com.dongnao.workbench.student.model.Statistical;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

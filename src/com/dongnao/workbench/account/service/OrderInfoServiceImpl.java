@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.common.util.AjaxUtils;
-import com.dongnao.workbench.vipStudent.model.Statistical;
+import com.dongnao.workbench.student.model.Statistical;
  
 /**
  * 描述：订单信息模块service接口实现类，实现service接口方法

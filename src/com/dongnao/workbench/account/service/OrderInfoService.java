@@ -2,7 +2,7 @@ package com.dongnao.workbench.account.service;
 
 import java.util.List;
 import com.dongnao.workbench.common.bean.ResultMessage;
-import com.dongnao.workbench.vipStudent.model.Statistical;
+import com.dongnao.workbench.student.model.Statistical;
 import com.dongnao.workbench.account.model.OrderInfo;
 
 /**

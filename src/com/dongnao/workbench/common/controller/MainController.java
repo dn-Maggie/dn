@@ -1,10 +1,6 @@
 package com.dongnao.workbench.common.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -14,45 +10,42 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dongnao.workbench.account.model.AccountFlow;
+import com.dongnao.workbench.account.service.AccountFlowService;
 import com.dongnao.workbench.account.service.ExpenseAccountService;
 import com.dongnao.workbench.account.service.OrderInfoService;
-import com.dongnao.workbench.accountflow.model.AccountFlow;
-import com.dongnao.workbench.accountflow.service.AccountFlowService;
 import com.dongnao.workbench.basic.model.Org;
+import com.dongnao.workbench.basic.model.Subject;
 import com.dongnao.workbench.basic.model.UserInfo;
 import com.dongnao.workbench.basic.service.OrgService;
+import com.dongnao.workbench.basic.service.SubjectService;
 import com.dongnao.workbench.basic.service.UserInfoService;
 import com.dongnao.workbench.common.Constant;
 import com.dongnao.workbench.common.bean.ResultMessage;
-import com.dongnao.workbench.common.bean.ResultMoney;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.DateUtil;
 import com.dongnao.workbench.common.util.MD5Encryption;
 import com.dongnao.workbench.common.util.StringUtil;
 import com.dongnao.workbench.common.util.Utils;
-import com.dongnao.workbench.common.util.ValidateCodeServlet;
-import com.dongnao.workbench.continuePay.service.ContinuePayService;
-import com.dongnao.workbench.marketStudent.service.MarketStudentService;
 import com.dongnao.workbench.school.model.EmpNotice;
 import com.dongnao.workbench.school.model.Employee;
 import com.dongnao.workbench.school.service.EmpNoticeService;
 import com.dongnao.workbench.school.service.EmpPerformanceService;
 import com.dongnao.workbench.school.service.EmployeeService;
 import com.dongnao.workbench.school.service.LeaveApplyService;
-import com.dongnao.workbench.subject.model.Subject;
-import com.dongnao.workbench.subject.service.SubjectService;
+import com.dongnao.workbench.student.model.VipStudent;
+import com.dongnao.workbench.student.service.ContinuePayService;
+import com.dongnao.workbench.student.service.MarketStudentService;
+import com.dongnao.workbench.student.service.VipStudentService;
 import com.dongnao.workbench.system.model.Module;
 import com.dongnao.workbench.system.model.Role;
 import com.dongnao.workbench.system.service.ModuleService;
 import com.dongnao.workbench.system.service.RoleService;
-import com.dongnao.workbench.vipStudent.model.VipStudent;
-import com.dongnao.workbench.vipStudent.service.VipStudentService;
 
 
 /**
@@ -170,13 +163,9 @@ public class MainController {
 	public ModelAndView adminHomePage(HttpServletRequest request) {
 		ModelAndView mv = null;
 		Map<String,Object> model = new HashMap<String,Object>();
-		Calendar curr = Calendar.getInstance();
-		Calendar before = Calendar.getInstance();
-		before.add(Calendar.MONTH, -1);
-		
 		UserInfo user = Utils.getLoginUserInfo(request);
-		
 		Org org = new Org();
+		AccountFlow accountxf = new AccountFlow();
 		if (Utils.isSuperAdmin(request)||user.getRoleId().equals("")){
 			mv = new ModelAndView("WEB-INF/jsp/common/adminHomePage");
 		}else {
@@ -210,6 +199,20 @@ public class MainController {
 				ViewPerformance=true;
 			};
 			mv.addObject("ViewPerformance",ViewPerformance);//添加是否有权限查看公司总业绩等信息标识
+			model.put("myExpense", expenseAccountService.getMyExpense(user.getId(),DateUtil.getFirDate(DateUtil.now())));
+			model.put("myMessage", employeeService.getMyMessage(user.getId()));
+			model.put("myPerformance", empPerformanceService.getMyPerformance(user.getId(),DateUtil.getFirDate(DateUtil.now())));
+			accountxf.setCreateTime(DateUtil.parseDateString(DateUtil.now(),"yyyyMMdd"));
+			accountxf.setSubjectName(orgService.listByCondition(org).get(0).getPinyin());
+			model.put("deptPerformance", accountFlowService.getBarStatistic(accountxf));
+			//消息中心
+	 		mv.addObject("noticeList", empNoticeService.listByCondition(new EmpNotice()));
+	 		List<Subject> sublist = subjectService.listByCondition(new Subject());
+			for(int i=0;i<sublist.size();i++){
+				String deptname = sublist.get(i).getName();
+				accountxf.setSubjectName(deptname);
+				model.put(deptname, accountFlowService.getBarStatistic(accountxf));
+			}
 		}		
 		int perfTarget = subjectService.queryPerfTarget();//查询这个月的总业绩目标
 		model.put("perfTarget", perfTarget);//首页业绩
@@ -219,59 +222,22 @@ public class MainController {
 		model.put("today", vipStudentService.getStatisticaltoday(DateUtil.parseDateString(DateUtil.now(),"yyyyMMdd")));//今日学生总数
 		vipStudent.setJointime(DateUtil.parseDateString(DateUtil.now(),"yyyyMM"));
 		model.put("currMonth", vipStudentService.getStatistical(vipStudent));//本月学生数据
-		vipStudent.setJointime(DateUtil.parseDateString(DateUtil.now(),"yyyy"));
-		model.put("currYear", vipStudentService.getStatistical(vipStudent));//本年学生数据
-		vipStudent.setJointime(StringUtil.formatDateyyyyMM(before.getTime()));
-		model.put("beforeMonth", vipStudentService.getStatistical(vipStudent));//上月学生数据
-		vipStudent.setJointime((curr.get(Calendar.YEAR)-1)+"");
-		model.put("beforeYear", vipStudentService.getStatistical(vipStudent));//上年学生数据
 		
 		//意向学员信息
 		model.put("allMarkStu", marketStudentService.getMarkStuCount(""));
-		model.put("currMonthMarkStu", marketStudentService.getMarkStuCount(DateUtil.parseDateString(DateUtil.now(),"yyyyMM")));		
-		model.put("currYearMarkStu", marketStudentService.getMarkStuCount(DateUtil.parseDateString(DateUtil.now(),"yyyy")));
-		model.put("beforeMonthMarkStu", marketStudentService.getMarkStuCount(StringUtil.formatDateyyyyMM(before.getTime())));	
-		model.put("beforeYearMarkStu", marketStudentService.getMarkStuCount((curr.get(Calendar.YEAR)-1)+""));
+		model.put("currMonthMarkStu", marketStudentService.getMarkStuCount(DateUtil.parseDateString(DateUtil.now(),"yyyyMMdd")));		
 		
 		AccountFlow accountEnt = new AccountFlow();
 		model.put("allMoney",accountFlowService.getCountMoney(accountEnt));
-		accountEnt.setStartDate(curr.get(Calendar.YEAR)+"");
-		model.put("currYearMoney", accountFlowService.getCountMoney(accountEnt));
 		accountEnt.setStartDate(DateUtil.getFirDate(DateUtil.now()));
 		model.put("currMonthMoney", accountFlowService.getCountMoney(accountEnt));
-		accountEnt.setStartDate(curr.get(Calendar.YEAR)-1+"");
-		model.put("beforeYearMoney", accountFlowService.getCountMoney(accountEnt));
-		accountEnt.setStartDate(StringUtil.formatDateyyyyMMdd(before.getTime()));
-		model.put("beforeMonthMoney", accountFlowService.getCountMoney(accountEnt));
-		
-		AccountFlow accountxf = new AccountFlow();
+	
 		model.put("allxf",accountFlowService.getXFMoney(null));
 		accountxf.setCreateTime(DateUtil.parseDateString(DateUtil.now(),"yyyyMM"));
 		model.put("currMonthxf", accountFlowService.getXFMoney(accountxf));
-		accountxf.setCreateTime(curr.get(Calendar.YEAR)+"");
-		model.put("currYearxf", accountFlowService.getXFMoney(accountxf));
-		accountxf.setCreateTime(StringUtil.formatDateyyyyMM(before.getTime()));
-		model.put("beforeMonthxf", accountFlowService.getXFMoney(accountxf));
-		accountxf.setCreateTime((curr.get(Calendar.YEAR)-1)+"");
-		model.put("beforeYearxf", accountFlowService.getXFMoney(accountxf));
 		mv.addObject("model", model);		
 		
-		/*model.put("myExpense", expenseAccountService.getMyExpense(user.getId(),DateUtil.getFirDate(DateUtil.now())));
-		model.put("myMessage", employeeService.getMyMessage(user.getId()));
-		model.put("myPerformance", empPerformanceService.getMyPerformance(user.getId(),DateUtil.getFirDate(DateUtil.now())));*/
 		
-		accountxf.setCreateTime(DateUtil.parseDateString(DateUtil.now(),"yyyyMM"));
-		accountxf.setSubjectName(orgService.listByCondition(org).size()>0?orgService.listByCondition(org).get(0).getPinyin():"");
-		model.put("deptPerformance", accountFlowService.getBarStatistic(accountxf));
-		
-		//消息中心
- 		mv.addObject("noticeList", empNoticeService.listByCondition(new EmpNotice()));
-		List<Subject> sublist = subjectService.listByCondition(new Subject());
-		for(int i=0;i<sublist.size();i++){
-			String deptname = sublist.get(i).getName();
-			accountxf.setSubjectName(deptname);
-			model.put(deptname, accountFlowService.getBarStatistic(accountxf));
-		}
  		return mv;
 	}
 
@@ -287,20 +253,17 @@ public class MainController {
 	public ModelAndView userHomePage(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("WEB-INF/jsp/common/userMessage");
 		Map<String,Object> model = new HashMap<String,Object>();
-		Calendar calendar = Calendar.getInstance();
-		Calendar before = Calendar.getInstance();
-		before.add(Calendar.MONTH, -1);
-		
+
 		UserInfo user = Utils.getLoginUserInfo(request);
 		mv.addObject("user",user);
 		Employee entity = employeeService.getByPrimaryKey(Utils.getLoginUserInfo(request).getId());
 		mv.addObject("employee",entity);
-		
 		Org org = new Org();
 		Subject sub = new Subject();
 		org.setOrgName(entity.getDept());
 		sub.setName(orgService.listByCondition(org).get(0).getPinyin());
 		boolean isHavePerformance = false;
+		
 		if(subjectService.listByCondition(sub).size()>0){
 			isHavePerformance=true;
 		}
@@ -328,23 +291,16 @@ public class MainController {
 		vipStudent.setJointime(DateUtil.parseDateString(DateUtil.now(),"yyyyMM"));
 		model.put("today", vipStudentService.getStatisticaltoday(DateUtil.parseDateString(DateUtil.now(),"yyyyMMdd")));
 		model.put("currMonth", vipStudentService.getStatistical(vipStudent));
-		vipStudent.setJointime(StringUtil.formatDateyyyyMM(before.getTime()));
-		model.put("beforeMonth", vipStudentService.getStatistical(vipStudent));
 		
-		model.put("currMonthMarkStu", marketStudentService.getMarkStuCount(DateUtil.parseDateString(DateUtil.now(),"yyyyMM")));
-		model.put("beforeMonthMarkStu", marketStudentService.getMarkStuCount(StringUtil.formatDateyyyyMM(before.getTime())));
+		model.put("currMonthMarkStu", marketStudentService.getMarkStuCount(DateUtil.parseDateString(DateUtil.now(),"yyyyMMdd")));
 		
 		AccountFlow accountEnt = new AccountFlow();
 		accountEnt.setStartDate(DateUtil.getFirDate(DateUtil.now()));
 		model.put("currMonthMoney", accountFlowService.getCountMoney(accountEnt));
-		accountEnt.setStartDate(StringUtil.formatDateyyyyMMdd(before.getTime()));
-		model.put("beforeMonthMoney", accountFlowService.getCountMoney(accountEnt));
 		
 		AccountFlow accountxf = new AccountFlow();
 		accountxf.setCreateTime(DateUtil.parseDateString(DateUtil.now(),"yyyyMM"));
 		model.put("currMonthxf", accountFlowService.getXFMoney(accountxf));
-		accountxf.setCreateTime(StringUtil.formatDateyyyyMM(before.getTime()));
-		model.put("beforeMonthxf", accountFlowService.getXFMoney(accountxf));
 		
 		model.put("myExpense", expenseAccountService.getMyExpense(user.getId(),DateUtil.getFirDate(DateUtil.now())));
 		model.put("myMessage", employeeService.getMyMessage(user.getId()));
@@ -370,12 +326,6 @@ public class MainController {
 		
 		return mv;
 	}
-	
-	/*public static void main(String[] args) {
-		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(Calendar.YEAR);
-		int month = calendar.get(Calendar.MONTH)+1;
-	}*/
 	/**
 	 * 登录处理
 	 * 

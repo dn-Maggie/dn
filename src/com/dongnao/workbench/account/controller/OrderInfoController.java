@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.dongnao.workbench.common.page.Page;
 import com.dongnao.workbench.common.util.AjaxUtils;
 import com.dongnao.workbench.common.util.Utils;
-import com.dongnao.workbench.vipStudent.model.VipStudent;
+import com.dongnao.workbench.student.model.VipStudent;
 import com.dongnao.workbench.common.util.FormatEntity;
 import com.dongnao.workbench.account.model.OrderInfo;
 import com.dongnao.workbench.account.service.OrderInfoService;

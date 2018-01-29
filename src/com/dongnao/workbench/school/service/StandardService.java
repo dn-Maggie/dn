@@ -3,7 +3,7 @@ package com.dongnao.workbench.school.service;
 import java.util.List;
 import com.dongnao.workbench.common.bean.ResultMessage;
 import com.dongnao.workbench.school.model.Standard;
-import com.dongnao.workbench.vipStudent.model.Statistical;
+import com.dongnao.workbench.student.model.Statistical;
 
 /**
  * 描述：考核标准表模块service接口，提供controller操作所需方法
